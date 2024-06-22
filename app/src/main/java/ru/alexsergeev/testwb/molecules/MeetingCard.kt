@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -17,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -42,7 +39,6 @@ fun MeetingCard(
     meetingAvatar: Painter,
     chips: List<String>? = null
 ) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -51,10 +47,7 @@ fun MeetingCard(
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),
     ) {
-        Row(
-            modifier = Modifier
-                .padding(1.dp),
-        ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 MeetingAvatar(meetingAvatar)
                 Column(
@@ -62,8 +55,8 @@ fun MeetingCard(
                         .padding(4.dp),
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Body1Text(title, NeutralActive)
-                    Metadata1Text("$date — $city", NeutralWeak)
+                    Body1Text(text = title, color = NeutralActive)
+                    Metadata1Text(text = "$date — $city", color = NeutralWeak)
                     Row(
                         modifier = Modifier
                             .padding(vertical = 4.dp)
@@ -78,16 +71,17 @@ fun MeetingCard(
                     }
                 }
             }
-//                Spacer(modifier = Modifier.width(64.dp))
-                if (isFinished) {
-                    Column(modifier = Modifier
-                        .align(Alignment.Top)) {
-                        Metadata2Text("Закончилась", NeutralWeak)
-                    }
-                }
+            if (isFinished) {
+                Metadata2Text(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd),
+                    text = "Закончилась",
+                    color = NeutralWeak
+                )
             }
         }
     }
+}
 
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")

@@ -97,7 +97,7 @@ fun ButtonTypes(
                     ),
                     modifier = buttonModifier,
                 ) {
-                    Subheading2Text(text = text, NeutralBackground)
+                    Subheading2Text(text = text, color = NeutralBackground)
                 }
             }
 

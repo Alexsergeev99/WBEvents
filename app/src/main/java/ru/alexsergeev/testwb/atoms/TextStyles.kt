@@ -49,7 +49,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Heading1Text(testText)
+                Heading1Text(text = testText)
             }
         }
         LazyRow {
@@ -75,7 +75,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Heading2Text(testText)
+                Heading2Text(text = testText)
             }
         }
         LazyRow {
@@ -98,7 +98,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Subheading1Text(testText)
+                Subheading1Text(text = testText)
             }
         }
         LazyRow {
@@ -121,7 +121,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Subheading2Text(testText)
+                Subheading2Text(text = testText)
             }
         }
         LazyRow {
@@ -144,7 +144,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Body1Text(testText)
+                Body1Text(text = testText)
             }
         }
         LazyRow {
@@ -170,7 +170,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Body2Text(testText)
+                Body2Text(text = testText)
             }
         }
         LazyRow {
@@ -196,7 +196,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Metadata1Text(testText)
+                Metadata1Text(text = testText)
             }
         }
         LazyRow {
@@ -222,7 +222,7 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Metadata2Text(testText)
+                Metadata2Text(text = testText)
             }
         }
         LazyRow {
@@ -245,17 +245,16 @@ fun TextStyles() {
                         color = Color.Gray,
                     )
                 }
-                Metadata3Text(testText)
+                Metadata3Text(text = testText)
             }
         }
     }
 }
 
 @Composable
-fun Heading1Text(text: String, color: Color = Color.Black) {
+fun Heading1Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 32.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_bold)),
@@ -266,10 +265,9 @@ fun Heading1Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Heading2Text(text: String, color: Color = Color.Black) {
+fun Heading2Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 24.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_bold)),
@@ -280,10 +278,9 @@ fun Heading2Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Subheading1Text(text: String, color: Color = Color.Black) {
+fun Subheading1Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 18.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
@@ -294,10 +291,9 @@ fun Subheading1Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Subheading2Text(text: String, color: Color = Color.Black) {
+fun Subheading2Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 16.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
@@ -308,10 +304,9 @@ fun Subheading2Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Body1Text(text: String, color: Color = Color.Black) {
+fun Body1Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 14.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
@@ -322,10 +317,9 @@ fun Body1Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Body2Text(text: String, color: Color = Color.Black) {
+fun Body2Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 14.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
@@ -336,10 +330,9 @@ fun Body2Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Metadata1Text(text: String, color: Color = Color.Black) {
+fun Metadata1Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 12.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
@@ -350,10 +343,9 @@ fun Metadata1Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Metadata2Text(text: String, color: Color = Color.Black) {
+fun Metadata2Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-        modifier = Modifier
-            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 10.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
@@ -364,10 +356,9 @@ fun Metadata2Text(text: String, color: Color = Color.Black) {
 }
 
 @Composable
-fun Metadata3Text(text: String, color: Color = Color.Black) {
+fun Metadata3Text(modifier: Modifier = Modifier, text: String, color: Color = Color.Black) {
     Text(
-//        modifier = Modifier
-//            .padding(1.dp),
+        modifier = modifier,
         text = text,
         fontSize = 10.sp,
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),

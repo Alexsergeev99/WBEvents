@@ -79,7 +79,7 @@ fun OverlappingRow(painter: Painter) {
                 }
             }
             if (counter.value > 5) {
-                Body1Text("+${counter.value - 5}", NeutralActive)
+                Body1Text(text = "+${counter.value - 5}", color = NeutralActive)
             }
         }
     }

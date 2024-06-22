@@ -44,8 +44,8 @@ fun GroupCard(
                     .padding(start = 12.dp, 4.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Body1Text(name, NeutralActive)
-                Metadata1Text("$people человек", Neutral)
+                Body1Text(text = name, color = NeutralActive)
+                Metadata1Text(text = "$people человек", color = Neutral)
             }
         }
     }

@@ -28,14 +28,15 @@ fun MoleculeTestScreen() {
                 city = "Moscow",
                 true,
                 painterResource(id = R.drawable.meeting_logo),
+                listOf("Kotlin", "Senior", "Karaganda")
             )
             MeetingCard(
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",
-                true,
+                false,
                 painterResource(id = R.drawable.meeting_logo),
-                listOf("Python", "Middle", "Bishkek")
+                listOf("Python", "Junior", "Moscow")
             )
             OverlappingRow(painterResource(id = R.drawable.examplephoto))
             PeopleAvatarWithEdit(painter = painterResource(id = R.drawable.avatar_icon))

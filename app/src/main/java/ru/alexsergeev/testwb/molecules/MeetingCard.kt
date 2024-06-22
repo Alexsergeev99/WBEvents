@@ -3,6 +3,7 @@ package ru.alexsergeev.testwb.molecules
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
@@ -36,17 +38,16 @@ fun MeetingCard(
     title: String,
     date: String,
     city: String,
-    firstChip: String,
-    secondChip: String,
-    thirdChip: String,
     isFinished: Boolean = false,
-    meetingAvatar: Painter
+    meetingAvatar: Painter,
+    chips: List<String>? = null
 ) {
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable {  }
+            .clickable { }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),
     ) {
@@ -67,19 +68,27 @@ fun MeetingCard(
                         modifier = Modifier
                             .padding(vertical = 4.dp)
                     ) {
-                        OneChip(firstChip)
-                        OneChip(secondChip)
-                        OneChip(thirdChip)
+                        if (chips != null) {
+                            if (chips.isNotEmpty()) {
+                                for (i in 0..<chips.size) {
+                                    OneChip(chips[i])
+                                }
+                            }
+                        }
                     }
                 }
             }
-            Spacer(modifier = Modifier.width(32.dp))
-            if (isFinished) {
-                Metadata2Text("Закончилась", NeutralWeak)
+//                Spacer(modifier = Modifier.width(64.dp))
+                if (isFinished) {
+                    Column(modifier = Modifier
+                        .align(Alignment.Top)) {
+                        Metadata2Text("Закончилась", NeutralWeak)
+                    }
+                }
             }
         }
     }
-}
+
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.bottomBorder(strokeWidth: Dp, color: Color) = composed(

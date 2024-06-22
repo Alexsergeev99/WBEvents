@@ -21,8 +21,8 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
             TestwbTheme {
-                AtomTestScreen()
-//                MoleculeTestScreen()
+//                AtomTestScreen()
+                MoleculeTestScreen()
             }
         }
     }

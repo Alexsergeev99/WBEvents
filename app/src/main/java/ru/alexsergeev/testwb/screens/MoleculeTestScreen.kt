@@ -26,21 +26,16 @@ fun MoleculeTestScreen() {
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",
-                "Python",
-                "Junior",
-                "Moscow",
                 true,
-                painterResource(id = R.drawable.meeting_logo)
+                painterResource(id = R.drawable.meeting_logo),
             )
             MeetingCard(
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",
-                "Python",
-                "Junior",
-                "Moscow",
-                false,
-                painterResource(id = R.drawable.meeting_logo)
+                true,
+                painterResource(id = R.drawable.meeting_logo),
+                listOf("Python", "Middle", "Bishkek")
             )
             OverlappingRow(painterResource(id = R.drawable.examplephoto))
             PeopleAvatarWithEdit(painter = painterResource(id = R.drawable.avatar_icon))

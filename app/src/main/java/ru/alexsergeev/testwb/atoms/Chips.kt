@@ -10,11 +10,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ChipBorder
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.ui.theme.DarkButtonColor
 import ru.alexsergeev.testwb.ui.theme.ExtraLightButtonColor
@@ -43,6 +45,7 @@ fun OneChip(text: String) {
 //            .padding(start = 2.dp, top = 8.dp, end = 2.dp, bottom = 8.dp),
         onClick = { },
         label = { Metadata3Text(text, DarkButtonColor) },
+        border = AssistChipDefaults.assistChipBorder(Color.Transparent),
         colors = AssistChipDefaults.assistChipColors(ExtraLightButtonColor, DarkButtonColor),
         shape = CircleShape,
     )

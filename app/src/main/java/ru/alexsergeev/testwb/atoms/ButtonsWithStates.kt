@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +31,7 @@ import kotlinx.coroutines.launch
 import ru.alexsergeev.testwb.ui.theme.DarkButtonColor
 import ru.alexsergeev.testwb.ui.theme.LightButtonColor
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
+import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 enum class Type {
     FIRST, SECOND, THIRD
@@ -97,7 +97,7 @@ fun ButtonTypes(
                     ),
                     modifier = buttonModifier,
                 ) {
-                    Text(text = text)
+                    Subheading2Text(text = text, NeutralBackground)
                 }
             }
 
@@ -110,7 +110,7 @@ fun ButtonTypes(
                     ),
                     modifier = buttonModifier,
                 ) {
-                    Text(text = text, color = backgroundColor)
+                    Subheading2Text(text = text, color = backgroundColor)
                 }
             }
 
@@ -123,7 +123,7 @@ fun ButtonTypes(
                     ),
                     modifier = buttonModifier,
                 ) {
-                    Text(text = text, color = backgroundColor)
+                    Subheading2Text(text = text, color = backgroundColor)
                 }
             }
         }

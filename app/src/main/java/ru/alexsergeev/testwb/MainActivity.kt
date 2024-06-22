@@ -8,20 +8,21 @@ import androidx.annotation.RequiresApi
 import androidx.compose.ui.res.painterResource
 import ru.alexsergeev.testwb.atoms.PeopleAvatar
 import ru.alexsergeev.testwb.atoms.PeopleAvatarWithEdit
+import ru.alexsergeev.testwb.atoms.Search
 import ru.alexsergeev.testwb.molecules.MeetingCard
 import ru.alexsergeev.testwb.molecules.OverlappingRow
+import ru.alexsergeev.testwb.screens.AtomTestScreen
 import ru.alexsergeev.testwb.screens.MoleculeTestScreen
 import ru.alexsergeev.testwb.ui.theme.TestwbTheme
 
 class MainActivity : ComponentActivity() {
-//    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {
             TestwbTheme {
-//                AtomTestScreen()
-                MoleculeTestScreen()
+                AtomTestScreen()
+//                MoleculeTestScreen()
             }
         }
     }

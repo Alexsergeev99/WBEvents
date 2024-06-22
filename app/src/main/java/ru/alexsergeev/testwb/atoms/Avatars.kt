@@ -6,8 +6,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,8 +31,8 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @Composable
 fun Avatars() {
-    Row {
-        PeopleAvatar(painterResource(id = R.drawable.avatar))
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        PeopleAvatarSmall(painterResource(id = R.drawable.avatar_icon))
         MeetingAvatar(painterResource(id = R.drawable.meeting_logo))
     }
 }
@@ -46,6 +48,25 @@ fun PeopleAvatar(painter: Painter) {
         Icon(
             modifier = Modifier
                 .size(80.dp)
+                .align(Alignment.Center),
+            painter = painter,
+            contentDescription = "avatar",
+        )
+    }
+}
+
+@Composable
+fun PeopleAvatarSmall(painter: Painter) {
+    Box(
+        modifier = Modifier
+            .size(50.dp)
+            .clip(CircleShape)
+            .background(NeutralBackground)
+    ) {
+        Icon(
+            modifier = Modifier
+                .width(16.dp)
+                .height(19.dp)
                 .align(Alignment.Center),
             painter = painter,
             contentDescription = "avatar",

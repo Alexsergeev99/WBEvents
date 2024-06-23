@@ -134,69 +134,24 @@ fun ButtonTypes(
 fun ButtonsWithStates() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            ButtonTypes(
-                onClick = {},
-                type = Type.FIRST,
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.SECOND,
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.THIRD,
-            )
+            SimpleButton("Button")
+            SimpleOutlinedButton("Button")
+            SimpleTextButton("Button")
         }
         Row {
-            ButtonTypes(
-                onClick = {},
-                type = Type.FIRST,
-                hovered = true,
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.SECOND,
-                hovered = true,
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.THIRD,
-                hovered = true,
-            )
+            HoveredButton("Button")
+            HoveredOutlinedButton("Button")
+            HoveredTextButton("Button")
         }
         Row {
-            ButtonTypes(
-                onClick = {},
-                type = Type.FIRST,
-                focused = true,
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.SECOND,
-                focused = true,
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.THIRD,
-                focused = true,
-            )
+            FocusedButton("Button")
+            FocusedOutlinedButton("Button")
+            FocusedTextButton("Text")
         }
         Row {
-            ButtonTypes(
-                onClick = {},
-                type = Type.FIRST,
-                enabled = false
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.SECOND,
-                enabled = false
-            )
-            ButtonTypes(
-                onClick = {},
-                type = Type.THIRD,
-                enabled = false
-            )
+            DisabledButton("Button")
+            DisabledOutlinedButton("Button")
+            DisabledTextButton("Button")
         }
 
     }

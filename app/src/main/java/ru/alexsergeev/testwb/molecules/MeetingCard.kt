@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.MeetingAvatar
 import ru.alexsergeev.testwb.atoms.Metadata1Text
 import ru.alexsergeev.testwb.atoms.Metadata2Text
 import ru.alexsergeev.testwb.atoms.OneChip
@@ -55,8 +54,16 @@ fun MeetingCard(
                         .padding(4.dp),
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Body1Text(text = title, color = NeutralActive)
-                    Metadata1Text(text = "$date — $city", color = NeutralWeak)
+                    Body1Text(
+                        modifier = Modifier.padding(2.dp),
+                        text = title,
+                        color = NeutralActive
+                    )
+                    Metadata1Text(
+                        modifier = Modifier.padding(2.dp),
+                        text = "$date — $city",
+                        color = NeutralWeak
+                    )
                     Row(
                         modifier = Modifier
                             .padding(vertical = 4.dp)

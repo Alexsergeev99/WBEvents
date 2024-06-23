@@ -15,7 +15,6 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.ButtonTypes
-import ru.alexsergeev.testwb.atoms.ExampleAvatar
 import ru.alexsergeev.testwb.atoms.Type
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 

@@ -70,7 +70,7 @@ fun OverlappingRow(painter: Painter) {
             Spacer(modifier = Modifier.width(16.dp))
             Box {
                 if (listToCycle.value in 1..5) {
-                    OverlappingUsers(overlappingPercentage = 0.20f) {
+                    OverlappingUsers(overlappingPercentage = 0.33f) {
                         for (i in 0..listToCycle.value - 1) {
                             ExampleAvatar(painter = painter)
                         }

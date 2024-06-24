@@ -146,7 +146,7 @@ fun ButtonsWithStates() {
         Row {
             FocusedButton("Button")
             FocusedOutlinedButton("Button")
-            FocusedTextButton("Text")
+            FocusedTextButton("Button")
         }
         Row {
             DisabledButton("Button")

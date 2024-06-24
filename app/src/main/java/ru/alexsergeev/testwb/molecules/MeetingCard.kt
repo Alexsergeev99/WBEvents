@@ -35,7 +35,7 @@ fun MeetingCard(
     date: String,
     city: String,
     isFinished: Boolean = false,
-    meetingAvatar: Painter,
+    meetingAvatar: Int,
     chips: List<String>? = null
 ) {
     Card(

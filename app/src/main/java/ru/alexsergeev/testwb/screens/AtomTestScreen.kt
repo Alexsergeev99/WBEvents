@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.molecules.Avatars
 import ru.alexsergeev.testwb.atoms.ButtonsWithStates
 import ru.alexsergeev.testwb.atoms.Chips
 import ru.alexsergeev.testwb.atoms.Search
 import ru.alexsergeev.testwb.atoms.TextStyles
+import ru.alexsergeev.testwb.molecules.PeopleAvatar
 
 @Composable
 fun AtomTestScreen() {
@@ -26,7 +28,7 @@ fun AtomTestScreen() {
         item {
             ButtonsWithStates()
             TextStyles()
-//            PeopleAvatar(painter = R.drawable.avatar_icon)
+//            PeopleAvatar(R.drawable.avatar_icon)
             Avatars()
             Search("Поиск")
             Chips("Python",

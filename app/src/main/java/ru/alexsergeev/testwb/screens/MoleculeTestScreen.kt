@@ -31,7 +31,7 @@ fun MoleculeTestScreen() {
                 date = "13.01.2021",
                 city = "Moscow",
                 true,
-                painterResource(id = R.drawable.meeting_logo),
+                R.drawable.meeting_logo,
                 listOf("Kotlin", "Senior", "Karaganda")
             )
             MeetingCard(
@@ -39,16 +39,16 @@ fun MoleculeTestScreen() {
                 date = "13.01.2021",
                 city = "Moscow",
                 false,
-                painterResource(id = R.drawable.meeting_logo),
+                R.drawable.meeting_logo,
                 listOf("Python", "Junior", "Moscow")
             )
-            OverlappingRow(painterResource(id = R.drawable.examplephoto))
-            PeopleAvatarWithEdit(painter = painterResource(id = R.drawable.avatar_icon))
-            PeopleAvatar(painter = painterResource(id = R.drawable.avatar_icon))
+            OverlappingRow(R.drawable.examplephoto)
+            PeopleAvatarWithEdit(R.drawable.avatar_icon)
+            PeopleAvatar(R.drawable.avatar_icon)
             GroupCard(
                 "Designa",
                 10_000,
-                painterResource(id = R.drawable.designa)
+                R.drawable.designa
             )
         }
     }

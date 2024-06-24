@@ -32,13 +32,13 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 @Composable
 fun Avatars() {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        PeopleAvatarSmall(painterResource(id = R.drawable.avatar_icon))
-        MeetingAvatar(painterResource(id = R.drawable.meeting_logo))
+        PeopleAvatarSmall(R.drawable.avatar_icon)
+        MeetingAvatar(R.drawable.meeting_logo)
     }
 }
 
 @Composable
-fun PeopleAvatar(painter: Painter) {
+fun PeopleAvatar(image: Int) {
     Box(
         modifier = Modifier
             .size(200.dp)
@@ -49,14 +49,14 @@ fun PeopleAvatar(painter: Painter) {
             modifier = Modifier
                 .size(80.dp)
                 .align(Alignment.Center),
-            painter = painter,
+            painter = painterResource(id = image),
             contentDescription = "avatar",
         )
     }
 }
 
 @Composable
-fun PeopleAvatarSmall(painter: Painter) {
+fun PeopleAvatarSmall(image: Int) {
     Box(
         modifier = Modifier
             .size(50.dp)
@@ -68,29 +68,29 @@ fun PeopleAvatarSmall(painter: Painter) {
                 .width(16.dp)
                 .height(19.dp)
                 .align(Alignment.Center),
-            painter = painter,
+            painter = painterResource(id = image),
             contentDescription = "avatar",
         )
     }
 }
 
 @Composable
-fun MeetingAvatar(painter: Painter) {
+fun MeetingAvatar(image: Int) {
     Image(
         modifier = Modifier.size(48.dp),
-        painter = painter,
+        painter = painterResource(id = image),
         contentDescription = "meeting",
     )
 }
 
 @Composable
-fun ExampleAvatar(painter: Painter) {
+fun ExampleAvatar(image: Int) {
     Image(
         modifier = Modifier
             .size(48.dp)
             .clip(RoundedCornerShape(15.dp))
             .border(2.dp, LightBorderColor, RoundedCornerShape(15.dp)),
-        painter = painter,
+        painter = painterResource(id = image),
         contentScale = ContentScale.Crop,
         contentDescription = "example",
 
@@ -98,19 +98,19 @@ fun ExampleAvatar(painter: Painter) {
 }
 
 @Composable
-fun GroupAvatar(painter: Painter) {
+fun GroupAvatar(image: Int) {
     Image(
         modifier = Modifier
             .size(48.dp)
             .clip(RoundedCornerShape(15.dp)),
         contentScale = ContentScale.Crop,
-        painter = painter,
+        painter = painterResource(id = image),
         contentDescription = "groupAvatar",
     )
 }
 
 @Composable
-fun PeopleAvatarWithEdit(painter: Painter) {
+fun PeopleAvatarWithEdit(image: Int) {
     Box(
         modifier = Modifier
             .size(100.dp)
@@ -126,7 +126,7 @@ fun PeopleAvatarWithEdit(painter: Painter) {
                 modifier = Modifier
                     .size(48.dp)
                     .align(Alignment.Center),
-                painter = painter,
+                painter = painterResource(id = image),
                 contentDescription = "avatar",
             )
         }

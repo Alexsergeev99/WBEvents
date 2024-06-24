@@ -49,7 +49,7 @@ fun OverlappingUsers(
 }
 
 @Composable
-fun OverlappingRow(painter: Painter) {
+fun OverlappingRow(image: Int) {
 
     val counter = remember {
         mutableStateOf(0)
@@ -72,7 +72,7 @@ fun OverlappingRow(painter: Painter) {
                 if (listToCycle.value in 1..5) {
                     OverlappingUsers(overlappingPercentage = 0.33f) {
                         for (i in 0..listToCycle.value - 1) {
-                            ExampleAvatar(painter = painter)
+                            ExampleAvatar(image = image)
                         }
                     }
                 }

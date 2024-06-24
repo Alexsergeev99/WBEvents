@@ -23,7 +23,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 fun GroupCard(
     name: String,
     people: Long,
-    groupLogo: Painter
+    groupLogo: Int
 ) {
     Card(
         modifier = Modifier

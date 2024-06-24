@@ -14,8 +14,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
             TestwbTheme {
-//                CommonTestScreen()
-                OverlappingRow(painter = painterResource(id = R.drawable.examplephoto))
+                CommonTestScreen()
             }
         }
     }

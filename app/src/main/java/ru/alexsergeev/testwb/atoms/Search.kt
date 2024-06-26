@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.atoms
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -56,6 +58,7 @@ fun Search(
     onTextChange: (String) -> Unit = {},
 ) {
     var text by remember { mutableStateOf(TextFieldValue()) }
+
     Row(
         modifier = Modifier
             .height(height)

@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.ui.theme.LightBorderColor
@@ -110,11 +111,12 @@ fun GroupAvatar(image: Int) {
 }
 
 @Composable
-fun PeopleAvatarWithEdit(image: Int) {
+fun PeopleAvatarWithEdit(image: Int, padding: Dp = 4.dp) {
     Box(
         modifier = Modifier
+            .padding(padding)
             .size(100.dp)
-            .background(Color.White)
+            .background(Color.Transparent)
     ) {
         Box(
             modifier = Modifier

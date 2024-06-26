@@ -5,9 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.ButtonsWithStates
 import ru.alexsergeev.testwb.atoms.Chips
@@ -31,7 +29,7 @@ fun CommonTestScreen() {
             ButtonsWithStates()
             TextStyles()
             Avatars()
-            Search("Поиск")
+            Search(hint = "Поиск")
             Chips(
                 "Python",
                 "Junior",
@@ -51,7 +49,7 @@ fun CommonTestScreen() {
                 city = "Moscow",
                 false,
                 R.drawable.meeting_logo,
-            listOf("Python", "Junior", "Moscow")
+                listOf("Python", "Junior", "Moscow")
             )
             OverlappingRow(R.drawable.examplephoto)
             PeopleAvatarWithEdit(R.drawable.avatar_icon)

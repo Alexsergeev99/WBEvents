@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +49,8 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 @Composable
 fun Search(
     hint: String,
-    modifier: Modifier = Modifier,
+    isSearch: Boolean = true,
+    padding: Dp = 8.dp,
     isEnabled: (Boolean) = true,
     height: Dp = 36.dp,
     width: Dp = 326.dp,
@@ -56,11 +58,12 @@ fun Search(
     backgroundColor: Color = NeutralBackground,
     onSearchClicked: () -> Unit = {},
     onTextChange: (String) -> Unit = {},
+    text: MutableState<TextFieldValue> = remember { mutableStateOf(TextFieldValue()) }
 ) {
-    var text by remember { mutableStateOf(TextFieldValue()) }
-
+//     text = remember { mutableStateOf(TextFieldValue()) }
     Row(
         modifier = Modifier
+            .padding(vertical = padding)
             .height(height)
             .width(width)
             .background(color = backgroundColor, shape = cornerShape)
@@ -69,31 +72,33 @@ fun Search(
         horizontalArrangement = Arrangement.Center
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .background(color = backgroundColor, shape = CircleShape)
                 .clickable {
-                    if (text.text.isNotEmpty()) {
-                        text = TextFieldValue(text = "")
+                    if (text.value.text.isNotEmpty()) {
+                        text.value = TextFieldValue(text = "")
                         onTextChange("")
                     }
                 },
         ) {
-            Icon(
-                modifier = Modifier
-                    .size(16.dp),
-                imageVector = Icons.Default.Search,
-                contentDescription = null,
-                tint = Neutral
-            )
+            if(isSearch) {
+                Icon(
+                    modifier = Modifier
+                        .size(16.dp),
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                    tint = Neutral
+                )
+            }
         }
         BasicTextField(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp)
                 .background(backgroundColor),
-            value = text,
+            value = text.value,
             onValueChange = {
-                text = it
+                text.value = it
                 onTextChange(it.text)
             },
             enabled = isEnabled,
@@ -105,7 +110,7 @@ fun Search(
                 color = NeutralActive
             ),
             decorationBox = { innerTextField ->
-                if (text.text.isEmpty()) {
+                if (text.value.text.isEmpty()) {
                     Body1Text(text = hint, color = Neutral)
                 }
                 innerTextField()

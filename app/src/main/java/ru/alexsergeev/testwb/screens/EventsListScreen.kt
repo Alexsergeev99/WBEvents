@@ -74,20 +74,8 @@ fun EventsListScreen(events: List<Event>) {
                 )
             }
             Search(
-                modifier = Modifier.padding(vertical = 8.dp),
                 hint = "Поиск"
             )
-//            SimpleTextButton(text = "Активные")
-//            for (i in events.indices) {
-//                MeetingCard(
-//                    title = events[i].title,
-//                    date = events[i].date,
-//                    city = events[i].city,
-//                    isFinished = events[i].isFinished,
-//                    meetingAvatar = events[i].meetingAvatar,
-//                    chips = events[i].chips
-//                )
-//            }
             TabRow(
                 modifier = Modifier
                     .padding(16.dp),

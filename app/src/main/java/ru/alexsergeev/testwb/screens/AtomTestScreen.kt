@@ -30,7 +30,7 @@ fun AtomTestScreen() {
             TextStyles()
 //            PeopleAvatar(R.drawable.avatar_icon)
             Avatars()
-            Search("Поиск")
+            Search(hint = "Поиск")
             Chips("Python",
                 "Junior",
                 "Moscow")

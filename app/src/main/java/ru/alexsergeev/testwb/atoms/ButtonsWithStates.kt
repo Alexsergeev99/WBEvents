@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.atoms
 
+import android.widget.Toast
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -25,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -40,7 +44,9 @@ enum class Type {
 @Composable
 fun ButtonTypes(
     text: String = "Button",
-    onClick: () -> Unit,
+    padding: Dp = 4.dp,
+    width: Dp = 64.dp,
+    onClick: () -> Unit = {},
     type: Type,
     enabled: Boolean = true,
     hovered: Boolean = false,
@@ -53,6 +59,7 @@ fun ButtonTypes(
     val isPressed = remember {
         mutableStateOf(false)
     }
+    val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val animateButton by animateFloatAsState(
         targetValue = if (isPressed.value || focused) 0.2f else 0f,
@@ -67,7 +74,8 @@ fun ButtonTypes(
             .background(LightButtonColor.copy(alpha = animateButton))
     ) {
         val buttonModifier = Modifier
-            .padding(4.dp)
+            .width(width)
+            .padding(vertical = padding)
             .graphicsLayer {
                 alpha = if (!enabled) 0.5f else 1f
             }
@@ -134,24 +142,24 @@ fun ButtonTypes(
 fun ButtonsWithStates() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            SimpleButton("Button")
-            SimpleOutlinedButton("Button")
-            SimpleTextButton("Button")
+            SimpleButton(text = "Button")
+            SimpleOutlinedButton(text = "Button")
+            SimpleTextButton(text = "Button")
         }
         Row {
-            HoveredButton("Button")
-            HoveredOutlinedButton("Button")
-            HoveredTextButton("Button")
+            HoveredButton(text = "Button")
+            HoveredOutlinedButton(text = "Button")
+            HoveredTextButton(text = "Button")
         }
         Row {
-            FocusedButton("Button")
-            FocusedOutlinedButton("Button")
-            FocusedTextButton("Button")
+            FocusedButton(text = "Button")
+            FocusedOutlinedButton(text = "Button")
+            FocusedTextButton(text = "Button")
         }
         Row {
-            DisabledButton("Button")
-            DisabledOutlinedButton("Button")
-            DisabledTextButton("Button")
+            DisabledButton(text = "Button")
+            DisabledOutlinedButton(text = "Button")
+            DisabledTextButton(text = "Button")
         }
 
     }

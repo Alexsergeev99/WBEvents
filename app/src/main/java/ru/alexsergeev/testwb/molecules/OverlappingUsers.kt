@@ -10,8 +10,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.ButtonTypes
@@ -57,6 +57,8 @@ fun OverlappingRow(image: Int) {
     val listToCycle = remember {
         mutableStateOf(0)
     }
+    val ctx = LocalContext.current
+
     if (counter.value in 0..5) listToCycle.value = counter.value else listToCycle.value = 5
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {

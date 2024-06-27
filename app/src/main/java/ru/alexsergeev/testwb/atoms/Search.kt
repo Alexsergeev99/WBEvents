@@ -58,9 +58,9 @@ fun Search(
     backgroundColor: Color = NeutralBackground,
     onSearchClicked: () -> Unit = {},
     onTextChange: (String) -> Unit = {},
-    text: MutableState<TextFieldValue> = remember { mutableStateOf(TextFieldValue()) }
+    text: MutableState<String> = remember { mutableStateOf("") }
 ) {
-//     text = remember { mutableStateOf(TextFieldValue()) }
+//     val text = remember { mutableStateOf("TextFieldValue()") }
     Row(
         modifier = Modifier
             .padding(vertical = padding)
@@ -75,8 +75,8 @@ fun Search(
             modifier = Modifier
                 .background(color = backgroundColor, shape = CircleShape)
                 .clickable {
-                    if (text.value.text.isNotEmpty()) {
-                        text.value = TextFieldValue(text = "")
+                    if (text.value.isNotEmpty()) {
+                        text.value = ""
                         onTextChange("")
                     }
                 },
@@ -99,7 +99,7 @@ fun Search(
             value = text.value,
             onValueChange = {
                 text.value = it
-                onTextChange(it.text)
+                onTextChange(it)
             },
             enabled = isEnabled,
             textStyle = TextStyle(
@@ -110,7 +110,7 @@ fun Search(
                 color = NeutralActive
             ),
             decorationBox = { innerTextField ->
-                if (text.value.text.isEmpty()) {
+                if (text.value.isEmpty()) {
                     Body1Text(text = hint, color = Neutral)
                 }
                 innerTextField()

@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.ButtonTypes
+import ru.alexsergeev.testwb.atoms.SimpleTextButton
 import ru.alexsergeev.testwb.atoms.Type
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
@@ -57,13 +58,11 @@ fun OverlappingRow(image: Int) {
     val listToCycle = remember {
         mutableStateOf(0)
     }
-    val ctx = LocalContext.current
 
     if (counter.value in 0..5) listToCycle.value = counter.value else listToCycle.value = 5
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        ButtonTypes(text = "Test",
-            type = Type.SECOND,
+        SimpleTextButton(text = "Test",
             onClick = {
                 counter.value++
             }

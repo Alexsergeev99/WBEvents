@@ -39,9 +39,10 @@ fun Avatars() {
 }
 
 @Composable
-fun PeopleAvatar(image: Int) {
+fun PeopleAvatar(image: Int, padding: Dp = 4.dp) {
     Box(
         modifier = Modifier
+            .padding(padding)
             .size(200.dp)
             .clip(CircleShape)
             .background(NeutralBackground)
@@ -57,9 +58,10 @@ fun PeopleAvatar(image: Int) {
 }
 
 @Composable
-fun PeopleAvatarSmall(image: Int) {
+fun PeopleAvatarSmall(image: Int, padding: Dp = 4.dp) {
     Box(
         modifier = Modifier
+            .padding(padding)
             .size(50.dp)
             .clip(CircleShape)
             .background(NeutralBackground)
@@ -76,18 +78,21 @@ fun PeopleAvatarSmall(image: Int) {
 }
 
 @Composable
-fun MeetingAvatar(image: Int) {
+fun MeetingAvatar(image: Int, padding: Dp = 4.dp) {
     Image(
-        modifier = Modifier.size(48.dp),
+        modifier = Modifier
+            .padding(padding)
+            .size(48.dp),
         painter = painterResource(id = image),
         contentDescription = "meeting",
     )
 }
 
 @Composable
-fun ExampleAvatar(image: Int) {
+fun ExampleAvatar(image: Int, padding: Dp = 4.dp) {
     Image(
         modifier = Modifier
+            .padding(padding)
             .size(48.dp)
             .clip(RoundedCornerShape(15.dp))
             .border(2.dp, LightBorderColor, RoundedCornerShape(15.dp)),
@@ -99,9 +104,10 @@ fun ExampleAvatar(image: Int) {
 }
 
 @Composable
-fun GroupAvatar(image: Int) {
+fun GroupAvatar(image: Int, padding: Dp = 4.dp) {
     Image(
         modifier = Modifier
+            .padding(padding)
             .size(48.dp)
             .clip(RoundedCornerShape(15.dp)),
         contentScale = ContentScale.Crop,

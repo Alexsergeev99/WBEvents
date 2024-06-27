@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ru.alexsergeev.testwb.screens.EditProfileScreen
 import ru.alexsergeev.testwb.screens.ProfileScreen
 
 class MainActivity : ComponentActivity() {
@@ -43,6 +44,7 @@ class MainActivity : ComponentActivity() {
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
+//                EditProfileScreen()
                 ProfileScreen()
             }
         }

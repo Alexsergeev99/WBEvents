@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -77,9 +76,11 @@ fun ProfileScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier
-                .height(48.dp)
-                .fillMaxWidth())
+            Spacer(
+                modifier = Modifier
+                    .height(48.dp)
+                    .fillMaxWidth()
+            )
             PeopleAvatar(image = R.drawable.avatar_icon, padding = 20.dp)
             Heading2Text(text = "Иван Иванов", color = NeutralActive)
             Subheading2Text(text = "+7 999 999 99-99", color = Neutral)
@@ -96,8 +97,10 @@ fun ProfileScreen() {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.BottomCenter
             ) {
-                Column(modifier = Modifier
-                    .fillMaxWidth()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
                     Spacer(
                         modifier = Modifier
                             .height(8.dp)

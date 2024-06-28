@@ -42,7 +42,7 @@ fun MeetingCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(vertical = 8.dp)
             .clickable { }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),

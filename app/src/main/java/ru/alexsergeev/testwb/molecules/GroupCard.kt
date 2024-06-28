@@ -18,6 +18,7 @@ import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
+import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
 @Composable
 fun GroupCard(
@@ -28,19 +29,20 @@ fun GroupCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { },
+            .padding(vertical = 8.dp)
+            .clickable { }
+            .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent)
     ) {
         Row(
             modifier = Modifier
-                .padding(1.dp),
+                .padding(vertical = 1.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             GroupAvatar(groupLogo)
             Column(
                 modifier = Modifier
-                    .padding(start = 12.dp, 4.dp),
+                    .padding(4.dp),
                 verticalArrangement = Arrangement.Center
             ) {
                 Body1Text(

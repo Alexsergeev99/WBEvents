@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -52,80 +53,72 @@ fun EventsListScreen(events: List<Event>) {
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+                .fillMaxHeight()
+                .width(326.dp)
         ) {
-            Row(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(vertical = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
             ) {
-                Subheading1Text(text = "Встречи", color = NeutralActive)
-                Icon(
-                    modifier = Modifier.size(14.dp),
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "add",
-                    tint = NeutralActive
-                )
-            }
-            Search(
-                hint = "Поиск"
-            )
-            TabRow(
-                modifier = Modifier
-                    .padding(16.dp),
-                selectedTabIndex = tabIndex,
-                indicator = { position ->
-                    TabRowDefaults.Indicator(
-                        Modifier.pagerTabIndicatorOffset(pagerState, position)
-                    )
-                },
-                containerColor = NeutralBackground,
-                contentColor = MiddleButtonColor
-            ) {
-                tabList.forEachIndexed { index, level ->
-                    Tab(selected = tabIndex == index,
-                        onClick = {
-                            coroutineScope.launch {
-                                pagerState.animateScrollToPage(index)
-                            }
-                        },
-                        text = {
-                            Body1Text(text = level, color = MiddleButtonColor)
-                        }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 16.dp, top = 16.dp, bottom = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Subheading1Text(text = "Встречи", color = NeutralActive)
+                    Icon(
+                        modifier = Modifier.size(14.dp),
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "add",
+                        tint = NeutralActive
                     )
                 }
-            }
-            HorizontalPager(
-                count = tabList.size,
-                state = pagerState,
-                modifier = Modifier
-                    .fillMaxHeight(0.9f),
-                verticalAlignment = Alignment.Top,
-            ) { index ->
-                when (tabIndex) {
-                    0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(events.size) { event ->
-                            MeetingCard(
-                                title = events[event].title,
-                                date = events[event].date,
-                                city = events[event].city,
-                                isFinished = events[event].isFinished,
-                                meetingAvatar = events[event].meetingAvatar,
-                                chips = events[event].chips
-                            )
-                        }
+                Search(
+                    hint = "Поиск"
+                )
+                TabRow(
+                    modifier = Modifier
+                        .padding(vertical = 16.dp),
+                    selectedTabIndex = tabIndex,
+                    indicator = { position ->
+                        TabRowDefaults.Indicator(
+                            Modifier.pagerTabIndicatorOffset(pagerState, position)
+                        )
+                    },
+                    containerColor = NeutralBackground,
+                    contentColor = MiddleButtonColor
+                ) {
+                    tabList.forEachIndexed { index, level ->
+                        Tab(selected = tabIndex == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(index)
+                                }
+                            },
+                            text = {
+                                Body1Text(text = level, color = MiddleButtonColor)
+                            }
+                        )
                     }
-
-                    1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(events.size) { event ->
-                            if (!events[event].isFinished) {
+                }
+                HorizontalPager(
+                    count = tabList.size,
+                    state = pagerState,
+                    modifier = Modifier
+                        .fillMaxHeight(0.9f),
+                    verticalAlignment = Alignment.Top,
+                ) { index ->
+                    when (tabIndex) {
+                        0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(events.size) { event ->
                                 MeetingCard(
                                     title = events[event].title,
                                     date = events[event].date,
@@ -134,6 +127,21 @@ fun EventsListScreen(events: List<Event>) {
                                     meetingAvatar = events[event].meetingAvatar,
                                     chips = events[event].chips
                                 )
+                            }
+                        }
+
+                        1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(events.size) { event ->
+                                if (!events[event].isFinished) {
+                                    MeetingCard(
+                                        title = events[event].title,
+                                        date = events[event].date,
+                                        city = events[event].city,
+                                        isFinished = events[event].isFinished,
+                                        meetingAvatar = events[event].meetingAvatar,
+                                        chips = events[event].chips
+                                    )
+                                }
                             }
                         }
                     }

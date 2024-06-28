@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Tab
@@ -46,97 +48,104 @@ fun MyEventsListScreen(
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp),
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Row(
+        Box(
             modifier = Modifier
-                .padding(start = 8.dp, bottom = 36.dp),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxHeight()
+                .width(326.dp)
         ) {
-            Icon(
+            Row(
                 modifier = Modifier
-                    .padding(6.dp)
-                    .clickable {
-                        goToProfileScreen()
-                    },
-                painter = painterResource(id = R.drawable.navigate_back),
-                contentDescription = "back"
-            )
-            Subheading1Text(
-                modifier = Modifier
-                    .padding(6.dp),
-                text = "Мои встречи",
-                color = NeutralActive
-            )
-        }
-        Column(
-            modifier = Modifier
-                .padding(8.dp, top = 36.dp)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            TabRow(
-                modifier = Modifier
-                    .padding(16.dp),
-                selectedTabIndex = tabIndex,
-                indicator = { position ->
-                    TabRowDefaults.Indicator(
-                        Modifier.pagerTabIndicatorOffset(pagerState, position)
-                    )
-                },
-                containerColor = NeutralBackground,
-                contentColor = MiddleButtonColor
+                    .padding(top = 16.dp, bottom = 24.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                tabList.forEachIndexed { index, level ->
-                    Tab(selected = tabIndex == index,
-                        onClick = {
-                            coroutineScope.launch {
-                                pagerState.animateScrollToPage(index)
-                            }
+                Icon(
+                    modifier = Modifier
+                        .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                        .clickable {
+                            goToProfileScreen()
                         },
-                        text = {
-                            Body1Text(text = level, color = MiddleButtonColor)
-                        }
-                    )
-                }
+                    painter = painterResource(id = R.drawable.navigate_back),
+                    contentDescription = "back"
+                )
+                Subheading1Text(
+                    modifier = Modifier
+                        .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
+                    text = "Мои встречи",
+                    color = NeutralActive
+                )
             }
-            HorizontalPager(
-                count = tabList.size,
-                state = pagerState,
+            Column(
                 modifier = Modifier
-                    .fillMaxHeight(0.9f),
-                verticalAlignment = Alignment.Top,
-            ) { index ->
-                when (tabIndex) {
-                    0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(events.size) { event ->
-                            if (!events[event].isFinished) {
-                                MeetingCard(
-                                    title = events[event].title,
-                                    date = events[event].date,
-                                    city = events[event].city,
-                                    isFinished = events[event].isFinished,
-                                    meetingAvatar = events[event].meetingAvatar,
-                                    chips = events[event].chips
-                                )
+                    .padding(bottom = 8.dp, top = 36.dp)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                TabRow(
+                    modifier = Modifier
+                        .padding(vertical = 16.dp),
+                    selectedTabIndex = tabIndex,
+                    indicator = { position ->
+                        TabRowDefaults.Indicator(
+                            Modifier.pagerTabIndicatorOffset(pagerState, position)
+                        )
+                    },
+                    containerColor = NeutralBackground,
+                    contentColor = MiddleButtonColor
+                ) {
+                    tabList.forEachIndexed { index, level ->
+                        Tab(selected = tabIndex == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(index)
+                                }
+                            },
+                            text = {
+                                Body1Text(text = level, color = MiddleButtonColor)
+                            }
+                        )
+                    }
+                }
+                HorizontalPager(
+                    count = tabList.size,
+                    state = pagerState,
+                    modifier = Modifier
+                        .fillMaxHeight(0.9f),
+                    verticalAlignment = Alignment.Top,
+                ) { index ->
+                    when (tabIndex) {
+                        0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(events.size) { event ->
+                                if (!events[event].isFinished) {
+                                    MeetingCard(
+                                        title = events[event].title,
+                                        date = events[event].date,
+                                        city = events[event].city,
+                                        isFinished = events[event].isFinished,
+                                        meetingAvatar = events[event].meetingAvatar,
+                                        chips = events[event].chips
+                                    )
+                                }
                             }
                         }
-                    }
 
-                    1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(events.size) { event ->
-                            if (events[event].isFinished) {
-                                MeetingCard(
-                                    title = events[event].title,
-                                    date = events[event].date,
-                                    city = events[event].city,
-                                    isFinished = events[event].isFinished,
-                                    meetingAvatar = events[event].meetingAvatar,
-                                    chips = events[event].chips
-                                )
+                        1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(events.size) { event ->
+                                if (events[event].isFinished) {
+                                    MeetingCard(
+                                        title = events[event].title,
+                                        date = events[event].date,
+                                        city = events[event].city,
+                                        isFinished = events[event].isFinished,
+                                        meetingAvatar = events[event].meetingAvatar,
+                                        chips = events[event].chips
+                                    )
+                                }
                             }
                         }
                     }

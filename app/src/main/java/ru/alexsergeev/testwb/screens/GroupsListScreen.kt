@@ -32,18 +32,17 @@ fun GroupsListScreen(groups: List<Group>) {
             modifier = Modifier
                 .fillMaxHeight()
                 .width(326.dp)
-//            .fillMaxWidth(0.85f)
         ) {
             Column(
                 modifier = Modifier
-                    .padding(8.dp),
+                    .padding(vertical = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(vertical = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Subheading1Text(text = "Сообщества", color = NeutralActive)

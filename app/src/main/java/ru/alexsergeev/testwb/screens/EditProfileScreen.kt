@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -38,55 +39,61 @@ fun EditProfileScreen() {
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp),
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        Row(
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                modifier = Modifier
-                    .padding(6.dp)
-                    .clickable { },
-                painter = painterResource(id = R.drawable.navigate_back),
-                contentDescription = "back"
-            )
-            Subheading1Text(
-                modifier = Modifier
-                    .padding(6.dp),
-                text = "Профиль",
-                color = NeutralActive
-            )
-        }
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxHeight(0.7f)
-                .padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .fillMaxHeight()
+                .width(326.dp)
         ) {
-            PeopleAvatarWithEdit(image = R.drawable.avatar_icon, padding = 20.dp)
-            Search(
-                hint = "Имя (обязательно)",
-                isSearch = false,
-                padding = 6.dp,
-                text = name
-            )
-            Search(
-                hint = "Фамилия (опционально)",
-                isSearch = false,
-                padding = 6.dp,
-                text = surname
-            )
-            SimpleButton(
-                text = "Сохранить",
-                padding = 30.dp,
-                width = 326.dp,
-                onClick = {
-                    Log.d("test", "press")
-                }
-            )
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .padding(vertical = 6.dp)
+                        .clickable { },
+                    painter = painterResource(id = R.drawable.navigate_back),
+                    contentDescription = "back"
+                )
+                Subheading1Text(
+                    modifier = Modifier
+                        .padding(vertical = 6.dp),
+                    text = "Профиль",
+                    color = NeutralActive
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight(0.7f)
+                    .padding(vertical = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                PeopleAvatarWithEdit(image = R.drawable.avatar_icon, padding = 20.dp)
+                Search(
+                    hint = "Имя (обязательно)",
+                    isSearch = false,
+                    padding = 6.dp,
+                    text = name
+                )
+                Search(
+                    hint = "Фамилия (опционально)",
+                    isSearch = false,
+                    padding = 6.dp,
+                    text = surname
+                )
+                SimpleButton(
+                    text = "Сохранить",
+                    padding = 30.dp,
+                    width = 326.dp,
+                    onClick = {
+                        Log.d("test", "press")
+                    }
+                )
+            }
         }
     }
 }

@@ -23,31 +23,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            CommonTestScreen()
-//            Navigation()
-            GroupsListScreen(
-                listOf(
-                    Group(
-                        name = "Designa",
-                        people = 10000,
-                        groupLogo = R.drawable.designa
-                    ),
-                    Group(
-                        name = "Designa",
-                        people = 10000,
-                        groupLogo = R.drawable.designa
-                    ),
-                    Group(
-                        name = "Designa",
-                        people = 10000,
-                        groupLogo = R.drawable.designa
-                    ),
-                    Group(
-                        name = "Designa",
-                        people = 10000,
-                        groupLogo = R.drawable.designa
-                    ),
-                )
-            )
+            Navigation()
         }
     }
 }

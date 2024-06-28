@@ -1,13 +1,23 @@
 package ru.alexsergeev.testwb.navigation
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableIntState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import ru.alexsergeev.testwb.R
@@ -26,28 +36,42 @@ fun BottomBar(
     ) {
         destinations.forEachIndexed { index, item ->
             val isSelected = index == selectedPage.intValue
-            BottomNavigationItem(
-                selected = isSelected,
-                onClick = {
-                    selectedPage.intValue = index
-                    navController.navigate(item.route) {
-                        popUpTo(navController.graph.findStartDestination().id)
-                    }
-                },
-                icon = {
-                    if (!isSelected) {
-                        Icon(
-                            painter = painterResource(id = item.icon),
-                            contentDescription = item.label
-                        )
-                    }
-                },
-                label = {
-                    if (isSelected) {
-                        Body1Text(text = item.label)
-                    }
-                }
-            )
+            CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
+                BottomNavigationItem(
+                    selected = isSelected,
+                    onClick = {
+                        selectedPage.intValue = index
+                        navController.navigate(item.route) {
+                            popUpTo(navController.graph.findStartDestination().id)
+                        }
+                    },
+                    icon = {
+                        if (!isSelected) {
+                            Icon(
+                                painter = painterResource(id = item.icon),
+                                contentDescription = item.label
+                            )
+                        }
+                    },
+                    label = {
+                        if (isSelected) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Body1Text(text = item.label)
+                                Icon(
+                                    modifier = Modifier.padding(top = 4.dp),
+                                    painter = painterResource(id = R.drawable.point),
+                                    contentDescription = "point"
+                                )
+                            }
+                        }
+                    },
+                    selectedContentColor = NeutralActive,
+                    unselectedContentColor = NeutralActive
+                )
+            }
         }
     }
 }
@@ -95,4 +119,12 @@ sealed class Destination(
             const val route = "else_menu"
         }
     }
+}
+
+private object NoRippleTheme : RippleTheme {
+    @Composable
+    override fun defaultColor() = Color.Unspecified
+
+    @Composable
+    override fun rippleAlpha(): RippleAlpha = RippleAlpha(0.0f, 0.0f, 0.0f, 0.0f)
 }

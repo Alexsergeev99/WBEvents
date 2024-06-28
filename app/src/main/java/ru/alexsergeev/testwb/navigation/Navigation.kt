@@ -1,50 +1,151 @@
 package ru.alexsergeev.testwb.navigation
 
-import android.window.SplashScreen
-import androidx.compose.foundation.layout.Box
+import android.annotation.SuppressLint
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.vector.Group
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.screens.EventsListScreen
+import ru.alexsergeev.testwb.screens.GroupsListScreen
+import ru.alexsergeev.testwb.screens.MyEventsListScreen
+import ru.alexsergeev.testwb.screens.ProfileScreen
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Navigation() {
+
     val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = "events"
-    ) {
-        composable("events") {
-            EventsListScreen(events = listOf(
-                Event(
-                    title = "Developer meeting",
-                    date = "13.01.2021",
-                    city = "Moscow",
-                    true,
-                    R.drawable.meeting_logo,
-                    listOf("Kotlin", "Senior", "Karaganda")
+    val selectedPage = remember { mutableIntStateOf(0) }
+
+    Scaffold(
+        bottomBar = {
+            BottomBar(
+                destinations = listOf(
+                    Destination.Events.Dashboard,
+                    Destination.Groups.Dashboard,
+                    Destination.Else.Dashboard
                 ),
-                Event(
-                    title = "CoffeeCode",
-                    date = "13.01.2025",
-                    city = "Saint-Petersburg",
-                    false,
-                    R.drawable.meeting_logo,
-                    listOf("Java", "Junior", "Astana")
-                ),
-                Event(
-                    title = "Mobile Broadcast",
-                    date = "13.01.2025",
-                    city = "Kazan",
-                    false,
-                    R.drawable.meeting_logo,
-                    listOf("Android", "Junior", "Kazan")
-                ),
+                selectedPage = selectedPage,
+                navController = navController,
             )
+        }
+    ) {
+        NavHost(navController = navController, startDestination = Destination.Events.route) {
+            eventsNavGraph(navController = navController)
+            groupNavGraph(navController = navController)
+            menuNavGraph(navController = navController)
+        }
+    }
+}
+
+fun NavGraphBuilder.menuNavGraph(navController: NavController) {
+    navigation(
+        route = Destination.Else.route,
+        startDestination = Destination.Else.Dashboard.route
+    ) {
+        composable(route = Destination.Else.Dashboard.route) {
+            MyEventsListScreen(navController = navController,
+                events = listOf(
+                    Event(
+                        title = "Developer meeting",
+                        date = "13.01.2021",
+                        city = "Moscow",
+                        true,
+                        R.drawable.meeting_logo,
+                        listOf("Kotlin", "Senior", "Karaganda")
+                    ),
+                    Event(
+                        title = "CoffeeCode",
+                        date = "13.01.2025",
+                        city = "Saint-Petersburg",
+                        false,
+                        R.drawable.meeting_logo,
+                        listOf("Java", "Junior", "Astana")
+                    ),
+                ),
+                goToProfileScreen = {
+                    navController.navigate(Destination.Else.Profile.route)
+                }
+            )
+        }
+    }
+    composable(route = Destination.Else.Profile.route) {
+        ProfileScreen()
+    }
+}
+
+fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
+    navigation(
+        route = Destination.Events.route,
+        startDestination = Destination.Events.Dashboard.route
+    ) {
+        composable(route = Destination.Events.Dashboard.route) {
+            EventsListScreen(
+                events = listOf(
+                    Event(
+                        title = "Developer meeting",
+                        date = "13.01.2021",
+                        city = "Moscow",
+                        true,
+                        R.drawable.meeting_logo,
+                        listOf("Kotlin", "Senior", "Karaganda")
+                    ),
+                    Event(
+                        title = "CoffeeCode",
+                        date = "13.01.2025",
+                        city = "Saint-Petersburg",
+                        false,
+                        R.drawable.meeting_logo,
+                        listOf("Java", "Junior", "Astana")
+                    ),
+                ),
             )
         }
     }
 }
+
+fun NavGraphBuilder.groupNavGraph(navController: NavController) {
+    navigation(
+        route = Destination.Groups.route,
+        startDestination = Destination.Groups.Dashboard.route
+    ) {
+        composable(route = Destination.Groups.Dashboard.route) {
+            GroupsListScreen(
+                listOf(
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                )
+            )
+        }
+    }
+}
+
+

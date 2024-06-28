@@ -71,5 +71,4 @@ dependencies {
     implementation (libs.accompanist.systemuicontroller)
     implementation(libs.androidx.navigation.compose)
 
-
 }

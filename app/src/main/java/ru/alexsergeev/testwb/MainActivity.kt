@@ -10,7 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.dto.Group
+import ru.alexsergeev.testwb.navigation.Navigation
 import ru.alexsergeev.testwb.screens.EditProfileScreen
+import ru.alexsergeev.testwb.screens.GroupsListScreen
 import ru.alexsergeev.testwb.screens.MyEventsListScreen
 import ru.alexsergeev.testwb.screens.ProfileScreen
 
@@ -21,34 +24,30 @@ class MainActivity : ComponentActivity() {
         setContent {
 //            CommonTestScreen()
 //            Navigation()
-            MyEventsListScreen(events = listOf(
-                Event(
-                    title = "Developer meeting",
-                    date = "13.01.2021",
-                    city = "Moscow",
-                    true,
-                    R.drawable.meeting_logo,
-                    listOf("Kotlin", "Senior", "Karaganda")
-                ),
-                Event(
-                    title = "CoffeeCode",
-                    date = "13.01.2025",
-                    city = "Saint-Petersburg",
-                    false,
-                    R.drawable.meeting_logo,
-                    listOf("Java", "Junior", "Astana")
-                ),
+            GroupsListScreen(
+                listOf(
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                    Group(
+                        name = "Designa",
+                        people = 10000,
+                        groupLogo = R.drawable.designa
+                    ),
+                )
             )
-            )
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(16.dp),
-//                contentAlignment = Alignment.Center
-//            ) {
-//                EditProfileScreen()
-//                ProfileScreen()
-//            }
         }
     }
 }

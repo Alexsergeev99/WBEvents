@@ -107,28 +107,6 @@ fun ProfileScreen() {
                             .fillMaxWidth()
                             .background(NeutralBackground)
                     )
-                    Spacer(
-                        modifier = Modifier
-                            .height(16.dp)
-                            .fillMaxWidth()
-                    )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.box),
-                            contentDescription = "box"
-                        )
-                        Icon(
-                            painter = painterResource(id = R.drawable.people),
-                            contentDescription = "people"
-                        )
-                        Body1Text(text = "Еще", color = NeutralActive)
-                    }
                 }
             }
         }

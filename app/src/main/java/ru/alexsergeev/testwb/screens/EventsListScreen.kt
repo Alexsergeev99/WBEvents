@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.pagerTabIndicatorOffset
 import kotlinx.coroutines.launch
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.Body1Text
@@ -124,40 +125,18 @@ fun EventsListScreen(events: List<Event>) {
 
                     1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(events.size) { event ->
-                            MeetingCard(
-                                title = events[event].title,
-                                date = events[event].date,
-                                city = events[event].city,
-                                isFinished = events[event].isFinished,
-                                meetingAvatar = events[event].meetingAvatar,
-                                chips = events[event].chips
-                            )
+                            if (!events[event].isFinished) {
+                                MeetingCard(
+                                    title = events[event].title,
+                                    date = events[event].date,
+                                    city = events[event].city,
+                                    isFinished = events[event].isFinished,
+                                    meetingAvatar = events[event].meetingAvatar,
+                                    chips = events[event].chips
+                                )
+                            }
                         }
                     }
-                }
-            }
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-//            Column {
-                    Body1Text(text = "Встречи", color = NeutralActive)
-//            }
-                    Icon(
-                        painter = painterResource(id = R.drawable.people),
-                        contentDescription = "people"
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.menu),
-                        contentDescription = "menu"
-                    )
                 }
             }
         }

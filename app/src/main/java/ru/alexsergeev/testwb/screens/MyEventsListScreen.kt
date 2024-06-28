@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
@@ -20,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
@@ -34,7 +34,11 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun MyEventsListScreen(events: List<Event>) {
+fun MyEventsListScreen(
+    navController: NavController,
+    events: List<Event>,
+    goToProfileScreen: () -> Unit
+) {
     val tabList = listOf("ЗАПЛАНИРОВАНО", "УЖЕ ПРОШЛИ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
     val tabIndex = pagerState.currentPage
@@ -54,7 +58,9 @@ fun MyEventsListScreen(events: List<Event>) {
             Icon(
                 modifier = Modifier
                     .padding(6.dp)
-                    .clickable { },
+                    .clickable {
+                        goToProfileScreen()
+                    },
                 painter = painterResource(id = R.drawable.navigate_back),
                 contentDescription = "back"
             )
@@ -134,28 +140,6 @@ fun MyEventsListScreen(events: List<Event>) {
                             }
                         }
                     }
-                }
-            }
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.box),
-                        contentDescription = "box"
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.people),
-                        contentDescription = "people"
-                    )
-                    Body1Text(text = "Еще", color = NeutralActive)
                 }
             }
         }

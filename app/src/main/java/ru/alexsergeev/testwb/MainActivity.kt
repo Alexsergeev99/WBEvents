@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.navigation.Navigation
+import ru.alexsergeev.testwb.screens.CommonTestScreen
 import ru.alexsergeev.testwb.screens.EditProfileScreen
 import ru.alexsergeev.testwb.screens.GroupsListScreen
 import ru.alexsergeev.testwb.screens.MyEventsListScreen
@@ -23,7 +24,8 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            CommonTestScreen()
-            Navigation()
+//            Navigation()
+            ProfileScreen()
         }
     }
 }

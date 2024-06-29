@@ -1,6 +1,5 @@
 package ru.alexsergeev.testwb.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,23 +13,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.Heading2Text
-import ru.alexsergeev.testwb.atoms.LogoItem
+import ru.alexsergeev.testwb.atoms.LogoButton
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.atoms.Subheading2Text
 import ru.alexsergeev.testwb.molecules.PeopleAvatar
-import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
@@ -101,54 +95,10 @@ fun ProfileScreen() {
                     modifier = Modifier
                         .padding(vertical = 8.dp)
                 ) {
-                    OutlinedButton(
-                        modifier = Modifier
-                            .padding(vertical = 16.dp, horizontal = 4.dp)
-                            .width(72.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = MiddleButtonColor,
-                            containerColor = Color.White
-                        ),
-                        border = BorderStroke(1.5.dp, MiddleButtonColor),
-                        onClick = { /*TODO*/ }) {
-                        LogoItem(R.drawable.twitter_logo)
-                    }
-                    OutlinedButton(
-                        modifier = Modifier
-                            .padding(vertical = 16.dp, horizontal = 4.dp)
-                            .width(72.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = MiddleButtonColor,
-                            containerColor = Color.White
-                        ),
-                        border = BorderStroke(1.5.dp, MiddleButtonColor),
-                        onClick = { /*TODO*/ }) {
-                        LogoItem(R.drawable.insta_logo)
-                    }
-                    OutlinedButton(
-                        modifier = Modifier
-                            .padding(vertical = 16.dp, horizontal = 4.dp)
-                            .width(72.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = MiddleButtonColor,
-                            containerColor = Color.White
-                        ),
-                        border = BorderStroke(1.5.dp, MiddleButtonColor),
-                        onClick = { /*TODO*/ }) {
-                        LogoItem(R.drawable.linkedIn_logo)
-                    }
-                    OutlinedButton(
-                        modifier = Modifier
-                            .padding(vertical = 16.dp, horizontal = 4.dp)
-                            .width(72.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = MiddleButtonColor,
-                            containerColor = Color.White
-                        ),
-                        border = BorderStroke(1.5.dp, MiddleButtonColor),
-                        onClick = { /*TODO*/ }) {
-                        LogoItem(R.drawable.fb_logo)
-                    }
+                    LogoButton(R.drawable.twitter_logo)
+                    LogoButton(R.drawable.insta_logo)
+                    LogoButton(R.drawable.link_logo)
+                    LogoButton(R.drawable.fb_logo)
                 }
                 Box(
                     modifier = Modifier.fillMaxSize(),

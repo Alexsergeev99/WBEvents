@@ -121,7 +121,7 @@ sealed class Destination(
     }
 }
 
-private object NoRippleTheme : RippleTheme {
+object NoRippleTheme : RippleTheme {
     @Composable
     override fun defaultColor() = Color.Unspecified
 

@@ -1,11 +1,17 @@
 package ru.alexsergeev.testwb.atoms
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
 
 @Composable
@@ -20,7 +26,12 @@ fun SimpleButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: (
 }
 
 @Composable
-fun SimpleOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun SimpleOutlinedButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -31,7 +42,12 @@ fun SimpleOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, on
 }
 
 @Composable
-fun SimpleTextButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun SimpleTextButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -54,7 +70,12 @@ fun HoveredButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: 
 }
 
 @Composable
-fun HoveredOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun HoveredOutlinedButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -66,7 +87,12 @@ fun HoveredOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, o
 }
 
 @Composable
-fun HoveredTextButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun HoveredTextButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -90,7 +116,12 @@ fun FocusedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: 
 }
 
 @Composable
-fun FocusedOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun FocusedOutlinedButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -102,7 +133,12 @@ fun FocusedOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, o
 }
 
 @Composable
-fun FocusedTextButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun FocusedTextButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -126,7 +162,12 @@ fun DisabledButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick:
 }
 
 @Composable
-fun DisabledOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun DisabledOutlinedButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -138,7 +179,12 @@ fun DisabledOutlinedButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, 
 }
 
 @Composable
-fun DisabledTextButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun DisabledTextButton(
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
         text = text,
         padding = padding,
@@ -151,6 +197,27 @@ fun DisabledTextButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onCl
 
 @Composable
 fun LogoItem(image: Int) {
-    Icon(painter = painterResource(id = image), contentDescription = "icon_logo", tint = MiddleButtonColor)
+    Icon(
+        painter = painterResource(id = image),
+        contentDescription = "icon_logo",
+        tint = MiddleButtonColor
+    )
 }
+
+@Composable
+fun LogoButton(image: Int) {
+    OutlinedButton(
+        modifier = Modifier
+            .padding(vertical = 16.dp, horizontal = 4.dp)
+            .width(72.dp),
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = MiddleButtonColor,
+            containerColor = Color.White
+        ),
+        border = BorderStroke(1.5.dp, MiddleButtonColor),
+        onClick = { /*TODO*/ }) {
+        LogoItem(image)
+    }
+}
+
 

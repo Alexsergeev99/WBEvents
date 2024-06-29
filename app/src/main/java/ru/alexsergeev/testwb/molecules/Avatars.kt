@@ -61,7 +61,7 @@ fun PeopleAvatar(image: Int, padding: Dp = 4.dp) {
 fun PeopleAvatarSmall(image: Int, padding: Dp = 4.dp) {
     Box(
         modifier = Modifier
-            .padding(padding)
+            .padding(vertical = padding)
             .size(50.dp)
             .clip(CircleShape)
             .background(NeutralBackground)

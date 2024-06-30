@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
@@ -27,7 +29,11 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
 @Composable
-fun ElseMenuScreen() {
+fun ElseMenuScreen(
+    navController: NavController,
+    goToProfileScreen: () -> Unit,
+    goToMyEventsScreen: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -56,7 +62,8 @@ fun ElseMenuScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(80.dp)
-                        .padding(vertical = 12.dp),
+                        .padding(vertical = 12.dp)
+                        .clickable { goToProfileScreen() },
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -85,7 +92,8 @@ fun ElseMenuScreen() {
                     modifier = Modifier
                         .padding(vertical = 12.dp)
                         .fillMaxWidth()
-                        .height(66.dp),
+                        .height(66.dp)
+                        .clickable { goToMyEventsScreen() },
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {

@@ -67,7 +67,7 @@ fun MyEventsListScreen(
                     modifier = Modifier
                         .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
                         .clickable {
-                            goToProfileScreen()
+                            navController.navigateUp()
                         },
                     painter = painterResource(id = R.drawable.navigate_back),
                     contentDescription = "back"

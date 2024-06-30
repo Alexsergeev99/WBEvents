@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.Heading2Text
 import ru.alexsergeev.testwb.atoms.LogoButton
@@ -30,7 +31,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController: NavController) {
 
     Box(
         modifier = Modifier
@@ -56,7 +57,7 @@ fun ProfileScreen() {
                     Icon(
                         modifier = Modifier
                             .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                            .clickable { },
+                            .clickable { navController.navigateUp() },
                         painter = painterResource(id = R.drawable.navigate_back),
                         contentDescription = "back"
                     )

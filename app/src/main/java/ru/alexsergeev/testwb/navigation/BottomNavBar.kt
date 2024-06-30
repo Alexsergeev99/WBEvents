@@ -23,6 +23,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
+import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
 @Composable
 fun BottomBar(

@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -30,6 +31,7 @@ import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.molecules.MeetingCard
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
@@ -72,11 +74,12 @@ fun MyEventsListScreen(
                     painter = painterResource(id = R.drawable.navigate_back),
                     contentDescription = "back"
                 )
-                Subheading1Text(
+                Text(
                     modifier = Modifier
                         .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
                     text = "Мои встречи",
-                    color = NeutralActive
+                    color = NeutralActive,
+                    style = EventsTheme.typography.subheading1
                 )
             }
             Column(
@@ -106,7 +109,7 @@ fun MyEventsListScreen(
                                 }
                             },
                             text = {
-                                Body1Text(text = level, color = MiddleButtonColor)
+                                Text(text = level, color = MiddleButtonColor, style = EventsTheme.typography.bodyText1)
                             }
                         )
                     }

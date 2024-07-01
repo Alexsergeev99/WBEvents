@@ -3,9 +3,8 @@ package ru.alexsergeev.testwb
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.navigation.Navigation
 import ru.alexsergeev.testwb.screens.EventScreen
-import ru.alexsergeev.testwb.screens.GroupScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,8 +12,11 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            CommonTestScreen()
-//            Navigation()
-            EventScreen(title = "Developer Meeting")
+            Navigation()
+//            EventScreen(title = "Developer Meeting")
         }
     }
 }
+
+
+

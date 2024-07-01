@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,7 @@ import ru.alexsergeev.testwb.atoms.Search
 import ru.alexsergeev.testwb.atoms.SimpleButton
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.molecules.PeopleAvatarWithEdit
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
 @Composable
@@ -58,11 +60,12 @@ fun EditProfileScreen() {
                     painter = painterResource(id = R.drawable.navigate_back),
                     contentDescription = "back"
                 )
-                Subheading1Text(
+                Text(
                     modifier = Modifier
                         .padding(vertical = 6.dp),
                     text = "Профиль",
-                    color = NeutralActive
+                    color = NeutralActive,
+                    style = EventsTheme.typography.subheading1
                 )
             }
             Column(

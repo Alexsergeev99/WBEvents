@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
 import ru.alexsergeev.testwb.atoms.Metadata2Text
 import ru.alexsergeev.testwb.atoms.OneChip
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
@@ -55,15 +57,17 @@ fun MeetingCard(
                         .padding(4.dp),
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Body1Text(
+                    Text(
                         modifier = Modifier.padding(2.dp),
                         text = title,
-                        color = NeutralActive
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
                     )
-                    Metadata1Text(
+                    Text(
                         modifier = Modifier.padding(2.dp),
                         text = "$date — $city",
-                        color = NeutralWeak
+                        color = NeutralWeak,
+                        style = EventsTheme.typography.metadata1
                     )
                     Row(
                         modifier = Modifier
@@ -80,11 +84,12 @@ fun MeetingCard(
                 }
             }
             if (isFinished) {
-                Metadata2Text(
+                Text(
                     modifier = Modifier
                         .align(Alignment.TopEnd),
                     text = "Закончилась",
-                    color = NeutralWeak
+                    color = NeutralWeak,
+                    style = EventsTheme.typography.metadata2
                 )
             }
         }

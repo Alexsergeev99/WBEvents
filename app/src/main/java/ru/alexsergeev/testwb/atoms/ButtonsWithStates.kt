@@ -1,6 +1,5 @@
 package ru.alexsergeev.testwb.atoms
 
-import android.widget.Toast
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -17,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.alexsergeev.testwb.ui.theme.DarkButtonColor
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.LightButtonColor
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
@@ -105,7 +106,11 @@ fun ButtonTypes(
                     ),
                     modifier = buttonModifier,
                 ) {
-                    Subheading2Text(text = text, color = NeutralBackground)
+                    Text(
+                        text = text,
+                        color = NeutralBackground,
+                        style = EventsTheme.typography.subheading2
+                    )
                 }
             }
 
@@ -118,7 +123,11 @@ fun ButtonTypes(
                     ),
                     modifier = buttonModifier,
                 ) {
-                    Subheading2Text(text = text, color = backgroundColor)
+                    Text(
+                        text = text,
+                        color = backgroundColor,
+                        style = EventsTheme.typography.subheading2
+                    )
                 }
             }
 
@@ -131,7 +140,11 @@ fun ButtonTypes(
                     ),
                     modifier = buttonModifier,
                 ) {
-                    Subheading2Text(text = text, color = backgroundColor)
+                    Text(
+                        text = text,
+                        color = backgroundColor,
+                        style = EventsTheme.typography.subheading2
+                    )
                 }
             }
         }
@@ -161,7 +174,6 @@ fun ButtonsWithStates() {
             DisabledOutlinedButton(text = "Button")
             DisabledTextButton(text = "Button")
         }
-
     }
 }
 

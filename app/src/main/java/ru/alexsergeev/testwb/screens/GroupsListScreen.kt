@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +19,7 @@ import ru.alexsergeev.testwb.atoms.Search
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.molecules.GroupCard
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
 @Composable
@@ -45,7 +47,7 @@ fun GroupsListScreen(groups: List<Group>) {
                         .padding(vertical = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Subheading1Text(text = "Сообщества", color = NeutralActive)
+                    Text(text = "Сообщества", color = NeutralActive, style = EventsTheme.typography.subheading1)
                 }
                 Search(
                     hint = "Поиск"

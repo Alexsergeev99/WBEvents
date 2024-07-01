@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,6 +27,7 @@ import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.molecules.PeopleAvatarSmall
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
@@ -83,12 +85,12 @@ fun ElseMenuScreen(
                         Column(
                             modifier = Modifier
                                 .fillMaxHeight()
-                                .padding(10.dp),
+                                .padding(8.dp),
                             horizontalAlignment = Alignment.Start,
                             verticalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Body1Text(text = "Иван Иванов", color = NeutralActive)
-                            Metadata1Text(text = "+7 999 999-99-99", color = Neutral)
+                            Text(text = "Иван Иванов", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                            Text(text = "+7 999 999-99-99", color = Neutral, style = EventsTheme.typography.metadata1)
                         }
                     }
                     Icon(
@@ -118,7 +120,7 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.box),
                             contentDescription = "events"
                         )
-                        Body1Text(text = "Мои встречи", color = NeutralActive)
+                        Text(text = "Мои встречи", color = NeutralActive, style = EventsTheme.typography.bodyText1)
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -143,7 +145,7 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.light),
                             contentDescription = "light"
                         )
-                        Body1Text(text = "Тема", color = NeutralActive)
+                       Text(text = "Тема", color = NeutralActive, style = EventsTheme.typography.bodyText1)
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -168,7 +170,7 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.push),
                             contentDescription = "push"
                         )
-                        Body1Text(text = "Уведомления", color = NeutralActive)
+                        Text(text = "Уведомления", color = NeutralActive, style = EventsTheme.typography.bodyText1)
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -193,7 +195,7 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.attention),
                             contentDescription = "attention"
                         )
-                        Body1Text(text = "Безопасность", color = NeutralActive)
+                        Text(text = "Безопасность", color = NeutralActive, style = EventsTheme.typography.bodyText1)
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -218,7 +220,7 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.resourses),
                             contentDescription = "resources"
                         )
-                        Body1Text(text = "Память и ресурсы", color = NeutralActive)
+                        Text(text = "Память и ресурсы", color = NeutralActive, style = EventsTheme.typography.bodyText1)
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -244,7 +246,7 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.vector__10_),
                             contentDescription = "help"
                         )
-                        Body1Text(text = "Помощь", color = NeutralActive)
+                        Text(text = "Помощь", color = NeutralActive, style = EventsTheme.typography.bodyText1)
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -269,7 +271,7 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.call_friend),
                             contentDescription = "call_friend"
                         )
-                        Body1Text(text = "Пригласи друга", color = NeutralActive)
+                        Text(text = "Пригласи друга", color = NeutralActive, style = EventsTheme.typography.bodyText1)
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),

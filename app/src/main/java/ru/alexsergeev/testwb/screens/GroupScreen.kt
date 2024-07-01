@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import ru.alexsergeev.testwb.atoms.Metadata1Text
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.molecules.MeetingCard
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 
@@ -64,16 +66,17 @@ fun GroupScreen(name: String, events: List<Event>) {
                         painter = painterResource(id = R.drawable.navigate_back),
                         contentDescription = "back"
                     )
-                    Subheading1Text(
+                    Text(
                         modifier = Modifier
                             .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
                         text = name,
-                        color = NeutralActive
+                        color = NeutralActive,
+                        style = EventsTheme.typography.subheading1
                     )
                 }
                 LazyColumn {
                     item {
-                        Metadata1Text(
+                        Text(
                             modifier = Modifier
                                 .padding(bottom = 8.dp)
                                 .height(270.dp)
@@ -85,15 +88,17 @@ fun GroupScreen(name: String, events: List<Event>) {
                                     "Odio justo dignissim ullamcorper purus ullamcorper sit semper dictum. Tortor est mauris aliquet amet sit ultrices auctor nulla. Faucibus aliquam etiam pharetra pellentesque sagittis odio lacus. Eu morbi senectus in massa fermentum elit in. Tincidunt est blandit malesuada auctor. Orci tellus mus aliquam accumsan ac. Et urna nisl facilisis non volutpat et sodales.\n" +
                                     "Malesuada egestas enim purus cras diam eget vel. Massa ante sit scelerisque scelerisque hac. Consequat tempor non pretium convallis. Interdum iaculis sit interdum interdum magna. Gravida urna et cursus donec consectetur nulla. Aliquet egestas nulla arcu aliquam facilisi duis maecenas viverra. Egestas consectetur mauris orci sit. Bibendum orci at viverra pharetra tortor nulla amet erat vehicula. Mauris volutpat amet in sit rhoncus. Imperdiet feugiat id fames gravida.",
                             color = NeutralWeak,
+                            style = EventsTheme.typography.metadata1
                         )
                     }
                 }
-                Body1Text(
+                Text(
                     modifier = Modifier
                         .padding(vertical = 16.dp)
                         .align(Alignment.Start),
                     text = "Встречи сообщества",
-                    color = NeutralWeak
+                    color = NeutralWeak,
+                    style = EventsTheme.typography.bodyText1
                 )
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(events.size) { event ->

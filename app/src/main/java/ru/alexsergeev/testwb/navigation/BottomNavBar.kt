@@ -10,6 +10,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableIntState
@@ -22,6 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.Body1Text
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
@@ -60,7 +62,7 @@ fun BottomBar(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
-                                Body1Text(text = item.label)
+                                Text(text = item.label, style = EventsTheme.typography.bodyText1)
                                 Icon(
                                     modifier = Modifier.padding(top = 4.dp),
                                     painter = painterResource(id = R.drawable.point),

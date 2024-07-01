@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +18,7 @@ import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.ButtonTypes
 import ru.alexsergeev.testwb.atoms.SimpleTextButton
 import ru.alexsergeev.testwb.atoms.Type
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
 @Composable
@@ -79,7 +81,7 @@ fun OverlappingRow(image: Int) {
                 }
             }
             if (counter.value > 5) {
-                Body1Text(text = "+${counter.value - 5}", color = NeutralActive)
+                Text(text = "+${counter.value - 5}", color = NeutralActive, style = EventsTheme.typography.bodyText1)
             }
         }
     }

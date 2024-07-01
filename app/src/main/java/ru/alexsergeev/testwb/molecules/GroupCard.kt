@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
@@ -45,15 +47,17 @@ fun GroupCard(
                     .padding(4.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Body1Text(
+                Text(
                     modifier = Modifier.padding(2.dp),
                     text = name,
-                    color = NeutralActive
+                    color = NeutralActive,
+                    style = EventsTheme.typography.bodyText1
                 )
-                Metadata1Text(
+                Text(
                     modifier = Modifier.padding(2.dp),
                     text = "$people человек",
-                    color = Neutral
+                    color = Neutral,
+                    style = EventsTheme.typography.metadata1
                 )
             }
         }

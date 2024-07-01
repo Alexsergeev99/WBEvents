@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import ru.alexsergeev.testwb.atoms.LogoButton
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.atoms.Subheading2Text
 import ru.alexsergeev.testwb.molecules.PeopleAvatar
+import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
@@ -61,11 +63,12 @@ fun ProfileScreen(navController: NavController) {
                         painter = painterResource(id = R.drawable.navigate_back),
                         contentDescription = "back"
                     )
-                    Subheading1Text(
+                    Text(
                         modifier = Modifier
                             .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
                         text = "Профиль",
-                        color = NeutralActive
+                        color = NeutralActive,
+                        style = EventsTheme.typography.subheading1
                     )
                 }
                 Icon(
@@ -91,7 +94,7 @@ fun ProfileScreen(navController: NavController) {
                 )
                 PeopleAvatar(image = R.drawable.avatar_icon, padding = 20.dp)
                 Heading2Text(text = "Иван Иванов", color = NeutralActive)
-                Subheading2Text(text = "+7 999 999 99-99", color = Neutral)
+                Text(text = "+7 999 999 99-99", color = Neutral, style = EventsTheme.typography.subheading2)
                 Row(
                     modifier = Modifier
                         .padding(vertical = 8.dp)

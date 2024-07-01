@@ -260,7 +260,7 @@ fun Heading1Text(modifier: Modifier = Modifier, text: String, color: Color = Col
         fontFamily = FontFamily(Font(R.font.sf_pro_display_bold)),
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -273,7 +273,7 @@ fun Heading2Text(modifier: Modifier = Modifier, text: String, color: Color = Col
         fontFamily = FontFamily(Font(R.font.sf_pro_display_bold)),
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -286,7 +286,7 @@ fun Subheading1Text(modifier: Modifier = Modifier, text: String, color: Color = 
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -299,7 +299,7 @@ fun Subheading2Text(modifier: Modifier = Modifier, text: String, color: Color = 
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -312,7 +312,7 @@ fun Body1Text(modifier: Modifier = Modifier, text: String, color: Color = Color.
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -325,7 +325,7 @@ fun Body2Text(modifier: Modifier = Modifier, text: String, color: Color = Color.
         fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
         fontWeight = FontWeight.Normal,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -338,7 +338,7 @@ fun Metadata1Text(modifier: Modifier = Modifier, text: String, color: Color = Co
         fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
         fontWeight = FontWeight.Normal,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -351,7 +351,7 @@ fun Metadata2Text(modifier: Modifier = Modifier, text: String, color: Color = Co
         fontFamily = FontFamily(Font(R.font.sf_pro_display_regular)),
         fontWeight = FontWeight.Normal,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }
 
@@ -364,6 +364,6 @@ fun Metadata3Text(modifier: Modifier = Modifier, text: String, color: Color = Co
         fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Left,
-        color = color
+        color = color,
     )
 }

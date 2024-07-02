@@ -12,8 +12,8 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            CommonTestScreen()
-            Navigation()
-//            EventScreen(title = "Developer Meeting")
+//            Navigation()
+            EventScreen(title = "Developer Meeting")
         }
     }
 }

@@ -18,6 +18,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,7 @@ import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Chips
 import ru.alexsergeev.testwb.atoms.Metadata1Text
 import ru.alexsergeev.testwb.atoms.SimpleButton
+import ru.alexsergeev.testwb.atoms.SimpleOutlinedButton
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.atoms.Subheading2Text
 import ru.alexsergeev.testwb.molecules.OverlappingRow
@@ -39,6 +42,9 @@ import ru.alexsergeev.testwb.ui.theme.Typography
 @Composable
 fun EventScreen(title: String) {
     val scroll = rememberScrollState(0)
+    val iAmGuest = remember {
+        mutableStateOf(false)
+    }
 
     Box(
         modifier = Modifier
@@ -60,23 +66,35 @@ fun EventScreen(title: String) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 16.dp),
-                    horizontalArrangement = Arrangement.Start,
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                            .clickable { },
-                        painter = painterResource(id = R.drawable.navigate_back),
-                        contentDescription = "back"
-                    )
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
-                        text = title,
-                        color = NeutralActive,
-                        style = EventsTheme.typography.subheading1
-                    )
+                    Row(horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            modifier = Modifier
+                                .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                                .clickable { },
+                            painter = painterResource(id = R.drawable.navigate_back),
+                            contentDescription = "back"
+                        )
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
+                            text = title,
+                            color = NeutralActive,
+                            style = EventsTheme.typography.subheading1
+                        )
+                    }
+                    if(iAmGuest.value) {
+                        Icon(
+                            modifier = Modifier
+                                .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                                .clickable { },
+                            painter = painterResource(id = R.drawable.check_mark),
+                            contentDescription = "check_mark"
+                        )
+                    }
                 }
                 Text(
                     modifier = Modifier
@@ -127,9 +145,23 @@ fun EventScreen(title: String) {
                 ) {
                     OverlappingRow(image = R.drawable.examplephoto)
                 }
-                SimpleButton(
-                    text = "Пойду на встречу!",
-                    width = 326.dp)
+                if (!iAmGuest.value) {
+                    SimpleButton(
+                        text = "Пойду на встречу!",
+                        width = 326.dp,
+                        onClick = {
+                            iAmGuest.value = true
+                        }
+                    )
+                } else {
+                    SimpleOutlinedButton(
+                        text = "Схожу в другой раз!",
+                        width = 326.dp,
+                        onClick = {
+                            iAmGuest.value = false
+                        }
+                    )
+                }
             }
         }
     }

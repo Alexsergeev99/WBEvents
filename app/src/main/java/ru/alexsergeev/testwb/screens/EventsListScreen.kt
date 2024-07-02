@@ -40,6 +40,7 @@ import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
+import ru.alexsergeev.testwb.ui.theme.Inactive
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
@@ -107,8 +108,10 @@ fun EventsListScreen(events: List<Event>) {
                                 }
                             },
                             text = {
-                                Text(text = level, color = MiddleButtonColor, style = EventsTheme.typography.bodyText1)
-                            }
+                                Text(text = level, style = EventsTheme.typography.bodyText1)
+                            },
+                            unselectedContentColor = Inactive,
+                            selectedContentColor = MiddleButtonColor
                         )
                     }
                 }

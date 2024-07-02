@@ -243,7 +243,7 @@ fun ElseMenuScreen(
                         Icon(
                             modifier = Modifier
                                 .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.vector__10_),
+                            painter = painterResource(id = R.drawable.help),
                             contentDescription = "help"
                         )
                         Text(text = "Помощь", color = NeutralActive, style = EventsTheme.typography.bodyText1)

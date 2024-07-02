@@ -26,13 +26,14 @@ import ru.alexsergeev.testwb.ui.theme.NeutralLight
 fun GroupCard(
     name: String,
     people: Long,
-    groupLogo: Int
+    groupLogo: Int,
+    goToGroupScreen: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { }
+            .clickable { goToGroupScreen() }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent)
     ) {

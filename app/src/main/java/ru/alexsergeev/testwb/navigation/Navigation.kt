@@ -16,6 +16,7 @@ import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.screens.ElseMenuScreen
 import ru.alexsergeev.testwb.screens.EventsListScreen
+import ru.alexsergeev.testwb.screens.GroupScreen
 import ru.alexsergeev.testwb.screens.GroupsListScreen
 import ru.alexsergeev.testwb.screens.MyEventsListScreen
 import ru.alexsergeev.testwb.screens.ProfileScreen
@@ -151,7 +152,45 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         people = 10000,
                         groupLogo = R.drawable.designa
                     ),
-                )
+                ),
+                goToGroupScreen = { navController.navigate(Destination.Groups.Group.route) }
+            )
+        }
+        composable(route = Destination.Groups.Group.route) {
+            GroupScreen(navController = navController, "Developer meeting", listOf(
+                Event(
+                    title = "Developer meeting",
+                    date = "13.01.2021",
+                    city = "Moscow",
+                    true,
+                    R.drawable.meeting_logo,
+                    listOf("Kotlin", "Senior", "Karaganda")
+                ),
+                Event(
+                    title = "CoffeeCode",
+                    date = "13.01.2025",
+                    city = "Saint-Petersburg",
+                    false,
+                    R.drawable.meeting_logo,
+                    listOf("Java", "Junior", "Astana")
+                ),
+                Event(
+                    title = "Developer meeting",
+                    date = "13.01.2021",
+                    city = "Moscow",
+                    true,
+                    R.drawable.meeting_logo,
+                    listOf("Kotlin", "Senior", "Karaganda")
+                ),
+                Event(
+                    title = "CoffeeCode",
+                    date = "13.01.2025",
+                    city = "Saint-Petersburg",
+                    false,
+                    R.drawable.meeting_logo,
+                    listOf("Java", "Junior", "Astana")
+                ),
+            )
             )
         }
     }

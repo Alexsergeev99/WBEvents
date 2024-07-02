@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
@@ -32,7 +33,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 
 @Composable
-fun GroupScreen(name: String, events: List<Event>) {
+fun GroupScreen(navController: NavController, name: String, events: List<Event>) {
 
     val scroll = rememberScrollState(0)
 
@@ -62,7 +63,7 @@ fun GroupScreen(name: String, events: List<Event>) {
                     Icon(
                         modifier = Modifier
                             .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                            .clickable { },
+                            .clickable { navController.navigateUp() },
                         painter = painterResource(id = R.drawable.navigate_back),
                         contentDescription = "back"
                     )

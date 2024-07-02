@@ -103,7 +103,7 @@ sealed class Destination(
         R.drawable.people
     ) {
         data object Dashboard : Groups("dashboard")
-        data object Inner : Groups("inner")
+        data object Group : Groups("group")
 
         companion object {
             const val route = "groups"

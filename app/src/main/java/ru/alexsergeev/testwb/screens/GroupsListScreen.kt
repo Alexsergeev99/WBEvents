@@ -23,7 +23,7 @@ import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
 @Composable
-fun GroupsListScreen(groups: List<Group>) {
+fun GroupsListScreen(groups: List<Group>, goToGroupScreen: () -> Unit) {
 
     Box(
         modifier = Modifier
@@ -58,6 +58,7 @@ fun GroupsListScreen(groups: List<Group>) {
                             name = groups[group].name,
                             people = groups[group].people,
                             groupLogo = groups[group].groupLogo,
+                            goToGroupScreen = goToGroupScreen
                         )
                     }
                 }

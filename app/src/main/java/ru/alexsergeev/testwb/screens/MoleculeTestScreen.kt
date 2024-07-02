@@ -49,7 +49,8 @@ fun MoleculeTestScreen() {
             GroupCard(
                 "Designa",
                 10_000,
-                R.drawable.designa
+                R.drawable.designa,
+                {}
             )
         }
     }

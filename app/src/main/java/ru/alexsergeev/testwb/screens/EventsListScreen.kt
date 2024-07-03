@@ -47,7 +47,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
-fun EventsListScreen(events: List<Event>) {
+fun EventsListScreen(events: List<Event>, goToEventScreen: () -> Unit) {
 
     val tabList = listOf("ВСЕ ВСТРЕЧИ", "АКТИВНЫЕ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
@@ -131,7 +131,8 @@ fun EventsListScreen(events: List<Event>) {
                                     city = events[event].city,
                                     isFinished = events[event].isFinished,
                                     meetingAvatar = events[event].meetingAvatar,
-                                    chips = events[event].chips
+                                    chips = events[event].chips,
+                                    goToEventScreen = goToEventScreen
                                 )
                             }
                         }
@@ -145,7 +146,8 @@ fun EventsListScreen(events: List<Event>) {
                                         city = events[event].city,
                                         isFinished = events[event].isFinished,
                                         meetingAvatar = events[event].meetingAvatar,
-                                        chips = events[event].chips
+                                        chips = events[event].chips,
+                                        goToEventScreen = goToEventScreen
                                     )
                                 }
                             }

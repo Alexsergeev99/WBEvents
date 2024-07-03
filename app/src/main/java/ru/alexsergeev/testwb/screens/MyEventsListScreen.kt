@@ -42,7 +42,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 fun MyEventsListScreen(
     navController: NavController,
     events: List<Event>,
-    goToProfileScreen: () -> Unit
+    goToEventScreen: () -> Unit
 ) {
     val tabList = listOf("ЗАПЛАНИРОВАНО", "УЖЕ ПРОШЛИ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
@@ -134,7 +134,8 @@ fun MyEventsListScreen(
                                         city = events[event].city,
                                         isFinished = events[event].isFinished,
                                         meetingAvatar = events[event].meetingAvatar,
-                                        chips = events[event].chips
+                                        chips = events[event].chips,
+                                        goToEventScreen = goToEventScreen
                                     )
                                 }
                             }
@@ -149,7 +150,8 @@ fun MyEventsListScreen(
                                         city = events[event].city,
                                         isFinished = events[event].isFinished,
                                         meetingAvatar = events[event].meetingAvatar,
-                                        chips = events[event].chips
+                                        chips = events[event].chips,
+                                        goToEventScreen = goToEventScreen
                                     )
                                 }
                             }

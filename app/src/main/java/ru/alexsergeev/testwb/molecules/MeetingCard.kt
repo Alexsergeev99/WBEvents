@@ -39,13 +39,14 @@ fun MeetingCard(
     city: String,
     isFinished: Boolean = false,
     meetingAvatar: Int,
-    chips: List<String>? = null
+    chips: List<String>? = null,
+    goToEventScreen: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { }
+            .clickable { goToEventScreen() }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),
     ) {

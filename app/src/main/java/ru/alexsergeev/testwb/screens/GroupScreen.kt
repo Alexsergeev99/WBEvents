@@ -23,9 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.Metadata1Text
-import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
@@ -33,7 +30,12 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 
 @Composable
-fun GroupScreen(navController: NavController, name: String, events: List<Event>) {
+fun GroupScreen(
+    navController: NavController,
+    name: String,
+    events: List<Event>,
+    goToEventScreen: () -> Unit
+) {
 
     val scroll = rememberScrollState(0)
 
@@ -110,7 +112,8 @@ fun GroupScreen(navController: NavController, name: String, events: List<Event>)
                                 city = events[event].city,
                                 isFinished = events[event].isFinished,
                                 meetingAvatar = events[event].meetingAvatar,
-                                chips = events[event].chips
+                                chips = events[event].chips,
+                                goToEventScreen = goToEventScreen
                             )
                         }
                     }

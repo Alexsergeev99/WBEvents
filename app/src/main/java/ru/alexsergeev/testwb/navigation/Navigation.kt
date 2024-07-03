@@ -15,6 +15,7 @@ import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.screens.ElseMenuScreen
+import ru.alexsergeev.testwb.screens.EventScreen
 import ru.alexsergeev.testwb.screens.EventsListScreen
 import ru.alexsergeev.testwb.screens.GroupScreen
 import ru.alexsergeev.testwb.screens.GroupsListScreen
@@ -84,8 +85,8 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     listOf("Java", "Junior", "Astana")
                 )
             ),
-            goToProfileScreen = {
-                navController.navigate(Destination.Else.Profile.route)
+            goToEventScreen =  {
+                navController.navigate(Destination.Events.Event.route)
             }
         )
     }
@@ -119,7 +120,11 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                         listOf("Java", "Junior", "Astana")
                     ),
                 ),
+                goToEventScreen = { navController.navigate(Destination.Events.Event.route) }
             )
+        }
+        composable(route = Destination.Events.Event.route) {
+            EventScreen(navController = navController, title = "Developer meeting")
         }
     }
 }
@@ -164,7 +169,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                     city = "Moscow",
                     true,
                     R.drawable.meeting_logo,
-                    listOf("Kotlin", "Senior", "Karaganda")
+                    listOf("Kotlin", "Senior", "Karaganda"),
                 ),
                 Event(
                     title = "CoffeeCode",
@@ -190,7 +195,8 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                     R.drawable.meeting_logo,
                     listOf("Java", "Junior", "Astana")
                 ),
-            )
+            ),
+                goToEventScreen = { navController.navigate(Destination.Events.Event.route) }
             )
         }
     }

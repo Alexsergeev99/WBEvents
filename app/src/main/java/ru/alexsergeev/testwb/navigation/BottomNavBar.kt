@@ -90,7 +90,7 @@ sealed class Destination(
         R.drawable.box
     ) {
         data object Dashboard : Events("dashboard")
-        data object Inner : Events("inner")
+        data object Event : Events("event")
 
         companion object {
             const val route = "events"

@@ -107,13 +107,14 @@ fun GroupScreen(
                     items(events.size) { event ->
                         if (events[event].title == name) {
                             MeetingCard(
+                                navController = navController,
                                 title = events[event].title,
                                 date = events[event].date,
                                 city = events[event].city,
                                 isFinished = events[event].isFinished,
                                 meetingAvatar = events[event].meetingAvatar,
                                 chips = events[event].chips,
-                                goToEventScreen = goToEventScreen
+//                                goToEventScreen = goToEventScreen
                             )
                         }
                     }

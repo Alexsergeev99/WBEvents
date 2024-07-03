@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -51,6 +52,7 @@ fun Navigation() {
 }
 
 fun NavGraphBuilder.menuNavGraph(navController: NavController) {
+
     navigation(
         route = Destination.Else.route,
         startDestination = Destination.Else.Dashboard.route
@@ -85,7 +87,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     listOf("Java", "Junior", "Astana")
                 )
             ),
-            goToEventScreen =  {
+            goToEventScreen = {
                 navController.navigate(Destination.Events.Event.route)
             }
         )
@@ -96,12 +98,19 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
 }
 
 fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
+
     navigation(
         route = Destination.Events.route,
         startDestination = Destination.Events.Dashboard.route
     ) {
         composable(route = Destination.Events.Dashboard.route) {
+
+            val name = remember {
+                mutableStateOf("")
+            }
+
             EventsListScreen(
+                navController = navController,
                 events = listOf(
                     Event(
                         title = "Developer meeting",
@@ -120,11 +129,11 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                         listOf("Java", "Junior", "Astana")
                     ),
                 ),
-                goToEventScreen = { navController.navigate(Destination.Events.Event.route) }
+//                goToEventScreen = { navController.navigate("${Destination.Events.Event.route}/${mlist.}") }
             )
         }
-        composable(route = Destination.Events.Event.route) {
-            EventScreen(navController = navController, title = "Developer meeting")
+        composable(route = "${Destination.Events.Event.route}/{name}") {
+            EventScreen(navController = navController, it.arguments?.getString("name"))
         }
     }
 }

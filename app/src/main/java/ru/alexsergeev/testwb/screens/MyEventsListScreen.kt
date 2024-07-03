@@ -106,7 +106,7 @@ fun MyEventsListScreen(
                         Tab(selected = tabIndex == index,
                             onClick = {
                                 coroutineScope.launch {
-                                    pagerState.animateScrollToPage(index)
+                                    pagerState.scrollToPage(index)
                                 }
                             },
                             text = {
@@ -129,13 +129,14 @@ fun MyEventsListScreen(
                             items(events.size) { event ->
                                 if (!events[event].isFinished) {
                                     MeetingCard(
+                                        navController = navController,
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,
                                         isFinished = events[event].isFinished,
                                         meetingAvatar = events[event].meetingAvatar,
                                         chips = events[event].chips,
-                                        goToEventScreen = goToEventScreen
+//                                        goToEventScreen = goToEventScreen
                                     )
                                 }
                             }
@@ -145,13 +146,14 @@ fun MyEventsListScreen(
                             items(events.size) { event ->
                                 if (events[event].isFinished) {
                                     MeetingCard(
+                                        navController = navController,
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,
                                         isFinished = events[event].isFinished,
                                         meetingAvatar = events[event].meetingAvatar,
                                         chips = events[event].chips,
-                                        goToEventScreen = goToEventScreen
+//                                        goToEventScreen = goToEventScreen
                                     )
                                 }
                             }

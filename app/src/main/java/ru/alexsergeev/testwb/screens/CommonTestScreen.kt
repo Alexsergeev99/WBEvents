@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.atoms.ButtonsWithStates
 import ru.alexsergeev.testwb.atoms.Chips
@@ -19,7 +20,7 @@ import ru.alexsergeev.testwb.molecules.PeopleAvatar
 import ru.alexsergeev.testwb.molecules.PeopleAvatarWithEdit
 
 @Composable
-fun CommonTestScreen(goToEventScreen: () -> Unit) {
+fun CommonTestScreen(navController: NavController, goToEventScreen: () -> Unit) {
     LazyColumn(
         modifier = Modifier
             .padding(start = 8.dp, end = 8.dp),
@@ -36,22 +37,24 @@ fun CommonTestScreen(goToEventScreen: () -> Unit) {
                 "Moscow"
             )
             MeetingCard(
+                navController = navController,
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",
                 true,
                 R.drawable.meeting_logo,
                 listOf("Kotlin", "Senior", "Karaganda"),
-                goToEventScreen = goToEventScreen
+//                goToEventScreen = goToEventScreen
             )
             MeetingCard(
+                navController = navController,
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",
                 false,
                 R.drawable.meeting_logo,
                 listOf("Python", "Junior", "Moscow"),
-                goToEventScreen = goToEventScreen
+//                goToEventScreen = goToEventScreen
             )
             OverlappingRow(R.drawable.examplephoto)
             PeopleAvatarWithEdit(R.drawable.avatar_icon)

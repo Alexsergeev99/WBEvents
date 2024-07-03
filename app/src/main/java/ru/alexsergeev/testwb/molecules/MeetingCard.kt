@@ -27,6 +27,7 @@ import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
 import ru.alexsergeev.testwb.atoms.Metadata2Text
 import ru.alexsergeev.testwb.atoms.OneChip
+import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
@@ -34,19 +35,20 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 
 @Composable
 fun MeetingCard(
+    navController: NavController,
     title: String,
     date: String,
     city: String,
     isFinished: Boolean = false,
     meetingAvatar: Int,
     chips: List<String>? = null,
-    goToEventScreen: () -> Unit
+//    goToEventScreen: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { goToEventScreen() }
+            .clickable { navController.navigate("${Destination.Events.Event.route}/${title}") }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),
     ) {

@@ -21,6 +21,8 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
@@ -39,6 +42,7 @@ import ru.alexsergeev.testwb.atoms.Search
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.molecules.MeetingCard
+import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Inactive
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
@@ -47,12 +51,13 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
-fun EventsListScreen(events: List<Event>, goToEventScreen: () -> Unit) {
+fun EventsListScreen(navController: NavController, events: List<Event>) {
 
     val tabList = listOf("ВСЕ ВСТРЕЧИ", "АКТИВНЫЕ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
+
 
     Box(
         modifier = Modifier
@@ -104,7 +109,7 @@ fun EventsListScreen(events: List<Event>, goToEventScreen: () -> Unit) {
                         Tab(selected = tabIndex == index,
                             onClick = {
                                 coroutineScope.launch {
-                                    pagerState.animateScrollToPage(index)
+                                    pagerState.scrollToPage(index)
                                 }
                             },
                             text = {
@@ -126,13 +131,14 @@ fun EventsListScreen(events: List<Event>, goToEventScreen: () -> Unit) {
                         0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(events.size) { event ->
                                 MeetingCard(
+                                    navController = navController,
                                     title = events[event].title,
                                     date = events[event].date,
                                     city = events[event].city,
                                     isFinished = events[event].isFinished,
                                     meetingAvatar = events[event].meetingAvatar,
                                     chips = events[event].chips,
-                                    goToEventScreen = goToEventScreen
+//                                    goToEventScreen = { goToEventScreen() }
                                 )
                             }
                         }
@@ -141,13 +147,15 @@ fun EventsListScreen(events: List<Event>, goToEventScreen: () -> Unit) {
                             items(events.size) { event ->
                                 if (!events[event].isFinished) {
                                     MeetingCard(
+                                        navController = navController,
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,
                                         isFinished = events[event].isFinished,
                                         meetingAvatar = events[event].meetingAvatar,
                                         chips = events[event].chips,
-                                        goToEventScreen = goToEventScreen
+//                                        goToEventScreen = { goToEventScreen() }
+//                                        goToEventScreen = goToEventScreen
                                     )
                                 }
                             }

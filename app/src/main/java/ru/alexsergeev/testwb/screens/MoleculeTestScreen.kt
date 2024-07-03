@@ -20,7 +20,7 @@ import ru.alexsergeev.testwb.molecules.MeetingCard
 import ru.alexsergeev.testwb.molecules.OverlappingRow
 
 @Composable
-fun MoleculeTestScreen(goToEventScreen: () -> Unit) {
+fun MoleculeTestScreen(navController: NavController, goToEventScreen: () -> Unit) {
     LazyColumn(
         modifier = Modifier
             .padding(start = 8.dp, end = 8.dp),
@@ -28,22 +28,24 @@ fun MoleculeTestScreen(goToEventScreen: () -> Unit) {
     ) {
         item {
             MeetingCard(
+                navController = navController,
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",
                 true,
                 R.drawable.meeting_logo,
                 listOf("Kotlin", "Senior", "Karaganda"),
-                goToEventScreen = goToEventScreen
+//                goToEventScreen = goToEventScreen
             )
             MeetingCard(
+                navController = navController,
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",
                 false,
                 R.drawable.meeting_logo,
                 listOf("Python", "Junior", "Moscow"),
-                goToEventScreen = goToEventScreen
+//                goToEventScreen = goToEventScreen
             )
             OverlappingRow(R.drawable.examplephoto)
             PeopleAvatarWithEdit(R.drawable.avatar_icon)

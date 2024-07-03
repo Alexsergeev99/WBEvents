@@ -41,7 +41,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 import ru.alexsergeev.testwb.ui.theme.Typography
 
 @Composable
-fun EventScreen(navController: NavController, title: String) {
+fun EventScreen(navController: NavController, name: String?) {
     val scroll = rememberScrollState(0)
     val iAmGuest = remember {
         mutableStateOf(false)
@@ -82,7 +82,7 @@ fun EventScreen(navController: NavController, title: String) {
                         Text(
                             modifier = Modifier
                                 .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
-                            text = title,
+                            text = name?: "Meeting",
                             color = NeutralActive,
                             style = EventsTheme.typography.subheading1
                         )

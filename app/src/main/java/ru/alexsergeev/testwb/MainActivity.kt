@@ -13,7 +13,6 @@ class MainActivity : ComponentActivity() {
         setContent {
 //            CommonTestScreen()
             Navigation()
-//            EventScreen(title = "Developer Meeting")
         }
     }
 }

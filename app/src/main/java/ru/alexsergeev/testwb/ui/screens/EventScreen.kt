@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,26 +22,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.Chips
-import ru.alexsergeev.testwb.atoms.Metadata1Text
-import ru.alexsergeev.testwb.atoms.SimpleButton
-import ru.alexsergeev.testwb.atoms.SimpleOutlinedButton
-import ru.alexsergeev.testwb.atoms.Subheading1Text
-import ru.alexsergeev.testwb.atoms.Subheading2Text
-import ru.alexsergeev.testwb.molecules.OverlappingRow
+import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.ui.atoms.OneChip
+import ru.alexsergeev.testwb.ui.atoms.SimpleButton
+import ru.alexsergeev.testwb.ui.atoms.SimpleOutlinedButton
+import ru.alexsergeev.testwb.ui.molecules.OverlappingRow
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
-import ru.alexsergeev.testwb.ui.theme.Typography
 
 @Composable
-fun EventScreen(navController: NavController, name: String?) {
+fun EventScreen(navController: NavController, event: Event) {
     val scroll = rememberScrollState(0)
     val iAmGuest = remember {
         mutableStateOf(false)
@@ -70,8 +65,10 @@ fun EventScreen(navController: NavController, name: String?) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             modifier = Modifier
                                 .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
@@ -82,12 +79,12 @@ fun EventScreen(navController: NavController, name: String?) {
                         Text(
                             modifier = Modifier
                                 .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
-                            text = name?: "Meeting",
+                            text = event?.title ?: "Meeting",
                             color = NeutralActive,
                             style = EventsTheme.typography.subheading1
                         )
                     }
-                    if(iAmGuest.value) {
+                    if (iAmGuest.value) {
                         Icon(
                             modifier = Modifier
                                 .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
@@ -110,11 +107,9 @@ fun EventScreen(navController: NavController, name: String?) {
                         .padding(vertical = 4.dp)
                         .align(Alignment.Start)
                 ) {
-                    Chips(
-                        "Python",
-                        "Junior",
-                        "Moscow"
-                    )
+                    for (i in 0..<event.chips.size) {
+                        OneChip(checkNotNull(event.chips[i]))
+                    }
                 }
                 Image(
                     modifier = Modifier
@@ -126,23 +121,26 @@ fun EventScreen(navController: NavController, name: String?) {
                 )
                 LazyColumn {
                     item {
-                        Text(modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .height(252.dp)
-                            .align(Alignment.Start)
-                            .verticalScroll(scroll),
+                        Text(
+                            modifier = Modifier
+                                .padding(vertical = 8.dp)
+                                .height(252.dp)
+                                .align(Alignment.Start)
+                                .verticalScroll(scroll),
                             text = "Lorem ipsum dolor sit amet consectetur. Libero duis cum egestas amet mollis massa. Convallis sit lacus tortor interdum auctor viverra vitae. Egestas aliquam odio aenean eget facilisi ipsum vitae. Risus lectus quam urna condimentum id massa magna id mattis. Sit tempor volutpat ac eget dignissim nibh sagittis vitae duis. Vivamus quis fusce egestas vel sodales arcu praesent non. Ullamcorper elit sit eros egestas euismod amet. Nec molestie a sit sed. At neque diam turpis cursus tincidunt nisi quam sed non. Tempor tortor ultricies ultrices maecenas lectus in nunc sapien dapibus.\n" +
                                     "Volutpat placerat et placerat felis tristique quis. Pharetra velit faucibus lobortis vitae dui. Nibh diam velit hendrerit posuere vel ut augue varius velit. Eu eget ipsum vulputate consectetur adipiscing est mollis eleifend quisque. Porttitor senectus nibh molestie faucibus sit mi risus eget. Vivamus dolor ac tortor nibh. Metus amet odio id magna. Augue ac commodo sem varius purus eros eu pharetra nec.\n" +
                                     "Bibendum eget donec senectus turpis massa. Magna nunc diam pellentesque egestas sit auctor. Ullamcorper placerat blandit eget scelerisque adipiscing nisi tellus. Aliquam aliquet arcu diam cursus. Egestas duis tellus etiam molestie imperdiet. Tellus turpis purus ligula odio at facilisi. Felis sed in adipiscing ut et amet eros at. Tortor tempor habitasse molestie sed enim condimentum. Purus tellus nec lacus nisl eu sit venenatis elit. Nunc at lacus sit iaculis et volutpat. Elit id vulputate non sed placerat neque parturient egestas. Proin pellentesque bibendum volutpat adipiscing sagittis habitant elit.\n" +
                                     "Odio justo dignissim ullamcorper purus ullamcorper sit semper dictum. Tortor est mauris aliquet amet sit ultrices auctor nulla. Faucibus aliquam etiam pharetra pellentesque sagittis odio lacus. Eu morbi senectus in massa fermentum elit in. Tincidunt est blandit malesuada auctor. Orci tellus mus aliquam accumsan ac. Et urna nisl facilisis non volutpat et sodales.\n" +
                                     "Malesuada egestas enim purus cras diam eget vel. Massa ante sit scelerisque scelerisque hac. Consequat tempor non pretium convallis. Interdum iaculis sit interdum interdum magna. Gravida urna et cursus donec consectetur nulla. Aliquet egestas nulla arcu aliquam facilisi duis maecenas viverra. Egestas consectetur mauris orci sit. Bibendum orci at viverra pharetra tortor nulla amet erat vehicula. Mauris volutpat amet in sit rhoncus. Imperdiet feugiat id fames gravida.",
                             style = EventsTheme.typography.metadata1,
-                            color = NeutralWeak)
+                            color = NeutralWeak
+                        )
                     }
                 }
-                Row( modifier = Modifier
-                    .padding(vertical = 4.dp)
-                    .align(Alignment.Start)
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.Start)
                 ) {
                     OverlappingRow(image = R.drawable.examplephoto)
                 }

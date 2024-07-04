@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,16 +16,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.atoms.Search
-import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Group
-import ru.alexsergeev.testwb.molecules.GroupCard
+import ru.alexsergeev.testwb.ui.atoms.Search
+import ru.alexsergeev.testwb.ui.molecules.GroupCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
 @Composable
-fun GroupsListScreen(navController: NavController,
-                     groups: List<Group>,
+fun GroupsListScreen(
+    navController: NavController,
+    groups: List<Group>,
 //                     goToGroupScreen: () -> Unit
 ) {
 
@@ -51,7 +51,11 @@ fun GroupsListScreen(navController: NavController,
                         .padding(vertical = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = "Сообщества", color = NeutralActive, style = EventsTheme.typography.subheading1)
+                    Text(
+                        text = "Сообщества",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.subheading1
+                    )
                 }
                 Search(
                     hint = "Поиск"
@@ -60,9 +64,11 @@ fun GroupsListScreen(navController: NavController,
                     items(groups.size) { group ->
                         GroupCard(
                             navController = navController,
-                            name = groups[group].name,
-                            people = groups[group].people,
-                            groupLogo = groups[group].groupLogo,
+                            Group(
+                                name = groups[group].name,
+                                people = groups[group].people,
+                                groupLogo = groups[group].groupLogo
+                            ),
 //                            goToGroupScreen = goToGroupScreen
                         )
                     }

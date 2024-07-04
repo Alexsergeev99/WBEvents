@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.atoms
+package ru.alexsergeev.testwb.ui.atoms
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState

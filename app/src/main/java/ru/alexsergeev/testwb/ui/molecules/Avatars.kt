@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.molecules
+package ru.alexsergeev.testwb.ui.molecules
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
-import ru.alexsergeev.testwb.molecules.MeetingCard
+import ru.alexsergeev.testwb.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
@@ -106,16 +106,17 @@ fun GroupScreen(
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(events.size) { event ->
 //                        if (events[event].title == name) {
-                            MeetingCard(
-                                navController = navController,
+                        MeetingCard(
+                            navController = navController, Event(
                                 title = events[event].title,
                                 date = events[event].date,
                                 city = events[event].city,
                                 isFinished = events[event].isFinished,
                                 meetingAvatar = events[event].meetingAvatar,
                                 chips = events[event].chips,
-//                                goToEventScreen = goToEventScreen
                             )
+//                                goToEventScreen = goToEventScreen
+                        )
 //                        }
                     }
                 }

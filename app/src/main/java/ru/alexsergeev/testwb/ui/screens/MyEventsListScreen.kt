@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,10 +27,8 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Event
-import ru.alexsergeev.testwb.molecules.MeetingCard
+import ru.alexsergeev.testwb.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Inactive
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
@@ -42,7 +40,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 fun MyEventsListScreen(
     navController: NavController,
     events: List<Event>,
-    goToEventScreen: () -> Unit
+//    goToEventScreen: () -> Unit
 ) {
     val tabList = listOf("ЗАПЛАНИРОВАНО", "УЖЕ ПРОШЛИ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
@@ -103,7 +101,8 @@ fun MyEventsListScreen(
                     contentColor = MiddleButtonColor
                 ) {
                     tabList.forEachIndexed { index, level ->
-                        Tab(selected = tabIndex == index,
+                        Tab(
+                            selected = tabIndex == index,
                             onClick = {
                                 coroutineScope.launch {
                                     pagerState.scrollToPage(index)
@@ -127,15 +126,16 @@ fun MyEventsListScreen(
                     when (tabIndex) {
                         0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(events.size) { event ->
-                                if (!events[event].isFinished) {
+                                if (checkNotNull(!events[event].isFinished!!)) {
                                     MeetingCard(
-                                        navController = navController,
-                                        title = events[event].title,
-                                        date = events[event].date,
-                                        city = events[event].city,
-                                        isFinished = events[event].isFinished,
-                                        meetingAvatar = events[event].meetingAvatar,
-                                        chips = events[event].chips,
+                                        navController = navController, Event(
+                                            title = events[event].title,
+                                            date = events[event].date,
+                                            city = events[event].city,
+                                            isFinished = events[event].isFinished,
+                                            meetingAvatar = events[event].meetingAvatar,
+                                            chips = events[event].chips,
+                                        )
 //                                        goToEventScreen = goToEventScreen
                                     )
                                 }
@@ -144,15 +144,16 @@ fun MyEventsListScreen(
 
                         1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(events.size) { event ->
-                                if (events[event].isFinished) {
+                                if (checkNotNull(events[event].isFinished)) {
                                     MeetingCard(
-                                        navController = navController,
-                                        title = events[event].title,
-                                        date = events[event].date,
-                                        city = events[event].city,
-                                        isFinished = events[event].isFinished,
-                                        meetingAvatar = events[event].meetingAvatar,
-                                        chips = events[event].chips,
+                                        navController = navController, Event(
+                                            title = events[event].title,
+                                            date = events[event].date,
+                                            city = events[event].city,
+                                            isFinished = events[event].isFinished,
+                                            meetingAvatar = events[event].meetingAvatar,
+                                            chips = events[event].chips,
+                                        )
 //                                        goToEventScreen = goToEventScreen
                                     )
                                 }

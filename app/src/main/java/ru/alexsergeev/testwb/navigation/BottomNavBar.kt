@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Body1Text
+import ru.alexsergeev.testwb.ui.atoms.Body1Text
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight

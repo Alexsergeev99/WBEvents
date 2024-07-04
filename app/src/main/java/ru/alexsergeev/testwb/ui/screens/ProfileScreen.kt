@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,11 +22,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Heading2Text
-import ru.alexsergeev.testwb.atoms.LogoButton
-import ru.alexsergeev.testwb.atoms.Subheading1Text
-import ru.alexsergeev.testwb.atoms.Subheading2Text
-import ru.alexsergeev.testwb.molecules.PeopleAvatar
+import ru.alexsergeev.testwb.ui.atoms.Heading2Text
+import ru.alexsergeev.testwb.ui.atoms.LogoButton
+import ru.alexsergeev.testwb.ui.atoms.Subheading1Text
+import ru.alexsergeev.testwb.ui.atoms.Subheading2Text
+import ru.alexsergeev.testwb.ui.molecules.PeopleAvatar
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive

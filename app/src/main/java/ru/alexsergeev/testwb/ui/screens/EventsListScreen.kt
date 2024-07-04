@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -21,28 +21,20 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.pagerTabIndicatorOffset
 import kotlinx.coroutines.launch
-import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.Search
-import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Event
-import ru.alexsergeev.testwb.molecules.MeetingCard
-import ru.alexsergeev.testwb.navigation.Destination
+import ru.alexsergeev.testwb.ui.atoms.Search
+import ru.alexsergeev.testwb.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Inactive
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
@@ -82,7 +74,11 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Встречи", color = NeutralActive, style = EventsTheme.typography.subheading1)
+                    Text(
+                        text = "Встречи",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.subheading1
+                    )
                     Icon(
                         modifier = Modifier.size(14.dp),
                         imageVector = Icons.Default.Add,
@@ -106,7 +102,8 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
                     contentColor = MiddleButtonColor
                 ) {
                     tabList.forEachIndexed { index, level ->
-                        Tab(selected = tabIndex == index,
+                        Tab(
+                            selected = tabIndex == index,
                             onClick = {
                                 coroutineScope.launch {
                                     pagerState.scrollToPage(index)
@@ -131,13 +128,14 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
                         0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(events.size) { event ->
                                 MeetingCard(
-                                    navController = navController,
-                                    title = events[event].title,
-                                    date = events[event].date,
-                                    city = events[event].city,
-                                    isFinished = events[event].isFinished,
-                                    meetingAvatar = events[event].meetingAvatar,
-                                    chips = events[event].chips,
+                                    navController = navController, Event(
+                                        title = events[event].title,
+                                        date = events[event].date,
+                                        city = events[event].city,
+                                        isFinished = events[event].isFinished,
+                                        meetingAvatar = events[event].meetingAvatar,
+                                        chips = events[event].chips,
+                                    )
 //                                    goToEventScreen = { goToEventScreen() }
                                 )
                             }
@@ -145,17 +143,16 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
 
                         1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(events.size) { event ->
-                                if (!events[event].isFinished) {
+                                if (checkNotNull(!events[event].isFinished!!)) {
                                     MeetingCard(
-                                        navController = navController,
+                                        navController = navController, Event(
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,
                                         isFinished = events[event].isFinished,
                                         meetingAvatar = events[event].meetingAvatar,
                                         chips = events[event].chips,
-//                                        goToEventScreen = { goToEventScreen() }
-//                                        goToEventScreen = goToEventScreen
+                                        )
                                     )
                                 }
                             }

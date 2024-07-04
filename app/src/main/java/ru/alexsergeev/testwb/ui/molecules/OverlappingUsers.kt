@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.molecules
+package ru.alexsergeev.testwb.ui.molecules
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.ButtonTypes
-import ru.alexsergeev.testwb.atoms.SimpleTextButton
-import ru.alexsergeev.testwb.atoms.Type
+import ru.alexsergeev.testwb.ui.atoms.Body1Text
+import ru.alexsergeev.testwb.ui.atoms.ButtonTypes
+import ru.alexsergeev.testwb.ui.atoms.SimpleTextButton
+import ru.alexsergeev.testwb.ui.atoms.Type
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 

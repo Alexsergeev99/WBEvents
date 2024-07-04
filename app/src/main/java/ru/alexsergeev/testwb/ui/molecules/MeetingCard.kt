@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.molecules
+package ru.alexsergeev.testwb.ui.molecules
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
@@ -18,16 +18,13 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.Metadata1Text
-import ru.alexsergeev.testwb.atoms.Metadata2Text
-import ru.alexsergeev.testwb.atoms.OneChip
+import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.navigation.Destination
+import ru.alexsergeev.testwb.ui.atoms.OneChip
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
@@ -36,25 +33,20 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 @Composable
 fun MeetingCard(
     navController: NavController,
-    title: String,
-    date: String,
-    city: String,
-    isFinished: Boolean = false,
-    meetingAvatar: Int,
-    chips: List<String>? = null,
+    event: Event,
 //    goToEventScreen: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { navController.navigate("${Destination.Events.Event.route}/${title}") }
+            .clickable { navController.navigate("${Destination.Events.Event.route}/${event.title}/${event.chips[0]}/${event.chips[1]}/${event.chips[2]}") }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                MeetingAvatar(meetingAvatar)
+                MeetingAvatar(checkNotNull(event.meetingAvatar))
                 Column(
                     modifier = Modifier
                         .padding(4.dp),
@@ -62,13 +54,13 @@ fun MeetingCard(
                 ) {
                     Text(
                         modifier = Modifier.padding(2.dp),
-                        text = title,
+                        text = checkNotNull(event.title),
                         color = NeutralActive,
                         style = EventsTheme.typography.bodyText1
                     )
                     Text(
                         modifier = Modifier.padding(2.dp),
-                        text = "$date — $city",
+                        text = "${event.date} — ${event.city}",
                         color = NeutralWeak,
                         style = EventsTheme.typography.metadata1
                     )
@@ -76,17 +68,17 @@ fun MeetingCard(
                         modifier = Modifier
                             .padding(vertical = 4.dp)
                     ) {
-                        if (chips != null) {
-                            if (chips.isNotEmpty()) {
-                                for (i in 0..<chips.size) {
-                                    OneChip(chips[i])
+                        if (event.chips != null) {
+                            if (event.chips.isNotEmpty()) {
+                                for (i in 0..<event.chips.size) {
+                                    OneChip(checkNotNull(event.chips[i]))
                                 }
                             }
                         }
                     }
                 }
             }
-            if (isFinished) {
+            if (checkNotNull(event.isFinished)) {
                 Text(
                     modifier = Modifier
                         .align(Alignment.TopEnd),

@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,12 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.molecules.Avatars
-import ru.alexsergeev.testwb.atoms.ButtonsWithStates
-import ru.alexsergeev.testwb.atoms.Chips
-import ru.alexsergeev.testwb.atoms.Search
-import ru.alexsergeev.testwb.atoms.TextStyles
-import ru.alexsergeev.testwb.molecules.PeopleAvatar
+import ru.alexsergeev.testwb.ui.molecules.Avatars
+import ru.alexsergeev.testwb.ui.atoms.ButtonsWithStates
+import ru.alexsergeev.testwb.ui.atoms.Chips
+import ru.alexsergeev.testwb.ui.atoms.Search
+import ru.alexsergeev.testwb.ui.atoms.TextStyles
+import ru.alexsergeev.testwb.ui.molecules.PeopleAvatar
 
 @Composable
 fun AtomTestScreen() {

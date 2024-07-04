@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,10 +23,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Body1Text
-import ru.alexsergeev.testwb.atoms.Metadata1Text
-import ru.alexsergeev.testwb.atoms.Subheading1Text
-import ru.alexsergeev.testwb.molecules.PeopleAvatarSmall
+import ru.alexsergeev.testwb.ui.atoms.Body1Text
+import ru.alexsergeev.testwb.ui.atoms.Metadata1Text
+import ru.alexsergeev.testwb.ui.atoms.Subheading1Text
+import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarSmall
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive

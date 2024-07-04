@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.screens
+package ru.alexsergeev.testwb.ui.screens
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -21,10 +21,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.atoms.Search
-import ru.alexsergeev.testwb.atoms.SimpleButton
-import ru.alexsergeev.testwb.atoms.Subheading1Text
-import ru.alexsergeev.testwb.molecules.PeopleAvatarWithEdit
+import ru.alexsergeev.testwb.ui.atoms.Search
+import ru.alexsergeev.testwb.ui.atoms.SimpleButton
+import ru.alexsergeev.testwb.ui.atoms.Subheading1Text
+import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarWithEdit
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 

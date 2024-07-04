@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.atoms
+package ru.alexsergeev.testwb.ui.atoms
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

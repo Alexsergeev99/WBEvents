@@ -32,9 +32,9 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 @Composable
 fun GroupScreen(
     navController: NavController,
-    name: String,
+    name: String?,
     events: List<Event>,
-    goToEventScreen: () -> Unit
+//    goToEventScreen: () -> Unit
 ) {
 
     val scroll = rememberScrollState(0)
@@ -72,7 +72,7 @@ fun GroupScreen(
                     Text(
                         modifier = Modifier
                             .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
-                        text = name,
+                        text = name ?: "Group",
                         color = NeutralActive,
                         style = EventsTheme.typography.subheading1
                     )
@@ -105,7 +105,7 @@ fun GroupScreen(
                 )
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(events.size) { event ->
-                        if (events[event].title == name) {
+//                        if (events[event].title == name) {
                             MeetingCard(
                                 navController = navController,
                                 title = events[event].title,
@@ -116,7 +116,7 @@ fun GroupScreen(
                                 chips = events[event].chips,
 //                                goToEventScreen = goToEventScreen
                             )
-                        }
+//                        }
                     }
                 }
             }

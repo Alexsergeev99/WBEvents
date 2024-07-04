@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -15,8 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.testwb.atoms.Body1Text
 import ru.alexsergeev.testwb.atoms.Metadata1Text
+import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
@@ -24,16 +27,17 @@ import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
 @Composable
 fun GroupCard(
-    name: String,
+    navController: NavController,
+    name: String?,
     people: Long,
     groupLogo: Int,
-    goToGroupScreen: () -> Unit
+//    goToGroupScreen: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { goToGroupScreen() }
+            .clickable { navController.navigate("${Destination.Groups.Group.route}/${name}") }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent)
     ) {
@@ -50,7 +54,7 @@ fun GroupCard(
             ) {
                 Text(
                     modifier = Modifier.padding(2.dp),
-                    text = name,
+                    text = name ?: "Designa",
                     color = NeutralActive,
                     style = EventsTheme.typography.bodyText1
                 )

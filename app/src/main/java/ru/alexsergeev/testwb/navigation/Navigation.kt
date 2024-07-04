@@ -105,10 +105,6 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
     ) {
         composable(route = Destination.Events.Dashboard.route) {
 
-            val name = remember {
-                mutableStateOf("")
-            }
-
             EventsListScreen(
                 navController = navController,
                 events = listOf(
@@ -145,6 +141,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
     ) {
         composable(route = Destination.Groups.Dashboard.route) {
             GroupsListScreen(
+                navController = navController,
                 listOf(
                     Group(
                         name = "Designa",
@@ -167,11 +164,11 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         groupLogo = R.drawable.designa
                     ),
                 ),
-                goToGroupScreen = { navController.navigate(Destination.Groups.Group.route) }
+//                goToGroupScreen = { navController.navigate(Destination.Groups.Group.route) }
             )
         }
-        composable(route = Destination.Groups.Group.route) {
-            GroupScreen(navController = navController, "Developer meeting", listOf(
+        composable(route = "${Destination.Groups.Group.route}/{groupName}") {
+            GroupScreen(navController = navController,  it.arguments?.getString("groupName"), listOf(
                 Event(
                     title = "Developer meeting",
                     date = "13.01.2021",
@@ -205,7 +202,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                     listOf("Java", "Junior", "Astana")
                 ),
             ),
-                goToEventScreen = { navController.navigate(Destination.Events.Event.route) }
+//                goToEventScreen = { navController.navigate(Destination.Events.Event.route) }
             )
         }
     }

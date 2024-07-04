@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.testwb.atoms.Search
 import ru.alexsergeev.testwb.atoms.Subheading1Text
 import ru.alexsergeev.testwb.dto.Group
@@ -23,7 +24,10 @@ import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
 @Composable
-fun GroupsListScreen(groups: List<Group>, goToGroupScreen: () -> Unit) {
+fun GroupsListScreen(navController: NavController,
+                     groups: List<Group>,
+//                     goToGroupScreen: () -> Unit
+) {
 
     Box(
         modifier = Modifier
@@ -55,10 +59,11 @@ fun GroupsListScreen(groups: List<Group>, goToGroupScreen: () -> Unit) {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(groups.size) { group ->
                         GroupCard(
+                            navController = navController,
                             name = groups[group].name,
                             people = groups[group].people,
                             groupLogo = groups[group].groupLogo,
-                            goToGroupScreen = goToGroupScreen
+//                            goToGroupScreen = goToGroupScreen
                         )
                     }
                 }

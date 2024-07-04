@@ -60,10 +60,11 @@ fun CommonTestScreen(navController: NavController, goToEventScreen: () -> Unit) 
             PeopleAvatarWithEdit(R.drawable.avatar_icon)
             PeopleAvatar(R.drawable.avatar_icon)
             GroupCard(
+                navController = navController,
                 "Designa",
                 10_000,
                 R.drawable.designa,
-                goToGroupScreen = {}
+//                goToGroupScreen = {}
             )
         }
     }

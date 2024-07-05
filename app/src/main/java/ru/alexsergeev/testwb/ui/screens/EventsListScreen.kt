@@ -4,17 +4,11 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
@@ -33,12 +27,12 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
 import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Inactive
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
-import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
@@ -67,25 +61,12 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 16.dp, top = 16.dp, bottom = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Встречи",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.subheading1
-                    )
-                    Icon(
-                        modifier = Modifier.size(14.dp),
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "add",
-                        tint = NeutralActive
-                    )
-                }
+                EventsTopBar(
+                    navController = navController,
+                    text = "Встречи",
+                    needToBack = false,
+                    needToAdd = true
+                )
                 Search(
                     hint = "Поиск"
                 )
@@ -146,12 +127,12 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
                                 if (checkNotNull(!events[event].isFinished!!)) {
                                     MeetingCard(
                                         navController = navController, Event(
-                                        title = events[event].title,
-                                        date = events[event].date,
-                                        city = events[event].city,
-                                        isFinished = events[event].isFinished,
-                                        meetingAvatar = events[event].meetingAvatar,
-                                        chips = events[event].chips,
+                                            title = events[event].title,
+                                            date = events[event].date,
+                                            city = events[event].city,
+                                            isFinished = events[event].isFinished,
+                                            meetingAvatar = events[event].meetingAvatar,
+                                            chips = events[event].chips,
                                         )
                                     )
                                 }

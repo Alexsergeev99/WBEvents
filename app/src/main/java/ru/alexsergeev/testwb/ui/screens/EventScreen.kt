@@ -27,12 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.OneChip
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
 import ru.alexsergeev.testwb.ui.atoms.SimpleOutlinedButton
 import ru.alexsergeev.testwb.ui.molecules.OverlappingRow
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
-import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 
 @Composable
@@ -58,41 +58,19 @@ fun EventScreen(navController: NavController, event: Event) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                                .clickable { navController.navigateUp() },
-                            painter = painterResource(id = R.drawable.navigate_back),
-                            contentDescription = "back"
-                        )
-                        Text(
-                            modifier = Modifier
-                                .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
-                            text = event?.title ?: "Meeting",
-                            color = NeutralActive,
-                            style = EventsTheme.typography.subheading1
-                        )
-                    }
-                    if (iAmGuest.value) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                                .clickable { },
-                            painter = painterResource(id = R.drawable.check_mark),
-                            contentDescription = "check_mark"
-                        )
-                    }
+                EventsTopBar(
+                    navController = navController,
+                    text = event.title ?: "Meeting",
+                    needToBack = true
+                )
+                if (iAmGuest.value) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                            .clickable { },
+                        painter = painterResource(id = R.drawable.check_mark),
+                        contentDescription = "check_mark"
+                    )
                 }
                 Text(
                     modifier = Modifier

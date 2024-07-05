@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Person
 import ru.alexsergeev.testwb.navigation.Destination
-import ru.alexsergeev.testwb.ui.atoms.Subheading1Text
+import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarSmall
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
@@ -58,14 +58,7 @@ fun ElseMenuScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Subheading1Text(text = "Еще", color = NeutralActive)
-                }
+                EventsTopBar(navController = navController, text = "Еще", needToBack = false)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

@@ -13,9 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {
-//            CommonTestScreen()
             Navigation()
-//            EditProfileScreen(navController = rememberNavController())
         }
     }
 }

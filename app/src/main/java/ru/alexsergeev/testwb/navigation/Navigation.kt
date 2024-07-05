@@ -75,7 +75,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
                 Event(
@@ -83,7 +83,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2025",
                     city = "Saint-Petersburg",
                     false,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Java", "Junior", "Astana")
                 ),
                 Event(
@@ -91,7 +91,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
                 Event(
@@ -99,7 +99,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2025",
                     city = "Saint-Petersburg",
                     false,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Java", "Junior", "Astana")
                 ),
                 Event(
@@ -107,7 +107,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
                 Event(
@@ -115,7 +115,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2025",
                     city = "Saint-Petersburg",
                     false,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Java", "Junior", "Astana")
                 ),
                 Event(
@@ -123,7 +123,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
             ),
@@ -158,7 +158,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                         date = "13.01.2021",
                         city = "Moscow",
                         true,
-                        R.drawable.meeting_logo,
+                        "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                         listOf("Kotlin", "Senior", "Karaganda")
                     ),
                     Event(
@@ -166,7 +166,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                         date = "13.01.2025",
                         city = "Saint-Petersburg",
                         false,
-                        R.drawable.meeting_logo,
+                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                         listOf("Java", "Junior", "Astana")
                     ),
                 ),
@@ -180,7 +180,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                     it.arguments?.getString("date"),
                     it.arguments?.getString("city"),
                     it.arguments?.getBoolean("finished"),
-                    it.arguments?.getInt("avatar"),
+                    it.arguments?.getString("avatar") ?: "",
                     (listOf(
                         it.arguments?.getString("chip1"),
                         it.arguments?.getString("chip2"),
@@ -203,24 +203,24 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                 navController = navController,
                 listOf(
                     Group(
-                        name = "Designa",
-                        people = 10000,
-                        groupLogo = R.drawable.designa
+                        name = "Tinkoff",
+                        people = 100,
+                        groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
                     ),
                     Group(
                         name = "WB",
                         people = 588,
-                        groupLogo = R.drawable.designa
+                        groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
                     ),
                     Group(
                         name = "Ozon",
                         people = 85,
-                        groupLogo = R.drawable.designa
+                        groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
                     ),
                     Group(
                         name = "Yandex",
                         people = 23,
-                        groupLogo = R.drawable.designa
+                        groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
                     ),
                 ),
 //                goToGroupScreen = { navController.navigate(Destination.Groups.Group.route) }
@@ -231,8 +231,8 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                 navController = navController,
                 Group(
                     it.arguments?.getString("groupName") ?: "Group",
-                    it.arguments?.getLong("groupLogo") ?: R.drawable.avatar_icon.toLong(),
-                    it.arguments?.getInt("people") ?: 0
+                    it.arguments?.getLong("people") ?: 0,
+                    it.arguments?.getString("groupLogo") ?: ""
                 ),
                 listOf(
                     Event(
@@ -240,7 +240,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         date = "13.01.2021",
                         city = "Moscow",
                         true,
-                        R.drawable.meeting_logo,
+                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                         listOf("Kotlin", "Senior", "Karaganda"),
                     ),
                     Event(
@@ -248,7 +248,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         date = "13.01.2025",
                         city = "Saint-Petersburg",
                         false,
-                        R.drawable.meeting_logo,
+                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                         listOf("Java", "Junior", "Astana")
                     ),
                     Event(
@@ -256,7 +256,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         date = "13.01.2021",
                         city = "Moscow",
                         true,
-                        R.drawable.meeting_logo,
+                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                         listOf("Kotlin", "Senior", "Karaganda")
                     ),
                     Event(
@@ -264,7 +264,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         date = "13.01.2025",
                         city = "Saint-Petersburg",
                         false,
-                        R.drawable.meeting_logo,
+                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                         listOf("Java", "Junior", "Astana")
                     ),
                 ),

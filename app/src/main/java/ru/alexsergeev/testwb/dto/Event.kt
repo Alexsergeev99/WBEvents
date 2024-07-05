@@ -5,6 +5,6 @@ data class Event(
     val date: String?,
     val city: String?,
     val isFinished: Boolean? = false,
-    val meetingAvatar: Int?,
+    val meetingAvatar: String,
     val chips: List<String?>
 )

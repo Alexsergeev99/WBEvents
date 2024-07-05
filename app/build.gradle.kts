@@ -70,5 +70,6 @@ dependencies {
     implementation(libs.accompanist.pager.indicators)
     implementation (libs.accompanist.systemuicontroller)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil.compose)
 
 }

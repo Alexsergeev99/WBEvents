@@ -50,7 +50,7 @@ fun MeetingCard(
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                MeetingAvatar(checkNotNull(event.meetingAvatar))
+                MeetingAvatar(event.meetingAvatar)
                 Column(
                     modifier = Modifier
                         .padding(4.dp),

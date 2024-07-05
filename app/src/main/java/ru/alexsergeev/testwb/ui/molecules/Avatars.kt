@@ -25,6 +25,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.ui.theme.LightBorderColor
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
@@ -34,7 +36,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 fun Avatars() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         PeopleAvatarSmall(R.drawable.avatar_icon)
-        MeetingAvatar(R.drawable.meeting_logo)
+        MeetingAvatar("https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg")
     }
 }
 
@@ -78,12 +80,12 @@ fun PeopleAvatarSmall(image: Int, padding: Dp = 4.dp) {
 }
 
 @Composable
-fun MeetingAvatar(image: Int, padding: Dp = 4.dp) {
-    Image(
+fun MeetingAvatar(image: String, padding: Dp = 4.dp) {
+    AsyncImage(
         modifier = Modifier
-            .padding(padding)
+            .padding(top = padding, bottom = padding, end = padding)
             .size(48.dp),
-        painter = painterResource(id = image),
+        model = image,
         contentDescription = "meeting",
     )
 }
@@ -104,14 +106,14 @@ fun ExampleAvatar(image: Int, padding: Dp = 4.dp) {
 }
 
 @Composable
-fun GroupAvatar(image: Int, padding: Dp = 4.dp) {
-    Image(
+fun GroupAvatar(image: String, padding: Dp = 4.dp) {
+    AsyncImage(
         modifier = Modifier
-            .padding(padding)
+            .padding(top = padding, bottom = padding, end = padding)
             .size(48.dp)
             .clip(RoundedCornerShape(15.dp)),
         contentScale = ContentScale.Crop,
-        painter = painterResource(id = image),
+        model = image,
         contentDescription = "groupAvatar",
     )
 }

@@ -45,7 +45,7 @@ fun CommonTestScreen(navController: NavController, goToEventScreen: () -> Unit) 
                     date = "13.01.2021",
                     city = "Moscow",
                     false,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Python", "Junior", "Moscow")
                 ),
 //                goToEventScreen = goToEventScreen
@@ -57,7 +57,7 @@ fun CommonTestScreen(navController: NavController, goToEventScreen: () -> Unit) 
                     date = "13.01.2021",
                     city = "Moscow",
                     false,
-                    R.drawable.meeting_logo,
+                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Python", "Junior", "Moscow")
                 ),
 //                goToEventScreen = goToEventScreen
@@ -69,7 +69,7 @@ fun CommonTestScreen(navController: NavController, goToEventScreen: () -> Unit) 
                 navController = navController,
                 Group("Designa",
                     10_000,
-                    R.drawable.designa),
+                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"),
 //                goToGroupScreen = {}
             )
         }

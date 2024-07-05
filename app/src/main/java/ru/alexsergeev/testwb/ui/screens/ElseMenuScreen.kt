@@ -23,8 +23,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.ui.atoms.Body1Text
-import ru.alexsergeev.testwb.ui.atoms.Metadata1Text
+import ru.alexsergeev.testwb.dto.Person
+import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.atoms.Subheading1Text
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarSmall
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
@@ -35,7 +35,8 @@ import ru.alexsergeev.testwb.ui.theme.NeutralLight
 @Composable
 fun ElseMenuScreen(
     navController: NavController,
-    goToProfileScreen: () -> Unit,
+    person: Person,
+//    goToProfileScreen: () -> Unit,
     goToMyEventsScreen: () -> Unit
 ) {
 
@@ -73,7 +74,11 @@ fun ElseMenuScreen(
                         .clickable(
                             interactionSource = interactionSource,
                             indication = null
-                        ) { goToProfileScreen() },
+                        ) {
+                            navController.navigate(
+                                "${Destination.Else.Profile.route}/${person.name}/${person.phone}"
+                            )
+                        },
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -89,8 +94,16 @@ fun ElseMenuScreen(
                             horizontalAlignment = Alignment.Start,
                             verticalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(text = "Иван Иванов", color = NeutralActive, style = EventsTheme.typography.bodyText1)
-                            Text(text = "+7 999 999-99-99", color = Neutral, style = EventsTheme.typography.metadata1)
+                            Text(
+                                text = person.name,
+                                color = NeutralActive,
+                                style = EventsTheme.typography.bodyText1
+                            )
+                            Text(
+                                text = person.phone,
+                                color = Neutral,
+                                style = EventsTheme.typography.metadata1
+                            )
                         }
                     }
                     Icon(
@@ -120,7 +133,11 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.box),
                             contentDescription = "events"
                         )
-                        Text(text = "Мои встречи", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                        Text(
+                            text = "Мои встречи",
+                            color = NeutralActive,
+                            style = EventsTheme.typography.bodyText1
+                        )
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -145,7 +162,11 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.light),
                             contentDescription = "light"
                         )
-                       Text(text = "Тема", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                        Text(
+                            text = "Тема",
+                            color = NeutralActive,
+                            style = EventsTheme.typography.bodyText1
+                        )
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -170,7 +191,11 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.push),
                             contentDescription = "push"
                         )
-                        Text(text = "Уведомления", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                        Text(
+                            text = "Уведомления",
+                            color = NeutralActive,
+                            style = EventsTheme.typography.bodyText1
+                        )
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -195,7 +220,11 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.attention),
                             contentDescription = "attention"
                         )
-                        Text(text = "Безопасность", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                        Text(
+                            text = "Безопасность",
+                            color = NeutralActive,
+                            style = EventsTheme.typography.bodyText1
+                        )
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -220,7 +249,11 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.resourses),
                             contentDescription = "resources"
                         )
-                        Text(text = "Память и ресурсы", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                        Text(
+                            text = "Память и ресурсы",
+                            color = NeutralActive,
+                            style = EventsTheme.typography.bodyText1
+                        )
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -246,7 +279,11 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.help),
                             contentDescription = "help"
                         )
-                        Text(text = "Помощь", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                        Text(
+                            text = "Помощь",
+                            color = NeutralActive,
+                            style = EventsTheme.typography.bodyText1
+                        )
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),
@@ -271,7 +308,11 @@ fun ElseMenuScreen(
                             painter = painterResource(id = R.drawable.call_friend),
                             contentDescription = "call_friend"
                         )
-                        Text(text = "Пригласи друга", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+                        Text(
+                            text = "Пригласи друга",
+                            color = NeutralActive,
+                            style = EventsTheme.typography.bodyText1
+                        )
                     }
                     Icon(
                         painter = painterResource(id = R.drawable.route_to),

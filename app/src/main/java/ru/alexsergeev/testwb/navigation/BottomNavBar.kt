@@ -118,6 +118,7 @@ sealed class Destination(
         data object Dashboard : Else("dashboard")
         data object Profile : Else("profile")
         data object MyEvents : Else("my_events")
+        data object EditProfile : Else("edit_profile")
 
 
         companion object {

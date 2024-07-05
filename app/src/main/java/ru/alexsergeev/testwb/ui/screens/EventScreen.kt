@@ -98,7 +98,7 @@ fun EventScreen(navController: NavController, event: Event) {
                     modifier = Modifier
                         .padding(top = 12.dp, bottom = 4.dp)
                         .align(Alignment.Start),
-                    text = "13.09.2024 — Москва, ул. Громова, 4",
+                    text = "${event.date} — ${event.city}",
                     color = NeutralWeak,
                     style = EventsTheme.typography.bodyText1
                 )

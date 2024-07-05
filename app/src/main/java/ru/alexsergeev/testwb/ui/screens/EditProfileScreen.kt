@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -20,16 +21,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
-import ru.alexsergeev.testwb.ui.atoms.Subheading1Text
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarWithEdit
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
 @Composable
-fun EditProfileScreen() {
+fun EditProfileScreen(navController: NavController) {
 
     val ctx = LocalContext.current
     val name = remember {
@@ -50,19 +51,22 @@ fun EditProfileScreen() {
                 .width(326.dp)
         ) {
             Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 24.dp),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     modifier = Modifier
-                        .padding(vertical = 6.dp)
-                        .clickable { },
+                        .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                        .clickable { navController.navigateUp() },
                     painter = painterResource(id = R.drawable.navigate_back),
                     contentDescription = "back"
                 )
                 Text(
                     modifier = Modifier
-                        .padding(vertical = 6.dp),
+                        .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
                     text = "Профиль",
                     color = NeutralActive,
                     style = EventsTheme.typography.subheading1

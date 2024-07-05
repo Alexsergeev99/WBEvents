@@ -22,6 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
+import ru.alexsergeev.testwb.dto.Person
+import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.atoms.Heading2Text
 import ru.alexsergeev.testwb.ui.atoms.LogoButton
 import ru.alexsergeev.testwb.ui.atoms.Subheading1Text
@@ -33,7 +35,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(navController: NavController, person: Person) {
 
     Box(
         modifier = Modifier
@@ -74,7 +76,7 @@ fun ProfileScreen(navController: NavController) {
                 Icon(
                     modifier = Modifier
                         .padding(vertical = 6.dp)
-                        .clickable { },
+                        .clickable { navController.navigate(Destination.Else.EditProfile.route)},
                     painter = painterResource(id = R.drawable.edit),
                     contentDescription = "edit"
                 )
@@ -93,8 +95,8 @@ fun ProfileScreen(navController: NavController) {
                         .fillMaxWidth()
                 )
                 PeopleAvatar(image = R.drawable.avatar_icon, padding = 20.dp)
-                Heading2Text(text = "Иван Иванов", color = NeutralActive)
-                Text(text = "+7 999 999 99-99", color = Neutral, style = EventsTheme.typography.subheading2)
+                Heading2Text(text = person.name, color = NeutralActive)
+                Text(text = person.phone, color = Neutral, style = EventsTheme.typography.subheading2)
                 Row(
                     modifier = Modifier
                         .padding(vertical = 8.dp)

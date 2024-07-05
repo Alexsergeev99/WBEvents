@@ -40,7 +40,8 @@ fun MeetingCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { navController.navigate("${Destination.Events.Event.route}/${event.title}/${event.chips[0]}/${event.chips[1]}/${event.chips[2]}") }
+            .clickable { navController.navigate(
+                "${Destination.Events.Event.route}/${event.title}/${event.date}/${event.city}/${event.chips[0]}/${event.chips[1]}/${event.chips[2]}") }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),
     ) {

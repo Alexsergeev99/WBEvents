@@ -14,6 +14,8 @@ import androidx.navigation.navigation
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.dto.Group
+import ru.alexsergeev.testwb.dto.Person
+import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
 import ru.alexsergeev.testwb.ui.screens.ElseMenuScreen
 import ru.alexsergeev.testwb.ui.screens.EventScreen
 import ru.alexsergeev.testwb.ui.screens.EventsListScreen
@@ -58,9 +60,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
     ) {
         composable(route = Destination.Else.Dashboard.route) {
             ElseMenuScreen(navController = navController,
-                goToProfileScreen = {
-                    navController.navigate(Destination.Else.Profile.route)
-                },
+                Person("Саша Сергеев", "+7 999 999-99-99"),
                 goToMyEventsScreen = {
                     navController.navigate(Destination.Else.MyEvents.route)
                 })
@@ -129,8 +129,16 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
             ),
         )
     }
-    composable(route = Destination.Else.Profile.route) {
-        ProfileScreen(navController = navController)
+    composable(route = "${Destination.Else.Profile.route}/{name}/{phone}") {
+        ProfileScreen(
+            navController = navController, Person(
+                it.arguments?.getString("name") ?: "Имя Фамилия",
+                it.arguments?.getString("phone") ?: "+7 999 999-99-99"
+            )
+        )
+    }
+    composable(route = Destination.Else.EditProfile.route) {
+        EditProfileScreen(navController = navController)
     }
 }
 
@@ -165,7 +173,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
 //                goToEventScreen = { navController.navigate("${Destination.Events.Event.route}/${mlist.}") }
             )
         }
-        composable(route = "${Destination.Events.Event.route}/{name}/{chip1}/{chip2}/{chip3}") {
+        composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}") {
             EventScreen(
                 navController = navController, Event(
                     it.arguments?.getString("name"),

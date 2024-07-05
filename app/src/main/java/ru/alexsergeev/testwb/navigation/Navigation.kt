@@ -208,18 +208,18 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         groupLogo = R.drawable.designa
                     ),
                     Group(
-                        name = "Designa",
-                        people = 10000,
+                        name = "WB",
+                        people = 588,
                         groupLogo = R.drawable.designa
                     ),
                     Group(
-                        name = "Designa",
-                        people = 10000,
+                        name = "Ozon",
+                        people = 85,
                         groupLogo = R.drawable.designa
                     ),
                     Group(
-                        name = "Designa",
-                        people = 10000,
+                        name = "Yandex",
+                        people = 23,
                         groupLogo = R.drawable.designa
                     ),
                 ),
@@ -228,7 +228,12 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
         }
         composable(route = "${Destination.Groups.Group.route}/{groupName}") {
             GroupScreen(
-                navController = navController, it.arguments?.getString("groupName"),
+                navController = navController,
+                Group(
+                    it.arguments?.getString("groupName") ?: "Group",
+                    it.arguments?.getLong("groupLogo") ?: R.drawable.avatar_icon.toLong(),
+                    it.arguments?.getInt("people") ?: 0
+                ),
                 listOf(
                     Event(
                         title = "Developer meeting",

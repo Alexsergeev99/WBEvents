@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
@@ -26,7 +27,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 @Composable
 fun GroupScreen(
     navController: NavController,
-    name: String?,
+    group: Group,
     events: List<Event>,
 //    goToEventScreen: () -> Unit
 ) {
@@ -51,7 +52,7 @@ fun GroupScreen(
             ) {
                 EventsTopBar(
                     navController = navController,
-                    text = name ?: "Group",
+                    text = group.name ?: "Group",
                     needToBack = true
                 )
                 LazyColumn {

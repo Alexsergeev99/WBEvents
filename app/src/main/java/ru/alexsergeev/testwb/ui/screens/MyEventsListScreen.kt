@@ -23,6 +23,7 @@ import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.navigation.EventsTopBar
+import ru.alexsergeev.testwb.ui.molecules.FinishedMeetingCard
 import ru.alexsergeev.testwb.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Inactive
@@ -116,7 +117,7 @@ fun MyEventsListScreen(
                         1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(events.size) { event ->
                                 if (checkNotNull(events[event].isFinished)) {
-                                    MeetingCard(
+                                    FinishedMeetingCard(
                                         navController = navController, Event(
                                             title = events[event].title,
                                             date = events[event].date,

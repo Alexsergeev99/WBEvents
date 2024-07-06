@@ -26,7 +26,7 @@ import ru.alexsergeev.testwb.ui.screens.ProfileScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Navigation() {
+fun Navigation(navController: NavController) {
 
     val navController = rememberNavController()
     val selectedPage = remember { mutableIntStateOf(0) }

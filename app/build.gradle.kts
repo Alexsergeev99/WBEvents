@@ -71,5 +71,6 @@ dependencies {
     implementation (libs.accompanist.systemuicontroller)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil.compose)
+    implementation(libs.lottie.compose)
 
 }

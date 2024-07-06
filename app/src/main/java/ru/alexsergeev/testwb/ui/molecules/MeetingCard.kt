@@ -1,6 +1,7 @@
 package ru.alexsergeev.testwb.ui.molecules
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,7 +43,11 @@ fun MeetingCard(
             .padding(vertical = 8.dp)
             .clickable {
                 navController.navigate(
-                    "${Destination.Events.Event.route}/${event.title}/${event.date}/${event.city}/${event.chips[0]}/${event.chips[1]}/${event.chips[2]}"
+                    "${Destination.Events.Event.route}" +
+                            "/${event.title}/${event.date}" +
+                            "/${event.city}/${event.chips[0]}" +
+                            "/${event.chips[1]}/${event.chips[2]}" +
+                            "/${Uri.encode(event.imageUrl)}"
                 )
             }
             .bottomBorder(1.dp, NeutralLight),

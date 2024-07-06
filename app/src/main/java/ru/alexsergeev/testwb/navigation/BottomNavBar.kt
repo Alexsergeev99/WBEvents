@@ -22,10 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.ui.atoms.Body1Text
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
-import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
 @Composable
 fun BottomBar(
@@ -91,6 +89,8 @@ sealed class Destination(
     ) {
         data object Dashboard : Events("dashboard")
         data object Event : Events("event")
+        data object MapImage : Events("imageUrl")
+
 
         companion object {
             const val route = "events"

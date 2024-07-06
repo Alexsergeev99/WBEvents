@@ -11,7 +11,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.dto.Person
@@ -21,6 +20,7 @@ import ru.alexsergeev.testwb.ui.screens.EventScreen
 import ru.alexsergeev.testwb.ui.screens.EventsListScreen
 import ru.alexsergeev.testwb.ui.screens.GroupScreen
 import ru.alexsergeev.testwb.ui.screens.GroupsListScreen
+import ru.alexsergeev.testwb.ui.screens.MapImageScreen
 import ru.alexsergeev.testwb.ui.screens.MyEventsListScreen
 import ru.alexsergeev.testwb.ui.screens.ProfileScreen
 
@@ -75,7 +75,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
+                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
                 Event(
@@ -91,7 +91,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
+                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
                 Event(
@@ -107,7 +107,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
+                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
                 Event(
@@ -123,7 +123,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     date = "13.01.2021",
                     city = "Moscow",
                     true,
-                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
+                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
             ),
@@ -173,21 +173,28 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
 //                goToEventScreen = { navController.navigate("${Destination.Events.Event.route}/${mlist.}") }
             )
         }
-        composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}") {
+        composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}/{image_url}") {
             EventScreen(
-                navController = navController, Event(
-                    it.arguments?.getString("name"),
-                    it.arguments?.getString("date"),
-                    it.arguments?.getString("city"),
-                    it.arguments?.getBoolean("finished"),
-                    it.arguments?.getString("avatar") ?: "",
-                    (listOf(
+                navController = navController,
+                Event(
+                    title = it.arguments?.getString("name"),
+                    date = it.arguments?.getString("date"),
+                    city = it.arguments?.getString("city"),
+                    isFinished = it.arguments?.getBoolean("finished"),
+                    imageUrl = it.arguments?.getString("image_url") ?: "",
+                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
+                    chips = listOf(
                         it.arguments?.getString("chip1"),
                         it.arguments?.getString("chip2"),
                         it.arguments?.getString("chip3")
-                    )
-                            )
-                )
+                    ),
+                ),
+            )
+        }
+        composable(route = "${Destination.Events.MapImage.route}/{imageUrl}") {
+            MapImageScreen(
+                navController = navController,
+                it.arguments?.getString("imageUrl") ?: ""
             )
         }
     }
@@ -240,7 +247,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         date = "13.01.2021",
                         city = "Moscow",
                         true,
-                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
+                        "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                         listOf("Kotlin", "Senior", "Karaganda"),
                     ),
                     Event(
@@ -256,7 +263,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         date = "13.01.2021",
                         city = "Moscow",
                         true,
-                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
+                        "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                         listOf("Kotlin", "Senior", "Karaganda")
                     ),
                     Event(

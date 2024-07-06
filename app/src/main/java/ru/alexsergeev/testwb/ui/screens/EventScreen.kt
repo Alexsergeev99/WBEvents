@@ -1,6 +1,6 @@
 package ru.alexsergeev.testwb.ui.screens
 
-import androidx.compose.foundation.Image
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,11 +24,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.OneChip
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
@@ -91,13 +94,20 @@ fun EventScreen(navController: NavController, event: Event) {
                         OneChip(checkNotNull(event.chips[i]))
                     }
                 }
-                Image(
+                AsyncImage(
+                    model = event.imageUrl,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
                         .height(176.dp)
-                        .clip(RoundedCornerShape(40)),
-                    painter = painterResource(id = R.drawable.map_image),
+                        .clip(RoundedCornerShape(20))
+                        .clickable {
+                            navController.navigate(
+                                "${Destination.Events.MapImage.route}" +
+                                        "/${Uri.encode(event.imageUrl)}"
+                            )
+                        },
+                    contentScale = ContentScale.FillWidth,
                     contentDescription = "map"
                 )
                 LazyColumn {

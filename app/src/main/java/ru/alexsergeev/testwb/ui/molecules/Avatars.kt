@@ -83,8 +83,10 @@ fun PeopleAvatarSmall(image: Int, padding: Dp = 4.dp) {
 fun MeetingAvatar(image: String, padding: Dp = 4.dp) {
     AsyncImage(
         modifier = Modifier
-            .padding(top = padding, bottom = padding, end = padding)
-            .size(48.dp),
+            .padding(bottom = padding, end = padding)
+            .size(48.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.Crop,
         model = image,
         contentDescription = "meeting",
     )

@@ -61,7 +61,7 @@ fun ProfileScreen(navController: NavController, person: Person) {
                         .height(48.dp)
                         .fillMaxWidth()
                 )
-                PeopleAvatar(image = R.drawable.avatar_icon, padding = 20.dp)
+                PeopleAvatar(image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg", padding = 20.dp)
                 Heading2Text(text = person.name, color = NeutralActive)
                 Text(
                     text = person.phone,

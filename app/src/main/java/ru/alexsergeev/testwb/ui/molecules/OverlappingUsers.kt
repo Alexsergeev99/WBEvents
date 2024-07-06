@@ -52,7 +52,7 @@ fun OverlappingUsers(
 }
 
 @Composable
-fun OverlappingRow(image: Int) {
+fun OverlappingRow(image: String) {
 
     val counter = remember {
         mutableStateOf(0)

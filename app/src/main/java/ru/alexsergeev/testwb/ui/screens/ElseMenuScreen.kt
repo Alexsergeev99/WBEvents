@@ -79,7 +79,7 @@ fun ElseMenuScreen(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        PeopleAvatarSmall(image = R.drawable.avatar_icon)
+                        PeopleAvatarSmall(image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
                         Column(
                             modifier = Modifier
                                 .fillMaxHeight()

@@ -51,7 +51,7 @@ fun EditProfileScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                PeopleAvatarWithEdit(image = R.drawable.avatar_icon, padding = 20.dp)
+                PeopleAvatarWithEdit("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg", padding = 20.dp)
                 Search(
                     hint = "Имя (обязательно)",
                     isSearch = false,

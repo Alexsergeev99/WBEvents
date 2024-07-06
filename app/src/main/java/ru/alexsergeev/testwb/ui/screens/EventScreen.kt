@@ -133,7 +133,7 @@ fun EventScreen(navController: NavController, event: Event) {
                         .padding(vertical = 4.dp)
                         .align(Alignment.Start)
                 ) {
-                    OverlappingRow(image = R.drawable.examplephoto)
+                    OverlappingRow("https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/")
                 }
                 if (!iAmGuest.value) {
                     SimpleButton(

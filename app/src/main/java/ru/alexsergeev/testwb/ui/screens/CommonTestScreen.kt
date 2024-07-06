@@ -22,7 +22,7 @@ import ru.alexsergeev.testwb.ui.molecules.PeopleAvatar
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarWithEdit
 
 @Composable
-fun CommonTestScreen(navController: NavController, goToEventScreen: () -> Unit) {
+fun CommonTestScreen(navController: NavController) {
     LazyColumn(
         modifier = Modifier
             .padding(start = 8.dp, end = 8.dp),
@@ -62,9 +62,9 @@ fun CommonTestScreen(navController: NavController, goToEventScreen: () -> Unit) 
                 ),
 //                goToEventScreen = goToEventScreen
             )
-            OverlappingRow(R.drawable.examplephoto)
-            PeopleAvatarWithEdit(R.drawable.avatar_icon)
-            PeopleAvatar(R.drawable.avatar_icon)
+            OverlappingRow("https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/")
+            PeopleAvatarWithEdit("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
+            PeopleAvatar("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             GroupCard(
                 navController = navController,
                 Group("Designa",

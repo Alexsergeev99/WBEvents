@@ -26,7 +26,8 @@ fun EventsTopBar(
     text: String,
     needToBack: Boolean,
     needToEdit: Boolean = false,
-    needToAdd: Boolean = false
+    needToAdd: Boolean = false,
+    iAmGuest: Boolean = false
 ) {
     Row(
         modifier = Modifier
@@ -74,6 +75,15 @@ fun EventsTopBar(
                 imageVector = Icons.Default.Add,
                 contentDescription = "add",
                 tint = NeutralActive
+            )
+        }
+        if (iAmGuest) {
+            Icon(
+                modifier = Modifier
+                    .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                    .clickable { },
+                painter = painterResource(id = R.drawable.check_mark),
+                contentDescription = "check_mark"
             )
         }
     }

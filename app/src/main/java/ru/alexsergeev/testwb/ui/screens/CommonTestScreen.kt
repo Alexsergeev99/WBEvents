@@ -7,7 +7,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.dto.Group
 import ru.alexsergeev.testwb.ui.atoms.ButtonsWithStates
@@ -62,14 +61,19 @@ fun CommonTestScreen(navController: NavController) {
                 ),
 //                goToEventScreen = goToEventScreen
             )
-            OverlappingRow("https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/")
+            OverlappingRow(
+                "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
+                11
+            )
             PeopleAvatarWithEdit("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             PeopleAvatar("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             GroupCard(
                 navController = navController,
-                Group("Designa",
+                Group(
+                    "Designa",
                     10_000,
-                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"),
+                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
+                ),
 //                goToGroupScreen = {}
             )
         }

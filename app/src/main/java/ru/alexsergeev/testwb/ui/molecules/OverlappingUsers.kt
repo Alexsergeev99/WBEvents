@@ -7,17 +7,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import ru.alexsergeev.testwb.ui.atoms.Body1Text
-import ru.alexsergeev.testwb.ui.atoms.ButtonTypes
-import ru.alexsergeev.testwb.ui.atoms.SimpleTextButton
-import ru.alexsergeev.testwb.ui.atoms.Type
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
@@ -52,36 +47,43 @@ fun OverlappingUsers(
 }
 
 @Composable
-fun OverlappingRow(image: String) {
+fun OverlappingRow(image: String, participants: Int) {
 
     val counter = remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
+    counter.intValue = participants
+
     val listToCycle = remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
 
-    if (counter.value in 0..5) listToCycle.value = counter.value else listToCycle.value = 5
+    if (counter.intValue in 0..5) listToCycle.intValue =
+        counter.intValue else listToCycle.intValue = 5
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        SimpleTextButton(text = "Test",
-            onClick = {
-                counter.value++
-            }
-        )
+//        SimpleTextButton(text = "Test",
+//            onClick = {
+//                counter.intValue++
+//            }
+//        )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(16.dp))
             Box {
-                if (listToCycle.value in 1..5) {
+                if (listToCycle.intValue in 1..5) {
                     OverlappingUsers(overlappingPercentage = 0.33f) {
-                        for (i in 0..listToCycle.value - 1) {
+                        for (i in 0..listToCycle.intValue - 1) {
                             ExampleAvatar(image = image)
                         }
                     }
                 }
             }
-            if (counter.value > 5) {
-                Text(text = "+${counter.value - 5}", color = NeutralActive, style = EventsTheme.typography.bodyText1)
+            if (counter.intValue > 5) {
+                Text(
+                    text = "+${counter.intValue - 5}",
+                    color = NeutralActive,
+                    style = EventsTheme.typography.bodyText1
+                )
             }
         }
     }

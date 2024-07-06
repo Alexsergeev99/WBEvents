@@ -17,7 +17,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,11 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.Event
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
@@ -45,6 +42,9 @@ fun EventScreen(navController: NavController, event: Event) {
     val scroll = rememberScrollState(0)
     val iAmGuest = remember {
         mutableStateOf(false)
+    }
+    val participants = remember {
+        mutableStateOf(11)
     }
 
     Box(
@@ -66,17 +66,9 @@ fun EventScreen(navController: NavController, event: Event) {
                 EventsTopBar(
                     navController = navController,
                     text = event.title ?: "Meeting",
-                    needToBack = true
+                    needToBack = true,
+                    iAmGuest = if (iAmGuest.value) true else false
                 )
-                if (iAmGuest.value) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                            .clickable { },
-                        painter = painterResource(id = R.drawable.check_mark),
-                        contentDescription = "check_mark"
-                    )
-                }
                 Text(
                     modifier = Modifier
                         .padding(top = 12.dp, bottom = 4.dp)
@@ -133,7 +125,10 @@ fun EventScreen(navController: NavController, event: Event) {
                         .padding(vertical = 4.dp)
                         .align(Alignment.Start)
                 ) {
-                    OverlappingRow("https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/")
+                    OverlappingRow(
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
+                        participants.value
+                    )
                 }
                 if (!iAmGuest.value) {
                     SimpleButton(
@@ -141,6 +136,7 @@ fun EventScreen(navController: NavController, event: Event) {
                         width = 326.dp,
                         onClick = {
                             iAmGuest.value = true
+                            participants.value++
                         }
                     )
                 } else {
@@ -149,6 +145,7 @@ fun EventScreen(navController: NavController, event: Event) {
                         width = 326.dp,
                         onClick = {
                             iAmGuest.value = false
+                            participants.value--
                         }
                     )
                 }

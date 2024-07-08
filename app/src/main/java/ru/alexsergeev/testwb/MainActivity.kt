@@ -3,6 +3,7 @@ package ru.alexsergeev.testwb
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.compose.rememberNavController
 import ru.alexsergeev.testwb.ui.molecules.OverlappingRow
 import ru.alexsergeev.testwb.ui.screens.CodeScreen
 import ru.alexsergeev.testwb.ui.screens.EventScreen
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            StartNavigation()
-            CodeScreen()
+            CodeScreen(rememberNavController())
         }
     }
 }

@@ -44,14 +44,20 @@ enum class Type {
 
 @Composable
 fun ButtonTypes(
-    text: String = "Button",
-    padding: Dp = 4.dp,
-    width: Dp = 64.dp,
-    onClick: () -> Unit = {},
-    type: Type,
-    enabled: Boolean = true,
-    hovered: Boolean = false,
-    focused: Boolean = false,
+text: String = "Button",
+padding: Dp = 4.dp,
+width: Dp = 64.dp,
+onClick: () -> Unit = {},
+type: Type,
+enabled: Boolean = true,
+hovered: Boolean = false,
+focused: Boolean = false,
+modifier: Modifier = Modifier
+    .width(width)
+    .padding(vertical = padding)
+    .graphicsLayer {
+        alpha = if (!enabled) 0.5f else 1f
+    },
 ) {
     val interactionSource = remember {
         MutableInteractionSource()
@@ -104,7 +110,7 @@ fun ButtonTypes(
                         contentColor = Color.White,
                         containerColor = backgroundColor
                     ),
-                    modifier = buttonModifier,
+                    modifier = modifier,
                 ) {
                     Text(
                         text = text,
@@ -121,7 +127,7 @@ fun ButtonTypes(
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = Color.White
                     ),
-                    modifier = buttonModifier,
+                    modifier = modifier,
                 ) {
                     Text(
                         text = text,
@@ -138,7 +144,7 @@ fun ButtonTypes(
                     colors = ButtonDefaults.outlinedButtonColors(
                         containerColor = if (isPressed.value || focused) LightButtonColor else Color.Transparent
                     ),
-                    modifier = buttonModifier,
+                    modifier = modifier,
                 ) {
                     Text(
                         text = text,

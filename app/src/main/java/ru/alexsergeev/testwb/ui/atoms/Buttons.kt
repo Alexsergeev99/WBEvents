@@ -1,35 +1,30 @@
 package ru.alexsergeev.testwb.ui.atoms
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ru.alexsergeev.testwb.ui.theme.DarkButtonColor
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
-import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @Composable
-fun SimpleButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun SimpleButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {}
+) {
     ButtonTypes(
+        modifier = modifier,
         text = text,
         padding = padding,
         width = width,

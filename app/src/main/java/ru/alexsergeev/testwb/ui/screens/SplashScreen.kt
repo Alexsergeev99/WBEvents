@@ -46,7 +46,7 @@ fun SplashScreen(navController: NavController) {
             animationSpec = tween(2500)
         )
         delay(5000)
-        navController.navigate("navigation")
+        navController.navigate("input_number")
     }
 
     Column(
@@ -94,6 +94,16 @@ fun StartNavigation() {
         }
         composable("navigation") {
             Navigation(navController = navController)
+        }
+        composable("input_number") {
+            InputPhoneNumberScreen(navController = navController)
+        }
+        composable("input_code/{phone_number}/{country_code}") {
+            CodeScreen(
+                navController = navController,
+                it.arguments?.getString("phone_number") ?: "",
+                it.arguments?.getString("country_code") ?: ""
+            )
         }
     }
 }

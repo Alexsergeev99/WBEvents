@@ -33,7 +33,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
@@ -52,8 +51,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.CountryCode
+import ru.alexsergeev.testwb.dto.Person
 import ru.alexsergeev.testwb.navigation.EventsTopBar
-import ru.alexsergeev.testwb.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
@@ -66,9 +65,15 @@ fun InputPhoneNumberScreen(navController: NavController) {
     val phoneNumber = rememberSaveable {
         mutableStateOf("+ 7 999 999-99-99")
     }
+
     val codeValue = rememberSaveable {
         mutableStateOf("")
     }
+
+    val countryCode = rememberSaveable {
+        mutableStateOf("+ 7 999 999-99-99")
+    }
+
     val focusManager = LocalFocusManager.current
 
     Box(
@@ -118,8 +123,13 @@ fun InputPhoneNumberScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            InputCodeCountryField()
-            InputNumberTextField(hint = "999 999-99-99", height = 40.dp)
+            InputCodeCountryField(onTextChange = {
+                countryCode.value = it
+            })
+            InputNumberTextField(hint = "999 999-99-99", height = 40.dp, onTextChange = {
+                phoneNumber.value = it
+            }
+            )
         }
         Spacer(
             modifier = Modifier
@@ -130,14 +140,17 @@ fun InputPhoneNumberScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             text = "Продолжить",
             width = 326.dp,
-            onClick = { focusManager.clearFocus() }
+            onClick = {
+                focusManager.clearFocus()
+                navController.navigate("input_code/${phoneNumber.value}/${countryCode.value}")
+            }
         )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputCodeCountryField() {
+fun InputCodeCountryField(onTextChange: (String) -> Unit = {}) {
 
     var expanded by remember { mutableStateOf(false) }
 
@@ -197,6 +210,7 @@ fun InputCodeCountryField() {
                             expanded = false
                             selectedText.value = item.code
                             selectedFlag.value = item.flag
+                            onTextChange(item.code)
                         }
                     ) {
                         Image(
@@ -227,12 +241,10 @@ fun InputNumberTextField(
     backgroundColor: Color = NeutralBackground,
     onSearchClicked: () -> Unit = {},
     onTextChange: (String) -> Unit = {},
-) {
-
-    val number = remember {
+    number: MutableState<String> = remember {
         mutableStateOf("")
     }
-
+) {
     Row(
         modifier = Modifier
             .padding(vertical = padding)

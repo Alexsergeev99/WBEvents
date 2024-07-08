@@ -41,11 +41,11 @@ import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
 
 @Composable
-fun CodeScreen(navController: NavController) {
+fun CodeScreen(navController: NavController, phoneNumber: String, countryCode: String) {
 
-    val phoneNumber = rememberSaveable {
-        mutableStateOf("+ 7 999 999-99-99")
-    }
+//    val phoneNumber = rememberSaveable {
+//        mutableStateOf("+ 7 999 999-99-99")
+//    }
     val codeValue = rememberSaveable {
         mutableStateOf("")
     }
@@ -87,7 +87,7 @@ fun CodeScreen(navController: NavController) {
         Text(
             modifier = Modifier
                 .padding(bottom = 4.dp),
-            text = phoneNumber.value,
+            text = "${countryCode}${phoneNumber}",
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )

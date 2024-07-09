@@ -107,7 +107,8 @@ fun CodeScreen(navController: NavController, phoneNumber: String, countryCode: S
         SimpleTextButton(
             text = "Запросить код повторно",
             width = 244.dp,
-            onClick = { focusManager.clearFocus() }
+            onClick = { focusManager.clearFocus()
+                navController.navigate("navigation")}
         )
     }
 }

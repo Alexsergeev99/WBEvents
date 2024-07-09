@@ -71,7 +71,7 @@ fun InputPhoneNumberScreen(navController: NavController) {
     }
 
     val countryCode = rememberSaveable {
-        mutableStateOf("+ 7 999 999-99-99")
+        mutableStateOf("+7")
     }
 
     val focusManager = LocalFocusManager.current

@@ -95,8 +95,8 @@ fun EventScreen(navController: NavController, event: Event) {
                         .clip(RoundedCornerShape(20))
                         .clickable {
                             navController.navigate(
-                                "${Destination.Events.MapImage.route}" +
-                                        "/${Uri.encode(event.imageUrl)}"
+                                Destination.Events.MapImage.route +
+                                        "/${Uri.encode(event.imageUrl)}/${Uri.encode(event.title)}"
                             )
                         },
                     contentScale = ContentScale.FillWidth,

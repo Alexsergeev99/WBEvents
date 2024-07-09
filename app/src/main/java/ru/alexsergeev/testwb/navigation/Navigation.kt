@@ -170,7 +170,6 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                         listOf("Java", "Junior", "Astana")
                     ),
                 ),
-//                goToEventScreen = { navController.navigate("${Destination.Events.Event.route}/${mlist.}") }
             )
         }
         composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}/{image_url}") {
@@ -191,10 +190,23 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                 ),
             )
         }
-        composable(route = "${Destination.Events.MapImage.route}/{imageUrl}") {
+        composable(route = "${Destination.Events.MapImage.route}/{image_url}/{name}") {
             MapImageScreen(
                 navController = navController,
-                it.arguments?.getString("imageUrl") ?: ""
+                Event(
+                    title = it.arguments?.getString("name"),
+                    date = it.arguments?.getString("date"),
+                    city = it.arguments?.getString("city"),
+                    isFinished = it.arguments?.getBoolean("finished"),
+                    imageUrl = it.arguments?.getString("image_url") ?: "",
+                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
+                    chips = listOf(
+                        it.arguments?.getString("chip1"),
+                        it.arguments?.getString("chip2"),
+                        it.arguments?.getString("chip3")
+                    ),
+                ),
+//                it.arguments?.getString("imageUrl") ?: ""
             )
         }
     }
@@ -230,7 +242,6 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
                     ),
                 ),
-//                goToGroupScreen = { navController.navigate(Destination.Groups.Group.route) }
             )
         }
         composable(route = "${Destination.Groups.Group.route}/{groupName}") {
@@ -275,7 +286,6 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         listOf("Java", "Junior", "Astana")
                     ),
                 ),
-//                goToEventScreen = { navController.navigate(Destination.Events.Event.route) }
             )
         }
     }

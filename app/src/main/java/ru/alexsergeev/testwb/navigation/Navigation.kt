@@ -11,9 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import ru.alexsergeev.testwb.dto.Event
-import ru.alexsergeev.testwb.dto.Group
-import ru.alexsergeev.testwb.dto.Person
+import ru.alexsergeev.testwb.dto.EventModel
+import ru.alexsergeev.testwb.dto.GroupModel
+import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
 import ru.alexsergeev.testwb.ui.screens.ElseMenuScreen
 import ru.alexsergeev.testwb.ui.screens.EventScreen
@@ -59,18 +59,17 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
         startDestination = Destination.Else.Dashboard.route
     ) {
         composable(route = Destination.Else.Dashboard.route) {
-            ElseMenuScreen(navController = navController,
-                Person("Саша Сергеев", "+7 999 999-99-99"),
-                goToMyEventsScreen = {
-                    navController.navigate(Destination.Else.MyEvents.route)
-                })
+            ElseMenuScreen(
+                navController = navController,
+                PersonModel("Саша Сергеев", "+7 999 999-99-99")
+            )
         }
     }
     composable(route = Destination.Else.MyEvents.route) {
         MyEventsListScreen(
             navController = navController,
             events = listOf(
-                Event(
+                EventModel(
                     title = "Developer meeting",
                     date = "13.01.2021",
                     city = "Moscow",
@@ -78,7 +77,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
-                Event(
+                EventModel(
                     title = "CoffeeCode",
                     date = "13.01.2025",
                     city = "Saint-Petersburg",
@@ -86,7 +85,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Java", "Junior", "Astana")
                 ),
-                Event(
+                EventModel(
                     title = "Developer meeting",
                     date = "13.01.2021",
                     city = "Moscow",
@@ -94,7 +93,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
-                Event(
+                EventModel(
                     title = "CoffeeCode",
                     date = "13.01.2025",
                     city = "Saint-Petersburg",
@@ -102,7 +101,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Java", "Junior", "Astana")
                 ),
-                Event(
+                EventModel(
                     title = "Developer meeting",
                     date = "13.01.2021",
                     city = "Moscow",
@@ -110,7 +109,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                     listOf("Kotlin", "Senior", "Karaganda")
                 ),
-                Event(
+                EventModel(
                     title = "CoffeeCode",
                     date = "13.01.2025",
                     city = "Saint-Petersburg",
@@ -118,7 +117,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
                     "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Java", "Junior", "Astana")
                 ),
-                Event(
+                EventModel(
                     title = "Developer meeting",
                     date = "13.01.2021",
                     city = "Moscow",
@@ -131,7 +130,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
     }
     composable(route = "${Destination.Else.Profile.route}/{name}/{phone}") {
         ProfileScreen(
-            navController = navController, Person(
+            navController = navController, PersonModel(
                 it.arguments?.getString("name") ?: "Имя Фамилия",
                 it.arguments?.getString("phone") ?: "+7 999 999-99-99"
             )
@@ -153,7 +152,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
             EventsListScreen(
                 navController = navController,
                 events = listOf(
-                    Event(
+                    EventModel(
                         title = "Developer meeting",
                         date = "13.01.2021",
                         city = "Moscow",
@@ -161,7 +160,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
                         "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                         listOf("Kotlin", "Senior", "Karaganda")
                     ),
-                    Event(
+                    EventModel(
                         title = "CoffeeCode",
                         date = "13.01.2025",
                         city = "Saint-Petersburg",
@@ -175,17 +174,17 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
         composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}/{image_url}") {
             EventScreen(
                 navController = navController,
-                Event(
+                EventModel(
                     title = it.arguments?.getString("name"),
                     date = it.arguments?.getString("date"),
                     city = it.arguments?.getString("city"),
-                    isFinished = it.arguments?.getBoolean("finished"),
+                    isFinished = it.arguments?.getBoolean("finished") ?: false,
                     imageUrl = it.arguments?.getString("image_url") ?: "",
                     meetingAvatar = it.arguments?.getString("avatar") ?: "",
                     chips = listOf(
-                        it.arguments?.getString("chip1"),
-                        it.arguments?.getString("chip2"),
-                        it.arguments?.getString("chip3")
+                        it.arguments?.getString("chip1") ?: "",
+                        it.arguments?.getString("chip2") ?: "",
+                        it.arguments?.getString("chip3") ?: ""
                     ),
                 ),
             )
@@ -193,20 +192,19 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
         composable(route = "${Destination.Events.MapImage.route}/{image_url}/{name}") {
             MapImageScreen(
                 navController = navController,
-                Event(
+                EventModel(
                     title = it.arguments?.getString("name"),
                     date = it.arguments?.getString("date"),
                     city = it.arguments?.getString("city"),
-                    isFinished = it.arguments?.getBoolean("finished"),
+                    isFinished = it.arguments?.getBoolean("finished") ?: false,
                     imageUrl = it.arguments?.getString("image_url") ?: "",
                     meetingAvatar = it.arguments?.getString("avatar") ?: "",
                     chips = listOf(
-                        it.arguments?.getString("chip1"),
-                        it.arguments?.getString("chip2"),
-                        it.arguments?.getString("chip3")
+                        it.arguments?.getString("chip1") ?: "",
+                        it.arguments?.getString("chip2") ?: "",
+                        it.arguments?.getString("chip3") ?: ""
                     ),
                 ),
-//                it.arguments?.getString("imageUrl") ?: ""
             )
         }
     }
@@ -221,22 +219,82 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
             GroupsListScreen(
                 navController = navController,
                 listOf(
-                    Group(
+                    GroupModel(
                         name = "Tinkoff",
                         people = 100,
                         groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
                     ),
-                    Group(
+                    GroupModel(
                         name = "WB",
                         people = 588,
                         groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
                     ),
-                    Group(
+                    GroupModel(
                         name = "Ozon",
                         people = 85,
                         groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
                     ),
-                    Group(
+                    GroupModel(
+                        name = "Yandex",
+                        people = 23,
+                        groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
+                    ),
+                    GroupModel(
+                        name = "Tinkoff",
+                        people = 100,
+                        groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
+                    ),
+                    GroupModel(
+                        name = "WB",
+                        people = 588,
+                        groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
+                    ),
+                    GroupModel(
+                        name = "Ozon",
+                        people = 85,
+                        groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
+                    ),
+                    GroupModel(
+                        name = "Yandex",
+                        people = 23,
+                        groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
+                    ),
+                    GroupModel(
+                        name = "Tinkoff",
+                        people = 100,
+                        groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
+                    ),
+                    GroupModel(
+                        name = "WB",
+                        people = 588,
+                        groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
+                    ),
+                    GroupModel(
+                        name = "Ozon",
+                        people = 85,
+                        groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
+                    ),
+                    GroupModel(
+                        name = "Yandex",
+                        people = 23,
+                        groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
+                    ),
+                    GroupModel(
+                        name = "Tinkoff",
+                        people = 100,
+                        groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
+                    ),
+                    GroupModel(
+                        name = "WB",
+                        people = 588,
+                        groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
+                    ),
+                    GroupModel(
+                        name = "Ozon",
+                        people = 85,
+                        groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
+                    ),
+                    GroupModel(
                         name = "Yandex",
                         people = 23,
                         groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
@@ -247,13 +305,13 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
         composable(route = "${Destination.Groups.Group.route}/{groupName}") {
             GroupScreen(
                 navController = navController,
-                Group(
+                GroupModel(
                     it.arguments?.getString("groupName") ?: "Group",
                     it.arguments?.getLong("people") ?: 0,
                     it.arguments?.getString("groupLogo") ?: ""
                 ),
                 listOf(
-                    Event(
+                    EventModel(
                         title = "Developer meeting",
                         date = "13.01.2021",
                         city = "Moscow",
@@ -261,7 +319,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                         listOf("Kotlin", "Senior", "Karaganda"),
                     ),
-                    Event(
+                    EventModel(
                         title = "CoffeeCode",
                         date = "13.01.2025",
                         city = "Saint-Petersburg",
@@ -269,7 +327,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                         listOf("Java", "Junior", "Astana")
                     ),
-                    Event(
+                    EventModel(
                         title = "Developer meeting",
                         date = "13.01.2021",
                         city = "Moscow",
@@ -277,7 +335,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
                         "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                         listOf("Kotlin", "Senior", "Karaganda")
                     ),
-                    Event(
+                    EventModel(
                         title = "CoffeeCode",
                         date = "13.01.2025",
                         city = "Saint-Petersburg",

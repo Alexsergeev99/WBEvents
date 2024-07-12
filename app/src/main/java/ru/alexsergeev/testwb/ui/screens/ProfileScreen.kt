@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.dto.Person
+import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.Heading2Text
 import ru.alexsergeev.testwb.ui.atoms.LogoButton
@@ -30,68 +30,70 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @Composable
-fun ProfileScreen(navController: NavController, person: Person) {
+fun ProfileScreen(navController: NavController, person: PersonModel) {
 
     Box(
         modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        contentAlignment = Alignment.TopCenter
     ) {
-        Box(
+        EventsTopBar(
+            navController = navController,
+            text = "Профиль",
+            needToBack = true,
+            needToEdit = true
+        )
+        Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .width(326.dp)
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            EventsTopBar(
-                navController = navController,
-                text = "Профиль",
-                needToBack = true,
-                needToEdit = true
-            )
-            Column(
+            Spacer(
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .height(48.dp)
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+            )
+            PeopleAvatar(
+                image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
+                padding = 20.dp
+            )
+            Text(
+                text = person.name,
+                color = NeutralActive,
+                style = EventsTheme.typography.heading2
+            )
+            Text(
+                text = person.phone,
+                color = Neutral,
+                style = EventsTheme.typography.subheading2
+            )
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
             ) {
-                Spacer(
+                LogoButton(R.drawable.twitter_logo)
+                LogoButton(R.drawable.insta_logo)
+                LogoButton(R.drawable.link_logo)
+                LogoButton(R.drawable.fb_logo)
+            }
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                Column(
                     modifier = Modifier
-                        .height(48.dp)
                         .fillMaxWidth()
-                )
-                PeopleAvatar(image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg", padding = 20.dp)
-                Heading2Text(text = person.name, color = NeutralActive)
-                Text(
-                    text = person.phone,
-                    color = Neutral,
-                    style = EventsTheme.typography.subheading2
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(vertical = 8.dp)
                 ) {
-                    LogoButton(R.drawable.twitter_logo)
-                    LogoButton(R.drawable.insta_logo)
-                    LogoButton(R.drawable.link_logo)
-                    LogoButton(R.drawable.fb_logo)
-                }
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.BottomCenter
-                ) {
-                    Column(
+                    Spacer(
                         modifier = Modifier
+                            .height(8.dp)
                             .fillMaxWidth()
-                    ) {
-                        Spacer(
-                            modifier = Modifier
-                                .height(8.dp)
-                                .fillMaxWidth()
-                                .background(NeutralBackground)
-                        )
-                    }
+                            .background(NeutralBackground)
+                    )
                 }
             }
         }

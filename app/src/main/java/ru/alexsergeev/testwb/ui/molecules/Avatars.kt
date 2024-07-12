@@ -106,7 +106,7 @@ fun GroupAvatar(image: String, padding: Dp = 4.dp) {
 }
 
 @Composable
-fun PeopleAvatarWithEdit(image: String, padding: Dp = 4.dp) {
+fun PeopleAvatarWithEdit(image: String, padding: Dp = 4.dp, editPhoto: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .padding(padding)
@@ -128,7 +128,7 @@ fun PeopleAvatarWithEdit(image: String, padding: Dp = 4.dp) {
                 .padding(horizontal = 6.dp)
                 .size(20.dp)
                 .align(Alignment.BottomEnd)
-                .clickable { },
+                .clickable {  editPhoto() },
             tint = NeutralActive
         )
     }

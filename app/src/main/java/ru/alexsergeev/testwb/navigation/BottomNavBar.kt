@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,12 +32,18 @@ fun BottomBar(
     selectedPage: MutableIntState,
     navController: NavController,
 ) {
+    BackHandler(enabled = true, onBack = {
+        selectedPage.intValue = 0
+    }
+    )
     BottomNavigation(
         backgroundColor = Color.White,
         contentColor = NeutralActive
     ) {
         destinations.forEachIndexed { index, item ->
+
             val isSelected = index == selectedPage.intValue
+
             CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
                 BottomNavigationItem(
                     selected = isSelected,
@@ -69,60 +76,11 @@ fun BottomBar(
                             }
                         }
                     },
+                    alwaysShowLabel = false,
                     selectedContentColor = NeutralActive,
                     unselectedContentColor = NeutralActive
                 )
             }
-        }
-    }
-}
-
-sealed class Destination(
-    val route: String,
-    val label: String,
-    @DrawableRes val icon: Int,
-) {
-    sealed class Events(route: String) : Destination(
-        "${Events.route}/$route",
-        "Встречи",
-        R.drawable.box
-    ) {
-        data object Dashboard : Events("dashboard")
-        data object Event : Events("event")
-        data object MapImage : Events("imageUrl")
-
-
-        companion object {
-            const val route = "events"
-        }
-    }
-
-    sealed class Groups(route: String) : Destination(
-        "${Groups.route}/$route",
-        "Сообщества",
-        R.drawable.people
-    ) {
-        data object Dashboard : Groups("dashboard")
-        data object Group : Groups("group")
-
-        companion object {
-            const val route = "groups"
-        }
-    }
-
-    sealed class Else(route: String) : Destination(
-        "${Else.route}/$route",
-        "Еще",
-        R.drawable.menu
-    ) {
-        data object Dashboard : Else("dashboard")
-        data object Profile : Else("profile")
-        data object MyEvents : Else("my_events")
-        data object EditProfile : Else("edit_profile")
-
-
-        companion object {
-            const val route = "else_menu"
         }
     }
 }
@@ -134,3 +92,53 @@ object NoRippleTheme : RippleTheme {
     @Composable
     override fun rippleAlpha(): RippleAlpha = RippleAlpha(0.0f, 0.0f, 0.0f, 0.0f)
 }
+    sealed class Destination(
+        val route: String,
+        val label: String,
+        @DrawableRes val icon: Int,
+    ) {
+        sealed class Events(route: String) : Destination(
+            "${Events.route}/$route",
+            "Встречи",
+            R.drawable.box
+        ) {
+            data object Dashboard : Events("dashboard")
+            data object Event : Events("event")
+            data object MapImage : Events("imageUrl")
+
+
+            companion object {
+                const val route = "events"
+            }
+        }
+
+        sealed class Groups(route: String) : Destination(
+            "${Groups.route}/$route",
+            "Сообщества",
+            R.drawable.people
+        ) {
+            data object Dashboard : Groups("dashboard")
+            data object Group : Groups("group")
+
+            companion object {
+                const val route = "groups"
+            }
+        }
+
+        sealed class Else(route: String) : Destination(
+            "${Else.route}/$route",
+            "Еще",
+            R.drawable.menu
+        ) {
+            data object Dashboard : Else("dashboard")
+            data object Profile : Else("profile")
+            data object MyEvents : Else("my_events")
+            data object EditProfile : Else("edit_profile")
+
+
+            companion object {
+                const val route = "else_menu"
+            }
+        }
+    }
+

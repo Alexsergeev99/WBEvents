@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.dto.Group
+import ru.alexsergeev.testwb.dto.GroupModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
@@ -25,7 +25,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralLight
 @Composable
 fun GroupCard(
     navController: NavController,
-    group: Group
+    group: GroupModel
 //    goToGroupScreen: () -> Unit
 ) {
     Card(

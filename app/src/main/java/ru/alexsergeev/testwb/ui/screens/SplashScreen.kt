@@ -45,7 +45,7 @@ fun SplashScreen(navController: NavController) {
             1f,
             animationSpec = tween(2500)
         )
-        delay(5000)
+        delay(3000)
         navController.navigate("input_number")
     }
 
@@ -57,7 +57,7 @@ fun SplashScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LoaderAnimation(
-            modifier = Modifier.size(400.dp),
+            modifier = Modifier.size(400.dp).background(color = Color.White),
             anim = R.raw.bear
         )
         Spacer(modifier = Modifier.height(25.dp))
@@ -80,30 +80,4 @@ fun LoaderAnimation(modifier: Modifier, anim: Int) {
         composition = composition, iterations = LottieConstants.IterateForever,
         modifier = modifier
     )
-}
-
-@Composable
-fun StartNavigation() {
-    val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = "splash_screen"
-    ) {
-        composable("splash_screen") {
-            SplashScreen(navController = navController)
-        }
-        composable("navigation") {
-            Navigation(navController = navController)
-        }
-        composable("input_number") {
-            InputPhoneNumberScreen(navController = navController)
-        }
-        composable("input_code/{phone_number}/{country_code}") {
-            CodeScreen(
-                navController = navController,
-                it.arguments?.getString("phone_number") ?: "",
-                it.arguments?.getString("country_code") ?: ""
-            )
-        }
-    }
 }

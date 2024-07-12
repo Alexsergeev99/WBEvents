@@ -23,7 +23,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.atoms.OneChip
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
@@ -34,8 +34,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 @Composable
 fun MeetingCard(
     navController: NavController,
-    event: Event,
-//    goToEventScreen: () -> Unit
+    event: EventModel,
 ) {
     Card(
         modifier = Modifier
@@ -44,9 +43,9 @@ fun MeetingCard(
             .clickable {
                 navController.navigate(
                     "${Destination.Events.Event.route}" +
-                            "/${event.title}/${event.date}" +
-                            "/${event.city}/${event.chips[0]}" +
-                            "/${event.chips[1]}/${event.chips[2]}" +
+                            "/${Uri.encode(event.title)}/${Uri.encode(event.date)}" +
+                            "/${Uri.encode(event.city)}/${Uri.encode(event.chips[0])}" +
+                            "/${Uri.encode(event.chips[1])}/${Uri.encode(event.chips[2])}" +
                             "/${Uri.encode(event.imageUrl)}"
                 )
             }
@@ -77,17 +76,15 @@ fun MeetingCard(
                         modifier = Modifier
                             .padding(vertical = 4.dp)
                     ) {
-                        if (event.chips != null) {
-                            if (event.chips.isNotEmpty()) {
-                                for (i in 0..<event.chips.size) {
-                                    OneChip(checkNotNull(event.chips[i]))
-                                }
+                        if (event.chips.isNotEmpty()) {
+                            event.chips.forEach {
+                                OneChip(it)
                             }
                         }
                     }
                 }
             }
-            if (checkNotNull(event.isFinished)) {
+            if (event.isFinished) {
                 Text(
                     modifier = Modifier
                         .align(Alignment.TopEnd),
@@ -99,7 +96,6 @@ fun MeetingCard(
         }
     }
 }
-
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.bottomBorder(strokeWidth: Dp, color: Color) = composed(

@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -51,9 +53,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.CountryCode
-import ru.alexsergeev.testwb.dto.Person
 import ru.alexsergeev.testwb.navigation.EventsTopBar
+import ru.alexsergeev.testwb.ui.atoms.DisabledButton
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
+import ru.alexsergeev.testwb.ui.molecules.InputCodeCountryField
+import ru.alexsergeev.testwb.ui.molecules.InputNumberTextField
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
@@ -62,19 +66,16 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 @Composable
 fun InputPhoneNumberScreen(navController: NavController) {
 
-    val phoneNumber = rememberSaveable {
-        mutableStateOf("+ 7 999 999-99-99")
-    }
-
-    val codeValue = rememberSaveable {
-        mutableStateOf("")
-    }
-
-    val countryCode = rememberSaveable {
-        mutableStateOf("+7")
-    }
+    val ctx = LocalContext.current
 
     val focusManager = LocalFocusManager.current
+
+    val phoneNumber = remember {
+        mutableStateOf("")
+    }
+    val countryCode = remember {
+        mutableStateOf("+7")
+    }
 
     Box(
         modifier = Modifier
@@ -136,167 +137,38 @@ fun InputPhoneNumberScreen(navController: NavController) {
                 .height(24.dp)
                 .fillMaxWidth()
         )
-        SimpleButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = "Продолжить",
-            width = 326.dp,
-            onClick = {
-                focusManager.clearFocus()
-                navController.navigate("input_code/${phoneNumber.value}/${countryCode.value}")
-            }
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun InputCodeCountryField(onTextChange: (String) -> Unit = {}) {
-
-    var expanded by remember { mutableStateOf(false) }
-
-    val countryList = listOf(
-        CountryCode("Russia", "+7", R.drawable.flag_russia),
-        CountryCode("Kazakhstan", "+7", R.drawable.flag_kz),
-        CountryCode("Armenia", "+374", R.drawable.flag_armenia),
-        CountryCode("USA", "+1", R.drawable.flag_usa)
-    )
-
-    val selectedText = remember {
-        mutableStateOf(countryList[0].code)
-    }
-
-    val selectedFlag = remember {
-        mutableStateOf(countryList[0].flag)
-    }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        },
-        modifier = Modifier
-            .padding(end = 8.dp)
-            .background(NeutralBackground)
-    ) {
-        DropdownMenuItem(modifier = Modifier
-            .height(40.dp)
-            .width(66.dp)
-            .menuAnchor(),
-            contentPadding = PaddingValues(horizontal = 6.dp, vertical = 8.dp),
-            onClick = {
-                expanded = true
-            }
-        ) {
-            Image(
-                painter = painterResource(id = selectedFlag.value),
-                contentDescription = "russia"
-            )
-            Text(
-                modifier = Modifier.padding(start = 4.dp),
-                text = selectedText.value,
-                style = EventsTheme.typography.bodyText1,
-                color = Neutral
-            )
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                countryList.forEach { item ->
-                    DropdownMenuItem(modifier = Modifier
-                        .height(40.dp)
-                        .width(66.dp),
-                        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 8.dp),
-                        onClick = {
-                            expanded = false
-                            selectedText.value = item.code
-                            selectedFlag.value = item.flag
-                            onTextChange(item.code)
-                        }
-                    ) {
-                        Image(
-                            painter = painterResource(id = item.flag),
-                            contentDescription = "russia"
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 4.dp),
-                            text = item.code,
-                            style = EventsTheme.typography.bodyText1,
-                            color = Neutral
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun InputNumberTextField(
-    hint: String,
-    padding: Dp = 8.dp,
-    isEnabled: (Boolean) = true,
-    height: Dp = 36.dp,
-    width: Dp = 326.dp,
-    cornerShape: Shape = RoundedCornerShape(8.dp),
-    backgroundColor: Color = NeutralBackground,
-    onSearchClicked: () -> Unit = {},
-    onTextChange: (String) -> Unit = {},
-    number: MutableState<String> = remember {
-        mutableStateOf("")
-    }
-) {
-    Row(
-        modifier = Modifier
-            .padding(vertical = padding)
-            .height(height)
-            .width(width)
-            .background(color = backgroundColor, shape = cornerShape)
-            .clickable { onSearchClicked() },
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .background(color = backgroundColor, shape = CircleShape)
-                .clickable {
-                    if (number.value.isNotEmpty()) {
-                        number.value = ""
-                        onTextChange("")
-                    }
-                },
-        ) {
-            BasicTextField(
+        when (phoneNumber.value.length) {
+            10 -> SimpleButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp)
-                    .background(backgroundColor),
-                value = number.value,
-                onValueChange = {
-                    number.value = it
-                    onTextChange(it)
-                },
-                enabled = isEnabled,
-                textStyle = TextStyle(
-                    fontSize = 14.sp,
-                    fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Left,
-                    color = NeutralActive
-                ),
-                cursorBrush = SolidColor(NeutralActive),
-                decorationBox = { innerTextField ->
-                    if (number.value.isEmpty()) {
-                        Text(text = hint, color = Neutral, style = EventsTheme.typography.bodyText1)
-                    }
-                    innerTextField()
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Search
-                ),
-                keyboardActions = KeyboardActions(onSearch = { onSearchClicked() }),
-                singleLine = true
+                    .height(52.dp),
+                text = "Продолжить",
+                onClick = {
+                    focusManager.clearFocus()
+                    navController.navigate("input_code/${phoneNumber.value}/${countryCode.value}")
+                }
+            )
+
+            in 0..9 -> DisabledButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                text = "Продолжить",
+                onClick = {
+                    Toast.makeText(ctx, "Мало цифр(", Toast.LENGTH_LONG).show()
+                }
+            )
+
+            else -> DisabledButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                text = "Продолжить",
+                onClick = {
+                    Toast.makeText(ctx, "Много цифр(", Toast.LENGTH_LONG).show()
+                }
             )
         }
     }
 }
+

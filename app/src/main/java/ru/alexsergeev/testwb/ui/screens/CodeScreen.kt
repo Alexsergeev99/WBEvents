@@ -35,17 +35,15 @@ import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.SimpleTextButton
+import ru.alexsergeev.testwb.ui.molecules.OtpTextField
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
 
 
 @Composable
-fun CodeScreen(navController: NavController, phoneNumber: String, countryCode: String) {
+fun CodeScreen(navController: NavController, phoneNumber: String, codeCountry: String) {
 
-//    val phoneNumber = rememberSaveable {
-//        mutableStateOf("+ 7 999 999-99-99")
-//    }
     val codeValue = rememberSaveable {
         mutableStateOf("")
     }
@@ -87,11 +85,12 @@ fun CodeScreen(navController: NavController, phoneNumber: String, countryCode: S
         Text(
             modifier = Modifier
                 .padding(bottom = 4.dp),
-            text = "${countryCode}${phoneNumber}",
+            text = "$codeCountry $phoneNumber",
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )
         OtpTextField(
+            navController = navController,
             otpText = codeValue.value,
             onOtpTextChange = { value, otpInputFilled ->
                 codeValue.value = value
@@ -105,91 +104,13 @@ fun CodeScreen(navController: NavController, phoneNumber: String, countryCode: S
                 .fillMaxWidth()
         )
         SimpleTextButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(52.dp),
             text = "Запросить код повторно",
-            width = 244.dp,
-            onClick = { focusManager.clearFocus()
-                navController.navigate("navigation")}
+            onClick = {
+                focusManager.clearFocus()
+            }
         )
-    }
-}
-
-@Composable
-fun OtpTextField(
-    modifier: Modifier = Modifier,
-    otpText: String,
-    otpCount: Int = 4,
-    onOtpTextChange: (String, Boolean) -> Unit
-) {
-    LaunchedEffect(Unit) {
-        if (otpText.length > otpCount) {
-            throw IllegalArgumentException("Количество символов не может быть больше $otpCount")
-        }
-    }
-
-    BasicTextField(
-        modifier = modifier,
-        value = TextFieldValue(otpText, selection = TextRange(otpText.length)),
-        onValueChange = {
-            if (it.text.length <= otpCount) {
-                onOtpTextChange.invoke(it.text, it.text.length == otpCount)
-            }
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
-        decorationBox = {
-            Row(modifier = Modifier.padding(8.dp), horizontalArrangement = Arrangement.Center) {
-                repeat(otpCount) { index ->
-                    CharView(
-                        index = index,
-                        text = otpText
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                }
-            }
-        }
-    )
-}
-
-@Composable
-private fun CharView(
-    index: Int,
-    text: String
-) {
-    val char = when {
-        index == text.length -> "0"
-        index > text.length -> ""
-        else -> text[index].toString()
-    }
-    if (char != "") {
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
-                .width(32.dp)
-                .height(40.dp)
-                .background(Color.White),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = char,
-                modifier = Modifier,
-                style = EventsTheme.typography.heading1,
-                color = NeutralActive,
-                textAlign = TextAlign.Center
-            )
-        }
-    } else {
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
-                .width(32.dp)
-                .height(40.dp)
-                .background(Color.White),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.otp_icon),
-                contentDescription = "otp_icon",
-                tint = NeutralLight
-            )
-        }
     }
 }

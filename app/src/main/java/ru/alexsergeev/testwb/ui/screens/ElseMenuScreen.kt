@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.ui.screens
 
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.dto.Person
+import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarSmall
@@ -35,283 +36,280 @@ import ru.alexsergeev.testwb.ui.theme.NeutralLight
 @Composable
 fun ElseMenuScreen(
     navController: NavController,
-    person: Person,
-//    goToProfileScreen: () -> Unit,
-    goToMyEventsScreen: () -> Unit
+    person: PersonModel,
 ) {
 
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(
         modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        contentAlignment = Alignment.TopCenter
     ) {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxHeight()
-                .width(326.dp)
+                .padding(vertical = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Column(
+            EventsTopBar(navController = navController, text = "Еще", needToBack = false)
+            Row(
                 modifier = Modifier
-                    .padding(vertical = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
+                    .fillMaxWidth()
+                    .height(80.dp)
+                    .padding(vertical = 12.dp)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
+                        navController.navigate(
+                            "${Destination.Else.Profile.route}/${Uri.encode(person.name)}/${
+                                Uri.encode(
+                                    person.phone
+                                )
+                            }"
+                        )
+                    },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                EventsTopBar(navController = navController, text = "Еще", needToBack = false)
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(80.dp)
-                        .padding(vertical = 12.dp)
-                        .clickable(
-                            interactionSource = interactionSource,
-                            indication = null
-                        ) {
-                            navController.navigate(
-                                "${Destination.Else.Profile.route}/${person.name}/${person.phone}"
-                            )
-                        },
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
+                    PeopleAvatarSmall(image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(8.dp),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                        PeopleAvatarSmall(image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
-                        Column(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .padding(8.dp),
-                            horizontalAlignment = Alignment.Start,
-                            verticalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = person.name,
-                                color = NeutralActive,
-                                style = EventsTheme.typography.bodyText1
-                            )
-                            Text(
-                                text = person.phone,
-                                color = Neutral,
-                                style = EventsTheme.typography.metadata1
-                            )
-                        }
-                    }
-                    Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(vertical = 12.dp)
-                        .fillMaxWidth()
-                        .height(66.dp)
-                        .clickable(
-                            interactionSource = interactionSource,
-                            indication = null
-                        ) { goToMyEventsScreen() },
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.box),
-                            contentDescription = "events"
-                        )
                         Text(
-                            text = "Мои встречи",
+                            text = person.name,
                             color = NeutralActive,
                             style = EventsTheme.typography.bodyText1
                         )
+                        Text(
+                            text = person.phone,
+                            color = Neutral,
+                            style = EventsTheme.typography.metadata1
+                        )
                     }
-                    Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
-                    )
                 }
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 12.dp)
+                    .fillMaxWidth()
+                    .height(66.dp)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) { navController.navigate(Destination.Else.MyEvents.route) },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.light),
-                            contentDescription = "light"
-                        )
-                        Text(
-                            text = "Тема",
-                            color = NeutralActive,
-                            style = EventsTheme.typography.bodyText1
-                        )
-                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
+                        modifier = Modifier
+                            .padding(end = 8.dp),
+                        painter = painterResource(id = R.drawable.box),
+                        contentDescription = "events"
+                    )
+                    Text(
+                        text = "Мои встречи",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
                     )
                 }
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.push),
-                            contentDescription = "push"
-                        )
-                        Text(
-                            text = "Уведомления",
-                            color = NeutralActive,
-                            style = EventsTheme.typography.bodyText1
-                        )
-                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
+                        modifier = Modifier
+                            .padding(end = 8.dp),
+                        painter = painterResource(id = R.drawable.light),
+                        contentDescription = "light"
+                    )
+                    Text(
+                        text = "Тема",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
                     )
                 }
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.attention),
-                            contentDescription = "attention"
-                        )
-                        Text(
-                            text = "Безопасность",
-                            color = NeutralActive,
-                            style = EventsTheme.typography.bodyText1
-                        )
-                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
+                        modifier = Modifier
+                            .padding(end = 8.dp),
+                        painter = painterResource(id = R.drawable.push),
+                        contentDescription = "push"
+                    )
+                    Text(
+                        text = "Уведомления",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
                     )
                 }
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.resourses),
-                            contentDescription = "resources"
-                        )
-                        Text(
-                            text = "Память и ресурсы",
-                            color = NeutralActive,
-                            style = EventsTheme.typography.bodyText1
-                        )
-                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
+                        modifier = Modifier
+                            .padding(end = 8.dp),
+                        painter = painterResource(id = R.drawable.attention),
+                        contentDescription = "attention"
+                    )
+                    Text(
+                        text = "Безопасность",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
                     )
                 }
-                Divider(color = NeutralLight)
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.help),
-                            contentDescription = "help"
-                        )
-                        Text(
-                            text = "Помощь",
-                            color = NeutralActive,
-                            style = EventsTheme.typography.bodyText1
-                        )
-                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
+                        modifier = Modifier
+                            .padding(end = 8.dp),
+                        painter = painterResource(id = R.drawable.resourses),
+                        contentDescription = "resources"
+                    )
+                    Text(
+                        text = "Память и ресурсы",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
                     )
                 }
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
+            }
+            Divider(color = NeutralLight)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .padding(vertical = 6.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(end = 8.dp),
-                            painter = painterResource(id = R.drawable.call_friend),
-                            contentDescription = "call_friend"
-                        )
-                        Text(
-                            text = "Пригласи друга",
-                            color = NeutralActive,
-                            style = EventsTheme.typography.bodyText1
-                        )
-                    }
                     Icon(
-                        painter = painterResource(id = R.drawable.route_to),
-                        contentDescription = "route"
+                        modifier = Modifier
+                            .padding(end = 8.dp),
+                        painter = painterResource(id = R.drawable.help),
+                        contentDescription = "help"
+                    )
+                    Text(
+                        text = "Помощь",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
                     )
                 }
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(vertical = 6.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(end = 8.dp),
+                        painter = painterResource(id = R.drawable.call_friend),
+                        contentDescription = "call_friend"
+                    )
+                    Text(
+                        text = "Пригласи друга",
+                        color = NeutralActive,
+                        style = EventsTheme.typography.bodyText1
+                    )
+                }
+                Icon(
+                    painter = painterResource(id = R.drawable.route_to),
+                    contentDescription = "route"
+                )
             }
         }
     }

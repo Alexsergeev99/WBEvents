@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
@@ -26,7 +27,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
-import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.molecules.MeetingCard
@@ -37,7 +38,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
-fun EventsListScreen(navController: NavController, events: List<Event>) {
+fun EventsListScreen(navController: NavController, events: List<EventModel>) {
 
     val tabList = listOf("ВСЕ ВСТРЕЧИ", "АКТИВНЫЕ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
@@ -47,69 +48,81 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
 
     Box(
         modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        contentAlignment = Alignment.TopCenter
     ) {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxHeight()
-                .width(326.dp)
+                .padding(vertical = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Column(
+            EventsTopBar(
+                navController = navController,
+                text = "Встречи",
+                needToBack = false,
+                needToAdd = true
+            )
+            Search(
+                hint = "Поиск"
+            )
+            TabRow(
                 modifier = Modifier
-                    .padding(vertical = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
+                    .padding(vertical = 16.dp),
+                selectedTabIndex = tabIndex,
+                indicator = { position ->
+                    TabRowDefaults.Indicator(
+                        Modifier.pagerTabIndicatorOffset(pagerState, position)
+                    )
+                },
+                containerColor = Color.Transparent,
+                contentColor = MiddleButtonColor
             ) {
-                EventsTopBar(
-                    navController = navController,
-                    text = "Встречи",
-                    needToBack = false,
-                    needToAdd = true
-                )
-                Search(
-                    hint = "Поиск"
-                )
-                TabRow(
-                    modifier = Modifier
-                        .padding(vertical = 16.dp),
-                    selectedTabIndex = tabIndex,
-                    indicator = { position ->
-                        TabRowDefaults.Indicator(
-                            Modifier.pagerTabIndicatorOffset(pagerState, position)
-                        )
-                    },
-                    containerColor = NeutralBackground,
-                    contentColor = MiddleButtonColor
-                ) {
-                    tabList.forEachIndexed { index, level ->
-                        Tab(
-                            selected = tabIndex == index,
-                            onClick = {
-                                coroutineScope.launch {
-                                    pagerState.scrollToPage(index)
-                                }
-                            },
-                            text = {
-                                Text(text = level, style = EventsTheme.typography.bodyText1)
-                            },
-                            unselectedContentColor = Inactive,
-                            selectedContentColor = MiddleButtonColor
-                        )
-                    }
+                tabList.forEachIndexed { index, level ->
+                    Tab(
+                        selected = tabIndex == index,
+                        onClick = {
+                            coroutineScope.launch {
+                                pagerState.scrollToPage(index)
+                            }
+                        },
+                        text = {
+                            Text(text = level, style = EventsTheme.typography.bodyText1)
+                        },
+                        unselectedContentColor = Inactive,
+                        selectedContentColor = MiddleButtonColor
+                    )
                 }
-                HorizontalPager(
-                    count = tabList.size,
-                    state = pagerState,
-                    modifier = Modifier
-                        .fillMaxHeight(0.9f),
-                    verticalAlignment = Alignment.Top,
-                ) { index ->
-                    when (tabIndex) {
-                        0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            items(events.size) { event ->
+            }
+            HorizontalPager(
+                count = tabList.size,
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxHeight(0.9f),
+                verticalAlignment = Alignment.Top,
+            ) { index ->
+                when (tabIndex) {
+                    0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(events.size) { event ->
+                            MeetingCard(
+                                navController = navController, EventModel(
+                                    title = events[event].title,
+                                    date = events[event].date,
+                                    city = events[event].city,
+                                    isFinished = events[event].isFinished,
+                                    meetingAvatar = events[event].meetingAvatar,
+                                    chips = events[event].chips,
+                                )
+                            )
+                        }
+                    }
+
+                    1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(events.size) { event ->
+                            if (events[event].isFinished == false) {
                                 MeetingCard(
-                                    navController = navController, Event(
+                                    navController = navController, EventModel(
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,
@@ -117,25 +130,7 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
                                         meetingAvatar = events[event].meetingAvatar,
                                         chips = events[event].chips,
                                     )
-//                                    goToEventScreen = { goToEventScreen() }
                                 )
-                            }
-                        }
-
-                        1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            items(events.size) { event ->
-                                if (checkNotNull(!events[event].isFinished!!)) {
-                                    MeetingCard(
-                                        navController = navController, Event(
-                                            title = events[event].title,
-                                            date = events[event].date,
-                                            city = events[event].city,
-                                            isFinished = events[event].isFinished,
-                                            meetingAvatar = events[event].meetingAvatar,
-                                            chips = events[event].chips,
-                                        )
-                                    )
-                                }
                             }
                         }
                     }
@@ -145,7 +140,6 @@ fun EventsListScreen(navController: NavController, events: List<Event>) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalPagerApi
 fun Modifier.pagerTabIndicatorOffset(
     pagerState: com.google.accompanist.pager.PagerState,

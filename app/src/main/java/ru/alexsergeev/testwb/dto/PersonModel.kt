@@ -1,6 +1,6 @@
 package ru.alexsergeev.testwb.dto
 
-data class Person(
+data class PersonModel(
     val name: String,
     var phone: String
 )

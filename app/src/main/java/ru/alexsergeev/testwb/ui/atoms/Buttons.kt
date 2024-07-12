@@ -8,8 +8,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -35,12 +35,14 @@ fun SimpleButton(
 
 @Composable
 fun SimpleOutlinedButton(
+    modifier: Modifier = Modifier,
     text: String,
     padding: Dp = 4.dp,
     width: Dp = 96.dp,
     onClick: () -> Unit = {}
 ) {
     ButtonTypes(
+        modifier = modifier,
         text = text,
         padding = padding,
         width = width,
@@ -51,12 +53,14 @@ fun SimpleOutlinedButton(
 
 @Composable
 fun SimpleTextButton(
+    modifier: Modifier = Modifier,
     text: String,
     padding: Dp = 4.dp,
     width: Dp = 96.dp,
     onClick: () -> Unit = {}
 ) {
     ButtonTypes(
+        modifier = modifier,
         text = text,
         padding = padding,
         width = width,
@@ -158,14 +162,22 @@ fun FocusedTextButton(
 }
 
 @Composable
-fun DisabledButton(text: String, padding: Dp = 4.dp, width: Dp = 96.dp, onClick: () -> Unit = {}) {
+fun DisabledButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    padding: Dp = 4.dp,
+    width: Dp = 96.dp,
+    onClick: () -> Unit = {},
+) {
     ButtonTypes(
+        modifier = modifier.graphicsLayer {
+            alpha = 0.5f
+        },
         text = text,
         padding = padding,
         width = width,
         onClick = onClick,
         type = Type.FIRST,
-        enabled = false
     )
 }
 
@@ -182,24 +194,26 @@ fun DisabledOutlinedButton(
         width = width,
         onClick = onClick,
         type = Type.SECOND,
-        enabled = false
     )
 }
 
 @Composable
 fun DisabledTextButton(
+    modifier: Modifier = Modifier,
     text: String,
     padding: Dp = 4.dp,
     width: Dp = 96.dp,
     onClick: () -> Unit = {}
 ) {
     ButtonTypes(
+        modifier = modifier.graphicsLayer {
+            alpha = 0.5f
+        },
         text = text,
         padding = padding,
         width = width,
         onClick = onClick,
         type = Type.THIRD,
-        enabled = false
     )
 }
 

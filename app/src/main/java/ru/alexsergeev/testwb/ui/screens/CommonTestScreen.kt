@@ -7,8 +7,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.dto.Event
-import ru.alexsergeev.testwb.dto.Group
+import ru.alexsergeev.testwb.dto.EventModel
+import ru.alexsergeev.testwb.dto.GroupModel
 import ru.alexsergeev.testwb.ui.atoms.ButtonsWithStates
 import ru.alexsergeev.testwb.ui.atoms.Chips
 import ru.alexsergeev.testwb.ui.atoms.Search
@@ -39,7 +39,7 @@ fun CommonTestScreen(navController: NavController) {
             )
             MeetingCard(
                 navController = navController,
-                Event(
+                EventModel(
                     title = "Developer meeting",
                     date = "13.01.2021",
                     city = "Moscow",
@@ -51,7 +51,7 @@ fun CommonTestScreen(navController: NavController) {
             )
             MeetingCard(
                 navController = navController,
-                Event(
+                EventModel(
                     title = "Developer meeting",
                     date = "13.01.2021",
                     city = "Moscow",
@@ -69,7 +69,7 @@ fun CommonTestScreen(navController: NavController) {
             PeopleAvatar("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             GroupCard(
                 navController = navController,
-                Group(
+                GroupModel(
                     "Designa",
                     10_000,
                     "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"

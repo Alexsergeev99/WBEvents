@@ -61,7 +61,7 @@ fun EventsTopBar(
             Icon(
                 modifier = Modifier
                     .padding(vertical = 6.dp)
-                    .clickable { navController.navigate(Destination.Else.EditProfile.route) },
+                    .clickable {  },
                 painter = painterResource(id = R.drawable.edit),
                 contentDescription = "edit"
             )
@@ -70,11 +70,9 @@ fun EventsTopBar(
             Icon(
                 modifier = Modifier
                     .padding(vertical = 6.dp)
-                    .clickable { navController.navigate(Destination.Else.EditProfile.route) }
-                    .size(14.dp),
-                imageVector = Icons.Default.Add,
+                    .clickable { navController.navigate(Destination.Else.EditProfile.route) },
+                painter = painterResource(id = R.drawable.add),
                 contentDescription = "add",
-                tint = NeutralActive
             )
         }
         if (iAmGuest) {

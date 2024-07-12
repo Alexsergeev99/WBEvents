@@ -62,11 +62,6 @@ fun OverlappingRow(image: String, participants: Int) {
         counter.intValue else listToCycle.intValue = 5
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//        SimpleTextButton(text = "Test",
-//            onClick = {
-//                counter.intValue++
-//            }
-//        )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(16.dp))
             Box {

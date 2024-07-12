@@ -69,7 +69,7 @@ fun Search(
         modifier = Modifier
             .padding(vertical = padding)
             .height(height)
-            .width(width)
+            .fillMaxWidth()
             .background(color = backgroundColor, shape = cornerShape)
             .clickable { onSearchClicked() },
         verticalAlignment = Alignment.CenterVertically,
@@ -85,7 +85,7 @@ fun Search(
                     }
                 },
         ) {
-            if(isSearch) {
+            if (isSearch) {
                 Icon(
                     modifier = Modifier
                         .size(16.dp),
@@ -128,4 +128,3 @@ fun Search(
         )
     }
 }
-

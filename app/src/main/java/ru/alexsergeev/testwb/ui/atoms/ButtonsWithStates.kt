@@ -44,20 +44,20 @@ enum class Type {
 
 @Composable
 fun ButtonTypes(
-text: String = "Button",
-padding: Dp = 4.dp,
-width: Dp = 64.dp,
-onClick: () -> Unit = {},
-type: Type,
-enabled: Boolean = true,
-hovered: Boolean = false,
-focused: Boolean = false,
-modifier: Modifier = Modifier
-    .width(width)
-    .padding(vertical = padding)
-    .graphicsLayer {
-        alpha = if (!enabled) 0.5f else 1f
-    },
+    text: String = "Button",
+    padding: Dp = 4.dp,
+    width: Dp = 64.dp,
+    onClick: () -> Unit = {},
+    type: Type,
+    enabled: Boolean = true,
+    hovered: Boolean = false,
+    focused: Boolean = false,
+    modifier: Modifier = Modifier
+        .width(width)
+        .padding(vertical = padding)
+        .graphicsLayer {
+            alpha = if (!enabled) 0.5f else 1f
+        }
 ) {
     val interactionSource = remember {
         MutableInteractionSource()
@@ -80,12 +80,6 @@ modifier: Modifier = Modifier
             .clip(RoundedCornerShape(32.dp))
             .background(LightButtonColor.copy(alpha = animateButton))
     ) {
-        val buttonModifier = Modifier
-            .width(width)
-            .padding(vertical = padding)
-            .graphicsLayer {
-                alpha = if (!enabled) 0.5f else 1f
-            }
 
         val onClickHandler: () -> Unit = {
             if (enabled) {
@@ -111,6 +105,7 @@ modifier: Modifier = Modifier
                         containerColor = backgroundColor
                     ),
                     modifier = modifier,
+                    enabled = enabled
                 ) {
                     Text(
                         text = text,
@@ -128,6 +123,7 @@ modifier: Modifier = Modifier
                         contentColor = Color.White
                     ),
                     modifier = modifier,
+                    enabled = enabled
                 ) {
                     Text(
                         text = text,
@@ -145,6 +141,7 @@ modifier: Modifier = Modifier
                         containerColor = if (isPressed.value || focused) LightButtonColor else Color.Transparent
                     ),
                     modifier = modifier,
+                    enabled = enabled
                 ) {
                     Text(
                         text = text,
@@ -182,4 +179,3 @@ fun ButtonsWithStates() {
         }
     }
 }
-

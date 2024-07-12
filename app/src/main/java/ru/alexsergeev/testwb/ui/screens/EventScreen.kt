@@ -24,10 +24,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.R
+import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.OneChip
@@ -38,7 +40,7 @@ import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 
 @Composable
-fun EventScreen(navController: NavController, event: Event) {
+fun EventScreen(navController: NavController, event: EventModel) {
     val scroll = rememberScrollState(0)
     val iAmGuest = remember {
         mutableStateOf(false)
@@ -49,105 +51,114 @@ fun EventScreen(navController: NavController, event: Event) {
 
     Box(
         modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        contentAlignment = Alignment.TopCenter
     ) {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxHeight()
-                .width(326.dp)
+                .padding(vertical = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Column(
+            EventsTopBar(
+                navController = navController,
+                text = event.title ?: "Meeting",
+                needToBack = true,
+                iAmGuest = if (iAmGuest.value) true else false
+            )
+            LazyColumn(
                 modifier = Modifier
-                    .padding(vertical = 8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
+                    .padding(bottom = 8.dp),
             ) {
-                EventsTopBar(
-                    navController = navController,
-                    text = event.title ?: "Meeting",
-                    needToBack = true,
-                    iAmGuest = if (iAmGuest.value) true else false
-                )
-                Text(
-                    modifier = Modifier
-                        .padding(top = 12.dp, bottom = 4.dp)
-                        .align(Alignment.Start),
-                    text = "${event.date} — ${event.city}",
-                    color = NeutralWeak,
-                    style = EventsTheme.typography.bodyText1
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(vertical = 4.dp)
-                        .align(Alignment.Start)
-                ) {
-                    for (i in 0..<event.chips.size) {
-                        OneChip(checkNotNull(event.chips[i]))
+                item {
+                    Text(
+                        modifier = Modifier
+                            .padding(top = 12.dp, bottom = 4.dp)
+                            .align(Alignment.Start),
+                        text = "${event.date} — ${event.city}",
+                        color = NeutralWeak,
+                        style = EventsTheme.typography.bodyText1
+                    )
+                }
+                item {
+                    Row(
+                        modifier = Modifier
+                            .padding(vertical = 4.dp)
+                            .align(Alignment.Start)
+                    ) {
+                        event.chips.forEach {
+                            OneChip(it)
+                        }
                     }
                 }
-                AsyncImage(
-                    model = event.imageUrl,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                        .height(176.dp)
-                        .clip(RoundedCornerShape(20))
-                        .clickable {
-                            navController.navigate(
-                                Destination.Events.MapImage.route +
-                                        "/${Uri.encode(event.imageUrl)}/${Uri.encode(event.title)}"
-                            )
-                        },
-                    contentScale = ContentScale.FillWidth,
-                    contentDescription = "map"
-                )
-                LazyColumn {
-                    item {
-                        Text(
-                            modifier = Modifier
-                                .padding(vertical = 8.dp)
-                                .height(252.dp)
-                                .align(Alignment.Start)
-                                .verticalScroll(scroll),
-                            text = "Lorem ipsum dolor sit amet consectetur. Libero duis cum egestas amet mollis massa. Convallis sit lacus tortor interdum auctor viverra vitae. Egestas aliquam odio aenean eget facilisi ipsum vitae. Risus lectus quam urna condimentum id massa magna id mattis. Sit tempor volutpat ac eget dignissim nibh sagittis vitae duis. Vivamus quis fusce egestas vel sodales arcu praesent non. Ullamcorper elit sit eros egestas euismod amet. Nec molestie a sit sed. At neque diam turpis cursus tincidunt nisi quam sed non. Tempor tortor ultricies ultrices maecenas lectus in nunc sapien dapibus.\n" +
-                                    "Volutpat placerat et placerat felis tristique quis. Pharetra velit faucibus lobortis vitae dui. Nibh diam velit hendrerit posuere vel ut augue varius velit. Eu eget ipsum vulputate consectetur adipiscing est mollis eleifend quisque. Porttitor senectus nibh molestie faucibus sit mi risus eget. Vivamus dolor ac tortor nibh. Metus amet odio id magna. Augue ac commodo sem varius purus eros eu pharetra nec.\n" +
-                                    "Bibendum eget donec senectus turpis massa. Magna nunc diam pellentesque egestas sit auctor. Ullamcorper placerat blandit eget scelerisque adipiscing nisi tellus. Aliquam aliquet arcu diam cursus. Egestas duis tellus etiam molestie imperdiet. Tellus turpis purus ligula odio at facilisi. Felis sed in adipiscing ut et amet eros at. Tortor tempor habitasse molestie sed enim condimentum. Purus tellus nec lacus nisl eu sit venenatis elit. Nunc at lacus sit iaculis et volutpat. Elit id vulputate non sed placerat neque parturient egestas. Proin pellentesque bibendum volutpat adipiscing sagittis habitant elit.\n" +
-                                    "Odio justo dignissim ullamcorper purus ullamcorper sit semper dictum. Tortor est mauris aliquet amet sit ultrices auctor nulla. Faucibus aliquam etiam pharetra pellentesque sagittis odio lacus. Eu morbi senectus in massa fermentum elit in. Tincidunt est blandit malesuada auctor. Orci tellus mus aliquam accumsan ac. Et urna nisl facilisis non volutpat et sodales.\n" +
-                                    "Malesuada egestas enim purus cras diam eget vel. Massa ante sit scelerisque scelerisque hac. Consequat tempor non pretium convallis. Interdum iaculis sit interdum interdum magna. Gravida urna et cursus donec consectetur nulla. Aliquet egestas nulla arcu aliquam facilisi duis maecenas viverra. Egestas consectetur mauris orci sit. Bibendum orci at viverra pharetra tortor nulla amet erat vehicula. Mauris volutpat amet in sit rhoncus. Imperdiet feugiat id fames gravida.",
-                            style = EventsTheme.typography.metadata1,
-                            color = NeutralWeak
+                item {
+                    AsyncImage(
+                        model = event.imageUrl,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                            .height(176.dp)
+                            .clip(RoundedCornerShape(20))
+                            .clickable {
+                                navController.navigate(
+                                    Destination.Events.MapImage.route +
+                                            "/${Uri.encode(event.imageUrl)}" +
+                                            "/${Uri.encode(event.title)}"
+                                )
+                            },
+                        contentScale = ContentScale.FillWidth,
+                        contentDescription = "map"
+                    )
+                }
+                item {
+                    Text(
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .height(270.dp)
+                            .align(Alignment.Start)
+                            .verticalScroll(scroll),
+                        text = stringResource(R.string.lorem_ipsum),
+                        style = EventsTheme.typography.metadata1,
+                        color = NeutralWeak
+                    )
+                }
+                item {
+                    Row(
+                        modifier = Modifier
+                            .padding(vertical = 4.dp)
+                            .align(Alignment.Start)
+                    ) {
+                        OverlappingRow(
+                            "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
+                            participants.value
                         )
                     }
                 }
-                Row(
-                    modifier = Modifier
-                        .padding(vertical = 4.dp)
-                        .align(Alignment.Start)
-                ) {
-                    OverlappingRow(
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        participants.value
-                    )
-                }
-                if (!iAmGuest.value) {
-                    SimpleButton(
-                        text = "Пойду на встречу!",
-                        width = 326.dp,
-                        onClick = {
-                            iAmGuest.value = true
-                            participants.value++
-                        }
-                    )
-                } else {
-                    SimpleOutlinedButton(
-                        text = "Схожу в другой раз!",
-                        width = 326.dp,
-                        onClick = {
-                            iAmGuest.value = false
-                            participants.value--
-                        }
-                    )
+                item {
+                    if (!iAmGuest.value) {
+                        SimpleButton(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(52.dp),
+                            text = "Пойду на встречу!",
+                            onClick = {
+                                iAmGuest.value = true
+                                participants.value++
+                            }
+                        )
+                    } else {
+                        SimpleOutlinedButton(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(52.dp),
+                            text = "Схожу в другой раз!",
+                            onClick = {
+                                iAmGuest.value = false
+                                participants.value--
+                            }
+                        )
+                    }
                 }
             }
         }

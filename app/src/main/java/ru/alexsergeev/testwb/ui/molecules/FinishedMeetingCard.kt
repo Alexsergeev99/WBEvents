@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.dto.Event
+import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.atoms.OneChip
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
@@ -28,7 +28,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 @Composable
 fun FinishedMeetingCard(
     navController: NavController,
-    event: Event,
+    event: EventModel,
 ) {
     Card(
         modifier = Modifier
@@ -36,7 +36,7 @@ fun FinishedMeetingCard(
             .padding(vertical = 8.dp)
             .clickable {
                 navController.navigate(
-                    "${Destination.Events.Event.route}" +
+                    Destination.Events.Event.route +
                             "/${event.title}/${event.date}" +
                             "/${event.city}/${event.chips[0]}" +
                             "/${event.chips[1]}/${event.chips[2]}" +
@@ -70,11 +70,9 @@ fun FinishedMeetingCard(
                         modifier = Modifier
                             .padding(vertical = 4.dp)
                     ) {
-                        if (event.chips != null) {
-                            if (event.chips.isNotEmpty()) {
-                                for (i in 0..<event.chips.size) {
-                                    OneChip(checkNotNull(event.chips[i]))
-                                }
+                        if (event.chips.isNotEmpty()) {
+                            event.chips.forEach {
+                                OneChip(it)
                             }
                         }
                     }

@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.navigation
 
+import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +12,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -21,11 +25,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 
+@SuppressLint("RestrictedApi")
 @Composable
 fun BottomBar(
     destinations: List<Destination>,
@@ -38,11 +45,17 @@ fun BottomBar(
     )
     BottomNavigation(
         backgroundColor = Color.White,
+//        containerColor = Color.White,
         contentColor = NeutralActive
     ) {
+        val navBackStackEntry = navController.currentBackStackEntryAsState().value
+        val currentDestination = navBackStackEntry?.destination
+
         destinations.forEachIndexed { index, item ->
 
-            val isSelected = index == selectedPage.intValue
+            val isSelected = (currentDestination?.hierarchy?.any {
+                it.hasRoute(item.route, null)
+            } == true && index != selectedPage.intValue) ||  index == selectedPage.intValue //currentDestination?.hasRoute(item.route, null) ?: false //index == selectedPage.intValue
 
             CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
                 BottomNavigationItem(
@@ -79,6 +92,13 @@ fun BottomBar(
                     alwaysShowLabel = false,
                     selectedContentColor = NeutralActive,
                     unselectedContentColor = NeutralActive
+//                    colors = NavigationBarItemColors(selectedIconColor = NeutralActive,
+//                        selectedTextColor = NeutralActive,
+//                        unselectedIconColor = NeutralActive,
+//                        unselectedTextColor = NeutralActive,
+//                        selectedIndicatorColor = NeutralActive,
+//                        disabledTextColor = NeutralActive,
+//                        disabledIconColor = NeutralActive)
                 )
             }
         }

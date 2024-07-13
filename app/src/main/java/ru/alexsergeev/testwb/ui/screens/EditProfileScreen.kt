@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,16 +19,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import ru.alexsergeev.testwb.R
+import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.DisabledButton
 import ru.alexsergeev.testwb.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarWithEdit
+import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 @Composable
-fun EditProfileScreen(navController: NavController) {
+fun EditProfileScreen(navController: NavController, vm: BaseViewModel) {
 
     val ctx = LocalContext.current
 
@@ -45,7 +46,6 @@ fun EditProfileScreen(navController: NavController) {
     val needToEdit = remember {
         mutableStateOf(false)
     }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -94,6 +94,8 @@ fun EditProfileScreen(navController: NavController) {
                     padding = 30.dp,
                     onClick = {
                         focusManager.clearFocus()
+                        vm.personData.name = "${name.value} ${surname.value}"
+                        Log.d("test", "${vm.personData}")
                         navController.navigate("navigation")
                     }
                 )

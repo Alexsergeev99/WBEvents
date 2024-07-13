@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,19 +18,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.navigation.EventsTopBar
-import ru.alexsergeev.testwb.ui.atoms.Heading2Text
 import ru.alexsergeev.testwb.ui.atoms.LogoButton
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatar
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
+import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 @Composable
-fun ProfileScreen(navController: NavController, person: PersonModel) {
-
+fun ProfileScreen(
+    navController: NavController,
+//                  person: PersonModel,
+    vm: BaseViewModel
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -62,12 +63,12 @@ fun ProfileScreen(navController: NavController, person: PersonModel) {
                 padding = 20.dp
             )
             Text(
-                text = person.name,
+                text = vm.personData.name,
                 color = NeutralActive,
                 style = EventsTheme.typography.heading2
             )
             Text(
-                text = person.phone,
+                text = vm.personData.phone,
                 color = Neutral,
                 style = EventsTheme.typography.subheading2
             )

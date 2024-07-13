@@ -1,6 +1,7 @@
 package ru.alexsergeev.testwb.ui.screens
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -17,11 +18,15 @@ import androidx.compose.material.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.PersonModel
@@ -32,13 +37,14 @@ import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
+import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 @Composable
 fun ElseMenuScreen(
     navController: NavController,
-    person: PersonModel,
+    vm: BaseViewModel,
+//    person: PersonModel = vm.getPerson(),
 ) {
-
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(
@@ -63,12 +69,14 @@ fun ElseMenuScreen(
                         interactionSource = interactionSource,
                         indication = null
                     ) {
+                        Log.d("test", "${vm.personData}")
                         navController.navigate(
-                            "${Destination.Else.Profile.route}/${Uri.encode(person.name)}/${
-                                Uri.encode(
-                                    person.phone
-                                )
-                            }"
+                            Destination.Else.Profile.route
+//                                    "${Uri.encode(person.name)}/${
+//                                Uri.encode(
+//                                    person.phone
+//                                )
+//                            }"
                         )
                     },
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -87,12 +95,12 @@ fun ElseMenuScreen(
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = person.name,
+                            text = vm.personData.name,
                             color = NeutralActive,
                             style = EventsTheme.typography.bodyText1
                         )
                         Text(
-                            text = person.phone,
+                            text = vm.personData.phone,
                             color = Neutral,
                             style = EventsTheme.typography.metadata1
                         )

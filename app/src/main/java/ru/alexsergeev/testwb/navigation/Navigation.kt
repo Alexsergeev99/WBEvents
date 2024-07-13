@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -14,19 +15,25 @@ import androidx.navigation.navigation
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.dto.GroupModel
 import ru.alexsergeev.testwb.dto.PersonModel
+import ru.alexsergeev.testwb.repository.BaseRepository
+import ru.alexsergeev.testwb.repository.BaseRepositoryImpl
+import ru.alexsergeev.testwb.ui.screens.CodeScreen
 import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
 import ru.alexsergeev.testwb.ui.screens.ElseMenuScreen
 import ru.alexsergeev.testwb.ui.screens.EventScreen
 import ru.alexsergeev.testwb.ui.screens.EventsListScreen
 import ru.alexsergeev.testwb.ui.screens.GroupScreen
 import ru.alexsergeev.testwb.ui.screens.GroupsListScreen
+import ru.alexsergeev.testwb.ui.screens.InputPhoneNumberScreen
 import ru.alexsergeev.testwb.ui.screens.MapImageScreen
 import ru.alexsergeev.testwb.ui.screens.MyEventsListScreen
 import ru.alexsergeev.testwb.ui.screens.ProfileScreen
+import ru.alexsergeev.testwb.ui.screens.SplashScreen
+import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Navigation(navController: NavController) {
+fun Navigation(navController: NavController, vm: BaseViewModel = BaseViewModel(BaseRepositoryImpl())) {
 
     val navController = rememberNavController()
     val selectedPage = remember { mutableIntStateOf(0) }
@@ -45,14 +52,14 @@ fun Navigation(navController: NavController) {
         }
     ) {
         NavHost(navController = navController, startDestination = Destination.Events.route) {
-            eventsNavGraph(navController = navController)
-            groupNavGraph(navController = navController)
-            menuNavGraph(navController = navController)
+            eventsNavGraph(navController = navController, vm)
+            groupNavGraph(navController = navController, vm)
+            menuNavGraph(navController = navController, vm)
         }
     }
 }
 
-fun NavGraphBuilder.menuNavGraph(navController: NavController) {
+fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: BaseViewModel) {
 
     navigation(
         route = Destination.Else.route,
@@ -61,7 +68,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
         composable(route = Destination.Else.Dashboard.route) {
             ElseMenuScreen(
                 navController = navController,
-                PersonModel("Саша Сергеев", "+7 999 999-99-99")
+                vm
             )
         }
     }
@@ -128,20 +135,18 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController) {
             ),
         )
     }
-    composable(route = "${Destination.Else.Profile.route}/{name}/{phone}") {
+    composable(route = Destination.Else.Profile.route) {
         ProfileScreen(
-            navController = navController, PersonModel(
-                it.arguments?.getString("name") ?: "Имя Фамилия",
-                it.arguments?.getString("phone") ?: "+7 999 999-99-99"
-            )
+            navController = navController,
+            vm
         )
     }
     composable(route = Destination.Else.EditProfile.route) {
-        EditProfileScreen(navController = navController)
+        EditProfileScreen(navController = navController, vm)
     }
 }
 
-fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
+fun NavGraphBuilder.eventsNavGraph(navController: NavController, vm: BaseViewModel) {
 
     navigation(
         route = Destination.Events.route,
@@ -210,7 +215,8 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController) {
     }
 }
 
-fun NavGraphBuilder.groupNavGraph(navController: NavController) {
+fun NavGraphBuilder.groupNavGraph(navController: NavController, vm: BaseViewModel) {
+
     navigation(
         route = Destination.Groups.route,
         startDestination = Destination.Groups.Dashboard.route

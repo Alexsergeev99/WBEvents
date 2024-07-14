@@ -32,6 +32,7 @@ import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
+import ru.alexsergeev.testwb.ui.molecules.ElseMenuItem
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarSmall
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
@@ -43,8 +44,8 @@ import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 fun ElseMenuScreen(
     navController: NavController,
     vm: BaseViewModel,
-//    person: PersonModel = vm.getPerson(),
 ) {
+
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(
@@ -69,15 +70,13 @@ fun ElseMenuScreen(
                         interactionSource = interactionSource,
                         indication = null
                     ) {
-                        Log.d("test", "${vm.personData}")
                         navController.navigate(
                             Destination.Else.Profile.route
-//                                    "${Uri.encode(person.name)}/${
+                        )
+//                                    "/${Uri.encode(person.name)}/${
 //                                Uri.encode(
 //                                    person.phone
 //                                )
-//                            }"
-                        )
                     },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -113,212 +112,19 @@ fun ElseMenuScreen(
             }
             Row(
                 modifier = Modifier
-                    .padding(vertical = 12.dp)
-                    .fillMaxWidth()
-                    .height(66.dp)
-                    .clickable(
-                        interactionSource = interactionSource,
-                        indication = null
-                    ) { navController.navigate(Destination.Else.MyEvents.route) },
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(vertical = 8.dp)
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 8.dp),
-                        painter = painterResource(id = R.drawable.box),
-                        contentDescription = "events"
-                    )
-                    Text(
-                        text = "Мои встречи",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.bodyText1
-                    )
+                ElseMenuItem(text = "Мои встречи", icon = R.drawable.box) {
+                    navController.navigate(Destination.Else.MyEvents.route)
                 }
-                Icon(
-                    painter = painterResource(id = R.drawable.route_to),
-                    contentDescription = "route"
-                )
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 8.dp),
-                        painter = painterResource(id = R.drawable.light),
-                        contentDescription = "light"
-                    )
-                    Text(
-                        text = "Тема",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.bodyText1
-                    )
-                }
-                Icon(
-                    painter = painterResource(id = R.drawable.route_to),
-                    contentDescription = "route"
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 8.dp),
-                        painter = painterResource(id = R.drawable.push),
-                        contentDescription = "push"
-                    )
-                    Text(
-                        text = "Уведомления",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.bodyText1
-                    )
-                }
-                Icon(
-                    painter = painterResource(id = R.drawable.route_to),
-                    contentDescription = "route"
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 8.dp),
-                        painter = painterResource(id = R.drawable.attention),
-                        contentDescription = "attention"
-                    )
-                    Text(
-                        text = "Безопасность",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.bodyText1
-                    )
-                }
-                Icon(
-                    painter = painterResource(id = R.drawable.route_to),
-                    contentDescription = "route"
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 8.dp),
-                        painter = painterResource(id = R.drawable.resourses),
-                        contentDescription = "resources"
-                    )
-                    Text(
-                        text = "Память и ресурсы",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.bodyText1
-                    )
-                }
-                Icon(
-                    painter = painterResource(id = R.drawable.route_to),
-                    contentDescription = "route"
-                )
-            }
+            ElseMenuItem(text = "Тема", icon = R.drawable.light)
+            ElseMenuItem(text = "Уведомления", icon = R.drawable.push)
+            ElseMenuItem(text = "Безопасность", icon = R.drawable.attention)
+            ElseMenuItem(text = "Память и ресурсы", icon = R.drawable.resourses)
             Divider(color = NeutralLight)
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 8.dp),
-                        painter = painterResource(id = R.drawable.help),
-                        contentDescription = "help"
-                    )
-                    Text(
-                        text = "Помощь",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.bodyText1
-                    )
-                }
-                Icon(
-                    painter = painterResource(id = R.drawable.route_to),
-                    contentDescription = "route"
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(vertical = 6.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(end = 8.dp),
-                        painter = painterResource(id = R.drawable.call_friend),
-                        contentDescription = "call_friend"
-                    )
-                    Text(
-                        text = "Пригласи друга",
-                        color = NeutralActive,
-                        style = EventsTheme.typography.bodyText1
-                    )
-                }
-                Icon(
-                    painter = painterResource(id = R.drawable.route_to),
-                    contentDescription = "route"
-                )
-            }
+            ElseMenuItem(text = "Помощь", icon = R.drawable.help)
+            ElseMenuItem(text = "Пригласи друга", icon = R.drawable.call_friend)
         }
     }
 }

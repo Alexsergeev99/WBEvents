@@ -1,5 +1,7 @@
 package ru.alexsergeev.testwb.navigation
 
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -28,6 +30,7 @@ fun PrimaryNavigation() {
             Navigation(navController = navController, viewModel)
         }
         composable("input_number") {
+            BackHandler(true) {}
             InputPhoneNumberScreen(navController = navController, viewModel)
         }
         composable("input_code/{phone_number}/{code_value}") {

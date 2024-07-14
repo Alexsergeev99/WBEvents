@@ -55,7 +55,7 @@ fun InputPhoneNumberScreen(navController: NavController, vm: BaseViewModel) {
         EventsTopBar(
             navController = navController,
             text = "",
-            needToBack = true
+            needToBack = false
         )
     }
     Column(

@@ -5,7 +5,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -14,26 +13,24 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.dto.GroupModel
-import ru.alexsergeev.testwb.dto.PersonModel
-import ru.alexsergeev.testwb.repository.BaseRepository
 import ru.alexsergeev.testwb.repository.BaseRepositoryImpl
-import ru.alexsergeev.testwb.ui.screens.CodeScreen
 import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
 import ru.alexsergeev.testwb.ui.screens.ElseMenuScreen
 import ru.alexsergeev.testwb.ui.screens.EventScreen
 import ru.alexsergeev.testwb.ui.screens.EventsListScreen
 import ru.alexsergeev.testwb.ui.screens.GroupScreen
 import ru.alexsergeev.testwb.ui.screens.GroupsListScreen
-import ru.alexsergeev.testwb.ui.screens.InputPhoneNumberScreen
 import ru.alexsergeev.testwb.ui.screens.MapImageScreen
 import ru.alexsergeev.testwb.ui.screens.MyEventsListScreen
 import ru.alexsergeev.testwb.ui.screens.ProfileScreen
-import ru.alexsergeev.testwb.ui.screens.SplashScreen
 import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun Navigation(navController: NavController, vm: BaseViewModel = BaseViewModel(BaseRepositoryImpl())) {
+fun Navigation(
+    navController: NavController,
+    vm: BaseViewModel = BaseViewModel(BaseRepositoryImpl())
+) {
 
     val navController = rememberNavController()
     val selectedPage = remember { mutableIntStateOf(0) }
@@ -75,64 +72,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: BaseViewModel
     composable(route = Destination.Else.MyEvents.route) {
         MyEventsListScreen(
             navController = navController,
-            events = listOf(
-                EventModel(
-                    title = "Developer meeting",
-                    date = "13.01.2021",
-                    city = "Moscow",
-                    true,
-                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                    listOf("Kotlin", "Senior", "Karaganda")
-                ),
-                EventModel(
-                    title = "CoffeeCode",
-                    date = "13.01.2025",
-                    city = "Saint-Petersburg",
-                    false,
-                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                    listOf("Java", "Junior", "Astana")
-                ),
-                EventModel(
-                    title = "Developer meeting",
-                    date = "13.01.2021",
-                    city = "Moscow",
-                    true,
-                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                    listOf("Kotlin", "Senior", "Karaganda")
-                ),
-                EventModel(
-                    title = "CoffeeCode",
-                    date = "13.01.2025",
-                    city = "Saint-Petersburg",
-                    false,
-                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                    listOf("Java", "Junior", "Astana")
-                ),
-                EventModel(
-                    title = "Developer meeting",
-                    date = "13.01.2021",
-                    city = "Moscow",
-                    true,
-                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                    listOf("Kotlin", "Senior", "Karaganda")
-                ),
-                EventModel(
-                    title = "CoffeeCode",
-                    date = "13.01.2025",
-                    city = "Saint-Petersburg",
-                    false,
-                    "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                    listOf("Java", "Junior", "Astana")
-                ),
-                EventModel(
-                    title = "Developer meeting",
-                    date = "13.01.2021",
-                    city = "Moscow",
-                    true,
-                    "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                    listOf("Kotlin", "Senior", "Karaganda")
-                ),
-            ),
+            events = vm.getEventsList()
         )
     }
     composable(route = Destination.Else.Profile.route) {
@@ -156,24 +96,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController, vm: BaseViewMod
 
             EventsListScreen(
                 navController = navController,
-                events = listOf(
-                    EventModel(
-                        title = "Developer meeting",
-                        date = "13.01.2021",
-                        city = "Moscow",
-                        true,
-                        "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                        listOf("Kotlin", "Senior", "Karaganda")
-                    ),
-                    EventModel(
-                        title = "CoffeeCode",
-                        date = "13.01.2025",
-                        city = "Saint-Petersburg",
-                        false,
-                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                        listOf("Java", "Junior", "Astana")
-                    ),
-                ),
+                events = vm.getEventsList()
             )
         }
         composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}/{image_url}") {
@@ -316,40 +239,7 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController, vm: BaseViewMode
                     it.arguments?.getLong("people") ?: 0,
                     it.arguments?.getString("groupLogo") ?: ""
                 ),
-                listOf(
-                    EventModel(
-                        title = "Developer meeting",
-                        date = "13.01.2021",
-                        city = "Moscow",
-                        true,
-                        "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                        listOf("Kotlin", "Senior", "Karaganda"),
-                    ),
-                    EventModel(
-                        title = "CoffeeCode",
-                        date = "13.01.2025",
-                        city = "Saint-Petersburg",
-                        false,
-                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                        listOf("Java", "Junior", "Astana")
-                    ),
-                    EventModel(
-                        title = "Developer meeting",
-                        date = "13.01.2021",
-                        city = "Moscow",
-                        true,
-                        "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                        listOf("Kotlin", "Senior", "Karaganda")
-                    ),
-                    EventModel(
-                        title = "CoffeeCode",
-                        date = "13.01.2025",
-                        city = "Saint-Petersburg",
-                        false,
-                        "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                        listOf("Java", "Junior", "Astana")
-                    ),
-                ),
+                vm.getEventsList()
             )
         }
     }

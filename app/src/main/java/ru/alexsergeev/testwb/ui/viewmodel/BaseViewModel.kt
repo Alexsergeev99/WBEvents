@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.repository.BaseRepository
 
@@ -19,8 +20,14 @@ class BaseViewModel(val repository: BaseRepository): ViewModel() {
     val personData: PersonModel
         get() = _personData
 
+//    private var _eventsList by mutableStateOf(List<EventModel>(listOf(EventModel("", "", "", false, "", "", ""))))
+//    val eventsList: List<EventModel>
+//        get() = _eventsList
+
     private fun getPersonData() {
         _personData = repository.getPersonData()
     }
+
+    fun getEventsList() = repository.getEventsList()
 
 }

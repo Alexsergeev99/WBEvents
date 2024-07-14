@@ -34,10 +34,9 @@ fun BottomBar(
     selectedPage: MutableIntState,
     navController: NavController,
 ) {
-    BackHandler(enabled = true, onBack = {
+    BackHandler(true) {
         selectedPage.intValue = 0
     }
-    )
     BottomNavigation(
         backgroundColor = Color.White,
         contentColor = NeutralActive

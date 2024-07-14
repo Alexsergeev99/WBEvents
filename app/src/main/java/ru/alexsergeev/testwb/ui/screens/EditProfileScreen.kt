@@ -46,6 +46,14 @@ fun EditProfileScreen(navController: NavController, vm: BaseViewModel) {
     val needToEdit = remember {
         mutableStateOf(false)
     }
+
+    val mockAvatar = if (needToEdit.value) {
+        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+    }
+    else {
+        "https://www.clipartmax.com/png/full/245-2459068_marco-martinangeli-coiffeur-portrait-of-a-man.png"
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -61,8 +69,7 @@ fun EditProfileScreen(navController: NavController, vm: BaseViewModel) {
             verticalArrangement = Arrangement.Center
         ) {
             PeopleAvatarWithEdit(
-                if (needToEdit.value) "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                else "https://www.clipartmax.com/png/full/245-2459068_marco-martinangeli-coiffeur-portrait-of-a-man.png",
+                mockAvatar,
                 padding = 20.dp,
                 editPhoto = {
                     needToEdit.value = !needToEdit.value
@@ -94,7 +101,9 @@ fun EditProfileScreen(navController: NavController, vm: BaseViewModel) {
                     padding = 30.dp,
                     onClick = {
                         focusManager.clearFocus()
-                        vm.personData.name = "${name.value} ${surname.value}"
+                        vm.setPersonData("${name.value} ${surname.value}", vm.personData.phone,
+                            mockAvatar
+                        )
                         Log.d("test", "${vm.personData}")
                         navController.navigate("navigation")
                     }

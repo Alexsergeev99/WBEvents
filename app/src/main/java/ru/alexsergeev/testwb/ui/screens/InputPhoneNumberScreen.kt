@@ -114,9 +114,8 @@ fun InputPhoneNumberScreen(navController: NavController, vm: BaseViewModel) {
                 text = "Продолжить",
                 onClick = {
                     focusManager.clearFocus()
-                    vm.personData.phone = "${countryCode.value} ${phoneNumber.value}"
-                    Log.d("test", "${vm.personData}")
-                    navController.navigate("input_code/${phoneNumber.value}/${countryCode.value}")
+                    vm.setPersonData("", "${countryCode.value} ${phoneNumber.value}", "")
+                    navController.navigate("input_code")
                 }
             )
 

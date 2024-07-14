@@ -39,10 +39,11 @@ import ru.alexsergeev.testwb.ui.molecules.OtpTextField
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
+import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 
 @Composable
-fun CodeScreen(navController: NavController, phoneNumber: String, codeCountry: String) {
+fun CodeScreen(navController: NavController, vm: BaseViewModel) {
 
     val codeValue = rememberSaveable {
         mutableStateOf("")
@@ -85,7 +86,7 @@ fun CodeScreen(navController: NavController, phoneNumber: String, codeCountry: S
         Text(
             modifier = Modifier
                 .padding(bottom = 4.dp),
-            text = "$codeCountry $phoneNumber",
+            text = vm.personData.phone ,
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )

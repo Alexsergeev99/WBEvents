@@ -30,7 +30,6 @@ import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 @Composable
 fun ProfileScreen(
     navController: NavController,
-//                  person: PersonModel,
     vm: BaseViewModel
 ) {
     Box(
@@ -59,7 +58,7 @@ fun ProfileScreen(
                     .fillMaxWidth()
             )
             PeopleAvatar(
-                image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
+                image = vm.personData.avatar,
                 padding = 20.dp
             )
             Text(

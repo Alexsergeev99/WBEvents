@@ -33,11 +33,10 @@ fun PrimaryNavigation() {
             BackHandler(true) {}
             InputPhoneNumberScreen(navController = navController, viewModel)
         }
-        composable("input_code/{phone_number}/{code_value}") {
+        composable("input_code") {
             CodeScreen(
                 navController = navController,
-                it.arguments?.getString("phone_number") ?: "",
-                it.arguments?.getString("code_value") ?: "",
+                viewModel
             )
         }
         composable("edit_profile") {

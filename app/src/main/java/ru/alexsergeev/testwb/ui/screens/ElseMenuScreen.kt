@@ -73,10 +73,6 @@ fun ElseMenuScreen(
                         navController.navigate(
                             Destination.Else.Profile.route
                         )
-//                                    "/${Uri.encode(person.name)}/${
-//                                Uri.encode(
-//                                    person.phone
-//                                )
                     },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -85,7 +81,7 @@ fun ElseMenuScreen(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    PeopleAvatarSmall(image = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
+                    PeopleAvatarSmall(image = vm.personData.avatar)
                     Column(
                         modifier = Modifier
                             .fillMaxHeight()

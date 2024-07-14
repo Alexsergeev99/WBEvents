@@ -16,18 +16,21 @@ import ru.alexsergeev.testwb.repository.BaseRepository
 
 class BaseViewModel(val repository: BaseRepository): ViewModel() {
 
-    private var _personData by mutableStateOf(PersonModel("",""))
+    private var _personData by mutableStateOf(PersonModel("","", ""))
     val personData: PersonModel
         get() = _personData
-
-//    private var _eventsList by mutableStateOf(List<EventModel>(listOf(EventModel("", "", "", false, "", "", ""))))
-//    val eventsList: List<EventModel>
-//        get() = _eventsList
 
     private fun getPersonData() {
         _personData = repository.getPersonData()
     }
 
+    fun setPersonData(name: String, phone: String, avatar: String) {
+        _personData.name = name
+        _personData.phone = phone
+        _personData.avatar = avatar
+    }
+
     fun getEventsList() = repository.getEventsList()
 
+    fun getGroups() = repository.getGroups()
 }

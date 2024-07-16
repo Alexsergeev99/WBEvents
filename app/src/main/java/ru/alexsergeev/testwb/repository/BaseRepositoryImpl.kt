@@ -10,6 +10,7 @@ class BaseRepositoryImpl : BaseRepository {
     override fun getPersonData(): PersonModel = PersonModel("Саша Сергеев", "+7 999 999 99-99", "\"https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg\"")
     override fun getEventsList(): List<EventModel> = listOf(
         EventModel(
+            1,
             title = "Developer meeting",
             date = "13.01.2021",
             city = "Moscow",
@@ -18,6 +19,7 @@ class BaseRepositoryImpl : BaseRepository {
             listOf("Kotlin", "Senior", "Karaganda")
         ),
         EventModel(
+            2,
             title = "CoffeeCode",
             date = "13.01.2025",
             city = "Saint-Petersburg",
@@ -26,6 +28,7 @@ class BaseRepositoryImpl : BaseRepository {
             listOf("Java", "Junior", "Astana")
         ),
         EventModel(
+            3,
             title = "Developer meeting",
             date = "13.01.2021",
             city = "Moscow",
@@ -34,6 +37,7 @@ class BaseRepositoryImpl : BaseRepository {
             listOf("Kotlin", "Senior", "Karaganda")
         ),
         EventModel(
+            4,
             title = "CoffeeCode",
             date = "13.01.2025",
             city = "Saint-Petersburg",
@@ -42,6 +46,7 @@ class BaseRepositoryImpl : BaseRepository {
             listOf("Java", "Junior", "Astana")
         ),
         EventModel(
+            5,
             title = "Developer meeting",
             date = "13.01.2021",
             city = "Moscow",
@@ -50,6 +55,7 @@ class BaseRepositoryImpl : BaseRepository {
             listOf("Kotlin", "Senior", "Karaganda")
         ),
         EventModel(
+            6,
             title = "CoffeeCode",
             date = "13.01.2025",
             city = "Saint-Petersburg",
@@ -58,6 +64,7 @@ class BaseRepositoryImpl : BaseRepository {
             listOf("Java", "Junior", "Astana")
         ),
         EventModel(
+            7,
             title = "Developer meeting",
             date = "13.01.2021",
             city = "Moscow",

@@ -91,6 +91,7 @@ fun GroupScreen(
                 items(events.size) { event ->
                     MeetingCard(
                         navController = navController, EventModel(
+                            id = events[event].id,
                             title = events[event].title,
                             date = events[event].date,
                             city = events[event].city,

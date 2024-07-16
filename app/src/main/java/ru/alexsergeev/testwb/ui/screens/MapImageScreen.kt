@@ -19,13 +19,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.EventsTopBar
+import ru.alexsergeev.testwb.ui.viewmodel.EventsViewModel
 
 @Composable
-fun MapImageScreen(navController: NavController, event: EventModel) {
+fun MapImageScreen(navController: NavController,
+                   eventId: String,
+                   eventsViewModel: EventsViewModel = koinViewModel()
+//                   event: EventModel
+) {
     var scale by remember { mutableStateOf(1f) }
+
+    val event = eventsViewModel.getEventsList()[eventId.toInt()]
 
     Column(
         modifier = Modifier

@@ -1,6 +1,7 @@
 package ru.alexsergeev.testwb.dto
 
 data class EventModel(
+    val id: Int,
     val title: String?,
     val date: String?,
     val city: String?,

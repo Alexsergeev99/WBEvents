@@ -107,6 +107,7 @@ fun EventsListScreen(navController: NavController, events: List<EventModel>) {
                         items(events.size) { event ->
                             MeetingCard(
                                 navController = navController, EventModel(
+                                    id = events[event].id,
                                     title = events[event].title,
                                     date = events[event].date,
                                     city = events[event].city,
@@ -123,6 +124,7 @@ fun EventsListScreen(navController: NavController, events: List<EventModel>) {
                             if (events[event].isFinished == false) {
                                 MeetingCard(
                                     navController = navController, EventModel(
+                                        id = events[event].id,
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,

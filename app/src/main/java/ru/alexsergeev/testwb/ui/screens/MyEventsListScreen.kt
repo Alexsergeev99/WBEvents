@@ -97,6 +97,7 @@ fun MyEventsListScreen(
                             if (events[event].isFinished == false) {
                                 MeetingCard(
                                     navController = navController, EventModel(
+                                        id = events[event].id,
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,
@@ -114,6 +115,7 @@ fun MyEventsListScreen(
                             if (events[event].isFinished == true) {
                                 FinishedMeetingCard(
                                     navController = navController, EventModel(
+                                        id = events[event].id,
                                         title = events[event].title,
                                         date = events[event].date,
                                         city = events[event].city,

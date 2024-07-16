@@ -26,6 +26,7 @@ fun MoleculeTestScreen(navController: NavController, goToEventScreen: () -> Unit
             MeetingCard(
                 navController = navController,
                 EventModel(
+                    1,
                     title = "Developer meeting",
                     date = "13.01.2021",
                     city = "Moscow",
@@ -33,11 +34,11 @@ fun MoleculeTestScreen(navController: NavController, goToEventScreen: () -> Unit
                     "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                     listOf("Python", "Junior", "Moscow")
                 ),
-//                goToEventScreen = goToEventScreen
             )
             MeetingCard(
                 navController = navController,
                 EventModel(
+                    1,
                 title = "Developer meeting",
                 date = "13.01.2021",
                 city = "Moscow",

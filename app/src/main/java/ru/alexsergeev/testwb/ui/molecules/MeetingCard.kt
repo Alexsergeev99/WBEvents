@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.ui.atoms.OneChip
@@ -30,23 +31,27 @@ import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
+import ru.alexsergeev.testwb.ui.viewmodel.EventsViewModel
 
 @Composable
 fun MeetingCard(
     navController: NavController,
     event: EventModel,
 ) {
+
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable {
                 navController.navigate(
-                    "${Destination.Events.Event.route}" +
-                            "/${Uri.encode(event.title)}/${Uri.encode(event.date)}" +
-                            "/${Uri.encode(event.city)}/${Uri.encode(event.chips[0])}" +
-                            "/${Uri.encode(event.chips[1])}/${Uri.encode(event.chips[2])}" +
-                            "/${Uri.encode(event.imageUrl)}"
+                    "${Destination.Events.Event.route}/${event.id.toString()}"
+//                            "/${Uri.encode(event.title)}/${Uri.encode(event.date)}" +
+//                            "/${Uri.encode(event.city)}/${Uri.encode(event.chips[0])}" +
+//                            "/${Uri.encode(event.chips[1])}/${Uri.encode(event.chips[2])}" +
+//                            "/${Uri.encode(event.imageUrl)}"
                 )
             }
             .bottomBorder(1.dp, NeutralLight),

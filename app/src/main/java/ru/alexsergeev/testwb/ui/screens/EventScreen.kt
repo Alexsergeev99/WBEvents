@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.Destination
@@ -38,9 +39,14 @@ import ru.alexsergeev.testwb.ui.atoms.SimpleOutlinedButton
 import ru.alexsergeev.testwb.ui.molecules.OverlappingRow
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
+import ru.alexsergeev.testwb.ui.viewmodel.EventsViewModel
 
 @Composable
-fun EventScreen(navController: NavController, event: EventModel) {
+fun EventScreen(navController: NavController,
+                eventId: String,
+                eventsViewModel: EventsViewModel = koinViewModel()
+//                event: EventModel
+) {
     val scroll = rememberScrollState(0)
     val iAmGuest = remember {
         mutableStateOf(false)
@@ -48,6 +54,7 @@ fun EventScreen(navController: NavController, event: EventModel) {
     val participants = remember {
         mutableStateOf(11)
     }
+    val event = eventsViewModel.getEventsList()[eventId.toInt()-1]
 
     Box(
         modifier = Modifier
@@ -103,8 +110,8 @@ fun EventScreen(navController: NavController, event: EventModel) {
                             .clickable {
                                 navController.navigate(
                                     Destination.Events.MapImage.route +
-                                            "/${Uri.encode(event.imageUrl)}" +
-                                            "/${Uri.encode(event.title)}"
+                                            "/${Uri.encode(event.id.toString())}"
+//                                            "/${Uri.encode(event.title)}"
                                 )
                             },
                         contentScale = ContentScale.FillWidth,

@@ -101,40 +101,43 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController, eventsViewModel
                 events = eventsViewModel.getEventsList()
             )
         }
-        composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}/{image_url}") {
+        composable(route = "${Destination.Events.Event.route}/{id}") {
             EventScreen(
                 navController = navController,
-                EventModel(
-                    title = it.arguments?.getString("name"),
-                    date = it.arguments?.getString("date"),
-                    city = it.arguments?.getString("city"),
-                    isFinished = it.arguments?.getBoolean("finished") ?: false,
-                    imageUrl = it.arguments?.getString("image_url") ?: "",
-                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
-                    chips = listOf(
-                        it.arguments?.getString("chip1") ?: "",
-                        it.arguments?.getString("chip2") ?: "",
-                        it.arguments?.getString("chip3") ?: ""
-                    ),
-                ),
+                it.arguments?.getString("id") ?: "0",
+
+//                EventModel(
+//                    title = it.arguments?.getString("name"),
+//                    date = it.arguments?.getString("date"),
+//                    city = it.arguments?.getString("city"),
+//                    isFinished = it.arguments?.getBoolean("finished") ?: false,
+//                    imageUrl = it.arguments?.getString("image_url") ?: "",
+//                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
+//                    chips = listOf(
+//                        it.arguments?.getString("chip1") ?: "",
+//                        it.arguments?.getString("chip2") ?: "",
+//                        it.arguments?.getString("chip3") ?: ""
+//                    ),
+//                ),
             )
         }
-        composable(route = "${Destination.Events.MapImage.route}/{image_url}/{name}") {
+        composable(route = "${Destination.Events.MapImage.route}/{id}") {
             MapImageScreen(
                 navController = navController,
-                EventModel(
-                    title = it.arguments?.getString("name"),
-                    date = it.arguments?.getString("date"),
-                    city = it.arguments?.getString("city"),
-                    isFinished = it.arguments?.getBoolean("finished") ?: false,
-                    imageUrl = it.arguments?.getString("image_url") ?: "",
-                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
-                    chips = listOf(
-                        it.arguments?.getString("chip1") ?: "",
-                        it.arguments?.getString("chip2") ?: "",
-                        it.arguments?.getString("chip3") ?: ""
-                    ),
-                ),
+                it.arguments?.getString("id") ?: "0",
+//                EventModel(
+//                    title = it.arguments?.getString("name"),
+//                    date = it.arguments?.getString("date"),
+//                    city = it.arguments?.getString("city"),
+//                    isFinished = it.arguments?.getBoolean("finished") ?: false,
+//                    imageUrl = it.arguments?.getString("image_url") ?: "",
+//                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
+//                    chips = listOf(
+//                        it.arguments?.getString("chip1") ?: "",
+//                        it.arguments?.getString("chip2") ?: "",
+//                        it.arguments?.getString("chip3") ?: ""
+//                    ),
+//                ),
             )
         }
     }
@@ -156,11 +159,6 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController, groupsViewModel:
             GroupScreen(
                 navController = navController,
                 it.arguments?.getString("id") ?: "0",
-//                GroupModel(
-//                    it.arguments?.getString("groupName") ?: "Group",
-//                    it.arguments?.getLong("people") ?: 0,
-//                    it.arguments?.getString("groupLogo") ?: ""
-//                ),
                 groupsViewModel.getEventsList()
             )
         }

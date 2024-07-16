@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.dto.GroupModel
@@ -26,13 +27,20 @@ import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralWeak
+import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
+import ru.alexsergeev.testwb.ui.viewmodel.GroupsViewModel
 
 @Composable
 fun GroupScreen(
     navController: NavController,
-    group: GroupModel,
+    groupId: String,
+//    group: GroupModel,
     events: List<EventModel>,
+    vm: GroupsViewModel = koinViewModel()
 ) {
+
+    val groups = vm.getGroups()
+    val group = groups[groupId.toInt() - 1]
 
     val scroll = rememberScrollState(0)
 

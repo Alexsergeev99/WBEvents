@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.repository.BaseRepositoryImpl
 import ru.alexsergeev.testwb.ui.screens.CodeScreen
 import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
@@ -17,7 +18,7 @@ import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 @Composable
 fun PrimaryNavigation() {
     val navController = rememberNavController()
-    val viewModel = BaseViewModel(BaseRepositoryImpl())
+    val viewModel: BaseViewModel = koinViewModel()
 
     NavHost(
         navController = navController,
@@ -27,7 +28,8 @@ fun PrimaryNavigation() {
             SplashScreen(navController = navController)
         }
         composable("navigation") {
-            Navigation(navController = navController, viewModel)
+//            Navigation(navController = navController, viewModel)
+            Navigation(viewModel)
         }
         composable("input_number") {
             BackHandler(true) {}

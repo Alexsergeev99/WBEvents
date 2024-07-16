@@ -5,6 +5,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.alexsergeev.testwb.di.appModule
+import ru.alexsergeev.testwb.di.eventsModule
+import ru.alexsergeev.testwb.di.groupsModule
 
 class App : Application() {
     override fun onCreate() {
@@ -13,7 +15,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(appModule)
+            modules(appModule, eventsModule, groupsModule)
         }
     }
 }

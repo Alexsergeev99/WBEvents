@@ -87,7 +87,7 @@ fun CodeScreen(navController: NavController, vm: BaseViewModel = koinViewModel()
         Text(
             modifier = Modifier
                 .padding(bottom = 4.dp),
-            text = vm.personData.phone ,
+            text = vm.personData.phone,
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )

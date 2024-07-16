@@ -45,17 +45,16 @@ fun MoleculeTestScreen(navController: NavController, goToEventScreen: () -> Unit
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                 listOf("Python", "Junior", "Moscow")
                 ),
-//                goToEventScreen = goToEventScreen
             )
             OverlappingRow("https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/", 11)
             PeopleAvatarWithEdit("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             PeopleAvatar("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             GroupCard(
                 navController = navController,
-                GroupModel("Designa",
+                GroupModel(1,"Designa",
                 10_000,
                 "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"),
-//                {}
+
             )
         }
     }

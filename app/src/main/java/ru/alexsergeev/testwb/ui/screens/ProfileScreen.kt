@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.LogoButton
@@ -30,7 +31,7 @@ import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    vm: BaseViewModel
+    vm: BaseViewModel = koinViewModel()
 ) {
     Box(
         modifier = Modifier

@@ -120,16 +120,6 @@ fun InputPhoneNumberScreen(navController: NavController, vm: BaseViewModel = koi
                 }
             )
 
-            in 0..9 -> DisabledButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                text = "Продолжить",
-                onClick = {
-                    Toast.makeText(ctx, "Мало цифр(", Toast.LENGTH_LONG).show()
-                }
-            )
-
             else -> DisabledButton(
                 modifier = Modifier
                     .fillMaxWidth()

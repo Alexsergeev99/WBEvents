@@ -14,7 +14,6 @@ import androidx.navigation.navigation
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.dto.GroupModel
-import ru.alexsergeev.testwb.repository.BaseRepositoryImpl
 import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
 import ru.alexsergeev.testwb.ui.screens.ElseMenuScreen
 import ru.alexsergeev.testwb.ui.screens.EventScreen
@@ -25,15 +24,20 @@ import ru.alexsergeev.testwb.ui.screens.MapImageScreen
 import ru.alexsergeev.testwb.ui.screens.MyEventsListScreen
 import ru.alexsergeev.testwb.ui.screens.ProfileScreen
 import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
+import ru.alexsergeev.testwb.ui.viewmodel.EventsViewModel
+import ru.alexsergeev.testwb.ui.viewmodel.GroupsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Navigation(
-    navController: NavController,
+//    navController: NavController,
     vm: BaseViewModel = koinViewModel()
 ) {
 
-    val navController = rememberNavController()
+    val eventsViewModel: EventsViewModel = koinViewModel()
+    val groupsViewModel: GroupsViewModel = koinViewModel()
+
+    val navHostController = rememberNavController()
     val selectedPage = remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -45,14 +49,14 @@ fun Navigation(
                     Destination.Else.Dashboard
                 ),
                 selectedPage = selectedPage,
-                navController = navController,
+                navController = navHostController,
             )
         }
     ) {
-        NavHost(navController = navController, startDestination = Destination.Events.route) {
-            eventsNavGraph(navController = navController, vm)
-            groupNavGraph(navController = navController, vm)
-            menuNavGraph(navController = navController, vm)
+        NavHost(navController = navHostController, startDestination = Destination.Events.route) {
+            eventsNavGraph(navController = navHostController, eventsViewModel)
+            groupNavGraph(navController = navHostController, groupsViewModel)
+            menuNavGraph(navController = navHostController, vm)
         }
     }
 }
@@ -84,7 +88,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: BaseViewModel
     }
 }
 
-fun NavGraphBuilder.eventsNavGraph(navController: NavController, vm: BaseViewModel) {
+fun NavGraphBuilder.eventsNavGraph(navController: NavController, eventsViewModel: EventsViewModel) {
 
     navigation(
         route = Destination.Events.route,
@@ -94,7 +98,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController, vm: BaseViewMod
 
             EventsListScreen(
                 navController = navController,
-                events = vm.getEventsList()
+                events = eventsViewModel.getEventsList()
             )
         }
         composable(route = "${Destination.Events.Event.route}/{name}/{date}/{city}/{chip1}/{chip2}/{chip3}/{image_url}") {
@@ -136,7 +140,7 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController, vm: BaseViewMod
     }
 }
 
-fun NavGraphBuilder.groupNavGraph(navController: NavController, vm: BaseViewModel) {
+fun NavGraphBuilder.groupNavGraph(navController: NavController, groupsViewModel: GroupsViewModel) {
 
     navigation(
         route = Destination.Groups.route,
@@ -145,18 +149,19 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController, vm: BaseViewMode
         composable(route = Destination.Groups.Dashboard.route) {
             GroupsListScreen(
                 navController = navController,
-                vm.getGroups()
+                groupsViewModel.getGroups()
             )
         }
-        composable(route = "${Destination.Groups.Group.route}/{groupName}") {
+        composable(route = "${Destination.Groups.Group.route}/{id}") {
             GroupScreen(
                 navController = navController,
-                GroupModel(
-                    it.arguments?.getString("groupName") ?: "Group",
-                    it.arguments?.getLong("people") ?: 0,
-                    it.arguments?.getString("groupLogo") ?: ""
-                ),
-                vm.getEventsList()
+                it.arguments?.getString("id") ?: "0",
+//                GroupModel(
+//                    it.arguments?.getString("groupName") ?: "Group",
+//                    it.arguments?.getLong("people") ?: 0,
+//                    it.arguments?.getString("groupLogo") ?: ""
+//                ),
+                groupsViewModel.getEventsList()
             )
         }
     }

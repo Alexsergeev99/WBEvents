@@ -24,7 +24,6 @@ fun GroupsListScreen(
     navController: NavController,
     groups: List<GroupModel>,
 ) {
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -50,6 +49,7 @@ fun GroupsListScreen(
                     GroupCard(
                         navController = navController,
                         GroupModel(
+                            id = groups[group].id,
                             name = groups[group].name,
                             people = groups[group].people,
                             groupLogo = groups[group].groupLogo

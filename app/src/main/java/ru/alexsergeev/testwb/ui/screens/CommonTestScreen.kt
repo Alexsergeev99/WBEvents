@@ -70,6 +70,7 @@ fun CommonTestScreen(navController: NavController) {
             GroupCard(
                 navController = navController,
                 GroupModel(
+                    1,
                     "Designa",
                     10_000,
                     "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"

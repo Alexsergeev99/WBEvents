@@ -5,8 +5,7 @@ agp = "8.4.0"
 coilCompose = "2.6.0"
 koinAndroid = "3.5.6"
 koinAndroidxCompose = "3.5.6"
-koinAndroidxScope = "3.5.6"
-koinBom = "3.5.6"
+koinAndroidxNavigation = "3.5.6"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -42,8 +41,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
-koin-androidx-scope = { module = "org.koin:koin-androidx-scope", version.ref = "koinAndroidxScope" }
-koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
+koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation", version.ref = "koinAndroidxNavigation" }
 koin-core = { module = "io.insert-koin:koin-core" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }

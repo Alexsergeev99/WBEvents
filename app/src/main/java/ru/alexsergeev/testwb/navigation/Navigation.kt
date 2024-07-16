@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.dto.GroupModel
 import ru.alexsergeev.testwb.repository.BaseRepositoryImpl
@@ -29,7 +30,7 @@ import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 @Composable
 fun Navigation(
     navController: NavController,
-    vm: BaseViewModel = BaseViewModel(BaseRepositoryImpl())
+    vm: BaseViewModel = koinViewModel()
 ) {
 
     val navController = rememberNavController()
@@ -76,10 +77,7 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: BaseViewModel
         )
     }
     composable(route = Destination.Else.Profile.route) {
-        ProfileScreen(
-            navController = navController,
-            vm
-        )
+        ProfileScreen(navController = navController, vm)
     }
     composable(route = Destination.Else.EditProfile.route) {
         EditProfileScreen(navController = navController, vm)

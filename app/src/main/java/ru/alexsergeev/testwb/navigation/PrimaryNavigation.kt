@@ -34,10 +34,7 @@ fun PrimaryNavigation() {
             InputPhoneNumberScreen(navController = navController, viewModel)
         }
         composable("input_code") {
-            CodeScreen(
-                navController = navController,
-                viewModel
-            )
+            CodeScreen(navController = navController, viewModel)
         }
         composable("edit_profile") {
             EditProfileScreen(navController = navController, viewModel)

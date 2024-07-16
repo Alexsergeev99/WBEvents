@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.SimpleTextButton
@@ -43,7 +44,7 @@ import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 
 @Composable
-fun CodeScreen(navController: NavController, vm: BaseViewModel) {
+fun CodeScreen(navController: NavController, vm: BaseViewModel = koinViewModel()) {
 
     val codeValue = rememberSaveable {
         mutableStateOf("")

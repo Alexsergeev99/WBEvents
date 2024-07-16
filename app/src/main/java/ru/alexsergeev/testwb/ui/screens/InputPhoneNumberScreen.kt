@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.DisabledButton
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
@@ -33,7 +34,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 @Composable
-fun InputPhoneNumberScreen(navController: NavController, vm: BaseViewModel) {
+fun InputPhoneNumberScreen(navController: NavController, vm: BaseViewModel = koinViewModel()) {
 
     val ctx = LocalContext.current
 

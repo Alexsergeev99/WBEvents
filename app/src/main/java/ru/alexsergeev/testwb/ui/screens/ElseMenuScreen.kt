@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.R
 import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.navigation.Destination
@@ -43,7 +44,7 @@ import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 @Composable
 fun ElseMenuScreen(
     navController: NavController,
-    vm: BaseViewModel,
+    vm: BaseViewModel = koinViewModel(),
 ) {
 
     val interactionSource = remember { MutableInteractionSource() }

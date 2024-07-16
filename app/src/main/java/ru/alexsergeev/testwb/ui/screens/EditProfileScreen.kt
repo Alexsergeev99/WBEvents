@@ -21,6 +21,10 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.compose.getKoin
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.DisabledButton
@@ -30,7 +34,7 @@ import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarWithEdit
 import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
 
 @Composable
-fun EditProfileScreen(navController: NavController, vm: BaseViewModel) {
+fun EditProfileScreen(navController: NavController, vm: BaseViewModel = koinViewModel()) {
 
     val ctx = LocalContext.current
 

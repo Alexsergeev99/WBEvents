@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import ru.alexsergeev.testwb.ui.viewmodel.AuthViewModel
 import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun CodeScreen(navController: NavController, vm: PersonProfileViewModel = koinViewModel()) {
 
@@ -72,7 +74,7 @@ fun CodeScreen(navController: NavController, vm: PersonProfileViewModel = koinVi
         Text(
             modifier = Modifier
                 .padding(bottom = 4.dp),
-            text = vm.personData.phone,
+            text = "${vm.getCountryCodeFlow().value} ${vm.getPhoneFlow().value}",
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )

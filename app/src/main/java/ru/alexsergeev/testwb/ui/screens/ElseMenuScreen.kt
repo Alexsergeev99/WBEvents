@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralLight
 import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun ElseMenuScreen(
     navController: NavController,
@@ -74,7 +76,8 @@ fun ElseMenuScreen(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    PeopleAvatarSmall(image = vm.personData.avatar)
+//                    PeopleAvatarSmall(image = vm.personData.avatar)
+                    PeopleAvatarSmall(image = vm.getPersonAvatarFlow().value)
                     Column(
                         modifier = Modifier
                             .fillMaxHeight()
@@ -83,12 +86,12 @@ fun ElseMenuScreen(
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = vm.personData.name,
+                            text = "${vm.getFirstNameFlow().value} ${vm.getSecondNameFlow().value}",
                             color = NeutralActive,
                             style = EventsTheme.typography.bodyText1
                         )
                         Text(
-                            text = vm.personData.phone,
+                            text = "${vm.getCountryCodeFlow().value} ${vm.getPhoneFlow().value}",
                             color = Neutral,
                             style = EventsTheme.typography.metadata1
                         )

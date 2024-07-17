@@ -73,19 +73,29 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                 padding = 20.dp,
                 editPhoto = {
                     needToEdit.value = !needToEdit.value
+                    vm.setPersonAvatarFlow("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
+//                    name.value = vm.getFirstNameFlow().value
                 }
             )
             Search(
                 hint = "Имя (обязательно)",
                 isSearch = false,
                 padding = 6.dp,
-                text = name
+                onTextChange = {
+                    vm.setFirstNameFlow(it)
+//                    name.value = vm.getFirstNameFlow().value
+                },
+                text = name,
             )
             Search(
                 hint = "Фамилия (опционально)",
                 isSearch = false,
                 padding = 6.dp,
-                text = surname
+                onTextChange = {
+                    vm.setSecondNameFlow(it)
+//                    surname.value = vm.getSecondNameFlow().value
+                },
+                text = surname,
             )
             Spacer(
                 modifier = Modifier
@@ -101,10 +111,9 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                     padding = 30.dp,
                     onClick = {
                         focusManager.clearFocus()
-                        vm.setPersonData("${name.value} ${surname.value}", vm.personData.phone,
-                            mockAvatar
-                        )
-                        Log.d("test", "${vm.personData}")
+//                        vm.setPersonData("${name.value} ${surname.value}", vm.personData.phone,
+//                            mockAvatar
+//                        )
                         navController.navigate("navigation")
                     }
                 )

@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,7 @@ import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
 import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun ProfileScreen(
     navController: NavController,
@@ -60,16 +62,16 @@ fun ProfileScreen(
                     .fillMaxWidth()
             )
             PeopleAvatar(
-                image = vm.personData.avatar,
+                image = vm.getPersonAvatarFlow().value,
                 padding = 20.dp
             )
             Text(
-                text = vm.personData.name,
+                text = "${vm.getFirstNameFlow().value} ${vm.getSecondNameFlow().value}",
                 color = NeutralActive,
                 style = EventsTheme.typography.heading2
             )
             Text(
-                text = vm.personData.phone,
+                text = "${vm.getCountryCodeFlow().value} ${vm.getPhoneFlow().value}",
                 color = Neutral,
                 style = EventsTheme.typography.subheading2
             )

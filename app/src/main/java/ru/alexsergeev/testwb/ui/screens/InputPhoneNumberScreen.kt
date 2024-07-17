@@ -1,7 +1,6 @@
 package ru.alexsergeev.testwb.ui.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,17 +30,18 @@ import ru.alexsergeev.testwb.ui.molecules.InputCodeCountryField
 import ru.alexsergeev.testwb.ui.molecules.InputNumberTextField
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
-import ru.alexsergeev.testwb.ui.viewmodel.AuthViewModel
 import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun InputPhoneNumberScreen(navController: NavController, vm: PersonProfileViewModel = koinViewModel()) {
+fun InputPhoneNumberScreen(
+    navController: NavController,
+    vm: PersonProfileViewModel = koinViewModel()
+) {
 
     val ctx = LocalContext.current
 
     val focusManager = LocalFocusManager.current
-
 
 
 //    val phoneNumber = vm.getPhoneFlow().value
@@ -49,11 +49,11 @@ fun InputPhoneNumberScreen(navController: NavController, vm: PersonProfileViewMo
         mutableStateOf("")
     }
 
-    var countryCode = vm.getCountryCodeFlow().value
+//    var countryCode = vm.getCountryCodeFlow().value
 
-//    val countryCode = remember {
-//        mutableStateOf("+7")
-//    }
+    val countryCode = remember {
+        mutableStateOf("+7")
+    }
 
     Box(
         modifier = Modifier
@@ -103,8 +103,10 @@ fun InputPhoneNumberScreen(navController: NavController, vm: PersonProfileViewMo
             verticalAlignment = Alignment.CenterVertically
         ) {
             InputCodeCountryField(onTextChange = {
-                countryCode = it
-            })
+                vm.setCountryCodeFlow(it)
+//                countryCode.value = vm.getCountryCodeFlow().value
+            }
+            )
             InputNumberTextField(hint = "999 999-99-99", height = 40.dp, onTextChange = {
                 vm.setPhoneFlow(it)
                 phoneNumber.value = vm.getPhoneFlow().value
@@ -118,25 +120,27 @@ fun InputPhoneNumberScreen(navController: NavController, vm: PersonProfileViewMo
         )
         when (phoneNumber.value.length) {
             10 -> SimpleButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    text = "Продолжить",
-                    onClick = {
-                        focusManager.clearFocus()
-                        vm.setPersonData("", "${countryCode} ${phoneNumber.value}", "")
-                        navController.navigate("input_code")
-                    }
-                )
-            in  0..9 -> DisabledButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    text = "Продолжить",
-                    onClick = {
-                        Toast.makeText(ctx, "мало цифр(", Toast.LENGTH_LONG).show()
-                    }
-                )
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                text = "Продолжить",
+                onClick = {
+                    focusManager.clearFocus()
+//                    vm.setPersonData("", "${countryCode} ${phoneNumber.value}", "")
+                    navController.navigate("input_code")
+                }
+            )
+
+            in 0..9 -> DisabledButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                text = "Продолжить",
+                onClick = {
+                    Toast.makeText(ctx, "мало цифр(", Toast.LENGTH_LONG).show()
+                }
+            )
+
             else -> DisabledButton(
                 modifier = Modifier
                     .fillMaxWidth()

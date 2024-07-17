@@ -43,17 +43,10 @@ fun InputPhoneNumberScreen(
 
     val focusManager = LocalFocusManager.current
 
-
-//    val phoneNumber = vm.getPhoneFlow().value
     val phoneNumber = remember {
         mutableStateOf("")
     }
 
-//    var countryCode = vm.getCountryCodeFlow().value
-
-    val countryCode = remember {
-        mutableStateOf("+7")
-    }
 
     Box(
         modifier = Modifier
@@ -104,7 +97,6 @@ fun InputPhoneNumberScreen(
         ) {
             InputCodeCountryField(onTextChange = {
                 vm.setCountryCodeFlow(it)
-//                countryCode.value = vm.getCountryCodeFlow().value
             }
             )
             InputNumberTextField(hint = "999 999-99-99", height = 40.dp, onTextChange = {
@@ -126,7 +118,6 @@ fun InputPhoneNumberScreen(
                 text = "Продолжить",
                 onClick = {
                     focusManager.clearFocus()
-//                    vm.setPersonData("", "${countryCode} ${phoneNumber.value}", "")
                     navController.navigate("input_code")
                 }
             )

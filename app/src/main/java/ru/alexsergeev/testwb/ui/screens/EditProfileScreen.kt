@@ -74,7 +74,6 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                 editPhoto = {
                     needToEdit.value = !needToEdit.value
                     vm.setPersonAvatarFlow("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
-//                    name.value = vm.getFirstNameFlow().value
                 }
             )
             Search(
@@ -83,7 +82,6 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                 padding = 6.dp,
                 onTextChange = {
                     vm.setFirstNameFlow(it)
-//                    name.value = vm.getFirstNameFlow().value
                 },
                 text = name,
             )
@@ -93,7 +91,6 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                 padding = 6.dp,
                 onTextChange = {
                     vm.setSecondNameFlow(it)
-//                    surname.value = vm.getSecondNameFlow().value
                 },
                 text = surname,
             )
@@ -111,9 +108,6 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                     padding = 30.dp,
                     onClick = {
                         focusManager.clearFocus()
-//                        vm.setPersonData("${name.value} ${surname.value}", vm.personData.phone,
-//                            mockAvatar
-//                        )
                         navController.navigate("navigation")
                     }
                 )

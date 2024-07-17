@@ -4,9 +4,9 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ru.alexsergeev.testwb.di.eventsModule
-import ru.alexsergeev.testwb.di.groupsModule
-import ru.alexsergeev.testwb.di.profileModule
+import ru.alexsergeev.testwb.di.modules.dataModule
+import ru.alexsergeev.testwb.di.modules.domainModule
+import ru.alexsergeev.testwb.di.modules.presentationModule
 
 class App : Application() {
     override fun onCreate() {
@@ -15,7 +15,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(profileModule, eventsModule, groupsModule)
+            modules(presentationModule, dataModule, domainModule)
         }
     }
 }

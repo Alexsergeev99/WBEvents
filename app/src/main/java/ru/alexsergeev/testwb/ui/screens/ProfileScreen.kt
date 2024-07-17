@@ -26,13 +26,14 @@ import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Neutral
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
-import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
+import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    vm: BaseViewModel = koinViewModel()
+    vm: PersonProfileViewModel = koinViewModel()
 ) {
+
     Box(
         modifier = Modifier
             .fillMaxSize()

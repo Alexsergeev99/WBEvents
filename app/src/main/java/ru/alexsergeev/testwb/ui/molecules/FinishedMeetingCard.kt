@@ -36,11 +36,7 @@ fun FinishedMeetingCard(
             .padding(vertical = 8.dp)
             .clickable {
                 navController.navigate(
-                    Destination.Events.Event.route +
-                            "/${event.title}/${event.date}" +
-                            "/${event.city}/${event.chips[0]}" +
-                            "/${event.chips[1]}/${event.chips[2]}" +
-                            "/${Uri.encode(event.imageUrl)}"
+                    "${Destination.Events.Event.route}/${event.id.toString()}"
                 )
             }
             .bottomBorder(1.dp, NeutralLight),

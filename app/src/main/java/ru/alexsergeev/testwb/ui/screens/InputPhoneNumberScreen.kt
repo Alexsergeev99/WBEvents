@@ -1,6 +1,5 @@
 package ru.alexsergeev.testwb.ui.screens
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.navigation.EventsTopBar
@@ -31,10 +29,11 @@ import ru.alexsergeev.testwb.ui.molecules.InputCodeCountryField
 import ru.alexsergeev.testwb.ui.molecules.InputNumberTextField
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
-import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
+import ru.alexsergeev.testwb.ui.viewmodel.AuthViewModel
+import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
 @Composable
-fun InputPhoneNumberScreen(navController: NavController, vm: BaseViewModel = koinViewModel()) {
+fun InputPhoneNumberScreen(navController: NavController, vm: PersonProfileViewModel = koinViewModel()) {
 
     val ctx = LocalContext.current
 

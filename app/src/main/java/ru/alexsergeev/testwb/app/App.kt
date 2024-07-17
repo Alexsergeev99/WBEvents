@@ -5,6 +5,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import ru.alexsergeev.testwb.di.appModule
+import ru.alexsergeev.testwb.di.authModule
 import ru.alexsergeev.testwb.di.eventsModule
 import ru.alexsergeev.testwb.di.groupsModule
 
@@ -15,7 +16,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(appModule, eventsModule, groupsModule)
+            modules(appModule, eventsModule, groupsModule, authModule)
         }
     }
 }

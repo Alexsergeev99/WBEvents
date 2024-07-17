@@ -6,8 +6,13 @@ import ru.alexsergeev.testwb.dto.PersonModel
 
 class BaseRepositoryImpl : BaseRepository {
 
-    var id = 0
     override fun getPersonData(): PersonModel = PersonModel("Саша Сергеев", "+7 999 999 99-99", "\"https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg\"")
+
+    override fun setPersonData(name: String, phone: String, avatar: String) {
+        getPersonData().name = name
+        getPersonData().phone = phone
+        getPersonData().avatar = avatar
+    }
     override fun getEventsList(): List<EventModel> = listOf(
         EventModel(
             1,

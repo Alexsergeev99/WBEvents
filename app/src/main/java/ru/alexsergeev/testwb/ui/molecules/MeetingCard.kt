@@ -39,8 +39,6 @@ fun MeetingCard(
     event: EventModel,
 ) {
 
-
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,10 +46,6 @@ fun MeetingCard(
             .clickable {
                 navController.navigate(
                     "${Destination.Events.Event.route}/${event.id.toString()}"
-//                            "/${Uri.encode(event.title)}/${Uri.encode(event.date)}" +
-//                            "/${Uri.encode(event.city)}/${Uri.encode(event.chips[0])}" +
-//                            "/${Uri.encode(event.chips[1])}/${Uri.encode(event.chips[2])}" +
-//                            "/${Uri.encode(event.imageUrl)}"
                 )
             }
             .bottomBorder(1.dp, NeutralLight),

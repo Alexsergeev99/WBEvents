@@ -12,9 +12,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.testwb.dto.EventModel
-import ru.alexsergeev.testwb.dto.GroupModel
-import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
 import ru.alexsergeev.testwb.ui.screens.ElseMenuScreen
 import ru.alexsergeev.testwb.ui.screens.EventScreen
 import ru.alexsergeev.testwb.ui.screens.EventsListScreen
@@ -23,15 +20,14 @@ import ru.alexsergeev.testwb.ui.screens.GroupsListScreen
 import ru.alexsergeev.testwb.ui.screens.MapImageScreen
 import ru.alexsergeev.testwb.ui.screens.MyEventsListScreen
 import ru.alexsergeev.testwb.ui.screens.ProfileScreen
-import ru.alexsergeev.testwb.ui.viewmodel.BaseViewModel
+import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 import ru.alexsergeev.testwb.ui.viewmodel.EventsViewModel
 import ru.alexsergeev.testwb.ui.viewmodel.GroupsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Navigation(
-//    navController: NavController,
-    vm: BaseViewModel = koinViewModel()
+    vm: PersonProfileViewModel = koinViewModel()
 ) {
 
     val eventsViewModel: EventsViewModel = koinViewModel()
@@ -61,7 +57,7 @@ fun Navigation(
     }
 }
 
-fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: BaseViewModel) {
+fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: PersonProfileViewModel) {
 
     navigation(
         route = Destination.Else.route,
@@ -83,9 +79,6 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: BaseViewModel
     composable(route = Destination.Else.Profile.route) {
         ProfileScreen(navController = navController, vm)
     }
-    composable(route = Destination.Else.EditProfile.route) {
-        EditProfileScreen(navController = navController, vm)
-    }
 }
 
 fun NavGraphBuilder.eventsNavGraph(navController: NavController, eventsViewModel: EventsViewModel) {
@@ -105,39 +98,12 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController, eventsViewModel
             EventScreen(
                 navController = navController,
                 it.arguments?.getString("id") ?: "0",
-
-//                EventModel(
-//                    title = it.arguments?.getString("name"),
-//                    date = it.arguments?.getString("date"),
-//                    city = it.arguments?.getString("city"),
-//                    isFinished = it.arguments?.getBoolean("finished") ?: false,
-//                    imageUrl = it.arguments?.getString("image_url") ?: "",
-//                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
-//                    chips = listOf(
-//                        it.arguments?.getString("chip1") ?: "",
-//                        it.arguments?.getString("chip2") ?: "",
-//                        it.arguments?.getString("chip3") ?: ""
-//                    ),
-//                ),
             )
         }
         composable(route = "${Destination.Events.MapImage.route}/{id}") {
             MapImageScreen(
                 navController = navController,
                 it.arguments?.getString("id") ?: "0",
-//                EventModel(
-//                    title = it.arguments?.getString("name"),
-//                    date = it.arguments?.getString("date"),
-//                    city = it.arguments?.getString("city"),
-//                    isFinished = it.arguments?.getBoolean("finished") ?: false,
-//                    imageUrl = it.arguments?.getString("image_url") ?: "",
-//                    meetingAvatar = it.arguments?.getString("avatar") ?: "",
-//                    chips = listOf(
-//                        it.arguments?.getString("chip1") ?: "",
-//                        it.arguments?.getString("chip2") ?: "",
-//                        it.arguments?.getString("chip3") ?: ""
-//                    ),
-//                ),
             )
         }
     }

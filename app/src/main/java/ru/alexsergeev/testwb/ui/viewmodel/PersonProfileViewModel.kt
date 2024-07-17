@@ -1,5 +1,6 @@
 package ru.alexsergeev.testwb.ui.viewmodel
 
+import android.health.connect.datatypes.units.Length
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -56,18 +57,9 @@ class PersonProfileViewModel(val repository: BaseRepository): ViewModel() {
     }
 
 
-//    private fun getPersonProfileData() : PersonModel {
-//        _personData = repository.getPersonData()
-//        return repository.getPersonData()
-//    }
-
-//    fun setPersonData(name: String, phone: String, avatar: String) {
-//        viewModelScope.launch {
-//            getPersonProfileData()
-//            repository.setPersonData(name, phone, avatar)
-//            _personData = _personData.copy(name =  name, phone = phone, avatar = avatar)
-//        }
-//    }
+    private fun getPersonProfileData()  = repository.getPersonData()
 
     fun getEventsList() = repository.getEventsList()
+
+    fun checkPhoneLength(): Boolean = phone.value.length == 10
 }

@@ -12,4 +12,6 @@ interface BaseRepository {
     fun getEventsList(): List<EventModel>
 
     fun getGroups(): List<GroupModel>
+
+    fun checkPhoneLength(length: Int): Boolean
 }

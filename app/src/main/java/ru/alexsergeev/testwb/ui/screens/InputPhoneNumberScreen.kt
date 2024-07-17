@@ -47,6 +47,10 @@ fun InputPhoneNumberScreen(
         mutableStateOf("")
     }
 
+    val checkPhoneNumberLength = remember {
+        mutableStateOf(false)
+    }
+
 
     Box(
         modifier = Modifier
@@ -102,6 +106,7 @@ fun InputPhoneNumberScreen(
             InputNumberTextField(hint = "999 999-99-99", height = 40.dp, onTextChange = {
                 vm.setPhoneFlow(it)
                 phoneNumber.value = vm.getPhoneFlow().value
+                checkPhoneNumberLength.value = vm.checkPhoneLength()
             }
             )
         }
@@ -110,8 +115,8 @@ fun InputPhoneNumberScreen(
                 .height(24.dp)
                 .fillMaxWidth()
         )
-        when (phoneNumber.value.length) {
-            10 -> SimpleButton(
+        when (checkPhoneNumberLength.value) {
+            true -> SimpleButton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
@@ -119,16 +124,6 @@ fun InputPhoneNumberScreen(
                 onClick = {
                     focusManager.clearFocus()
                     navController.navigate("input_code")
-                }
-            )
-
-            in 0..9 -> DisabledButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                text = "Продолжить",
-                onClick = {
-                    Toast.makeText(ctx, "мало цифр(", Toast.LENGTH_LONG).show()
                 }
             )
 

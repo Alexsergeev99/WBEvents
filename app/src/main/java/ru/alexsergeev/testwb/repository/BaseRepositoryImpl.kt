@@ -177,4 +177,8 @@ class BaseRepositoryImpl : BaseRepository {
             groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
         ),
     )
+
+    override fun checkPhoneLength(length: Int): Boolean {
+        TODO("Not yet implemented")
+    }
 }

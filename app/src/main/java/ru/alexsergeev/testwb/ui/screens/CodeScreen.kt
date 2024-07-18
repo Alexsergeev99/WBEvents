@@ -25,7 +25,6 @@ import ru.alexsergeev.testwb.ui.atoms.SimpleTextButton
 import ru.alexsergeev.testwb.ui.molecules.OtpTextField
 import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.NeutralActive
-import ru.alexsergeev.testwb.ui.viewmodel.AuthViewModel
 import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
 

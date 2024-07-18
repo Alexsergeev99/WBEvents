@@ -76,7 +76,6 @@ fun ElseMenuScreen(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-//                    PeopleAvatarSmall(image = vm.personData.avatar)
                     PeopleAvatarSmall(image = vm.getPersonAvatarFlow().value)
                     Column(
                         modifier = Modifier

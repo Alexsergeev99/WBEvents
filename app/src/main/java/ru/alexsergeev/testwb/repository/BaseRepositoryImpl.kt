@@ -4,6 +4,7 @@ import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.dto.GroupModel
 import ru.alexsergeev.testwb.dto.PersonModel
 
+const val PHONE_NUMBER_LENGTH = 10
 class BaseRepositoryImpl : BaseRepository {
 
     override fun getPersonData(): PersonModel = PersonModel("Саша Сергеев", "+7 999 999 99-99", "\"https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg\"")
@@ -78,6 +79,8 @@ class BaseRepositoryImpl : BaseRepository {
             listOf("Kotlin", "Senior", "Karaganda")
         ),
     )
+
+    override fun getEvent(id: Int): EventModel = getEventsList().find { id == it.id } ?: throw Exception()
 
     override fun getGroups(): List<GroupModel> = listOf(
         GroupModel(
@@ -178,7 +181,7 @@ class BaseRepositoryImpl : BaseRepository {
         ),
     )
 
-    override fun checkPhoneLength(length: Int): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun getGroup(id: Int): GroupModel = getGroups().find { id == it.id } ?: throw Exception()
+
+    override fun checkPhoneLength(length: Int): Boolean = length == PHONE_NUMBER_LENGTH
 }

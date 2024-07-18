@@ -10,7 +10,6 @@ import ru.alexsergeev.testwb.ui.screens.CodeScreen
 import ru.alexsergeev.testwb.ui.screens.EditProfileScreen
 import ru.alexsergeev.testwb.ui.screens.InputPhoneNumberScreen
 import ru.alexsergeev.testwb.ui.screens.SplashScreen
-import ru.alexsergeev.testwb.ui.viewmodel.AuthViewModel
 import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
 @Composable

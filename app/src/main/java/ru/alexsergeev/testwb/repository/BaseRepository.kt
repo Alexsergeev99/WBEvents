@@ -10,8 +10,11 @@ interface BaseRepository {
     fun setPersonData(name: String, phone: String, avatar: String)
 
     fun getEventsList(): List<EventModel>
+    fun getEvent(id: Int): EventModel
+
 
     fun getGroups(): List<GroupModel>
+    fun getGroup(id: Int): GroupModel
 
     fun checkPhoneLength(length: Int): Boolean
 }

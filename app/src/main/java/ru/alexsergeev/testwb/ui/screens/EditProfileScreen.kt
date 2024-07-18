@@ -1,6 +1,5 @@
 package ru.alexsergeev.testwb.ui.screens
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,7 +25,6 @@ import ru.alexsergeev.testwb.ui.atoms.DisabledButton
 import ru.alexsergeev.testwb.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.atoms.SimpleButton
 import ru.alexsergeev.testwb.ui.molecules.PeopleAvatarWithEdit
-import ru.alexsergeev.testwb.ui.viewmodel.AuthViewModel
 import ru.alexsergeev.testwb.ui.viewmodel.PersonProfileViewModel
 
 @Composable

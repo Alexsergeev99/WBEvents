@@ -1,22 +1,15 @@
 package ru.alexsergeev.testwb.ui.viewmodel
 
-import android.health.connect.datatypes.units.Length
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import ru.alexsergeev.testwb.dto.PersonModel
 import ru.alexsergeev.testwb.repository.BaseRepository
 
-class PersonProfileViewModel(val repository: BaseRepository): ViewModel() {
-
-//    private var _personData by mutableStateOf(PersonModel("","", ""))
-//    val personData: PersonModel
-//        get() = _personData
+class PersonProfileViewModel(val repository: BaseRepository) : ViewModel() {
 
     private val secondNameMutable = MutableStateFlow("")
     private val secondName: StateFlow<String> = secondNameMutable
@@ -56,10 +49,18 @@ class PersonProfileViewModel(val repository: BaseRepository): ViewModel() {
         personAvatarMutable.value = avatar
     }
 
+    private var _personData = MutableStateFlow(
+        PersonModel(
+            "${getFirstNameFlow().value} ${getSecondNameFlow().value}",
+            "${getCountryCodeFlow().value} ${getPhoneFlow().value}",
+            getPersonAvatarFlow().value))
+    private val personData: StateFlow<PersonModel> = _personData
+    fun getPersonDataFlow(): StateFlow<PersonModel> = personData
 
-    private fun getPersonProfileData()  = repository.getPersonData()
+
+    private fun getMockPersonProfileData() = repository.getPersonData()
 
     fun getEventsList() = repository.getEventsList()
 
-    fun checkPhoneLength(): Boolean = phone.value.length == 10
+    fun checkPhoneLength(): Boolean = repository.checkPhoneLength(phone.value.length)
 }

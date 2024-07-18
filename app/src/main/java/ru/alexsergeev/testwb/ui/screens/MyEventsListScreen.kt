@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.molecules.FinishedMeetingCard
@@ -30,12 +31,14 @@ import ru.alexsergeev.testwb.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.theme.Inactive
 import ru.alexsergeev.testwb.ui.theme.MiddleButtonColor
 import ru.alexsergeev.testwb.ui.theme.NeutralBackground
+import ru.alexsergeev.testwb.ui.viewmodel.EventsViewModel
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun MyEventsListScreen(
     navController: NavController,
     events: List<EventModel>,
+    vm: EventsViewModel = koinViewModel()
 ) {
     val tabList = listOf("ЗАПЛАНИРОВАНО", "УЖЕ ПРОШЛИ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()

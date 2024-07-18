@@ -31,13 +31,11 @@ import ru.alexsergeev.testwb.ui.viewmodel.GroupsViewModel
 fun GroupScreen(
     navController: NavController,
     groupId: String,
-//    group: GroupModel,
     events: List<EventModel>,
-    vm: GroupsViewModel = koinViewModel()
+    groupsViewModel: GroupsViewModel = koinViewModel()
 ) {
 
-    val groups = vm.getGroups()
-    val group = groups[groupId.toInt() - 1]
+    val group = groupsViewModel.getGroup(groupId.toInt())
 
     val scroll = rememberScrollState(0)
 

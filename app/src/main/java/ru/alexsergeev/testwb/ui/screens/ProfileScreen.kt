@@ -35,7 +35,6 @@ fun ProfileScreen(
     navController: NavController,
     vm: PersonProfileViewModel = koinViewModel()
 ) {
-
     Box(
         modifier = Modifier
             .fillMaxSize()

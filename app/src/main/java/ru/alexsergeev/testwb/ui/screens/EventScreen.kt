@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,7 +28,6 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.testwb.R
-import ru.alexsergeev.testwb.dto.EventModel
 import ru.alexsergeev.testwb.navigation.Destination
 import ru.alexsergeev.testwb.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.atoms.OneChip
@@ -42,10 +39,10 @@ import ru.alexsergeev.testwb.ui.theme.NeutralWeak
 import ru.alexsergeev.testwb.ui.viewmodel.EventsViewModel
 
 @Composable
-fun EventScreen(navController: NavController,
-                eventId: String,
-                eventsViewModel: EventsViewModel = koinViewModel()
-//                event: EventModel
+fun EventScreen(
+    navController: NavController,
+    eventId: String,
+    eventsViewModel: EventsViewModel = koinViewModel()
 ) {
     val scroll = rememberScrollState(0)
     val iAmGuest = remember {
@@ -54,7 +51,7 @@ fun EventScreen(navController: NavController,
     val participants = remember {
         mutableStateOf(11)
     }
-    val event = eventsViewModel.getEventsList()[eventId.toInt()-1]
+    val event = eventsViewModel.getEvent(eventId.toInt())
 
     Box(
         modifier = Modifier

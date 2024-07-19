@@ -21,4 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Testwb"
 include(":app")
- 
+include(":data")
+include(":ui")
+include(":domain")
+include(":repository")

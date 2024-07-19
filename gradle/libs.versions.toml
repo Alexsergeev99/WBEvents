@@ -17,6 +17,8 @@ composeBom = "2024.06.00"
 lottieCompose = "5.2.0"
 navigationCompose = "2.7.7"
 runtimeLivedata = "1.6.8"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 
 [libraries]
@@ -45,8 +47,11 @@ koin-androidx-navigation = { module = "io.insert-koin:koin-androidx-navigation",
 koin-core = { module = "io.insert-koin:koin-core" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 

@@ -7,29 +7,18 @@ import ru.alexsergeev.domain.domain.repository.BaseRepository
 class EventsViewModel(val repository: ru.alexsergeev.domain.domain.repository.BaseRepository) : ViewModel() {
     fun getEventsList(): List<EventUiModel> {
         val events = repository.getEventsList()
-        var eventsUi: List<EventUiModel> = listOf(
-            EventUiModel(
-                1,
-                title = "Developer meeting",
-                date = "13.01.2021",
-                city = "Moscow",
-                false,
-                "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Python", "Junior", "Moscow")
-            ),
-        )
+        val eventsUi: MutableList<EventUiModel> = mutableListOf()
         events.forEach { event ->
-            eventsUi = listOf(
-                EventUiModel(
-                    id = event.id,
-                    title = event.title,
-                    city = event.city,
-                    date = event.date,
-                    isFinished = event.isFinished,
-                    meetingAvatar = event.meetingAvatar,
-                    chips = event.chips,
-                    imageUrl = event.imageUrl,
-                )
+            eventsUi.add(EventUiModel(
+                id = event.id,
+                title = event.title,
+                city = event.city,
+                date = event.date,
+                isFinished = event.isFinished,
+                meetingAvatar = event.meetingAvatar,
+                chips = event.chips,
+                imageUrl = event.imageUrl,
+            )
             )
         }
         return eventsUi

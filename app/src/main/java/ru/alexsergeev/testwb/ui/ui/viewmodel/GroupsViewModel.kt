@@ -5,20 +5,13 @@ import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.GroupUiModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
 
-class GroupsViewModel(val repository: ru.alexsergeev.domain.domain.repository.BaseRepository) : ViewModel() {
+class GroupsViewModel(val repository: BaseRepository) : ViewModel() {
 
     fun getGroups(): List<GroupUiModel> {
         val groups = repository.getGroups()
-        var groupsUi: List<GroupUiModel> = listOf(
-            GroupUiModel(
-                1,
-                "Designa",
-                10_000,
-                "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
-            ),
-        )
+        val groupsUi: MutableList<GroupUiModel> = mutableListOf()
         groups.forEach { group ->
-            groupsUi = listOf(
+            groupsUi.add(
                 GroupUiModel(
                     id = group.id,
                     name = group.name,
@@ -29,6 +22,7 @@ class GroupsViewModel(val repository: ru.alexsergeev.domain.domain.repository.Ba
         }
         return groupsUi
     }
+
     fun getGroup(id: Int): GroupUiModel {
         val oldGroup = repository.getGroup(id)
         return GroupUiModel(
@@ -41,29 +35,18 @@ class GroupsViewModel(val repository: ru.alexsergeev.domain.domain.repository.Ba
 
     fun getEventsList(): List<EventUiModel> {
         val events = repository.getEventsList()
-        var eventsUi: List<EventUiModel> = listOf(
-            EventUiModel(
-                1,
-                title = "Developer meeting",
-                date = "13.01.2021",
-                city = "Moscow",
-                false,
-                "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Python", "Junior", "Moscow")
-            ),
-        )
+        val eventsUi: MutableList<EventUiModel> = mutableListOf()
         events.forEach { event ->
-            eventsUi = listOf(
-                EventUiModel(
-                    id = event.id,
-                    title = event.title,
-                    city = event.city,
-                    date = event.date,
-                    isFinished = event.isFinished,
-                    meetingAvatar = event.meetingAvatar,
-                    chips = event.chips,
-                    imageUrl = event.imageUrl,
-                )
+            eventsUi.add(EventUiModel(
+                id = event.id,
+                title = event.title,
+                city = event.city,
+                date = event.date,
+                isFinished = event.isFinished,
+                meetingAvatar = event.meetingAvatar,
+                chips = event.chips,
+                imageUrl = event.imageUrl,
+            )
             )
         }
         return eventsUi

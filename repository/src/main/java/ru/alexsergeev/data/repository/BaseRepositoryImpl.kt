@@ -1,15 +1,18 @@
 package ru.alexsergeev.testwb.data.repository
 
+import ru.alexsergeev.domain.domain.models.PersonDomainModel
+import ru.alexsergeev.domain.domain.models.EventDomainModel
+import ru.alexsergeev.domain.domain.models.GroupDomainModule
+
 import ru.alexsergeev.domain.domain.repository.BaseRepository
-import ru.alexsergeev.testwb.data.dto.EventModel
-import ru.alexsergeev.testwb.data.dto.GroupModel
-import ru.alexsergeev.testwb.data.dto.PersonModel
+import ru.alexsergeev.testwb.data.dto.PersonDataModel
 
 const val PHONE_NUMBER_LENGTH = 10
 
 class BaseRepositoryImpl : BaseRepository {
 
-    override fun getPersonData(): PersonModel = PersonModel(
+    override fun getPersonData(): PersonDomainModel =
+        PersonDomainModel(
         "Саша Сергеев",
         "+7 999 999 99-99",
         "\"https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg\""
@@ -21,8 +24,8 @@ class BaseRepositoryImpl : BaseRepository {
         getPersonData().avatar = avatar
     }
 
-    override fun getEventsList(): List<EventModel> = listOf(
-        EventModel(
+    override fun getEventsList(): List<EventDomainModel> = listOf(
+        EventDomainModel(
             1,
             title = "Developer meeting",
             date = "13.01.2021",
@@ -31,7 +34,7 @@ class BaseRepositoryImpl : BaseRepository {
             "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
             listOf("Kotlin", "Senior", "Karaganda")
         ),
-        EventModel(
+        EventDomainModel(
             2,
             title = "CoffeeCode",
             date = "13.01.2025",
@@ -40,7 +43,7 @@ class BaseRepositoryImpl : BaseRepository {
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
             listOf("Java", "Junior", "Astana")
         ),
-        EventModel(
+        EventDomainModel(
             3,
             title = "Developer meeting",
             date = "13.01.2021",
@@ -49,7 +52,7 @@ class BaseRepositoryImpl : BaseRepository {
             "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
             listOf("Kotlin", "Senior", "Karaganda")
         ),
-        EventModel(
+        EventDomainModel(
             4,
             title = "CoffeeCode",
             date = "13.01.2025",
@@ -58,7 +61,7 @@ class BaseRepositoryImpl : BaseRepository {
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
             listOf("Java", "Junior", "Astana")
         ),
-        EventModel(
+        EventDomainModel(
             5,
             title = "Developer meeting",
             date = "13.01.2021",
@@ -67,7 +70,7 @@ class BaseRepositoryImpl : BaseRepository {
             "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
             listOf("Kotlin", "Senior", "Karaganda")
         ),
-        EventModel(
+        EventDomainModel(
             6,
             title = "CoffeeCode",
             date = "13.01.2025",
@@ -76,7 +79,7 @@ class BaseRepositoryImpl : BaseRepository {
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
             listOf("Java", "Junior", "Astana")
         ),
-        EventModel(
+        EventDomainModel(
             7,
             title = "Developer meeting",
             date = "13.01.2021",
@@ -87,101 +90,101 @@ class BaseRepositoryImpl : BaseRepository {
         ),
     )
 
-    override fun getEvent(id: Int): EventModel =
+    override fun getEvent(id: Int): EventDomainModel =
         getEventsList().find { id == it.id } ?: throw Exception()
 
-    override fun getGroups(): List<GroupModel> = listOf(
-        GroupModel(
+    override fun getGroups(): List<GroupDomainModule> = listOf(
+        GroupDomainModule(
             1,
             name = "Tinkoff",
             people = 100,
             groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             2,
             name = "WB",
             people = 588,
             groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             3,
             name = "Ozon",
             people = 85,
             groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             4,
             name = "Yandex",
             people = 23,
             groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             5,
             name = "Tinkoff",
             people = 100,
             groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             6,
             name = "WB",
             people = 588,
             groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             7,
             name = "Ozon",
             people = 85,
             groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             8,
             name = "Yandex",
             people = 23,
             groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             9,
             name = "Tinkoff",
             people = 100,
             groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             10,
             name = "WB",
             people = 588,
             groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             11,
             name = "Ozon",
             people = 85,
             groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             12,
             name = "Yandex",
             people = 23,
             groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             13,
             name = "Tinkoff",
             people = 100,
             groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             14,
             name = "WB",
             people = 588,
             groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             15,
             name = "Ozon",
             people = 85,
             groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg"
         ),
-        GroupModel(
+        GroupDomainModule(
             16,
             name = "Yandex",
             people = 23,
@@ -189,7 +192,7 @@ class BaseRepositoryImpl : BaseRepository {
         ),
     )
 
-    override fun getGroup(id: Int): GroupModel =
+    override fun getGroup(id: Int): GroupDomainModule =
         getGroups().find { id == it.id } ?: throw Exception()
 
     override fun checkPhoneLength(length: Int): Boolean = length == PHONE_NUMBER_LENGTH

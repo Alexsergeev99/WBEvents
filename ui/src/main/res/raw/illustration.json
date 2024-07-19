@@ -1,0 +1,15 @@
+{
+  "pdfDoc" : "Illustration.pdf",
+  "extractedBy" : "https://busypdf.com",
+  "pages" : [ {
+    "pageNo" : 1,
+    "trimBoxOriginX" : 0.0,
+    "trimBoxOriginY" : 0.0,
+    "trimBoxWidth" : 262.0,
+    "trimBoxHeight" : 271.0,
+    "txtRns" : [ ],
+    "txtChars" : null
+  } ],
+  "fontSpecs" : [ ],
+  "notices" : "Text coordinates are specified with respect to the TrimBox of the page. You will need to adjust if you want raw pdf coordinates."
+}

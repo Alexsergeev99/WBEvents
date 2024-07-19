@@ -60,6 +60,9 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.navigation)
-//    implementation(project(":repository"))
+    implementation(project(":repository"))
     implementation(project(":domain"))
+    implementation(project(":app"))
+
+
 }

@@ -78,7 +78,6 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.navigation)
     implementation(project(":repository"))
-    implementation(project(":ui"))
     implementation(project(":domain"))
 
 }

@@ -1,6 +1,6 @@
 package ru.alexsergeev.domain.domain.models
 
-data class GroupDomainModule(
+data class GroupDomainModel(
     val id: Int,
     val name: String,
     val people: Long,

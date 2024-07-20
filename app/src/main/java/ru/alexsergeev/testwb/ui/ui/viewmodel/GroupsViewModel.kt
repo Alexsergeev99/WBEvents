@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.GroupUiModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
+import ru.alexsergeev.domain.repository.GroupRepository
 
-class GroupsViewModel(val repository: BaseRepository) : ViewModel() {
+class GroupsViewModel(val repository: GroupRepository) : ViewModel() {
 
     fun getGroups(): List<GroupUiModel> {
         val groups = repository.getGroups()

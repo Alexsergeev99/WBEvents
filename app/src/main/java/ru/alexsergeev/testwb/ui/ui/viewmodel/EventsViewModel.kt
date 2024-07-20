@@ -3,8 +3,9 @@ package ru.alexsergeev.testwb.ui.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
+import ru.alexsergeev.domain.repository.EventRepository
 
-class EventsViewModel(val repository: ru.alexsergeev.domain.domain.repository.BaseRepository) : ViewModel() {
+class EventsViewModel(val repository: EventRepository) : ViewModel() {
     fun getEventsList(): List<EventUiModel> {
         val events = repository.getEventsList()
         val eventsUi: MutableList<EventUiModel> = mutableListOf()

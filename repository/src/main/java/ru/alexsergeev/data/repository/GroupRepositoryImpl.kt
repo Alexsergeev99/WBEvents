@@ -1,28 +1,10 @@
-package ru.alexsergeev.testwb.data.repository
+package ru.alexsergeev.repository.repository
 
-import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
+import ru.alexsergeev.domain.repository.GroupRepository
 
-import ru.alexsergeev.domain.domain.repository.BaseRepository
-
-const val PHONE_NUMBER_LENGTH = 10
-
-class BaseRepositoryImpl : BaseRepository {
-
-    override fun getPersonData(): PersonDomainModel =
-        PersonDomainModel(
-        "Саша Сергеев",
-        "+7 999 999 99-99",
-        "\"https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg\""
-    )
-
-    override fun setPersonData(name: String, phone: String, avatar: String) {
-        getPersonData().name = name
-        getPersonData().phone = phone
-        getPersonData().avatar = avatar
-    }
-
+class GroupRepositoryImpl : GroupRepository {
     override fun getEventsList(): List<EventDomainModel> = listOf(
         EventDomainModel(
             1,
@@ -193,6 +175,4 @@ class BaseRepositoryImpl : BaseRepository {
 
     override fun getGroup(id: Int): GroupDomainModel =
         getGroups().find { id == it.id } ?: throw Exception()
-
-    override fun checkPhoneLength(length: Int): Boolean = length == PHONE_NUMBER_LENGTH
 }

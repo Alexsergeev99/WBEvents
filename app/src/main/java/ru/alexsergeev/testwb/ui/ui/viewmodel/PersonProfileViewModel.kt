@@ -6,8 +6,9 @@ import kotlinx.coroutines.flow.StateFlow
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.PersonUiModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
+import ru.alexsergeev.domain.repository.PersonProfileRepository
 
-class PersonProfileViewModel(val repository: BaseRepository) : ViewModel() {
+class PersonProfileViewModel(val repository: PersonProfileRepository) : ViewModel() {
 
     private val secondNameMutable = MutableStateFlow("")
     private val secondName: StateFlow<String> = secondNameMutable
@@ -63,16 +64,16 @@ class PersonProfileViewModel(val repository: BaseRepository) : ViewModel() {
         val events = repository.getEventsList()
         val eventsUi: MutableList<EventUiModel> = mutableListOf()
         events.forEach { event ->
-                eventsUi.add(EventUiModel(
-                    id = event.id,
-                    title = event.title,
-                    city = event.city,
-                    date = event.date,
-                    isFinished = event.isFinished,
-                    meetingAvatar = event.meetingAvatar,
-                    chips = event.chips,
-                    imageUrl = event.imageUrl,
-                )
+            eventsUi.add(EventUiModel(
+                id = event.id,
+                title = event.title,
+                city = event.city,
+                date = event.date,
+                isFinished = event.isFinished,
+                meetingAvatar = event.meetingAvatar,
+                chips = event.chips,
+                imageUrl = event.imageUrl,
+            )
             )
         }
         return eventsUi

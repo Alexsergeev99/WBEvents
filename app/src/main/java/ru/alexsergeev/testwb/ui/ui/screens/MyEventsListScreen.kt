@@ -23,7 +23,6 @@ import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.domain.domain.models.EventUiModel
-import ru.alexsergeev.testwb.data.dto.EventDataModel
 import ru.alexsergeev.testwb.ui.ui.molecules.FinishedMeetingCard
 import ru.alexsergeev.testwb.ui.ui.molecules.MeetingCard
 import ru.alexsergeev.testwb.ui.ui.navigation.EventsTopBar
@@ -36,13 +35,13 @@ import ru.alexsergeev.testwb.ui.ui.viewmodel.EventsViewModel
 @Composable
 fun MyEventsListScreen(
     navController: NavController,
-    events: List<ru.alexsergeev.domain.domain.models.EventUiModel>,
-    vm: EventsViewModel = koinViewModel()
+    eventsViewModel: EventsViewModel = koinViewModel()
 ) {
     val tabList = listOf("ЗАПЛАНИРОВАНО", "УЖЕ ПРОШЛИ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
+    val events = eventsViewModel.getEventsList()
 
     Box(
         modifier = Modifier

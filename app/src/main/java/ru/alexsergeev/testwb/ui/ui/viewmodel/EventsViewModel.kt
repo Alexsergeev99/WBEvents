@@ -4,11 +4,20 @@ import androidx.lifecycle.ViewModel
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.mapperFromEventDomainModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
+import ru.alexsergeev.domain.domain.usecases.GetEventUseCase
+import ru.alexsergeev.domain.domain.usecases.GetEventsListUseCase
 import ru.alexsergeev.domain.repository.EventRepository
 
-class EventsViewModel(val repository: EventRepository) : ViewModel() {
+class EventsViewModel(
+    private val getEventUseCase: GetEventUseCase,
+    private val getEventsListUseCase: GetEventsListUseCase
+) : ViewModel() {
+
+    init {
+        getEventsList()
+    }
     fun getEventsList(): List<EventUiModel> {
-        val events = repository.getEventsList()
+        val events = getEventsListUseCase.invoke()
         val eventsUi: MutableList<EventUiModel> = mutableListOf()
         events.forEach { event ->
             eventsUi.add(
@@ -19,7 +28,7 @@ class EventsViewModel(val repository: EventRepository) : ViewModel() {
     }
 
     fun getEvent(id: Int): EventUiModel {
-        val oldEvent = repository.getEvent(id)
+        val oldEvent = getEventUseCase.invoke(id)
         return mapperFromEventDomainModel(oldEvent)
     }
 }

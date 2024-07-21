@@ -3,13 +3,15 @@ package ru.alexsergeev.testwb.ui.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.PersonUiModel
-import ru.alexsergeev.domain.domain.models.mapperFromEventDomainModel
-import ru.alexsergeev.domain.domain.repository.BaseRepository
-import ru.alexsergeev.domain.repository.PersonProfileRepository
+import ru.alexsergeev.domain.domain.usecases.GetPersonProfileUseCase
 
-class PersonProfileViewModel(val repository: PersonProfileRepository) : ViewModel() {
+private const val PHONE_NUMBER_LENGTH = 10
+class PersonProfileViewModel(
+    private val getPersonProfileUseCase: GetPersonProfileUseCase
+) : ViewModel() {
+
+    val mockPersonData = getPersonProfileUseCase.invoke()
 
     private val secondNameMutable = MutableStateFlow("")
     private val secondName: StateFlow<String> = secondNameMutable
@@ -59,18 +61,7 @@ class PersonProfileViewModel(val repository: PersonProfileRepository) : ViewMode
     private val personData: StateFlow<PersonUiModel> = _personData
     fun getPersonDataFlow(): StateFlow<PersonUiModel> = personData
 
-    private fun getMockPersonProfileData() = repository.getPersonData()
+    private fun getMockPersonProfileData() = mockPersonData
 
-    fun getEventsList(): List<EventUiModel> {
-        val events = repository.getEventsList()
-        val eventsUi: MutableList<EventUiModel> = mutableListOf()
-        events.forEach { event ->
-            eventsUi.add(
-                mapperFromEventDomainModel(event)
-            )
-        }
-        return eventsUi
-    }
-
-    fun checkPhoneLength(): Boolean = repository.checkPhoneLength(phone.value.length)
+    fun checkPhoneLength(length: Int): Boolean = length == PHONE_NUMBER_LENGTH
 }

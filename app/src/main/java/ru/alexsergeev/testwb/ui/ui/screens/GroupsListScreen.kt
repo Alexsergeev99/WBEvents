@@ -9,21 +9,31 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 import ru.alexsergeev.domain.domain.models.GroupUiModel
 import ru.alexsergeev.testwb.data.dto.GroupDataModel
 import ru.alexsergeev.testwb.ui.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.ui.molecules.GroupCard
 import ru.alexsergeev.testwb.ui.ui.navigation.EventsTopBar
+import ru.alexsergeev.testwb.ui.ui.viewmodel.GroupsViewModel
 
 @Composable
 fun GroupsListScreen(
     navController: NavController,
-    groups: List<GroupUiModel>,
+    groupsViewModel: GroupsViewModel = koinViewModel()
 ) {
+
+    val scope = rememberCoroutineScope()
+    val groups = groupsViewModel.getGroups()
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()

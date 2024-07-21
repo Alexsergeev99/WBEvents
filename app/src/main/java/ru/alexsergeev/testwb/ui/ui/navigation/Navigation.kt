@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -73,7 +74,6 @@ fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: PersonProfile
     composable(route = Destination.Else.MyEvents.route) {
         MyEventsListScreen(
             navController = navController,
-            events = vm.getEventsList()
         )
     }
     composable(route = Destination.Else.Profile.route) {
@@ -88,10 +88,8 @@ fun NavGraphBuilder.eventsNavGraph(navController: NavController, eventsViewModel
         startDestination = Destination.Events.Dashboard.route
     ) {
         composable(route = Destination.Events.Dashboard.route) {
-
             EventsListScreen(
                 navController = navController,
-                events = eventsViewModel.getEventsList()
             )
         }
         composable(route = "${Destination.Events.Event.route}/{id}") {
@@ -118,14 +116,12 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController, groupsViewModel:
         composable(route = Destination.Groups.Dashboard.route) {
             GroupsListScreen(
                 navController = navController,
-                groupsViewModel.getGroups()
             )
         }
         composable(route = "${Destination.Groups.Group.route}/{id}") {
             GroupScreen(
                 navController = navController,
                 it.arguments?.getString("id") ?: "0",
-                groupsViewModel.getEventsList()
             )
         }
     }

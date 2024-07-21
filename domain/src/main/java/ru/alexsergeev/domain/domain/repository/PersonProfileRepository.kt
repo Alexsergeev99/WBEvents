@@ -7,5 +7,4 @@ interface PersonProfileRepository {
     fun getPersonData(): PersonDomainModel
     fun getEventsList(): List<EventDomainModel>
     fun getEvent(id: Int): EventDomainModel
-    fun checkPhoneLength(length: Int): Boolean
 }

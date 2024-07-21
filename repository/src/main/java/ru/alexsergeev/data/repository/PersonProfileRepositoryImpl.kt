@@ -4,8 +4,6 @@ import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.repository.PersonProfileRepository
 
-const val PHONE_NUMBER_LENGTH = 10
-
 class PersonProfileRepositoryImpl : PersonProfileRepository {
     override fun getPersonData(): PersonDomainModel = PersonDomainModel(
         "Саша Сергеев",
@@ -81,6 +79,4 @@ class PersonProfileRepositoryImpl : PersonProfileRepository {
 
     override fun getEvent(id: Int): EventDomainModel =
         getEventsList().find { id == it.id } ?: throw Exception()
-
-    override fun checkPhoneLength(length: Int): Boolean = length == PHONE_NUMBER_LENGTH
 }

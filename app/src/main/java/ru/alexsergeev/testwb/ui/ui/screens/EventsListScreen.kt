@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.testwb.ui.ui.atoms.Search
 import ru.alexsergeev.testwb.ui.ui.molecules.MeetingCard
@@ -33,16 +34,20 @@ import ru.alexsergeev.testwb.ui.ui.navigation.EventsTopBar
 import ru.alexsergeev.testwb.ui.ui.theme.EventsTheme
 import ru.alexsergeev.testwb.ui.ui.theme.Inactive
 import ru.alexsergeev.testwb.ui.ui.theme.MiddleButtonColor
+import ru.alexsergeev.testwb.ui.ui.viewmodel.EventsViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
-fun EventsListScreen(navController: NavController, events: List<EventUiModel>) {
+fun EventsListScreen(
+    navController: NavController,
+    eventsViewModel: EventsViewModel = koinViewModel()
+) {
 
     val tabList = listOf("ВСЕ ВСТРЕЧИ", "АКТИВНЫЕ")
     val pagerState = com.google.accompanist.pager.rememberPagerState()
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
-
+    val events = eventsViewModel.getEventsList()
 
     Box(
         modifier = Modifier

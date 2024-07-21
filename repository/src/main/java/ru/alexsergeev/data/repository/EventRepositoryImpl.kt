@@ -2,6 +2,7 @@ package ru.alexsergeev.repository.repository
 
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.repository.EventRepository
+import ru.alexsergeev.testwb.data.dto.EventDataModel
 
 class EventRepositoryImpl : EventRepository {
     override fun getEventsList(): List<EventDomainModel> = listOf(
@@ -70,6 +71,5 @@ class EventRepositoryImpl : EventRepository {
         ),
     )
 
-    override fun getEvent(id: Int): EventDomainModel =
-        getEventsList().find { id == it.id } ?: throw Exception()
+    override fun getEvent(id: Int): EventDomainModel = getEventsList().find { id == it.id } ?: throw Exception()
 }

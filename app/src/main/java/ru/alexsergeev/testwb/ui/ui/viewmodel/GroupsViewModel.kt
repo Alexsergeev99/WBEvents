@@ -1,8 +1,11 @@
 package ru.alexsergeev.testwb.ui.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.GroupUiModel
+import ru.alexsergeev.domain.domain.models.mapperFromEventDomainModel
+import ru.alexsergeev.domain.domain.models.mapperFromGroupDomainModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
 import ru.alexsergeev.domain.repository.GroupRepository
 
@@ -13,12 +16,7 @@ class GroupsViewModel(val repository: GroupRepository) : ViewModel() {
         val groupsUi: MutableList<GroupUiModel> = mutableListOf()
         groups.forEach { group ->
             groupsUi.add(
-                GroupUiModel(
-                    id = group.id,
-                    name = group.name,
-                    people = group.people,
-                    groupLogo = group.groupLogo,
-                )
+                mapperFromGroupDomainModel(group)
             )
         }
         return groupsUi
@@ -26,28 +24,15 @@ class GroupsViewModel(val repository: GroupRepository) : ViewModel() {
 
     fun getGroup(id: Int): GroupUiModel {
         val oldGroup = repository.getGroup(id)
-        return GroupUiModel(
-            id = oldGroup.id,
-            name = oldGroup.name,
-            people = oldGroup.people,
-            groupLogo = oldGroup.groupLogo,
-        )
+        return mapperFromGroupDomainModel(oldGroup)
     }
 
     fun getEventsList(): List<EventUiModel> {
         val events = repository.getEventsList()
         val eventsUi: MutableList<EventUiModel> = mutableListOf()
         events.forEach { event ->
-            eventsUi.add(EventUiModel(
-                id = event.id,
-                title = event.title,
-                city = event.city,
-                date = event.date,
-                isFinished = event.isFinished,
-                meetingAvatar = event.meetingAvatar,
-                chips = event.chips,
-                imageUrl = event.imageUrl,
-            )
+            eventsUi.add(
+                mapperFromEventDomainModel(event)
             )
         }
         return eventsUi
@@ -55,16 +40,6 @@ class GroupsViewModel(val repository: GroupRepository) : ViewModel() {
 
     fun getEvent(id: Int): EventUiModel {
         val oldEvent = repository.getEvent(id)
-        return EventUiModel(
-            id = oldEvent.id,
-            title = oldEvent.title,
-            city = oldEvent.city,
-            date = oldEvent.date,
-            isFinished = oldEvent.isFinished,
-            meetingAvatar = oldEvent.meetingAvatar,
-            chips = oldEvent.chips,
-            imageUrl = oldEvent.imageUrl,
-        )
+        return mapperFromEventDomainModel(oldEvent)
     }
-
 }

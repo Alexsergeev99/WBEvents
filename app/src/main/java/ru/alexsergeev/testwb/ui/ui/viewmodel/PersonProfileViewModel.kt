@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.PersonUiModel
+import ru.alexsergeev.domain.domain.models.mapperFromEventDomainModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
 import ru.alexsergeev.domain.repository.PersonProfileRepository
 
@@ -64,16 +65,8 @@ class PersonProfileViewModel(val repository: PersonProfileRepository) : ViewMode
         val events = repository.getEventsList()
         val eventsUi: MutableList<EventUiModel> = mutableListOf()
         events.forEach { event ->
-            eventsUi.add(EventUiModel(
-                id = event.id,
-                title = event.title,
-                city = event.city,
-                date = event.date,
-                isFinished = event.isFinished,
-                meetingAvatar = event.meetingAvatar,
-                chips = event.chips,
-                imageUrl = event.imageUrl,
-            )
+            eventsUi.add(
+                mapperFromEventDomainModel(event)
             )
         }
         return eventsUi

@@ -10,3 +10,16 @@ data class EventUiModel(
     val chips: List<String>,
     val imageUrl: String = "https://static.tildacdn.com/tild3062-6662-4137-a535-373262643465/msc.jpg"
 )
+    fun mapperFromEventDomainModel(eventDomainModel: EventDomainModel): EventUiModel  {
+        return EventUiModel(
+            id = eventDomainModel.id,
+            title = eventDomainModel.title,
+            city = eventDomainModel.city,
+            date = eventDomainModel.date,
+            isFinished = eventDomainModel.isFinished,
+            meetingAvatar = eventDomainModel.meetingAvatar,
+            chips = eventDomainModel.chips,
+            imageUrl = eventDomainModel.imageUrl,
+        )
+    }
+

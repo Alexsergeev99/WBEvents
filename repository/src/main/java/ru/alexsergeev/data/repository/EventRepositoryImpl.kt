@@ -1,11 +1,19 @@
 package ru.alexsergeev.repository.repository
 
+import androidx.compose.runtime.collectAsState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.repository.EventRepository
 import ru.alexsergeev.testwb.data.dto.EventDataModel
+import java.nio.file.Files.find
 
 class EventRepositoryImpl : EventRepository {
-    override fun getEventsList(): List<EventDomainModel> = listOf(
+    override suspend fun getEventsList(): Flow<List<EventDomainModel>> = flow {
+        emit(
+        listOf(
         EventDomainModel(
             1,
             title = "Developer meeting",
@@ -70,6 +78,8 @@ class EventRepositoryImpl : EventRepository {
             listOf("Kotlin", "Senior", "Karaganda")
         ),
     )
+        )
+        }
 
-    override fun getEvent(id: Int): EventDomainModel = getEventsList().find { id == it.id } ?: throw Exception()
+    override suspend fun getEvent(id: Int): EventDomainModel = getEventsList().toList()[id].find { id == it.id } ?: throw Exception()
 }

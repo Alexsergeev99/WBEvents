@@ -1,6 +1,9 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.mapperFromEventDomainModel
 import ru.alexsergeev.domain.domain.repository.BaseRepository
@@ -17,18 +20,23 @@ class EventsViewModel(
         getEventsList()
     }
     fun getEventsList(): List<EventUiModel> {
-        val events = getEventsListUseCase.invoke()
         val eventsUi: MutableList<EventUiModel> = mutableListOf()
-        events.forEach { event ->
-            eventsUi.add(
-                mapperFromEventDomainModel(event)
-            )
+        viewModelScope.launch {
+            val events = getEventsListUseCase.invoke()
+            events.forEach { event ->
+                eventsUi.add(
+                    mapperFromEventDomainModel(event)
+                )
+            }
         }
         return eventsUi
     }
 
     fun getEvent(id: Int): EventUiModel {
-        val oldEvent = getEventUseCase.invoke(id)
-        return mapperFromEventDomainModel(oldEvent)
+        var event = EventDomainModel(0,"","","",false,"", emptyList(),"")
+        viewModelScope.launch {
+            event = getEventUseCase.invoke(id)
+        }
+            return mapperFromEventDomainModel(event)
     }
 }

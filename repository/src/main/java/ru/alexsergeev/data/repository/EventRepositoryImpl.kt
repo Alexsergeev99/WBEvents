@@ -1,18 +1,14 @@
 package ru.alexsergeev.repository.repository
 
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.repository.EventRepository
-import java.nio.file.Files.find
 
 class EventRepositoryImpl : EventRepository {
     override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
-       val events = listOf(
+        val events = listOf(
             EventDomainModel(
                 1,
                 title = "Developer meeting",
@@ -81,8 +77,9 @@ class EventRepositoryImpl : EventRepository {
     }
 
     override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
-//        getEventsList().collectAsState().value.find {  id == it.id } ?: throw Exception()
-        getEventsList().collect { events -> events.find { id == it.id }}
+        getEventsList().collect {
+            events -> val event = events.find { id == it.id }
+            emit(event ?: throw Exception())
+        }
     }
-
 }

@@ -110,7 +110,6 @@ fun EventScreen(
                                 navController.navigate(
                                     Destination.Events.MapImage.route +
                                             "/${Uri.encode(event.id.toString())}"
-//                                            "/${Uri.encode(event.title)}"
                                 )
                             },
                         contentScale = ContentScale.FillWidth,

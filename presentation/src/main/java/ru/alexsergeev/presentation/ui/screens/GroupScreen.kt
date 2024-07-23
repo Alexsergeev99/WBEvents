@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,12 +32,11 @@ import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
 fun GroupScreen(
     navController: NavController,
     groupId: String,
-//    events: List<ru.alexsergeev.domain.domain.models.EventUiModel>,
     groupsViewModel: GroupsViewModel = koinViewModel()
 ) {
 
-    val group = groupsViewModel.getGroup(groupId.toInt())
-    val events = groupsViewModel.getEventsList()
+    val group = groupsViewModel.getGroup(groupId.toInt()).collectAsState().value
+    val events = groupsViewModel.getEventsList().collectAsState().value
 
     val scroll = rememberScrollState(0)
 

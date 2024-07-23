@@ -4,6 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 
 interface EventRepository {
-    fun getEventsList(): Flow<List<EventDomainModel>>
-    fun getEvent(id: Int): Flow<EventDomainModel>
+    suspend fun getEventsList(): Flow<List<EventDomainModel>>
+    suspend fun getEvent(id: Int): Flow<EventDomainModel>
 }

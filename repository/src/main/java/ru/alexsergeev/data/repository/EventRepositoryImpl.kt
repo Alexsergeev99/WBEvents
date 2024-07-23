@@ -7,7 +7,7 @@ import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.repository.EventRepository
 
 class EventRepositoryImpl : EventRepository {
-    override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
+    override suspend fun getEventsList(): Flow<List<EventDomainModel>> = flow {
         val events = listOf(
             EventDomainModel(
                 1,
@@ -76,10 +76,10 @@ class EventRepositoryImpl : EventRepository {
         emit(events)
     }
 
-    override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
-        getEventsList().collect {
-            events -> val event = events.find { id == it.id }
-            emit(event ?: throw Exception())
+    override suspend fun getEvent(id: Int): Flow<EventDomainModel> = flow {
+        getEventsList().collect { events ->
+            val event = events.find { id == it.id } ?: throw Exception()
+            emit(event)
         }
     }
 }

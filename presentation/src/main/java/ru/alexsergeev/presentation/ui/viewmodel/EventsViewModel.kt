@@ -36,9 +36,8 @@ class EventsViewModel(
     private val event: StateFlow<EventUiModel> = eventMutable
 
     fun getEvent(id: Int): StateFlow<EventUiModel> {
-        val eventFlow = getEventUseCase.invoke(id)
         viewModelScope.launch {
-            Log.d("test4", "${eventMutable.value}")
+            val eventFlow = getEventUseCase.invoke(id)
             eventFlow.collect { event ->
                 eventMutable.update { mapperFromEventDomainModel(event) }
             }

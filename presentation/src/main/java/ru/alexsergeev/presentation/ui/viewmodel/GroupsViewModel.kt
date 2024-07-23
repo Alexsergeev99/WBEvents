@@ -2,8 +2,9 @@ package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.forEach
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.GroupUiModel
@@ -21,54 +22,66 @@ class GroupsViewModel(
     private val getEventsListUseCase: GetEventsListUseCase
 ) : ViewModel() {
 
-    init {
-        getGroups()
-        getEventsList()
-    }
 
-    fun getGroups(): List<GroupUiModel> {
-        val groupsUi: MutableList<GroupUiModel> = mutableListOf()
-        val groups = getCommunitiesListUseCase.invoke()
-        groups.forEach { group ->
-            groupsUi.add(
-                mapperFromGroupDomainModel(group)
-            )
-        }
-        return groupsUi
-    }
-
-    fun getGroup(id: Int): GroupUiModel {
-        val oldGroup = getCommunityUseCase.invoke(id)
-        return mapperFromGroupDomainModel(oldGroup)
-    }
-
-    fun getEventsList(): List<EventUiModel> {
-        val eventsUi: MutableList<EventUiModel> = mutableListOf()
+    private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
+    private val events: StateFlow<List<EventUiModel>> = eventsMutable
+    fun getEventsList(): StateFlow<List<EventUiModel>> = events
+    private fun getEventsListFlow() {
         viewModelScope.launch {
             val eventsFlow = getEventsListUseCase.invoke()
-//            events.forEach { event ->
-//                eventsUi.add(
-//                    mapperFromEventDomainModel(event)
-//                )
-//            }
             eventsFlow.collect { events ->
                 events.forEach { event ->
-                    eventsUi.add(
-                        mapperFromEventDomainModel(event)
-                    )
+                    eventsMutable.value.add(mapperFromEventDomainModel(event))
                 }
             }
         }
-        return eventsUi
     }
 
-//    lateinit var eventUiModel: EventUiModel
-    suspend fun getEvent(id: Int): EventUiModel {
-    var event = EventUiModel(0, "", "", "", false, "", emptyList(), "")
-    viewModelScope.launch {
-        val eventDomainModel = getEventUseCase.invoke(id).stateIn(viewModelScope).value
-        event = mapperFromEventDomainModel(eventDomainModel)
+    private val eventMutable =
+        MutableStateFlow<EventUiModel>(EventUiModel(0, "", "", "", false, "", listOf(), ""))
+    private val event: StateFlow<EventUiModel> = eventMutable
+
+    fun getEvent(id: Int): StateFlow<EventUiModel> {
+        viewModelScope.launch {
+            val eventFlow = getEventUseCase.invoke(id)
+            eventFlow.collect { event ->
+                eventMutable.update { mapperFromEventDomainModel(event) }
+            }
+        }
+        return event
     }
-    return event
+
+    private val communitiesMutable = MutableStateFlow<MutableList<GroupUiModel>>(mutableListOf())
+    private val communities: StateFlow<List<GroupUiModel>> = communitiesMutable
+    fun getGroupsList(): StateFlow<List<GroupUiModel>> = communities
+    private fun getGroupsListFlow() {
+        viewModelScope.launch {
+            val groupsFlow = getCommunitiesListUseCase.invoke()
+            groupsFlow.collect { groups ->
+                groups.forEach { group ->
+                    communitiesMutable.value.add(mapperFromGroupDomainModel(group))
+                }
+            }
+        }
     }
+
+    private val communityMutable =
+        MutableStateFlow<GroupUiModel>(GroupUiModel(0, "", 0, ""))
+    private val community: StateFlow<GroupUiModel> = communityMutable
+
+    fun getGroup(id: Int): StateFlow<GroupUiModel> {
+        viewModelScope.launch {
+            val groupFlow = getCommunityUseCase.invoke(id)
+            groupFlow.collect { group ->
+                communityMutable.update { mapperFromGroupDomainModel(group) }
+            }
+        }
+        return community
+    }
+
+    init {
+        getGroupsListFlow()
+        getEventsListFlow()
+    }
+
 }

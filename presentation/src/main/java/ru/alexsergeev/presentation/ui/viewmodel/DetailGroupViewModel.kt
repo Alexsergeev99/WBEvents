@@ -12,7 +12,7 @@ class DetailGroupViewModel(val repository: GroupRepository) : ViewModel()  {
     /*
     These three funs below are using in GroupsVM now
      */
-    fun getGroup(id: Int) = repository.getGroup(id)
-    fun getEventsList() = repository.getEventsList()
-    fun getEvent(id: Int) = repository.getEvent(id)
+    suspend fun getGroup(id: Int) = repository.getGroup(id)
+    suspend fun getEventsList() = repository.getEventsList()
+    suspend fun getEvent(id: Int) = repository.getEvent(id)
 }

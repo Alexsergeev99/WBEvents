@@ -16,8 +16,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,7 +53,7 @@ fun EventScreen(
     val participants = remember {
         mutableStateOf(11)
     }
-    val event = eventsViewModel.getEvent(eventId.toInt())
+    val event = eventsViewModel.getEvent(eventId.toInt()).collectAsState().value
 
     Box(
         modifier = Modifier

@@ -65,17 +65,6 @@ fun GroupsListScreen(
                         )
                     }
                 }
-//                items(groups.size) { group ->
-//                    GroupCard(
-//                        navController = navController,
-//                        GroupUiModel(
-//                            id = groups[group].id,
-//                            name = groups[group].name,
-//                            people = groups[group].people,
-//                            groupLogo = groups[group].groupLogo
-//                        ),
-//                    )
-//                }
             }
         }
     }

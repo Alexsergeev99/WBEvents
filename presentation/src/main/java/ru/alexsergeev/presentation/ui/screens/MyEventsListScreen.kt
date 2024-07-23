@@ -12,6 +12,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +42,7 @@ fun MyEventsListScreen(
     val pagerState = com.google.accompanist.pager.rememberPagerState()
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
-    val events = eventsViewModel.getEventsList()
+    val events = eventsViewModel.getEventsList().collectAsState().value
 
     Box(
         modifier = Modifier

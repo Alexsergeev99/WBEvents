@@ -9,11 +9,11 @@ import ru.alexsergeev.domain.repository.GroupRepository
 import ru.alexsergeev.domain.repository.PersonProfileRepository
 
 class GetEventsListUseCase(private val repository: EventRepository) {
-    suspend fun invoke(): List<EventDomainModel> = repository.getEventsList()
+    fun invoke(): Flow<List<EventDomainModel>> = repository.getEventsList()
 }
 
 class GetEventUseCase(private val repository: EventRepository) {
-    suspend fun invoke(id: Int): EventDomainModel = repository.getEvent(id)
+    fun invoke(id: Int): Flow<EventDomainModel> = repository.getEvent(id)
 }
 
 class GetCommunitiesListUseCase(private val repository: GroupRepository) {

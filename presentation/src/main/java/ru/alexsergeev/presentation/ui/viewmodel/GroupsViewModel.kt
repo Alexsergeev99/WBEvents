@@ -2,6 +2,8 @@ package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.domain.models.EventUiModel
 import ru.alexsergeev.domain.domain.models.GroupUiModel
@@ -26,12 +28,12 @@ class GroupsViewModel(
 
     fun getGroups(): List<GroupUiModel> {
         val groupsUi: MutableList<GroupUiModel> = mutableListOf()
-            val groups = getCommunitiesListUseCase.invoke()
-            groups.forEach { group ->
-                groupsUi.add(
-                    mapperFromGroupDomainModel(group)
-                )
-            }
+        val groups = getCommunitiesListUseCase.invoke()
+        groups.forEach { group ->
+            groupsUi.add(
+                mapperFromGroupDomainModel(group)
+            )
+        }
         return groupsUi
     }
 
@@ -43,18 +45,30 @@ class GroupsViewModel(
     fun getEventsList(): List<EventUiModel> {
         val eventsUi: MutableList<EventUiModel> = mutableListOf()
         viewModelScope.launch {
-        val events = getEventsListUseCase.invoke()
-        events.forEach { event ->
-            eventsUi.add(
-                mapperFromEventDomainModel(event)
-            )
-        }
+            val eventsFlow = getEventsListUseCase.invoke()
+//            events.forEach { event ->
+//                eventsUi.add(
+//                    mapperFromEventDomainModel(event)
+//                )
+//            }
+            eventsFlow.collect { events ->
+                events.forEach { event ->
+                    eventsUi.add(
+                        mapperFromEventDomainModel(event)
+                    )
+                }
             }
+        }
         return eventsUi
     }
 
+//    lateinit var eventUiModel: EventUiModel
     suspend fun getEvent(id: Int): EventUiModel {
-        val oldEvent = getEventUseCase.invoke(id)
-        return mapperFromEventDomainModel(oldEvent)
+    var event = EventUiModel(0, "", "", "", false, "", emptyList(), "")
+    viewModelScope.launch {
+        val eventDomainModel = getEventUseCase.invoke(id).stateIn(viewModelScope).value
+        event = mapperFromEventDomainModel(eventDomainModel)
+    }
+    return event
     }
 }

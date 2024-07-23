@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +33,7 @@ fun MapImageScreen(
 ) {
     var scale by remember { mutableStateOf(1f) }
 
-    val event = eventsViewModel.getEventsList()[eventId.toInt()]
+    val event = eventsViewModel.getEvent(eventId.toInt()).collectAsState().value
 
     Column(
         modifier = Modifier

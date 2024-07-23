@@ -1,6 +1,8 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.domain.repository.BaseRepository
 import ru.alexsergeev.domain.repository.EventRepository
 
@@ -12,5 +14,7 @@ class DetailEventViewModel(val repository: EventRepository) : ViewModel()  {
     /*
     This fun below is using in EventsVM now
      */
-    fun getEvent(id: Int) = repository.getEvent(id)
+    fun getEvent(id: Int) = viewModelScope.launch {
+        repository.getEvent(id)
+    }
 }

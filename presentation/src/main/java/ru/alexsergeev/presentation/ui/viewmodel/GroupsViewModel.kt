@@ -41,17 +41,19 @@ class GroupsViewModel(
     }
 
     fun getEventsList(): List<EventUiModel> {
-        val events = getEventsListUseCase.invoke()
         val eventsUi: MutableList<EventUiModel> = mutableListOf()
+        viewModelScope.launch {
+        val events = getEventsListUseCase.invoke()
         events.forEach { event ->
             eventsUi.add(
                 mapperFromEventDomainModel(event)
             )
         }
+            }
         return eventsUi
     }
 
-    fun getEvent(id: Int): EventUiModel {
+    suspend fun getEvent(id: Int): EventUiModel {
         val oldEvent = getEventUseCase.invoke(id)
         return mapperFromEventDomainModel(oldEvent)
     }

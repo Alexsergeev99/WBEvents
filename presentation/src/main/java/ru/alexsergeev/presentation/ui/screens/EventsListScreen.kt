@@ -124,7 +124,7 @@ fun EventsListScreen(
 
                     1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(events.size) { event ->
-                            if (events[event].isFinished == false) {
+                            if (!events[event].isFinished) {
                                 MeetingCard(
                                     navController = navController, EventUiModel(
                                         id = events[event].id,

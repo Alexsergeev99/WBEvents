@@ -52,17 +52,30 @@ fun GroupsListScreen(
                     .fillMaxWidth()
                     .fillMaxHeight(0.95f),
             ) {
-                items(groups.size) { group ->
-                    GroupCard(
-                        navController = navController,
-                        GroupUiModel(
-                            id = groups[group].id,
-                            name = groups[group].name,
-                            people = groups[group].people,
-                            groupLogo = groups[group].groupLogo
-                        ),
-                    )
+                groups.forEach { group ->
+                    item {
+                        GroupCard(
+                            navController = navController,
+                            GroupUiModel(
+                                id = group.id,
+                                name = group.name,
+                                people = group.people,
+                                groupLogo = group.groupLogo
+                            ),
+                        )
+                    }
                 }
+//                items(groups.size) { group ->
+//                    GroupCard(
+//                        navController = navController,
+//                        GroupUiModel(
+//                            id = groups[group].id,
+//                            name = groups[group].name,
+//                            people = groups[group].people,
+//                            groupLogo = groups[group].groupLogo
+//                        ),
+//                    )
+//                }
             }
         }
     }

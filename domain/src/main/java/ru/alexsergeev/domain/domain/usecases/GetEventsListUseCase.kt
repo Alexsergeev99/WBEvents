@@ -1,5 +1,6 @@
 package ru.alexsergeev.domain.domain.usecases
 
+import kotlinx.coroutines.flow.Flow
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel

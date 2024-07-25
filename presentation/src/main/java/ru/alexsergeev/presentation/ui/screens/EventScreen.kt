@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import org.koin.androidx.compose.koinViewModel
+import ru.alexsergeev.domain.domain.models.PersonUiModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChip
 import ru.alexsergeev.presentation.ui.atoms.SimpleButton
@@ -49,12 +50,9 @@ fun EventScreen(
     val iAmGuest = remember {
         mutableStateOf(false)
     }
-    val visitors = eventsViewModel.getEventVisitorsList().collectAsState().value
+    val visitors = eventsViewModel.getEventVisitorsList().collectAsState().value.toMutableList()
     val visitorCounter = remember {
         mutableStateOf(visitors.size)
-    }
-    val visitorCounter1 = remember {
-        mutableStateOf(visitors)
     }
     val event = eventsViewModel.getEvent(eventId.toInt()).collectAsState().value
 
@@ -138,7 +136,7 @@ fun EventScreen(
                             .align(Alignment.Start)
                     ) {
                         OverlappingRow(
-                            visitorCounter1.value,
+                            visitors,
                             participants = visitorCounter.value
                         )
                     }

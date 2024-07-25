@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
+import ru.alexsergeev.domain.domain.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.atoms.DisabledButton
 import ru.alexsergeev.presentation.ui.atoms.SimpleButton
 import ru.alexsergeev.presentation.ui.molecules.InputCodeCountryField
@@ -105,6 +106,7 @@ fun InputPhoneNumberScreen(
             )
             InputNumberTextField(hint = "999 999-99-99", height = 40.dp, onTextChange = {
                 vm.setPhoneFlow(it)
+                vm.setPersonData(PersonUiModel("", "${vm.getCountryCodeFlow().value} $it", ""))
                 phoneNumber.value = vm.getPhoneFlow().value
                 checkPhoneNumberLength.value = vm.checkPhoneLength(phoneNumber.value.length)
             }

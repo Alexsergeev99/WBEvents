@@ -1,17 +1,24 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.domain.models.PersonUiModel
+import ru.alexsergeev.domain.domain.models.mapperFromPersonDomainModel
+import ru.alexsergeev.domain.domain.models.mapperToPersonDomainModel
 import ru.alexsergeev.domain.domain.usecases.GetPersonProfileUseCase
+import ru.alexsergeev.domain.domain.usecases.SetPersonProfileUseCase
 
 private const val PHONE_NUMBER_LENGTH = 10
+
 class PersonProfileViewModel(
-    private val getPersonProfileUseCase: GetPersonProfileUseCase
+    private val getPersonProfileUseCase: GetPersonProfileUseCase,
+    private val setPersonProfileUseCase: SetPersonProfileUseCase
 ) : ViewModel() {
 
-    val mockPersonData = getPersonProfileUseCase.invoke()
 
     private val secondNameMutable = MutableStateFlow("")
     private val secondName: StateFlow<String> = secondNameMutable
@@ -51,17 +58,31 @@ class PersonProfileViewModel(
         personAvatarMutable.value = avatar
     }
 
-    private var _personData = MutableStateFlow(
+    private val personDataMutable = MutableStateFlow(
         PersonUiModel(
             "${getFirstNameFlow().value} ${getSecondNameFlow().value}",
             "${getCountryCodeFlow().value} ${getPhoneFlow().value}",
             getPersonAvatarFlow().value
         )
     )
-    private val personData: StateFlow<PersonUiModel> = _personData
-    fun getPersonDataFlow(): StateFlow<PersonUiModel> = personData
+    private val personData: StateFlow<PersonUiModel> = personDataMutable
 
-    private fun getMockPersonProfileData() = mockPersonData
+    fun getPersonData(): StateFlow<PersonUiModel> {
+        viewModelScope.launch {
+            val personDataFlow = getPersonProfileUseCase.invoke()
+            personDataFlow.collect { person ->
+                personDataMutable.update { mapperFromPersonDomainModel(person) }
+            }
+        }
+        return personData
+    }
+
+    fun setPersonData(personUiModel: PersonUiModel) {
+        viewModelScope.launch {
+            setPersonProfileUseCase.invoke(mapperToPersonDomainModel(personUiModel))
+            personDataMutable.value = personUiModel
+        }
+    }
 
     fun checkPhoneLength(length: Int): Boolean = length == PHONE_NUMBER_LENGTH
 }

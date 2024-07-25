@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
+import ru.alexsergeev.domain.domain.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.atoms.DisabledButton
 import ru.alexsergeev.presentation.ui.atoms.Search
 import ru.alexsergeev.presentation.ui.atoms.SimpleButton
@@ -71,6 +72,7 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                 editPhoto = {
                     needToEdit.value = !needToEdit.value
                     vm.setPersonAvatarFlow("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
+                    vm.setPersonData(PersonUiModel("", vm.getPersonData().value.phone, vm.getPersonAvatarFlow().value))
                 }
             )
             Search(
@@ -88,6 +90,7 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
                 padding = 6.dp,
                 onTextChange = {
                     vm.setSecondNameFlow(it)
+                    vm.setPersonData(PersonUiModel("${vm.getFirstNameFlow().value} ${vm.getSecondNameFlow().value}", vm.getPersonData().value.phone, vm.getPersonData().value.avatar))
                 },
                 text = surname,
             )

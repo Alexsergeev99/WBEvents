@@ -1,17 +1,32 @@
 package ru.alexsergeev.repository.repository
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.update
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.repository.PersonProfileRepository
 
 class PersonProfileRepositoryImpl : PersonProfileRepository {
-    override fun getPersonData(): PersonDomainModel = PersonDomainModel(
-        "Саша Сергеев",
-        "+7 999 999 99-99",
-        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+
+   private val personDataMutable = MutableStateFlow(
+        PersonDomainModel(
+            "Саша Сергеев",
+            "+7 999 999 99-99",
+            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+        )
     )
+
+    override suspend fun getPersonData(): Flow<PersonDomainModel> = flow {
+        val person = personDataMutable.value
+        emit(person)
+    }
+
+    override suspend fun setPersonData(person: PersonDomainModel) {
+        personDataMutable.value = person
+//        getPersonData().collect { personData -> personDataMutable.update { person } }
+    }
 
     override suspend fun getMyEventsList(): Flow<List<EventDomainModel>> = flow {
         val myEvents = listOf(

@@ -48,7 +48,7 @@ fun OverlappingUsers(
 }
 
 @Composable
-fun OverlappingRow(persons: List<PersonUiModel>, participants: Int) {
+fun OverlappingRow(persons: MutableList<PersonUiModel>, participants: Int) {
 
     val counter = remember {
         mutableIntStateOf(0)

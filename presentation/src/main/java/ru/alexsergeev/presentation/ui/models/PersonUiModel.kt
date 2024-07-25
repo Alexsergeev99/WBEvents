@@ -13,3 +13,11 @@ fun mapperFromPersonDomainModel(personDomainModel: PersonDomainModel): PersonUiM
         avatar = personDomainModel.avatar,
     )
 }
+
+fun mapperToPersonDomainModel(personUiModel: PersonUiModel): PersonDomainModel  {
+    return PersonDomainModel(
+        name = personUiModel.name,
+        phone = personUiModel.phone,
+        avatar = personUiModel.avatar,
+    )
+}

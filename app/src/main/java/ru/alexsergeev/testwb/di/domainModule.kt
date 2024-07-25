@@ -10,6 +10,8 @@ import ru.alexsergeev.domain.domain.usecases.GetPersonProfileUseCase
 import ru.alexsergeev.domain.domain.usecases.GetEventVisitorsListUseCase
 import ru.alexsergeev.domain.domain.usecases.GetMyEventsListUseCase
 import ru.alexsergeev.domain.domain.usecases.ValidateCodeUseCase
+import ru.alexsergeev.domain.domain.usecases.AddPersonToVisitorsUseCase
+import ru.alexsergeev.domain.domain.usecases.RemovePersonFromVisitorsUseCase
 
 
 val domainModule = module {
@@ -21,5 +23,7 @@ val domainModule = module {
     factoryOf(::GetMyEventsListUseCase)
     factoryOf(::GetEventVisitorsListUseCase)
     factoryOf(::ValidateCodeUseCase)
+    factoryOf(::AddPersonToVisitorsUseCase)
+    factoryOf(::RemovePersonFromVisitorsUseCase)
 
 }

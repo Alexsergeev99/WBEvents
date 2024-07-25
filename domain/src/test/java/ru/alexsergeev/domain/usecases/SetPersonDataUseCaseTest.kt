@@ -29,8 +29,7 @@ class TestProfileRepository : PersonProfileRepository {
     }
 
     override suspend fun setPersonData(person: PersonDomainModel) {
-        personDataMutable.value = person
-//        getPersonData().collect { personData -> personDataMutable.update { person } }
+        getPersonData().collect { personDataMutable.update { person } }
     }
 
     override suspend fun getMyEventsList(): Flow<List<EventDomainModel>> {
@@ -51,7 +50,6 @@ class SetPersonDataUseCaseTest {
         val setPersonProfileUseCase = SetPersonProfileUseCase(repository = repository)
         val getPersonProfileUseCase = GetPersonProfileUseCase(repository = repository)
 
-
         val actual = MutableStateFlow(
             PersonDomainModel(
                 "Саша Сергеев",
@@ -61,7 +59,7 @@ class SetPersonDataUseCaseTest {
         )
         setPersonProfileUseCase.invoke(
             PersonDomainModel(
-                "Гена Сергеев",
+                "Иван Иванов",
                 "+7 999 999 99-99",
                 "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
             )
@@ -69,7 +67,7 @@ class SetPersonDataUseCaseTest {
         getPersonProfileUseCase.invoke().collect { data -> actual.update { data } }
 
         val expected = PersonDomainModel(
-            "Гена Сергеев",
+            "Иван Иванов",
             "+7 999 999 99-99",
             "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
         )

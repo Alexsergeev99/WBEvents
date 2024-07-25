@@ -1,15 +1,19 @@
 package ru.alexsergeev.wbevents.usecases
 
+import junit.framework.TestCase
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.usecases.GetCommunitiesListUseCase
+import ru.alexsergeev.domain.domain.usecases.GetCommunityUseCase
+import ru.alexsergeev.domain.domain.usecases.GetEventUseCase
+import ru.alexsergeev.domain.domain.usecases.GetEventsListUseCase
 import ru.alexsergeev.domain.repository.GroupRepository
 
 class TestRepository : GroupRepository {
@@ -75,22 +79,60 @@ class GetCommunitiesListUseCaseTest {
 
     @Test
     fun shouldReturnCorrectCommunitiesList() = runTest {
+        val testRepository = TestRepository()
+        val usecase = GetCommunitiesListUseCase(repository = testRepository)
+        val lastData = usecase.invoke()
+        val actual = MutableStateFlow<MutableList<GroupDomainModel>>(mutableListOf()).value
+        lastData.collect { communities ->
+            communities.forEach { community ->
+                actual.add(community)
+            }
+        }
+        val expected: List<GroupDomainModel> =
+            listOf(
+                GroupDomainModel(1, "tinkoff", 400, ""),
+                GroupDomainModel(1, "tinkoff", 400, ""),
+                GroupDomainModel(1, "tinkoff", 400, "")
+            )
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun shouldReturnTrueIfCommunityListIsNotEmpty() {
+        runTest {
             val testRepository = TestRepository()
             val usecase = GetCommunitiesListUseCase(repository = testRepository)
             val lastData = usecase.invoke()
-            val actual = MutableStateFlow<MutableList<GroupDomainModel>>(mutableListOf()).value
+            val actualValue = MutableStateFlow<MutableList<GroupDomainModel>>(mutableListOf()).value
             lastData.collect { communities ->
                 communities.forEach { community ->
-                    actual.add(community)
+                    actualValue.add(community)
                 }
             }
-            val expected: List<GroupDomainModel> =
-                listOf(
-                    GroupDomainModel(1, "tinkoff", 400, ""),
-                    GroupDomainModel(1, "tinkoff", 400, ""),
-                    GroupDomainModel(1, "tinkoff", 400, "")
-                )
+            val actual = actualValue.isNotEmpty()
+            val expected = true
             assertEquals(expected, actual)
         }
     }
+
+    @Test
+    fun shouldReturnTrueIfThisCommunityIsNotLast() {
+        runTest {
+            val testRepository = TestRepository()
+            val communitiesUsecase = GetCommunitiesListUseCase(repository = testRepository)
+            val communityUsecase = GetCommunityUseCase(repository = testRepository)
+            val lastData = communitiesUsecase.invoke()
+            val actualValue = MutableStateFlow<MutableList<GroupDomainModel>>(mutableListOf()).value
+            lastData.collect { communities ->
+                communities.forEach { community ->
+                    actualValue.add(community)
+                }
+            }
+            val community = communityUsecase.invoke(actualValue.size-1).last()
+            val actual = community.id != actualValue.size
+            val expected = true
+            assertEquals(expected, actual)
+        }
+    }
+}
 

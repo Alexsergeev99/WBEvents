@@ -6,10 +6,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.usecases.GetEventUseCase
+import ru.alexsergeev.domain.domain.usecases.GetEventsListUseCase
 import ru.alexsergeev.domain.repository.EventRepository
 
 class TestEventRepository : EventRepository {
@@ -61,7 +63,7 @@ class TestEventRepository : EventRepository {
 class GetEventUseCaseTest {
     @Test
     fun shouldReturnCorrectEventData() {
-        runBlocking {
+        runTest {
             val testRepository = TestEventRepository()
             val usecase = GetEventUseCase(repository = testRepository)
             val actual = MutableStateFlow<EventDomainModel>(

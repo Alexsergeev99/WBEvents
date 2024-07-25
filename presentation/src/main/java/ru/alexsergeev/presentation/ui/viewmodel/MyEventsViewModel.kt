@@ -1,7 +1,6 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import ru.alexsergeev.domain.domain.repository.BaseRepository
 import ru.alexsergeev.domain.repository.PersonProfileRepository
 
 class MyEventsViewModel(val repository: PersonProfileRepository) : ViewModel() {
@@ -12,6 +11,6 @@ class MyEventsViewModel(val repository: PersonProfileRepository) : ViewModel() {
     /*
     These funs below are using in EventsVM now
      */
-    fun getEventsList() = repository.getEventsList()
-    fun getEvent(id: Int) = repository.getEvent(id)
+    suspend fun getEventsList() = repository.getMyEventsList()
+    suspend fun getEvent(id: Int) = repository.getEvent(id)
 }

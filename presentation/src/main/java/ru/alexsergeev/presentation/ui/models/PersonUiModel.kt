@@ -5,3 +5,11 @@ data class PersonUiModel(
     var phone: String,
     var avatar: String
 )
+
+fun mapperFromPersonDomainModel(personDomainModel: PersonDomainModel): PersonUiModel  {
+    return PersonUiModel(
+        name = personDomainModel.name,
+        phone = personDomainModel.phone,
+        avatar = personDomainModel.avatar,
+    )
+}

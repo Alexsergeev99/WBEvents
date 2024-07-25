@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
+import ru.alexsergeev.domain.domain.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
@@ -47,7 +48,7 @@ fun OverlappingUsers(
 }
 
 @Composable
-fun OverlappingRow(image: String, participants: Int) {
+fun OverlappingRow(persons: List<PersonUiModel>, participants: Int) {
 
     val counter = remember {
         mutableIntStateOf(0)
@@ -68,7 +69,7 @@ fun OverlappingRow(image: String, participants: Int) {
                 if (listToCycle.intValue in 1..5) {
                     OverlappingUsers(overlappingPercentage = 0.33f) {
                         for (i in 0..listToCycle.intValue - 1) {
-                            ExampleAvatar(image = image)
+                            ExampleAvatar(image = persons[i].avatar)
                         }
                     }
                 }

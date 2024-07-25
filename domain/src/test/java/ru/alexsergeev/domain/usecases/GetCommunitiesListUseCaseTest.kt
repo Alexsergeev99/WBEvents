@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
@@ -73,8 +74,7 @@ class TestRepository : GroupRepository {
 class GetCommunitiesListUseCaseTest {
 
     @Test
-    fun shouldReturnCorrectCommunitiesList() {
-        runBlocking {
+    fun shouldReturnCorrectCommunitiesList() = runTest {
             val testRepository = TestRepository()
             val usecase = GetCommunitiesListUseCase(repository = testRepository)
             val lastData = usecase.invoke()
@@ -93,5 +93,4 @@ class GetCommunitiesListUseCaseTest {
             assertEquals(expected, actual)
         }
     }
-}
 

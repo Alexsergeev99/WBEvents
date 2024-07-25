@@ -28,6 +28,25 @@ class GetPersonProfileUseCase(private val repository: PersonProfileRepository) {
     fun invoke(): PersonDomainModel = repository.getPersonData()
 }
 
+class GetMyEventsListUseCase(private val repository: PersonProfileRepository) {
+    suspend fun invoke(): Flow<List<EventDomainModel>> = repository.getMyEventsList()
+}
+
+//class AddPersonToTheVisitorsUseCase(private val repository: EventRepository) {
+//    suspend fun invoke(): Flow<List<EventDomainModel>> = repository.getMyEventsList()
+//}
+//class RemovePersonFromTheVisitorsUseCase(private val repository: EventRepository) {
+//    suspend fun invoke(): Flow<List<EventDomainModel>> = repository.getMyEventsList()
+//}
+class GetEventVisitorsListUseCase(private val repository: EventRepository) {
+    suspend fun invoke(): Flow<List<PersonDomainModel>> = repository.getEventVisitorsList()
+}
+class ValidateCodeUseCase(private val repository: PersonProfileRepository) {
+    suspend fun invoke(): Flow<List<EventDomainModel>> = repository.getMyEventsList()
+}
+
+
+
 
 
 

@@ -60,5 +60,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.navigation)
+    testImplementation(libs.kotlinx.coroutines.test.v190rc)
+
 
 }

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import ru.alexsergeev.domain.domain.models.EventDomainModel
+import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.usecases.GetEventUseCase
 import ru.alexsergeev.domain.repository.EventRepository
 
@@ -50,6 +51,10 @@ class TestEventRepository : EventRepository {
             val event = events.find { id == it.id } ?: throw Exception()
             emit(event)
         }
+    }
+
+    override suspend fun getEventVisitorsList(): Flow<List<PersonDomainModel>> {
+        TODO("Not yet implemented")
     }
 }
 

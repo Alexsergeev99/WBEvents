@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,8 +49,12 @@ fun EventScreen(
     val iAmGuest = remember {
         mutableStateOf(false)
     }
-    val participants = remember {
-        mutableStateOf(11)
+    val visitors = eventsViewModel.getEventVisitorsList().collectAsState().value
+    val visitorCounter = remember {
+        mutableStateOf(visitors.size)
+    }
+    val visitorCounter1 = remember {
+        mutableStateOf(visitors)
     }
     val event = eventsViewModel.getEvent(eventId.toInt()).collectAsState().value
 
@@ -135,8 +138,8 @@ fun EventScreen(
                             .align(Alignment.Start)
                     ) {
                         OverlappingRow(
-                            "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                            participants.value
+                            visitorCounter1.value,
+                            participants = visitorCounter.value
                         )
                     }
                 }
@@ -149,7 +152,7 @@ fun EventScreen(
                             text = "Пойду на встречу!",
                             onClick = {
                                 iAmGuest.value = true
-                                participants.value++
+                                visitorCounter.value++
                             }
                         )
                     } else {
@@ -160,7 +163,7 @@ fun EventScreen(
                             text = "Схожу в другой раз!",
                             onClick = {
                                 iAmGuest.value = false
-                                participants.value--
+                                visitorCounter.value--
                             }
                         )
                     }

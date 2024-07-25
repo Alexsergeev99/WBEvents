@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.domain.domain.models.EventDomainModel
+import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.repository.EventRepository
 
 class EventRepositoryImpl : EventRepository {
@@ -81,5 +82,46 @@ class EventRepositoryImpl : EventRepository {
             val event = events.find { id == it.id } ?: throw Exception()
             emit(event)
         }
+    }
+
+    override suspend fun getEventVisitorsList(): Flow<List<PersonDomainModel>> = flow {
+        val visitors = listOf(
+            PersonDomainModel(
+                "Саша",
+                "+79994449999",
+                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+            ),
+            PersonDomainModel(
+                "Саша",
+                "+79994449999",
+                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+            ),
+            PersonDomainModel(
+                "Саша",
+                "+79994449999",
+                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+            ),
+            PersonDomainModel(
+                "Саша",
+                "+79994449999",
+                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+            ),
+            PersonDomainModel(
+                "Саша",
+                "+79994449999",
+                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+            ),
+            PersonDomainModel(
+                "Саша",
+                "+79994449999",
+                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+            ),
+            PersonDomainModel(
+                "Саша",
+                "+79994449999",
+                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+            ),
+        )
+        emit(visitors)
     }
 }

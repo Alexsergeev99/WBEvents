@@ -5,17 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.domain.models.EventUiModel
+import ru.alexsergeev.domain.domain.models.PersonUiModel
 import ru.alexsergeev.domain.domain.models.mapperFromEventDomainModel
+import ru.alexsergeev.domain.domain.models.mapperFromPersonDomainModel
 import ru.alexsergeev.domain.domain.usecases.GetEventUseCase
+import ru.alexsergeev.domain.domain.usecases.GetEventVisitorsListUseCase
 import ru.alexsergeev.domain.domain.usecases.GetEventsListUseCase
 
 class EventsViewModel(
     private val getEventUseCase: GetEventUseCase,
-    private val getEventsListUseCase: GetEventsListUseCase
-) : ViewModel() {
+    private val getEventsListUseCase: GetEventsListUseCase,
+    private val getEventVisitorsListUseCase: GetEventVisitorsListUseCase,
+    ) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
     private val events: StateFlow<List<EventUiModel>> = eventsMutable
@@ -26,6 +31,20 @@ class EventsViewModel(
             eventsFlow.collect { events ->
                 events.forEach { event ->
                     eventsMutable.value.add(mapperFromEventDomainModel(event))
+                }
+            }
+        }
+    }
+
+    private val visitorsMutable = MutableStateFlow<MutableList<PersonUiModel>>(mutableListOf())
+    private val visitors: StateFlow<List<PersonUiModel>> = visitorsMutable
+    fun getEventVisitorsList(): StateFlow<List<PersonUiModel>> = visitors
+    private fun getEventVisitorsListFlow() {
+        viewModelScope.launch {
+            val visitorsFlow = getEventVisitorsListUseCase.invoke()
+            visitorsFlow.collect { visitors ->
+                visitors.forEach { visitor ->
+                    visitorsMutable.value.add(mapperFromPersonDomainModel(visitor))
                 }
             }
         }
@@ -47,5 +66,6 @@ class EventsViewModel(
 
     init {
         getEventsListFlow()
+        getEventVisitorsListFlow()
     }
 }

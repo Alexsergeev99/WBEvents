@@ -22,12 +22,12 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChip
+import ru.alexsergeev.presentation.ui.molecules.EventScreenButtonChanger
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
-import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 import ru.alexsergeev.wbevents.ui.presentation.molecules.EventParams
-import ru.alexsergeev.wbevents.ui.presentation.molecules.EventScreenButtonChanger
 import ru.alexsergeev.wbevents.ui.presentation.molecules.EventVisitorsOverlapping
 import ru.alexsergeev.wbevents.ui.presentation.molecules.MapImage
 
@@ -35,15 +35,13 @@ import ru.alexsergeev.wbevents.ui.presentation.molecules.MapImage
 internal fun EventScreen(
     navController: NavController,
     eventId: String,
-    eventsViewModel: EventsViewModel = koinViewModel()
+    detailEventViewModel: DetailEventViewModel = koinViewModel()
 ) {
     val scroll = rememberScrollState(0)
-    val event by eventsViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
-    val person by eventsViewModel.getPersonData().collectAsStateWithLifecycle()
-    val visitors by eventsViewModel.getEventVisitorsList().collectAsStateWithLifecycle()
-    val personIsAddedToTheVisitorsFlow by eventsViewModel.personIsAddedToTheVisitorsFlow()
+    val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
+    val personIsAddedToTheVisitorsFlow by detailEventViewModel.personIsAddedToTheVisitorsFlow()
         .collectAsStateWithLifecycle()
-
     Box(
         modifier = Modifier
             .fillMaxSize()

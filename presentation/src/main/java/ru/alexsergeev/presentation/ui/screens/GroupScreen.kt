@@ -27,18 +27,19 @@ import ru.alexsergeev.presentation.ui.molecules.MeetingCard
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
+import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
 
 @Composable
 internal fun GroupScreen(
     navController: NavController,
     groupId: String,
-    communitiesViewModel: GroupsViewModel = koinViewModel()
+    detailGroupViewModel: DetailGroupViewModel = koinViewModel()
 ) {
 
-    val community by communitiesViewModel.getCommunity(groupId.toInt())
+    val community by detailGroupViewModel.getCommunity(groupId.toInt())
         .collectAsStateWithLifecycle()
-    val events by communitiesViewModel.getEventsList().collectAsStateWithLifecycle()
+    val events by detailGroupViewModel.getEventsList().collectAsStateWithLifecycle()
 
     val scroll = rememberScrollState(0)
 

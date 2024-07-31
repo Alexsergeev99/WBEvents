@@ -31,6 +31,7 @@ import ru.alexsergeev.presentation.ui.molecules.InputPhoneNumberButtonChanger
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
+import ru.alexsergeev.presentation.ui.viewmodel.InputPhoneNumberViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 private const val INPUT_PHONE_HINT = "999 999-99-99"
@@ -38,13 +39,13 @@ private const val INPUT_PHONE_HINT = "999 999-99-99"
 @Composable
 internal fun InputPhoneNumberScreen(
     navController: NavController,
-    personProfileViewModel: PersonProfileViewModel = koinViewModel()
+    inputPhoneNumberViewModel: InputPhoneNumberViewModel = koinViewModel()
 ) {
-    val person = personProfileViewModel.getPersonData()
+    val person = inputPhoneNumberViewModel.getPersonData()
     val checkPhoneNumberLength = remember {
         mutableStateOf(false)
     }
-    val startedAvatar by personProfileViewModel.getPersonAvatarFlow().collectAsStateWithLifecycle()
+    val startedAvatar by inputPhoneNumberViewModel.getPersonAvatarFlow().collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -94,14 +95,14 @@ internal fun InputPhoneNumberScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             InputCodeCountryField(onTextChange = {
-                personProfileViewModel.setPersonData(
+                inputPhoneNumberViewModel.setPersonData(
                     person.value.copy(
                         phone = Phone(it, ""),
                     )
                 )
             })
             InputNumberTextField(hint = INPUT_PHONE_HINT, height = 40.dp, onTextChange = {
-                personProfileViewModel.setPersonData(
+                inputPhoneNumberViewModel.setPersonData(
                     person.value.copy(
                         name = FullName("", ""),
                         phone = Phone(person.value.phone.countryCode, it),
@@ -109,7 +110,7 @@ internal fun InputPhoneNumberScreen(
                     )
                 )
                 checkPhoneNumberLength.value =
-                    personProfileViewModel.checkPhoneLength(person.value.phone.basicNumber.length)
+                    inputPhoneNumberViewModel.checkPhoneLength(person.value.phone.basicNumber.length)
             }
             )
         }

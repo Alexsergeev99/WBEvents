@@ -1,6 +1,7 @@
 package ru.alexsergeev.presentation.ui.screens
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ import ru.alexsergeev.presentation.ui.molecules.OtpTextField
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
+import ru.alexsergeev.presentation.ui.viewmodel.CodeScreenViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 
@@ -36,7 +39,7 @@ import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 @Composable
 internal fun CodeScreen(
     navController: NavController,
-    personProfileViewModel: PersonProfileViewModel = koinViewModel()
+    codeScreenViewModel: CodeScreenViewModel = koinViewModel()
 ) {
 
     val codeValue = rememberSaveable {
@@ -44,7 +47,7 @@ internal fun CodeScreen(
     }
     val focusManager = LocalFocusManager.current
 
-    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
+    val person by codeScreenViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -89,8 +92,12 @@ internal fun CodeScreen(
         OtpTextField(
             navController = navController,
             otpText = codeValue.value,
-            onOtpTextChange = { value, otpInputFilled ->
+            onOtpTextChange = { value, _ ->
                 codeValue.value = value
+                codeScreenViewModel.validateCodeFlow(codeValue.value.toInt())
+                if(codeScreenViewModel.validateCode().value) {
+                    navController.navigate("edit_profile")
+                }
             },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

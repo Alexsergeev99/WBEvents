@@ -10,6 +10,7 @@ import ru.alexsergeev.presentation.ui.screens.CodeScreen
 import ru.alexsergeev.presentation.ui.screens.EditProfileScreen
 import ru.alexsergeev.presentation.ui.screens.InputPhoneNumberScreen
 import ru.alexsergeev.presentation.ui.screens.SplashScreen
+import ru.alexsergeev.presentation.ui.viewmodel.CodeScreenViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @Composable
@@ -29,13 +30,13 @@ fun PrimaryNavigation() {
         }
         composable("input_number") {
             BackHandler(true) {}
-            InputPhoneNumberScreen(navController = navController, viewModel)
+            InputPhoneNumberScreen(navController = navController)
         }
         composable("input_code") {
-            CodeScreen(navController = navController, viewModel)
+            CodeScreen(navController = navController)
         }
         composable("edit_profile") {
-            EditProfileScreen(navController = navController, viewModel)
+            EditProfileScreen(navController = navController)
         }
     }
 }

@@ -18,23 +18,23 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.Search
+import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.molecules.EditProfileButtonChanger
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarWithEdit
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
-import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.EditProfileViewModel
 
 @Composable
 internal fun EditProfileScreen(
     navController: NavController,
-    personProfileViewModel: PersonProfileViewModel = koinViewModel()
+    editProfileViewModel: EditProfileViewModel = koinViewModel()
 ) {
     val needToEdit = remember {
         mutableStateOf(false)
     }
-    val person = personProfileViewModel.getPersonData().collectAsStateWithLifecycle().value
+    val person = editProfileViewModel.getPersonData().collectAsStateWithLifecycle().value
     val startedAvatar = stringResource(id = R.string.mock_avatar)
     val changedAvatar = "https://www.1zoom.me/big2/62/199578-yana.jpg"
 
@@ -63,7 +63,7 @@ internal fun EditProfileScreen(
                     needToEdit.value = !needToEdit.value
                     when (needToEdit.value) {
                         true -> {
-                            personProfileViewModel.setPersonData(
+                            editProfileViewModel.setPersonData(
                                 person.copy(
                                     avatar = startedAvatar
                                 )
@@ -71,7 +71,7 @@ internal fun EditProfileScreen(
                         }
 
                         else -> {
-                            personProfileViewModel.setPersonData(
+                            editProfileViewModel.setPersonData(
                                 person.copy(
                                     avatar = changedAvatar
                                 )
@@ -85,7 +85,7 @@ internal fun EditProfileScreen(
                 isSearch = false,
                 padding = 6.dp,
                 onTextChange = {
-                    personProfileViewModel.setPersonData(
+                    editProfileViewModel.setPersonData(
                         person.copy(
                             name = FullName(
                                 it,
@@ -100,7 +100,7 @@ internal fun EditProfileScreen(
                 isSearch = false,
                 padding = 6.dp,
                 onTextChange = {
-                    personProfileViewModel.setPersonData(
+                    editProfileViewModel.setPersonData(
                         person.copy(
                             name = FullName(person.name.firstName, it)
                         )

@@ -31,13 +31,14 @@ import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.Inactive
 import ru.alexsergeev.presentation.ui.theme.MiddleButtonColor
 import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.MyEventsViewModel
 import ru.alexsergeev.wbevents.ui.presentation.molecules.MyEventsDivider
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 internal fun MyEventsListScreen(
     navController: NavController,
-    eventsViewModel: EventsViewModel = koinViewModel()
+    myEventsViewModel: MyEventsViewModel = koinViewModel()
 ) {
     val tabList = listOf(
         stringResource(id = R.string.my_planned_events),
@@ -47,7 +48,7 @@ internal fun MyEventsListScreen(
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
 
-    val events by eventsViewModel.getEventsList().collectAsStateWithLifecycle()
+    val events by myEventsViewModel.getMyEventsList().collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier

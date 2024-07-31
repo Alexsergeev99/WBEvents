@@ -22,42 +22,14 @@ import ru.alexsergeev.presentation.ui.utils.UiEventToDomainEventMapper
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 internal class EventsViewModel(
-    private val getEventUseCase: GetEventUseCase,
     private val getEventsListUseCase: GetEventsListUseCase,
-    private val getEventVisitorsListUseCase: GetEventVisitorsListUseCase,
-    private val addPersonToVisitorsUseCase: AddPersonToVisitorsUseCase,
-    private val removePersonFromVisitorsUseCase: RemovePersonFromVisitorsUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
-    private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
-    private val uiEventToDomainEventMapper: UiEventToDomainEventMapper,
 ) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
     private val events: StateFlow<List<EventUiModel>> = eventsMutable
-
-    private val eventMutable =
-        MutableStateFlow<EventUiModel>(
-            EventUiModel(
-                id = 0,
-                title = "",
-                date = "",
-                city = "",
-                isFinished = false,
-                meetingAvatar = "",
-                chips = listOf(),
-                imageUrl = "",
-                visitors = mutableListOf()
-            )
-        )
-    private val event: StateFlow<EventUiModel> = eventMutable
-
-    private val visitorsMutable = MutableStateFlow<MutableList<PersonUiModel>>(mutableListOf())
-    private val visitors: StateFlow<MutableList<PersonUiModel>> = visitorsMutable
-
-    private val personIsAddedToTheVisitorsMutable = MutableStateFlow(false)
-    private val personIsAddedToTheVisitors: StateFlow<Boolean> = personIsAddedToTheVisitorsMutable
 
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
@@ -70,7 +42,6 @@ internal class EventsViewModel(
 
     init {
         getEventsListFlow()
-        getEventVisitorsListFlow()
         getPersonDataFlow()
     }
 
@@ -81,21 +52,6 @@ internal class EventsViewModel(
                 eventsFlow.collect { events ->
                     events.forEach { event ->
                         eventsMutable.value.add(domainEventToUiEventMapper.map(event))
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    private fun getEventVisitorsListFlow() {
-        try {
-            viewModelScope.launch {
-                val visitorsFlow = getEventVisitorsListUseCase.invoke()
-                visitorsFlow.collect { visitors ->
-                    visitors.forEach { visitor ->
-                        visitorsMutable.value.add(domainPersonToUiPersonMapper.map(visitor))
                     }
                 }
             }
@@ -119,53 +75,6 @@ internal class EventsViewModel(
     }
 
     fun getEventsList(): StateFlow<List<EventUiModel>> = events
-    fun getEventVisitorsList(): StateFlow<MutableList<PersonUiModel>> = visitors
-    fun personIsAddedToTheVisitorsFlow() = personIsAddedToTheVisitors
     fun getPersonData(): StateFlow<PersonUiModel> = personData
 
-    fun addPersonToEventVisitorList(event: EventUiModel, person: PersonUiModel) {
-        try {
-            viewModelScope.launch {
-                addPersonToVisitorsUseCase.invoke(
-                    uiPersonToDomainPersonMapper.map(person),
-                    uiEventToDomainEventMapper.map(event)
-                )
-                eventMutable.update { event }
-                personIsAddedToTheVisitorsMutable.update { true }
-                visitorsMutable.value.add(person)
-            }
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    fun removePersonFromEventVisitorsList(event: EventUiModel, person: PersonUiModel) {
-        try {
-            viewModelScope.launch {
-                removePersonFromVisitorsUseCase.invoke(
-                    uiPersonToDomainPersonMapper.map(person),
-                    uiEventToDomainEventMapper.map(event)
-                )
-                eventMutable.update { event }
-                personIsAddedToTheVisitorsMutable.update { false }
-                visitorsMutable.value.remove(person)
-            }
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    fun getEvent(id: Int): StateFlow<EventUiModel> {
-        try {
-            viewModelScope.launch {
-                val eventFlow = getEventUseCase.invoke(id)
-                eventFlow.collect { event ->
-                    eventMutable.update { domainEventToUiEventMapper.map(event) }
-                }
-            }
-            return event
-        } catch (e: Exception) {
-            throw e
-        }
-    }
 }

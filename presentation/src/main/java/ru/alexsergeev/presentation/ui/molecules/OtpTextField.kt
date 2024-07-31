@@ -58,9 +58,6 @@ fun OtpTextField(
                         index = index,
                         text = otpText,
                     )
-                    if (otpText.length > 3 && otpText[3].toString() != "") {
-                        navController.navigate("edit_profile")
-                    }
                     Spacer(modifier = Modifier.width(8.dp))
                 }
             }

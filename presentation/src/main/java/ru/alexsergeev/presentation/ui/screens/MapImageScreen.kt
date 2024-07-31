@@ -23,16 +23,16 @@ import coil.compose.AsyncImage
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
-import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 
 @Composable
 internal fun MapImageScreen(
     navController: NavController,
     eventId: String,
-    eventsViewModel: EventsViewModel = koinViewModel()
+    detailEventViewModel: DetailEventViewModel = koinViewModel()
 ) {
     var scale by remember { mutableStateOf(1f) }
-    val event by eventsViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

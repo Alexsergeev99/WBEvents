@@ -1,24 +1,68 @@
 package ru.alexsergeev.wbevents.usecases
 
-import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
-import ru.alexsergeev.domain.domain.usecases.GetCommunityUseCase
+import ru.alexsergeev.domain.usecases.implementation.GetCommunitiesListUseCaseImpl
+import ru.alexsergeev.domain.usecases.implementation.GetCommunityUseCaseImpl
+import ru.alexsergeev.wbevents.repositories.TestCommunityRepository
 
-class GetCommunityUseCaseTest {
+private const val TEST_COMMUNITY_ID = 2
+private const val ID_IS_POSITIVE_TESTER = 0
+
+internal class GetCommunityUseCaseTest {
+
+    private val testRepository = TestCommunityRepository()
+    private lateinit var communityUseCase: GetCommunityUseCaseImpl
+
+    @BeforeEach
+    fun setUp() {
+        communityUseCase = GetCommunityUseCaseImpl(repository = testRepository)
+    }
 
     @Test
     fun shouldReturnCorrectCommunityData() {
-        runBlocking {
-            val testRepository = TestRepository()
-            val usecase = GetCommunityUseCase(repository = testRepository)
-            val actual = MutableStateFlow<GroupDomainModel>(GroupDomainModel(7, "", 7, ""))
-            usecase.invoke(2).collect { community -> actual.update { community } }
-            val expected = GroupDomainModel(2, "tinkoff", 400, "")
-            assertEquals(expected, actual.value)
+        runTest {
+            val communitiesUseCase = GetCommunitiesListUseCaseImpl(repository = testRepository)
+            val actual = communityUseCase.invoke(TEST_COMMUNITY_ID).last()
+            val expected = communitiesUseCase.invoke().last().find { it.id == TEST_COMMUNITY_ID }
+            Assertions.assertEquals(expected, actual)
+        }
+    }
+
+    @Test
+    fun shouldReturnTrueIfCommunitiesListContainsCommunity() {
+        runTest {
+            val communitiesListUseCase = GetCommunitiesListUseCaseImpl(repository = testRepository)
+
+            val communitiesList = mutableListOf<GroupDomainModel>()
+            communitiesListUseCase.invoke().collect { communities ->
+                communities.forEach { community ->
+                    communitiesList.add(community)
+                }
+            }
+            val testCommunity = communityUseCase.invoke(TEST_COMMUNITY_ID).last()
+            val expected: Boolean = communitiesList.contains(testCommunity)
+            Assertions.assertTrue(expected)
+        }
+    }
+
+    @Test
+    fun shouldReturnTrueIfCommunityHasValidName() {
+        runTest {
+            val actual = communityUseCase.invoke(TEST_COMMUNITY_ID).last().name
+            Assertions.assertTrue(actual.isNotEmpty())
+        }
+    }
+
+    @Test
+    fun shouldReturnTrueIfCommunityIdNotNull() {
+        runTest {
+            val actual = communityUseCase.invoke(TEST_COMMUNITY_ID).last().id
+            Assertions.assertTrue(actual > ID_IS_POSITIVE_TESTER)
         }
     }
 }

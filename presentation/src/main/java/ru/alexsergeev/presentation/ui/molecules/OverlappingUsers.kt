@@ -17,6 +17,11 @@ import ru.alexsergeev.domain.domain.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
+private const val ZERO_VISITORS_IMAGES = 0
+private const val MAX_VISITORS_IMAGES = 5
+private const val MIN_VISITORS_IMAGES = 1
+private const val OVERLAPPING_PERCENTAGE = 0.33f
+
 @Composable
 fun OverlappingUsers(
     modifier: Modifier = Modifier,
@@ -48,35 +53,38 @@ fun OverlappingUsers(
 }
 
 @Composable
-fun OverlappingRow(persons: MutableList<PersonUiModel>, participants: Int) {
+internal fun OverlappingRow(visitors: MutableList<PersonUiModel>, participants: Int) {
 
     val counter = remember {
-        mutableIntStateOf(0)
+        mutableIntStateOf(ZERO_VISITORS_IMAGES)
     }
     counter.intValue = participants
 
     val listToCycle = remember {
-        mutableIntStateOf(0)
+        mutableIntStateOf(ZERO_VISITORS_IMAGES)
     }
 
-    if (counter.intValue in 0..5) listToCycle.intValue =
-        counter.intValue else listToCycle.intValue = 5
+    if (counter.intValue <= MAX_VISITORS_IMAGES) {
+        listToCycle.intValue = counter.intValue
+    } else {
+        listToCycle.intValue = MAX_VISITORS_IMAGES
+    }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(16.dp))
             Box {
-                if (listToCycle.intValue in 1..5) {
-                    OverlappingUsers(overlappingPercentage = 0.33f) {
-                        for (i in 0..listToCycle.intValue - 1) {
-                            ExampleAvatar(image = persons[i].avatar)
+                if (listToCycle.intValue in MIN_VISITORS_IMAGES..MAX_VISITORS_IMAGES) {
+                    OverlappingUsers(overlappingPercentage = OVERLAPPING_PERCENTAGE) {
+                        for (i in ZERO_VISITORS_IMAGES..<listToCycle.intValue) {
+                            ExampleAvatar(image = visitors[i].avatar)
                         }
                     }
                 }
             }
-            if (counter.intValue > 5) {
+            if (counter.intValue > MAX_VISITORS_IMAGES) {
                 Text(
-                    text = "+${counter.intValue - 5}",
+                    text = "+${counter.intValue - MAX_VISITORS_IMAGES}",
                     color = NeutralActive,
                     style = EventsTheme.typography.bodyText1
                 )

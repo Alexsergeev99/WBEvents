@@ -1,9 +1,20 @@
 package ru.alexsergeev.domain.domain.models
 
-data class PersonUiModel(
-    var name: String,
-    var phone: String,
-    var avatar: String
+internal data class PersonUiModel(
+    val name: FullName,
+    val phone: Phone,
+    val avatar: String,
+    val iAmGuest: Boolean = false
+)
+
+internal data class FullName(
+    val firstName: String,
+    val secondName: String,
+)
+
+internal data class Phone(
+    val countryCode: String,
+    val basicNumber: String,
 )
 
 fun mapperFromPersonDomainModel(personDomainModel: PersonDomainModel): PersonUiModel  {

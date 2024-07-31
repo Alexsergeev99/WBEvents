@@ -1,11 +1,9 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.domain.models.EventUiModel
@@ -15,12 +13,15 @@ import ru.alexsergeev.domain.domain.models.mapperFromPersonDomainModel
 import ru.alexsergeev.domain.domain.usecases.GetEventUseCase
 import ru.alexsergeev.domain.domain.usecases.GetEventVisitorsListUseCase
 import ru.alexsergeev.domain.domain.usecases.GetEventsListUseCase
+import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
+import ru.alexsergeev.domain.usecases.interfaces.GetEventVisitorsListUseCase
+import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
 
 class EventsViewModel(
     private val getEventUseCase: GetEventUseCase,
     private val getEventsListUseCase: GetEventsListUseCase,
     private val getEventVisitorsListUseCase: GetEventVisitorsListUseCase,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
     private val events: StateFlow<List<EventUiModel>> = eventsMutable

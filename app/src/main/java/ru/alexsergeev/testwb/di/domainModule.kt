@@ -15,15 +15,16 @@ import ru.alexsergeev.domain.domain.usecases.RemovePersonFromVisitorsUseCase
 
 
 val domainModule = module {
-    factoryOf(::GetEventsListUseCase)
-    factoryOf(::GetEventUseCase)
-    factoryOf(::GetCommunitiesListUseCase)
-    factoryOf(::GetCommunityUseCase)
-    factoryOf(::GetPersonProfileUseCase)
-    factoryOf(::GetMyEventsListUseCase)
-    factoryOf(::GetEventVisitorsListUseCase)
-    factoryOf(::ValidateCodeUseCase)
-    factoryOf(::AddPersonToVisitorsUseCase)
-    factoryOf(::RemovePersonFromVisitorsUseCase)
+    factoryOf(::GetEventsListUseCaseImpl) bind GetEventsListUseCase::class
+    factoryOf(::GetEventUseCaseImpl) bind GetEventUseCase::class
+    factoryOf(::GetCommunitiesListUseCaseImpl) bind GetCommunitiesListUseCase::class
+    factoryOf(::GetCommunityUseCaseImpl) bind GetCommunityUseCase::class
+    factoryOf(::GetPersonProfileUseCaseImpl) bind GetPersonProfileUseCase::class
+    factoryOf(::SetPersonProfileUseCaseImpl) bind SetPersonProfileUseCase::class
+    factoryOf(::GetMyEventsListUseCaseImpl) bind GetMyEventsListUseCase::class
+    factoryOf(::GetEventVisitorsListUseCaseImpl) bind GetEventVisitorsListUseCase::class
+    factoryOf(::ValidateCodeUseCaseImpl) bind ValidateCodeUseCase::class
+    factoryOf(::AddPersonToVisitorsUseCaseImpl) bind AddPersonToVisitorsUseCase::class
+    factoryOf(::RemovePersonFromVisitorsUseCaseImpl) bind RemovePersonFromVisitorsUseCase::class
 
 }

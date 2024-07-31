@@ -9,6 +9,7 @@ data class EventUiModel(
     val meetingAvatar: String,
     val chips: List<String>,
     val imageUrl: String = "https://static.tildacdn.com/tild3062-6662-4137-a535-373262643465/msc.jpg"
+    var visitors: MutableList<PersonUiModel>
 )
     fun mapperFromEventDomainModel(eventDomainModel: EventDomainModel): EventUiModel  {
         return EventUiModel(
@@ -20,6 +21,7 @@ data class EventUiModel(
             meetingAvatar = eventDomainModel.meetingAvatar,
             chips = eventDomainModel.chips,
             imageUrl = eventDomainModel.imageUrl,
+            visitors = eventDomainModel.visitors
         )
     }
 

@@ -16,10 +16,10 @@ import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
-import ru.alexsergeev.wbevents.ui.utils.mapperFromEventDomainModel
-import ru.alexsergeev.wbevents.ui.utils.mapperFromPersonDomainModel
-import ru.alexsergeev.wbevents.ui.utils.mapperToEventDomainModel
-import ru.alexsergeev.wbevents.ui.utils.mapperToPersonDomainModel
+import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
+import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.UiEventToDomainEventMapper
+import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 internal class EventsViewModel(
     private val getEventUseCase: GetEventUseCase,
@@ -28,6 +28,10 @@ internal class EventsViewModel(
     private val addPersonToVisitorsUseCase: AddPersonToVisitorsUseCase,
     private val removePersonFromVisitorsUseCase: RemovePersonFromVisitorsUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
+    private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
+    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
+    private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
+    private val uiEventToDomainEventMapper: UiEventToDomainEventMapper,
 ) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
@@ -76,7 +80,7 @@ internal class EventsViewModel(
                 val eventsFlow = getEventsListUseCase.invoke()
                 eventsFlow.collect { events ->
                     events.forEach { event ->
-                        eventsMutable.value.add(mapperFromEventDomainModel(event))
+                        eventsMutable.value.add(domainEventToUiEventMapper.map(event))
                     }
                 }
             }
@@ -91,7 +95,7 @@ internal class EventsViewModel(
                 val visitorsFlow = getEventVisitorsListUseCase.invoke()
                 visitorsFlow.collect { visitors ->
                     visitors.forEach { visitor ->
-                        visitorsMutable.value.add(mapperFromPersonDomainModel(visitor))
+                        visitorsMutable.value.add(domainPersonToUiPersonMapper.map(visitor))
                     }
                 }
             }
@@ -105,7 +109,7 @@ internal class EventsViewModel(
             viewModelScope.launch {
                 val personDataFlow = getPersonProfileUseCase.invoke()
                 personDataFlow.collect { person ->
-                    personDataMutable.update { mapperFromPersonDomainModel(person) }
+                    personDataMutable.update { domainPersonToUiPersonMapper.map(person) }
                 }
             }
             return personData
@@ -123,8 +127,8 @@ internal class EventsViewModel(
         try {
             viewModelScope.launch {
                 addPersonToVisitorsUseCase.invoke(
-                    mapperToPersonDomainModel(person),
-                    mapperToEventDomainModel(event)
+                    uiPersonToDomainPersonMapper.map(person),
+                    uiEventToDomainEventMapper.map(event)
                 )
                 eventMutable.update { event }
                 personIsAddedToTheVisitorsMutable.update { true }
@@ -139,8 +143,8 @@ internal class EventsViewModel(
         try {
             viewModelScope.launch {
                 removePersonFromVisitorsUseCase.invoke(
-                    mapperToPersonDomainModel(person),
-                    mapperToEventDomainModel(event)
+                    uiPersonToDomainPersonMapper.map(person),
+                    uiEventToDomainEventMapper.map(event)
                 )
                 eventMutable.update { event }
                 personIsAddedToTheVisitorsMutable.update { false }
@@ -156,7 +160,7 @@ internal class EventsViewModel(
             viewModelScope.launch {
                 val eventFlow = getEventUseCase.invoke(id)
                 eventFlow.collect { event ->
-                    eventMutable.update { mapperFromEventDomainModel(event) }
+                    eventMutable.update { domainEventToUiEventMapper.map(event) }
                 }
             }
             return event

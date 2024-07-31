@@ -1,5 +1,7 @@
 package ru.alexsergeev.data.di
 
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.alexsergeev.domain.repository.EventRepository
 import ru.alexsergeev.domain.repository.GroupRepository
@@ -9,13 +11,7 @@ import ru.alexsergeev.repository.repository.GroupRepositoryImpl
 import ru.alexsergeev.repository.repository.PersonProfileRepositoryImpl
 
 val dataModule = module{
-    single<PersonProfileRepository> {
-        PersonProfileRepositoryImpl()
-    }
-    single<EventRepository> {
-        EventRepositoryImpl()
-    }
-    single<GroupRepository> {
-        GroupRepositoryImpl()
-    }
+    singleOf(::PersonProfileRepositoryImpl) bind PersonProfileRepository::class
+    singleOf(::EventRepositoryImpl) bind EventRepository::class
+    singleOf(::GroupRepositoryImpl) bind GroupRepository::class
 }

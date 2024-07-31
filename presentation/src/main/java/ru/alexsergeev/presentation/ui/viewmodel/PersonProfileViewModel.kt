@@ -12,14 +12,16 @@ import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
-import ru.alexsergeev.wbevents.ui.utils.mapperFromPersonDomainModel
-import ru.alexsergeev.wbevents.ui.utils.mapperToPersonDomainModel
+import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 private const val PHONE_NUMBER_LENGTH = 10
 
 internal class PersonProfileViewModel(
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
-    private val setPersonProfileUseCase: SetPersonProfileUseCase
+    private val setPersonProfileUseCase: SetPersonProfileUseCase,
+    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
+    private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper
 ) : ViewModel() {
 
     private val secondNameMutable = MutableStateFlow("")
@@ -82,7 +84,7 @@ internal class PersonProfileViewModel(
         try {
             viewModelScope.launch {
                 val person = getPersonProfileUseCase.invoke().last()
-                personDataMutable.update { mapperFromPersonDomainModel(person) }
+                personDataMutable.update { domainPersonToUiPersonMapper.map(person) }
             }
             return personData
         } catch (e: Exception) {
@@ -93,7 +95,7 @@ internal class PersonProfileViewModel(
     fun setPersonData(personUiModel: PersonUiModel) {
         try {
             viewModelScope.launch {
-                setPersonProfileUseCase.invoke(mapperToPersonDomainModel(personUiModel))
+                setPersonProfileUseCase.invoke(uiPersonToDomainPersonMapper.map(personUiModel))
                 personDataMutable.update { personUiModel }
             }
         } catch (e: Exception) {

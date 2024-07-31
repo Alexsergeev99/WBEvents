@@ -96,7 +96,7 @@ internal fun EventScreen(
                     )
                 }
                 item {
-                    EventVisitorsOverlapping(event, visitors)
+                    EventVisitorsOverlapping(event)
                 }
                 item {
                     EventScreenButtonChanger(personIsAddedToTheVisitorsFlow, event, person)

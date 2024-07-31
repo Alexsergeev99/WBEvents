@@ -10,14 +10,13 @@ import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 
 @Composable
-internal fun EventVisitorsOverlapping(event: EventUiModel, visitors: MutableList<PersonUiModel>) {
+internal fun EventVisitorsOverlapping(event: EventUiModel) {
     Row(
         modifier = Modifier
             .padding(vertical = 4.dp)
     ) {
         OverlappingRow(
             event.visitors,
-            participants = visitors.size
         )
     }
 }

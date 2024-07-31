@@ -21,31 +21,6 @@ internal class EventRepositoryImpl : EventRepository {
             phone = Phone("+7", "9994449999"),
             "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
         ),
-        PersonDomainModel(
-            FullName("Саша", "Сергеев"),
-            phone = Phone("+7", "9994449999"),
-            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-        ),
-        PersonDomainModel(
-            FullName("Саша", "Сергеев"),
-            phone = Phone("+7", "9994449999"),
-            "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-        ),
-        PersonDomainModel(
-            FullName("Саша", "Сергеев"),
-            phone = Phone("+7", "9994449999"),
-            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-        ),
-        PersonDomainModel(
-            FullName("Саша", "Сергеев"),
-            phone = Phone("+7", "9994449999"),
-            "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-        ),
-        PersonDomainModel(
-            FullName("Саша", "Сергеев"),
-            phone = Phone("+7", "9994449999"),
-            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-        ),
     )
 
     override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
@@ -141,6 +116,7 @@ internal class EventRepositoryImpl : EventRepository {
         event: EventDomainModel
     ) {
         event.visitors.add(person)
+        visitors.add(person)
     }
 
     override fun removePersonFromVisitorsOfEvent(
@@ -148,6 +124,7 @@ internal class EventRepositoryImpl : EventRepository {
         event: EventDomainModel
     ) {
         event.visitors.remove(person)
+        visitors.remove(person)
     }
 
 }

@@ -53,38 +53,23 @@ fun OverlappingUsers(
 }
 
 @Composable
-internal fun OverlappingRow(visitors: MutableList<PersonUiModel>, participants: Int) {
-
-    val counter = remember {
-        mutableIntStateOf(ZERO_VISITORS_IMAGES)
-    }
-    counter.intValue = participants
-
-    val listToCycle = remember {
-        mutableIntStateOf(ZERO_VISITORS_IMAGES)
-    }
-
-    if (counter.intValue <= MAX_VISITORS_IMAGES) {
-        listToCycle.intValue = counter.intValue
-    } else {
-        listToCycle.intValue = MAX_VISITORS_IMAGES
-    }
+internal fun OverlappingRow(visitors: MutableList<PersonUiModel>) {
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(16.dp))
             Box {
-                if (listToCycle.intValue in MIN_VISITORS_IMAGES..MAX_VISITORS_IMAGES) {
+                if (visitors.size in MIN_VISITORS_IMAGES..MAX_VISITORS_IMAGES) {
                     OverlappingUsers(overlappingPercentage = OVERLAPPING_PERCENTAGE) {
-                        for (i in ZERO_VISITORS_IMAGES..<listToCycle.intValue) {
+                        for (i in ZERO_VISITORS_IMAGES..<visitors.size) {
                             ExampleAvatar(image = visitors[i].avatar)
                         }
                     }
                 }
             }
-            if (counter.intValue > MAX_VISITORS_IMAGES) {
+            if (visitors.size > MAX_VISITORS_IMAGES) {
                 Text(
-                    text = "+${counter.intValue - MAX_VISITORS_IMAGES}",
+                    text = "+${visitors.size - MAX_VISITORS_IMAGES}",
                     color = NeutralActive,
                     style = EventsTheme.typography.bodyText1
                 )

@@ -5,8 +5,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.alexsergeev.domain.domain.repository.BaseRepository
 import ru.alexsergeev.domain.repository.PersonProfileRepository
+import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 
-class EditProfileViewModel(val repository: PersonProfileRepository) : ViewModel() {
+internal class EditProfileViewModel(
+    private val setPersonProfileUseCase: SetPersonProfileUseCase
+) : ViewModel() {
     /*
     This VM is not useful right now because we  don`t have back and I suppose that in this case use personProfileVM is more attractive.
      */

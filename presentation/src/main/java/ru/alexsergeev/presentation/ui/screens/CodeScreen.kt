@@ -12,14 +12,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
+import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.SimpleTextButton
 import ru.alexsergeev.presentation.ui.molecules.OtpTextField
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
@@ -30,12 +34,17 @@ import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun CodeScreen(navController: NavController, vm: PersonProfileViewModel = koinViewModel()) {
+internal fun CodeScreen(
+    navController: NavController,
+    personProfileViewModel: PersonProfileViewModel = koinViewModel()
+) {
 
     val codeValue = rememberSaveable {
         mutableStateOf("")
     }
     val focusManager = LocalFocusManager.current
+
+    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -59,21 +68,21 @@ fun CodeScreen(navController: NavController, vm: PersonProfileViewModel = koinVi
         Text(
             modifier = Modifier
                 .padding(vertical = 4.dp),
-            text = "Введите код",
+            text = stringResource(id = R.string.enter_code),
             style = EventsTheme.typography.heading2,
             color = NeutralActive
         )
         Text(
             modifier = Modifier
                 .padding(top = 2.dp),
-            text = "Отправили код на номер",
+            text = stringResource(id = R.string.sent_code),
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )
         Text(
             modifier = Modifier
                 .padding(bottom = 4.dp),
-            text = "${vm.getCountryCodeFlow().value} ${vm.getPhoneFlow().value}",
+            text = "${person.phone.countryCode} ${person.phone.basicNumber}",
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )
@@ -95,7 +104,7 @@ fun CodeScreen(navController: NavController, vm: PersonProfileViewModel = koinVi
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp),
-            text = "Запросить код повторно",
+            text = stringResource(id = R.string.sent_again),
             onClick = {
                 focusManager.clearFocus()
             }

@@ -14,9 +14,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
@@ -31,10 +34,13 @@ import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun ProfileScreen(
+internal fun ProfileScreen(
     navController: NavController,
-    vm: PersonProfileViewModel = koinViewModel()
+    personProfileViewModel: PersonProfileViewModel = koinViewModel()
 ) {
+
+    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -43,7 +49,7 @@ fun ProfileScreen(
     ) {
         EventsTopBar(
             navController = navController,
-            text = "Профиль",
+            text = stringResource(id = R.string.profile),
             needToBack = true,
             needToEdit = true
         )
@@ -61,16 +67,16 @@ fun ProfileScreen(
                     .fillMaxWidth()
             )
             PeopleAvatar(
-                image = vm.getPersonAvatarFlow().value,
+                image = person.avatar,
                 padding = 20.dp
             )
             Text(
-                text = "${vm.getFirstNameFlow().value} ${vm.getSecondNameFlow().value}",
+                text = "${person.name.firstName} ${person.name.secondName}",
                 color = NeutralActive,
                 style = EventsTheme.typography.heading2
             )
             Text(
-                text = "${vm.getCountryCodeFlow().value} ${vm.getPhoneFlow().value}",
+                text = "${person.phone.countryCode} ${person.phone.basicNumber}",
                 color = Neutral,
                 style = EventsTheme.typography.subheading2
             )

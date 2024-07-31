@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.domain.domain.models.EventUiModel
-import ru.alexsergeev.domain.domain.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.SimpleButton
 import ru.alexsergeev.presentation.ui.atoms.SimpleOutlinedButton

@@ -22,7 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.domain.domain.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.atoms.OneChip
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
@@ -31,7 +31,7 @@ import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 import ru.alexsergeev.presentation.ui.navigation.Destination
 
 @Composable
-fun MeetingCard(
+internal fun MeetingCard(
     navController: NavController,
     event: EventUiModel,
 ) {

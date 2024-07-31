@@ -1,4 +1,4 @@
-package ru.alexsergeev.domain.domain.models
+package ru.alexsergeev.presentation.ui.models
 
 internal data class PersonUiModel(
     val name: FullName,
@@ -16,19 +16,3 @@ internal data class Phone(
     val countryCode: String,
     val basicNumber: String,
 )
-
-fun mapperFromPersonDomainModel(personDomainModel: PersonDomainModel): PersonUiModel  {
-    return PersonUiModel(
-        name = personDomainModel.name,
-        phone = personDomainModel.phone,
-        avatar = personDomainModel.avatar,
-    )
-}
-
-fun mapperToPersonDomainModel(personUiModel: PersonUiModel): PersonDomainModel  {
-    return PersonDomainModel(
-        name = personUiModel.name,
-        phone = personUiModel.phone,
-        avatar = personUiModel.avatar,
-    )
-}

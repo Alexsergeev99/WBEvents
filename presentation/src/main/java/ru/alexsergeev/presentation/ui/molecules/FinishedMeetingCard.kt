@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.domain.domain.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.atoms.OneChip
 import ru.alexsergeev.presentation.ui.navigation.Destination
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
@@ -25,7 +25,7 @@ import ru.alexsergeev.presentation.ui.theme.NeutralLight
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 
 @Composable
-fun FinishedMeetingCard(
+internal fun FinishedMeetingCard(
     navController: NavController,
     event: EventUiModel,
 ) {

@@ -1,14 +1,54 @@
 package ru.alexsergeev.repository.repository
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.domain.domain.models.EventDomainModel
+import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
+import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.domain.repository.EventRepository
 
-class EventRepositoryImpl : EventRepository {
-    override suspend fun getEventsList(): Flow<List<EventDomainModel>> = flow {
+internal class EventRepositoryImpl : EventRepository {
+
+    private val visitors = mutableListOf(
+        PersonDomainModel(
+            FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+        ),
+        PersonDomainModel(
+            FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+        ),
+        PersonDomainModel(
+            FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+        ),
+        PersonDomainModel(
+            FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+        ),
+    )
+
+    override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
         val events = listOf(
             EventDomainModel(
                 1,
@@ -17,7 +57,8 @@ class EventRepositoryImpl : EventRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
             EventDomainModel(
                 2,
@@ -26,7 +67,8 @@ class EventRepositoryImpl : EventRepository {
                 city = "Saint-Petersburg",
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana")
+                listOf("Java", "Junior", "Astana"),
+                visitors = visitors
             ),
             EventDomainModel(
                 3,
@@ -35,7 +77,8 @@ class EventRepositoryImpl : EventRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
             EventDomainModel(
                 4,
@@ -44,7 +87,8 @@ class EventRepositoryImpl : EventRepository {
                 city = "Saint-Petersburg",
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana")
+                listOf("Java", "Junior", "Astana"),
+                visitors = visitors
             ),
             EventDomainModel(
                 5,
@@ -53,7 +97,8 @@ class EventRepositoryImpl : EventRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
             EventDomainModel(
                 6,
@@ -62,7 +107,8 @@ class EventRepositoryImpl : EventRepository {
                 city = "Saint-Petersburg",
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana")
+                listOf("Java", "Junior", "Astana"),
+                visitors = visitors
             ),
             EventDomainModel(
                 7,
@@ -71,57 +117,37 @@ class EventRepositoryImpl : EventRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
         )
         emit(events)
     }
 
-    override suspend fun getEvent(id: Int): Flow<EventDomainModel> = flow {
+    override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
         getEventsList().collect { events ->
             val event = events.find { id == it.id } ?: throw Exception()
             emit(event)
         }
     }
 
-    override suspend fun getEventVisitorsList(): Flow<List<PersonDomainModel>> = flow {
-        val visitors = listOf(
-            PersonDomainModel(
-                "Саша",
-                "+79994449999",
-                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-            ),
-            PersonDomainModel(
-                "Саша",
-                "+79994449999",
-                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-            ),
-            PersonDomainModel(
-                "Саша",
-                "+79994449999",
-                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-            ),
-            PersonDomainModel(
-                "Саша",
-                "+79994449999",
-                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-            ),
-            PersonDomainModel(
-                "Саша",
-                "+79994449999",
-                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-            ),
-            PersonDomainModel(
-                "Саша",
-                "+79994449999",
-                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-            ),
-            PersonDomainModel(
-                "Саша",
-                "+79994449999",
-                "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-            ),
-        )
+    override fun getEventVisitorsList(): Flow<List<PersonDomainModel>> = flow {
+        val visitors = visitors
         emit(visitors)
     }
+
+    override fun addPersonToVisitorsOfEvent(
+        person: PersonDomainModel,
+        event: EventDomainModel
+    ) {
+        event.visitors.add(person)
+    }
+
+    override fun removePersonFromVisitorsOfEvent(
+        person: PersonDomainModel,
+        event: EventDomainModel
+    ) {
+        event.visitors.remove(person)
+    }
+
 }

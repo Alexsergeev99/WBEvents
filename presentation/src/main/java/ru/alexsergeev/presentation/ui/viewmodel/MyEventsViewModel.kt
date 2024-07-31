@@ -2,8 +2,14 @@ package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import ru.alexsergeev.domain.repository.PersonProfileRepository
+import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
+import ru.alexsergeev.domain.usecases.interfaces.GetMyEventsListUseCase
 
-class MyEventsViewModel(val repository: PersonProfileRepository) : ViewModel() {
+
+internal class MyEventsViewModel(
+    private val getMyEventsListUseCase: GetMyEventsListUseCase,
+    private val getEventUseCase: GetEventUseCase
+) : ViewModel() {
     /*
   This VM is not useful right now because we don`t have back and I suppose that in this case use EventsVM is more attractive.
    */
@@ -11,6 +17,6 @@ class MyEventsViewModel(val repository: PersonProfileRepository) : ViewModel() {
     /*
     These funs below are using in EventsVM now
      */
-    suspend fun getEventsList() = repository.getMyEventsList()
-    suspend fun getEvent(id: Int) = repository.getEvent(id)
+    fun getMyEventsList() = getMyEventsListUseCase.invoke()
+    fun getEvent(id: Int) = getEventUseCase.invoke(id)
 }

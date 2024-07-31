@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +17,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import org.koin.androidx.compose.koinViewModel
@@ -26,14 +26,13 @@ import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 
 @Composable
-fun MapImageScreen(
+internal fun MapImageScreen(
     navController: NavController,
     eventId: String,
     eventsViewModel: EventsViewModel = koinViewModel()
 ) {
     var scale by remember { mutableStateOf(1f) }
-
-    val event = eventsViewModel.getEvent(eventId.toInt()).collectAsState().value
+    val event by eventsViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

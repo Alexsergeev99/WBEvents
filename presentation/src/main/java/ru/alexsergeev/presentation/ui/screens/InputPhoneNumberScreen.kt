@@ -1,7 +1,5 @@
 package ru.alexsergeev.presentation.ui.screens
 
-import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,44 +12,39 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.domain.domain.models.PersonUiModel
-import ru.alexsergeev.presentation.ui.atoms.DisabledButton
-import ru.alexsergeev.presentation.ui.atoms.SimpleButton
+import ru.alexsergeev.presentation.ui.models.FullName
+import ru.alexsergeev.presentation.ui.models.Phone
+import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.molecules.InputCodeCountryField
 import ru.alexsergeev.presentation.ui.molecules.InputNumberTextField
+import ru.alexsergeev.presentation.ui.molecules.InputPhoneNumberButtonChanger
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
-@SuppressLint("StateFlowValueCalledInComposition")
+private const val INPUT_PHONE_HINT = "999 999-99-99"
+
 @Composable
-fun InputPhoneNumberScreen(
+internal fun InputPhoneNumberScreen(
     navController: NavController,
-    vm: PersonProfileViewModel = koinViewModel()
+    personProfileViewModel: PersonProfileViewModel = koinViewModel()
 ) {
-
-    val ctx = LocalContext.current
-
-    val focusManager = LocalFocusManager.current
-
-    val phoneNumber = remember {
-        mutableStateOf("")
-    }
-
+    val person = personProfileViewModel.getPersonData()
     val checkPhoneNumberLength = remember {
         mutableStateOf(false)
     }
-
+    val startedAvatar by personProfileViewModel.getPersonAvatarFlow().collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -76,21 +69,21 @@ fun InputPhoneNumberScreen(
         Text(
             modifier = Modifier
                 .padding(vertical = 4.dp),
-            text = "Введите номер телефона",
+            text = stringResource(id = R.string.enter_phone),
             style = EventsTheme.typography.heading2,
             color = NeutralActive
         )
         Text(
             modifier = Modifier
                 .padding(top = 2.dp),
-            text = "Мы вышлем код подтверждения",
+            text = stringResource(id = R.string.we_will_sent_code),
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )
         Text(
             modifier = Modifier
                 .padding(bottom = 4.dp),
-            text = "на указанный номер",
+            text = stringResource(id = R.string.on_your_number),
             style = EventsTheme.typography.bodyText2,
             color = NeutralActive,
         )
@@ -101,14 +94,22 @@ fun InputPhoneNumberScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             InputCodeCountryField(onTextChange = {
-                vm.setCountryCodeFlow(it)
-            }
-            )
-            InputNumberTextField(hint = "999 999-99-99", height = 40.dp, onTextChange = {
-                vm.setPhoneFlow(it)
-                vm.setPersonData(PersonUiModel("", "${vm.getCountryCodeFlow().value} $it", ""))
-                phoneNumber.value = vm.getPhoneFlow().value
-                checkPhoneNumberLength.value = vm.checkPhoneLength(phoneNumber.value.length)
+                personProfileViewModel.setPersonData(
+                    person.value.copy(
+                        phone = Phone(it, ""),
+                    )
+                )
+            })
+            InputNumberTextField(hint = INPUT_PHONE_HINT, height = 40.dp, onTextChange = {
+                personProfileViewModel.setPersonData(
+                    person.value.copy(
+                        name = FullName("", ""),
+                        phone = Phone(person.value.phone.countryCode, it),
+                        avatar = startedAvatar
+                    )
+                )
+                checkPhoneNumberLength.value =
+                    personProfileViewModel.checkPhoneLength(person.value.phone.basicNumber.length)
             }
             )
         }
@@ -117,28 +118,7 @@ fun InputPhoneNumberScreen(
                 .height(24.dp)
                 .fillMaxWidth()
         )
-        when (checkPhoneNumberLength.value) {
-            true -> SimpleButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                text = "Продолжить",
-                onClick = {
-                    focusManager.clearFocus()
-                    navController.navigate("input_code")
-                }
-            )
-
-            else -> DisabledButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                text = "Продолжить",
-                onClick = {
-                    Toast.makeText(ctx, "Много цифр(", Toast.LENGTH_LONG).show()
-                }
-            )
-        }
+        InputPhoneNumberButtonChanger(navController, checkPhoneNumberLength)
     }
 }
 

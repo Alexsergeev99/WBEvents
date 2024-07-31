@@ -3,12 +3,53 @@ package ru.alexsergeev.repository.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.domain.domain.models.EventDomainModel
+import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
+import ru.alexsergeev.domain.domain.models.PersonDomainModel
+import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.domain.repository.GroupRepository
-import java.nio.file.Files.find
 
-class GroupRepositoryImpl : GroupRepository {
-    override suspend fun getEventsList(): Flow<List<EventDomainModel>> = flow {
+internal class GroupRepositoryImpl : GroupRepository {
+
+    private val visitors = mutableListOf(
+        PersonDomainModel(
+            name = FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            name = FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            name = FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            name = FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            name = FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            name = FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+        PersonDomainModel(
+            name = FullName("Саша", "Сергеев"),
+            phone = Phone("+7", "9994449999"),
+            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+        ),
+    )
+
+    override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
         val events = listOf(
             EventDomainModel(
                 1,
@@ -17,7 +58,8 @@ class GroupRepositoryImpl : GroupRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
             EventDomainModel(
                 2,
@@ -26,7 +68,8 @@ class GroupRepositoryImpl : GroupRepository {
                 city = "Saint-Petersburg",
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana")
+                listOf("Java", "Junior", "Astana"),
+                visitors = visitors
             ),
             EventDomainModel(
                 3,
@@ -35,7 +78,8 @@ class GroupRepositoryImpl : GroupRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
             EventDomainModel(
                 4,
@@ -44,7 +88,8 @@ class GroupRepositoryImpl : GroupRepository {
                 city = "Saint-Petersburg",
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana")
+                listOf("Java", "Junior", "Astana"),
+                visitors = visitors
             ),
             EventDomainModel(
                 5,
@@ -53,7 +98,8 @@ class GroupRepositoryImpl : GroupRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
             EventDomainModel(
                 6,
@@ -62,7 +108,8 @@ class GroupRepositoryImpl : GroupRepository {
                 city = "Saint-Petersburg",
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana")
+                listOf("Java", "Junior", "Astana"),
+                visitors = visitors
             ),
             EventDomainModel(
                 7,
@@ -71,20 +118,21 @@ class GroupRepositoryImpl : GroupRepository {
                 city = "Moscow",
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda")
+                listOf("Kotlin", "Senior", "Karaganda"),
+                visitors = visitors
             ),
         )
         emit(events)
     }
 
-    override suspend fun getEvent(id: Int): Flow<EventDomainModel> = flow {
+    override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
         getEventsList().collect { events ->
             val event = events.find { id == it.id } ?: throw Exception()
             emit(event)
         }
     }
 
-    override suspend fun getGroups(): Flow<List<GroupDomainModel>> = flow {
+    override fun getGroups(): Flow<List<GroupDomainModel>> = flow {
         val communities = listOf(
             GroupDomainModel(
                 1,
@@ -186,10 +234,10 @@ class GroupRepositoryImpl : GroupRepository {
         emit(communities)
     }
 
-    override suspend fun getGroup(id: Int): Flow<GroupDomainModel> = flow {
-        getGroups().collect {groups ->
-            val group = groups.find { id == it.id } ?: throw Exception()
-            emit(group)
+    override fun getGroup(id: Int): Flow<GroupDomainModel> = flow {
+        getGroups().collect { communities ->
+            val community = communities.find { id == it.id } ?: throw Exception()
+            emit(community)
         }
     }
 }

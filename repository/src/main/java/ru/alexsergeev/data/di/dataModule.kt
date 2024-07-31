@@ -1,4 +1,4 @@
-package ru.alexsergeev.testwb.di
+package ru.alexsergeev.data.di
 
 import org.koin.dsl.module
 import ru.alexsergeev.domain.repository.EventRepository

@@ -1,54 +1,59 @@
 package ru.alexsergeev.presentation.ui.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.domain.domain.models.EventUiModel
+import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.Search
-import ru.alexsergeev.presentation.ui.molecules.MeetingCard
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.Inactive
 import ru.alexsergeev.presentation.ui.theme.MiddleButtonColor
 import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
+import ru.alexsergeev.wbevents.ui.presentation.molecules.EventsDivider
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun EventsListScreen(
+internal fun EventsListScreen(
     navController: NavController,
     eventsViewModel: EventsViewModel = koinViewModel()
 ) {
 
-    val tabList = listOf("ВСЕ ВСТРЕЧИ", "АКТИВНЫЕ")
-    val pagerState = com.google.accompanist.pager.rememberPagerState()
+    val events by eventsViewModel.getEventsList().collectAsStateWithLifecycle()
+    val tabList = listOf(
+        stringResource(id = R.string.all_events),
+        stringResource(id = R.string.active_events)
+    )
+    val pagerState = rememberPagerState()
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
-    val events = eventsViewModel.getEventsList().collectAsState().value
+
 
     Box(
         modifier = Modifier
@@ -64,12 +69,12 @@ fun EventsListScreen(
         ) {
             EventsTopBar(
                 navController = navController,
-                text = "Встречи",
+                text = stringResource(id = R.string.events),
                 needToBack = false,
                 needToAdd = true
             )
             Search(
-                hint = "Поиск"
+                hint = stringResource(id = R.string.search)
             )
             TabRow(
                 modifier = Modifier
@@ -103,48 +108,15 @@ fun EventsListScreen(
                 count = tabList.size,
                 state = pagerState,
                 modifier = Modifier
-                    .fillMaxHeight(0.9f),
+                    .fillMaxHeight(),
                 verticalAlignment = Alignment.Top,
-            ) { index ->
-                when (tabIndex) {
-                    0 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(events.size) { event ->
-                            MeetingCard(
-                                navController = navController, EventUiModel(
-                                    id = events[event].id,
-                                    title = events[event].title,
-                                    date = events[event].date,
-                                    city = events[event].city,
-                                    isFinished = events[event].isFinished,
-                                    meetingAvatar = events[event].meetingAvatar,
-                                    chips = events[event].chips,
-                                )
-                            )
-                        }
-                    }
-
-                    1 -> LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(events.size) { event ->
-                            if (!events[event].isFinished) {
-                                MeetingCard(
-                                    navController = navController, EventUiModel(
-                                        id = events[event].id,
-                                        title = events[event].title,
-                                        date = events[event].date,
-                                        city = events[event].city,
-                                        isFinished = events[event].isFinished,
-                                        meetingAvatar = events[event].meetingAvatar,
-                                        chips = events[event].chips,
-                                    )
-                                )
-                            }
-                        }
-                    }
-                }
+            ) {
+                EventsDivider(navController, events, tabIndex)
             }
         }
     }
 }
+
 
 @ExperimentalPagerApi
 fun Modifier.pagerTabIndicatorOffset(

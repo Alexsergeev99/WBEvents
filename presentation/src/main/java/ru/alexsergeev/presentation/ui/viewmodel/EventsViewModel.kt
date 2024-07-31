@@ -6,67 +6,162 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.alexsergeev.domain.domain.models.EventUiModel
-import ru.alexsergeev.domain.domain.models.PersonUiModel
-import ru.alexsergeev.domain.domain.models.mapperFromEventDomainModel
-import ru.alexsergeev.domain.domain.models.mapperFromPersonDomainModel
-import ru.alexsergeev.domain.domain.usecases.GetEventUseCase
-import ru.alexsergeev.domain.domain.usecases.GetEventVisitorsListUseCase
-import ru.alexsergeev.domain.domain.usecases.GetEventsListUseCase
+import ru.alexsergeev.domain.usecases.interfaces.AddPersonToVisitorsUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventVisitorsListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
+import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
+import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromVisitorsUseCase
+import ru.alexsergeev.presentation.ui.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.FullName
+import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.Phone
+import ru.alexsergeev.wbevents.ui.utils.mapperFromEventDomainModel
+import ru.alexsergeev.wbevents.ui.utils.mapperFromPersonDomainModel
+import ru.alexsergeev.wbevents.ui.utils.mapperToEventDomainModel
+import ru.alexsergeev.wbevents.ui.utils.mapperToPersonDomainModel
 
-class EventsViewModel(
+internal class EventsViewModel(
     private val getEventUseCase: GetEventUseCase,
     private val getEventsListUseCase: GetEventsListUseCase,
     private val getEventVisitorsListUseCase: GetEventVisitorsListUseCase,
+    private val addPersonToVisitorsUseCase: AddPersonToVisitorsUseCase,
+    private val removePersonFromVisitorsUseCase: RemovePersonFromVisitorsUseCase,
+    private val getPersonProfileUseCase: GetPersonProfileUseCase,
 ) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
     private val events: StateFlow<List<EventUiModel>> = eventsMutable
-    fun getEventsList(): StateFlow<List<EventUiModel>> = events
-    private fun getEventsListFlow() {
-        viewModelScope.launch {
-            val eventsFlow = getEventsListUseCase.invoke()
-            eventsFlow.collect { events ->
-                events.forEach { event ->
-                    eventsMutable.value.add(mapperFromEventDomainModel(event))
-                }
-            }
-        }
-    }
-
-    private val visitorsMutable = MutableStateFlow<MutableList<PersonUiModel>>(mutableListOf())
-    private val visitors: StateFlow<List<PersonUiModel>> = visitorsMutable
-    fun getEventVisitorsList(): StateFlow<List<PersonUiModel>> = visitors
-    private fun getEventVisitorsListFlow() {
-        viewModelScope.launch {
-            val visitorsFlow = getEventVisitorsListUseCase.invoke()
-            visitorsFlow.collect { visitors ->
-                visitors.forEach { visitor ->
-                    visitorsMutable.value.add(mapperFromPersonDomainModel(visitor))
-                }
-            }
-        }
-    }
 
     private val eventMutable =
-        MutableStateFlow<EventUiModel>(EventUiModel(0, "", "", "", false, "", listOf(), ""))
+        MutableStateFlow<EventUiModel>(
+            EventUiModel(
+                id = 0,
+                title = "",
+                date = "",
+                city = "",
+                isFinished = false,
+                meetingAvatar = "",
+                chips = listOf(),
+                imageUrl = "",
+                visitors = mutableListOf()
+            )
+        )
     private val event: StateFlow<EventUiModel> = eventMutable
 
-    fun getEvent(id: Int): StateFlow<EventUiModel> {
-        viewModelScope.launch {
-            val eventFlow = getEventUseCase.invoke(id)
-            eventFlow.collect { event ->
-                eventMutable.update { mapperFromEventDomainModel(event) }
-            }
-        }
-        return event
-    }
+    private val visitorsMutable = MutableStateFlow<MutableList<PersonUiModel>>(mutableListOf())
+    private val visitors: StateFlow<MutableList<PersonUiModel>> = visitorsMutable
+
+    private val personIsAddedToTheVisitorsMutable = MutableStateFlow(false)
+    private val personIsAddedToTheVisitors: StateFlow<Boolean> = personIsAddedToTheVisitorsMutable
+
+    private val personDataMutable = MutableStateFlow(
+        PersonUiModel(
+            name = FullName("", ""),
+            phone = Phone("", ""),
+            avatar = ""
+        )
+    )
+    private val personData: StateFlow<PersonUiModel> = personDataMutable
 
     init {
         getEventsListFlow()
         getEventVisitorsListFlow()
+        getPersonDataFlow()
+    }
+
+    private fun getEventsListFlow() {
+        try {
+            viewModelScope.launch {
+                val eventsFlow = getEventsListUseCase.invoke()
+                eventsFlow.collect { events ->
+                    events.forEach { event ->
+                        eventsMutable.value.add(mapperFromEventDomainModel(event))
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    private fun getEventVisitorsListFlow() {
+        try {
+            viewModelScope.launch {
+                val visitorsFlow = getEventVisitorsListUseCase.invoke()
+                visitorsFlow.collect { visitors ->
+                    visitors.forEach { visitor ->
+                        visitorsMutable.value.add(mapperFromPersonDomainModel(visitor))
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    private fun getPersonDataFlow(): StateFlow<PersonUiModel> {
+        try {
+            viewModelScope.launch {
+                val personDataFlow = getPersonProfileUseCase.invoke()
+                personDataFlow.collect { person ->
+                    personDataMutable.update { mapperFromPersonDomainModel(person) }
+                }
+            }
+            return personData
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun getEventsList(): StateFlow<List<EventUiModel>> = events
+    fun getEventVisitorsList(): StateFlow<MutableList<PersonUiModel>> = visitors
+    fun personIsAddedToTheVisitorsFlow() = personIsAddedToTheVisitors
+    fun getPersonData(): StateFlow<PersonUiModel> = personData
+
+    fun addPersonToEventVisitorList(event: EventUiModel, person: PersonUiModel) {
+        try {
+            viewModelScope.launch {
+                addPersonToVisitorsUseCase.invoke(
+                    mapperToPersonDomainModel(person),
+                    mapperToEventDomainModel(event)
+                )
+                eventMutable.update { event }
+                personIsAddedToTheVisitorsMutable.update { true }
+                visitorsMutable.value.add(person)
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun removePersonFromEventVisitorsList(event: EventUiModel, person: PersonUiModel) {
+        try {
+            viewModelScope.launch {
+                removePersonFromVisitorsUseCase.invoke(
+                    mapperToPersonDomainModel(person),
+                    mapperToEventDomainModel(event)
+                )
+                eventMutable.update { event }
+                personIsAddedToTheVisitorsMutable.update { false }
+                visitorsMutable.value.remove(person)
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun getEvent(id: Int): StateFlow<EventUiModel> {
+        try {
+            viewModelScope.launch {
+                val eventFlow = getEventUseCase.invoke(id)
+                eventFlow.collect { event ->
+                    eventMutable.update { mapperFromEventDomainModel(event) }
+                }
+            }
+            return event
+        } catch (e: Exception) {
+            throw e
+        }
     }
 }

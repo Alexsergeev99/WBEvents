@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.domain.domain.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.DisabledButton
 import ru.alexsergeev.presentation.ui.atoms.SimpleButton

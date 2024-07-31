@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import ru.alexsergeev.domain.repository.PersonProfileRepository
 
-class InputPhoneNumberViewModel(val repository: PersonProfileRepository) : ViewModel() {
+internal class InputPhoneNumberViewModel(val repository: PersonProfileRepository) : ViewModel() {
     /*
     This VM is not useful right now because we  don`t have back and I suppose that in this case use personProfileVM is more attractive.
      */

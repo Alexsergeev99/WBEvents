@@ -13,14 +13,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.domain.domain.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.molecules.MeetingCard
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
@@ -29,14 +30,15 @@ import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
 
 @Composable
-fun GroupScreen(
+internal fun GroupScreen(
     navController: NavController,
     groupId: String,
-    groupsViewModel: GroupsViewModel = koinViewModel()
+    communitiesViewModel: GroupsViewModel = koinViewModel()
 ) {
 
-    val group = groupsViewModel.getGroup(groupId.toInt()).collectAsState().value
-    val events = groupsViewModel.getEventsList().collectAsState().value
+    val community by communitiesViewModel.getCommunity(groupId.toInt())
+        .collectAsStateWithLifecycle()
+    val events by communitiesViewModel.getEventsList().collectAsStateWithLifecycle()
 
     val scroll = rememberScrollState(0)
 
@@ -54,7 +56,7 @@ fun GroupScreen(
         ) {
             EventsTopBar(
                 navController = navController,
-                text = group.name,
+                text = community.name,
                 needToBack = true
             )
             LazyColumn(
@@ -84,18 +86,22 @@ fun GroupScreen(
                         style = EventsTheme.typography.bodyText1
                     )
                 }
-                items(events.size) { event ->
-                    MeetingCard(
-                        navController = navController, EventUiModel(
-                            id = events[event].id,
-                            title = events[event].title,
-                            date = events[event].date,
-                            city = events[event].city,
-                            isFinished = events[event].isFinished,
-                            meetingAvatar = events[event].meetingAvatar,
-                            chips = events[event].chips,
+                events.forEach { event ->
+                    item {
+                        MeetingCard(
+                            navController = navController,
+                            EventUiModel(
+                                id = event.id,
+                                title = event.title,
+                                date = event.date,
+                                city = event.city,
+                                isFinished = event.isFinished,
+                                meetingAvatar = event.meetingAvatar,
+                                chips = event.chips,
+                                visitors = event.visitors
+                            )
                         )
-                    )
+                    }
                 }
             }
         }

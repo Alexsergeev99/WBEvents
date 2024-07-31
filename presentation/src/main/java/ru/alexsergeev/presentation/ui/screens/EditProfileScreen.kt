@@ -1,13 +1,11 @@
 package ru.alexsergeev.presentation.ui.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -15,42 +13,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.domain.domain.models.PersonUiModel
-import ru.alexsergeev.presentation.ui.atoms.DisabledButton
+import ru.alexsergeev.presentation.ui.models.FullName
+import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.Search
-import ru.alexsergeev.presentation.ui.atoms.SimpleButton
+import ru.alexsergeev.presentation.ui.molecules.EditProfileButtonChanger
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarWithEdit
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @Composable
-fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel = koinViewModel()) {
-
-    val ctx = LocalContext.current
-
-    val focusManager = LocalFocusManager.current
-
-    val name = remember {
-        mutableStateOf("")
-    }
-    val surname = remember {
-        mutableStateOf("")
-    }
-
+internal fun EditProfileScreen(
+    navController: NavController,
+    personProfileViewModel: PersonProfileViewModel = koinViewModel()
+) {
     val needToEdit = remember {
         mutableStateOf(false)
     }
-
-    val mockAvatar = if (needToEdit.value) {
-        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-    } else {
-        "https://www.clipartmax.com/png/full/245-2459068_marco-martinangeli-coiffeur-portrait-of-a-man.png"
-    }
+    val person = personProfileViewModel.getPersonData().collectAsStateWithLifecycle().value
+    val startedAvatar = stringResource(id = R.string.mock_avatar)
+    val changedAvatar = "https://www.1zoom.me/big2/62/199578-yana.jpg"
 
     Box(
         modifier = Modifier
@@ -58,7 +44,11 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
             .padding(horizontal = 24.dp),
         contentAlignment = Alignment.TopCenter
     ) {
-        EventsTopBar(navController = navController, text = "Профиль", needToBack = true)
+        EventsTopBar(
+            navController = navController,
+            text = stringResource(id = R.string.profile),
+            needToBack = true
+        )
         Column(
             modifier = Modifier
                 .fillMaxHeight(0.7f)
@@ -67,63 +57,61 @@ fun EditProfileScreen(navController: NavController, vm: PersonProfileViewModel =
             verticalArrangement = Arrangement.Center
         ) {
             PeopleAvatarWithEdit(
-                mockAvatar,
+                person.avatar,
                 padding = 20.dp,
                 editPhoto = {
                     needToEdit.value = !needToEdit.value
-                    vm.setPersonAvatarFlow("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
-                    vm.setPersonData(PersonUiModel("", vm.getPersonData().value.phone, vm.getPersonAvatarFlow().value))
+                    when (needToEdit.value) {
+                        true -> {
+                            personProfileViewModel.setPersonData(
+                                person.copy(
+                                    avatar = startedAvatar
+                                )
+                            )
+                        }
+
+                        else -> {
+                            personProfileViewModel.setPersonData(
+                                person.copy(
+                                    avatar = changedAvatar
+                                )
+                            )
+                        }
+                    }
                 }
             )
             Search(
-                hint = "Имя (обязательно)",
+                hint = stringResource(id = R.string.name),
                 isSearch = false,
                 padding = 6.dp,
                 onTextChange = {
-                    vm.setFirstNameFlow(it)
+                    personProfileViewModel.setPersonData(
+                        person.copy(
+                            name = FullName(
+                                it,
+                                person.name.secondName
+                            )
+                        )
+                    )
                 },
-                text = name,
             )
             Search(
-                hint = "Фамилия (опционально)",
+                hint = stringResource(id = R.string.surname),
                 isSearch = false,
                 padding = 6.dp,
                 onTextChange = {
-                    vm.setSecondNameFlow(it)
-                    vm.setPersonData(PersonUiModel("${vm.getFirstNameFlow().value} ${vm.getSecondNameFlow().value}", vm.getPersonData().value.phone, vm.getPersonData().value.avatar))
+                    personProfileViewModel.setPersonData(
+                        person.copy(
+                            name = FullName(person.name.firstName, it)
+                        )
+                    )
                 },
-                text = surname,
             )
             Spacer(
                 modifier = Modifier
                     .height(48.dp)
             )
-
-            if (name.value.isNotEmpty()) {
-                SimpleButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    text = "Сохранить",
-                    padding = 30.dp,
-                    onClick = {
-                        focusManager.clearFocus()
-                        navController.navigate("navigation")
-                    }
-                )
-            } else {
-                DisabledButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    text = "Сохранить",
-                    padding = 30.dp,
-                    onClick = {
-                        Toast.makeText(ctx, "Как же на встречу и без имени?", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                )
-            }
+            EditProfileButtonChanger(navController, person)
         }
     }
 }

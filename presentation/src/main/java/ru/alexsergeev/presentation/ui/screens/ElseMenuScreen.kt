@@ -1,6 +1,5 @@
 package ru.alexsergeev.presentation.ui.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -16,11 +15,14 @@ import androidx.compose.material.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
@@ -34,14 +36,13 @@ import ru.alexsergeev.presentation.ui.theme.NeutralActive
 import ru.alexsergeev.presentation.ui.theme.NeutralLight
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun ElseMenuScreen(
+internal fun ElseMenuScreen(
     navController: NavController,
-    vm: PersonProfileViewModel = koinViewModel(),
+    personProfileViewModel: PersonProfileViewModel = koinViewModel(),
 ) {
-
     val interactionSource = remember { MutableInteractionSource() }
+    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier
@@ -76,7 +77,7 @@ fun ElseMenuScreen(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    PeopleAvatarSmall(image = vm.getPersonAvatarFlow().value)
+                    PeopleAvatarSmall(image = person.avatar)
                     Column(
                         modifier = Modifier
                             .fillMaxHeight()
@@ -85,12 +86,12 @@ fun ElseMenuScreen(
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "${vm.getFirstNameFlow().value} ${vm.getSecondNameFlow().value}",
+                            text = "${person.name.firstName} ${person.name.secondName}",
                             color = NeutralActive,
                             style = EventsTheme.typography.bodyText1
                         )
                         Text(
-                            text = "${vm.getCountryCodeFlow().value} ${vm.getPhoneFlow().value}",
+                            text = "${person.phone.countryCode} ${person.phone.basicNumber}",
                             color = Neutral,
                             style = EventsTheme.typography.metadata1
                         )
@@ -105,17 +106,29 @@ fun ElseMenuScreen(
                 modifier = Modifier
                     .padding(vertical = 8.dp)
             ) {
-                ElseMenuItem(text = "Мои встречи", icon = R.drawable.box) {
+                ElseMenuItem(
+                    text = stringResource(id = R.string.my_events),
+                    icon = R.drawable.box
+                ) {
                     navController.navigate(Destination.Else.MyEvents.route)
                 }
             }
-            ElseMenuItem(text = "Тема", icon = R.drawable.light)
-            ElseMenuItem(text = "Уведомления", icon = R.drawable.push)
-            ElseMenuItem(text = "Безопасность", icon = R.drawable.attention)
-            ElseMenuItem(text = "Память и ресурсы", icon = R.drawable.resourses)
+            ElseMenuItem(text = stringResource(id = R.string.theme), icon = R.drawable.light)
+            ElseMenuItem(text = stringResource(id = R.string.pushes), icon = R.drawable.push)
+            ElseMenuItem(
+                text = stringResource(id = R.string.attention),
+                icon = R.drawable.attention
+            )
+            ElseMenuItem(
+                text = stringResource(id = R.string.resources),
+                icon = R.drawable.resourses
+            )
             Divider(color = NeutralLight)
-            ElseMenuItem(text = "Помощь", icon = R.drawable.help)
-            ElseMenuItem(text = "Пригласи друга", icon = R.drawable.call_friend)
+            ElseMenuItem(text = stringResource(id = R.string.help), icon = R.drawable.help)
+            ElseMenuItem(
+                text = stringResource(id = R.string.call_friend),
+                icon = R.drawable.call_friend
+            )
         }
     }
 }

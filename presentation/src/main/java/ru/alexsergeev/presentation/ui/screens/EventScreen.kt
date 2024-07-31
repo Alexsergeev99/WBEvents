@@ -27,6 +27,7 @@ import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 import ru.alexsergeev.wbevents.ui.presentation.molecules.EventParams
 import ru.alexsergeev.wbevents.ui.presentation.molecules.EventVisitorsOverlapping
 import ru.alexsergeev.wbevents.ui.presentation.molecules.MapImage
@@ -103,3 +104,76 @@ internal fun EventScreen(
         }
     }
 }
+
+//@Composable
+//internal fun CommunityEventScreen(
+//    navController: NavController,
+//    eventId: String,
+//    detailGroupViewModel: DetailGroupViewModel = koinViewModel()
+//) {
+//    val scroll = rememberScrollState(0)
+//    val event by detailGroupViewModel.getCommunity(eventId.toInt()).collectAsStateWithLifecycle()
+//    val person by detailGroupViewModel.getPersonData().collectAsStateWithLifecycle()
+//    val personIsAddedToTheVisitorsFlow by detailGroupViewModel.personIsAddedToTheVisitorsFlow()
+//        .collectAsStateWithLifecycle()
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(horizontal = 16.dp),
+//        contentAlignment = Alignment.TopCenter
+//    ) {
+//        Column(
+//            modifier = Modifier
+//                .padding(vertical = 8.dp),
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Top
+//        ) {
+//            EventsTopBar(
+//                navController = navController,
+//                text = event.title ?: "Meeting",
+//                needToBack = true,
+//                iAmGuest = personIsAddedToTheVisitorsFlow
+//            )
+//            LazyColumn(
+//                modifier = Modifier
+//                    .padding(bottom = 8.dp),
+//            ) {
+//                item {
+//                    EventParams(event)
+//                }
+//                item {
+//                    Row(
+//                        modifier = Modifier
+//                            .padding(vertical = 4.dp)
+//                            .align(Alignment.Start)
+//                    ) {
+//                        event.chips.forEach {
+//                            OneChip(it)
+//                        }
+//                    }
+//                }
+//                item {
+//                    MapImage(navController, event)
+//                }
+//                item {
+//                    Text(
+//                        modifier = Modifier
+//                            .padding(vertical = 8.dp)
+//                            .height(270.dp)
+//                            .align(Alignment.Start)
+//                            .verticalScroll(scroll),
+//                        text = stringResource(R.string.lorem_ipsum),
+//                        style = EventsTheme.typography.metadata1,
+//                        color = NeutralWeak
+//                    )
+//                }
+//                item {
+//                    EventVisitorsOverlapping(event)
+//                }
+//                item {
+//                    EventScreenButtonChanger(personIsAddedToTheVisitorsFlow, event, person)
+//                }
+//            }
+//        }
+//    }
+//}

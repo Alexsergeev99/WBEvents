@@ -6,9 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.alexsergeev.domain.domain.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.domain.usecases.interfaces.GetCommunityUseCase
-import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
@@ -20,30 +19,30 @@ internal class DetailGroupViewModel(
     private val domainGroupToUiGroupMapper: DomainGroupToUiGroupMapper,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper
 ) : ViewModel() {
-    private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
-    private val events: StateFlow<List<EventUiModel>> = eventsMutable
+//    private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
+//    private val events: StateFlow<List<EventUiModel>> = eventsMutable
     private val communityMutable =
-        MutableStateFlow<GroupUiModel>(GroupUiModel(0, "", 0, ""))
+        MutableStateFlow<GroupUiModel>(GroupUiModel(0, "", 0, "", listOf()))
     private val community: StateFlow<GroupUiModel> = communityMutable
 
     init {
-        getEventsListFlow()
+//        getEventsListFlow()
     }
 
-    private fun getEventsListFlow() {
-        try {
-            viewModelScope.launch {
-                val eventsFlow = getEventsListUseCase.invoke()
-                eventsFlow.collect { events ->
-                    events.forEach { event ->
-                        eventsMutable.value.add(domainEventToUiEventMapper.map(event))
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            throw e
-        }
-    }
+//    private fun getEventsListFlow() {
+//        try {
+//            viewModelScope.launch {
+//                val eventsFlow = getEventsListUseCase.invoke()
+//                eventsFlow.collect { events ->
+//                    events.forEach { event ->
+//                        eventsMutable.value.add(domainEventToUiEventMapper.map(event))
+//                    }
+//                }
+//            }
+//        } catch (e: Exception) {
+//            throw e
+//        }
+//    }
 
     fun getCommunity(id: Int): StateFlow<GroupUiModel> {
         try {
@@ -59,5 +58,5 @@ internal class DetailGroupViewModel(
         }
     }
 
-    fun getEventsList(): StateFlow<List<EventUiModel>> = events
+//    fun getEventsList(): StateFlow<List<EventUiModel>> = events
 }

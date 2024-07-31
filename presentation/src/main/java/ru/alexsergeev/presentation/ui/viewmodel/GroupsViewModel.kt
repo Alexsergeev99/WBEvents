@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import ru.alexsergeev.domain.domain.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.domain.usecases.interfaces.GetCommunitiesListUseCase
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 

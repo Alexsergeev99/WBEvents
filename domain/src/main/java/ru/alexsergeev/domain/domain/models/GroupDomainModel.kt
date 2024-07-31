@@ -5,4 +5,5 @@ data class GroupDomainModel(
     val name: String,
     val people: Long,
     val groupLogo: String,
+    val communityEvents: List<EventDomainModel>
 )

@@ -1,17 +1,9 @@
-package ru.alexsergeev.domain.domain.models
+package ru.alexsergeev.presentation.ui.models
 
-data class GroupUiModel(
+internal data class GroupUiModel(
     val id: Int,
     val name: String,
     val people: Long,
     val groupLogo: String,
+    val communityEvents: List<EventUiModel>
 )
-
-fun mapperFromGroupDomainModel(groupDomainModel: GroupDomainModel): GroupUiModel  {
-    return GroupUiModel(
-        id = groupDomainModel.id,
-        name = groupDomainModel.name,
-        people = groupDomainModel.people,
-        groupLogo = groupDomainModel.groupLogo,
-    )
-}

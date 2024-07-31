@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.presentation.ui.models.EventUiModel
-import ru.alexsergeev.domain.domain.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.atoms.ButtonsWithStates
 import ru.alexsergeev.presentation.ui.atoms.Chips
 import ru.alexsergeev.presentation.ui.atoms.Search
@@ -71,7 +71,8 @@ fun CommonTestScreen(navController: NavController) {
                     1,
                     "Designa",
                     10_000,
-                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg"
+                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+                    listOf()
                 ),
             )
         }

@@ -1,5 +1,6 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,6 @@ import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 internal class DetailEventViewModel(
     private val getEventUseCase: GetEventUseCase,
-    private val getEventVisitorsListUseCase: GetEventVisitorsListUseCase,
     private val addPersonToVisitorsUseCase: AddPersonToVisitorsUseCase,
     private val removePersonFromVisitorsUseCase: RemovePersonFromVisitorsUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
@@ -58,8 +58,6 @@ internal class DetailEventViewModel(
     private val personData: StateFlow<PersonUiModel> = personDataMutable
     private val personIsAddedToTheVisitorsMutable = MutableStateFlow(false)
     private val personIsAddedToTheVisitors: StateFlow<Boolean> = personIsAddedToTheVisitorsMutable
-    private val visitorsMutable = MutableStateFlow<MutableList<PersonUiModel>>(mutableListOf())
-    private val visitors: StateFlow<MutableList<PersonUiModel>> = visitorsMutable
 
     init {
         getPersonDataFlow()
@@ -72,10 +70,7 @@ internal class DetailEventViewModel(
                     uiPersonToDomainPersonMapper.map(person),
                     uiEventToDomainEventMapper.map(event)
                 )
-//                getEvent(event.id)
                 eventMutable.update { getEvent(event.id).value }
-                personIsAddedToTheVisitorsMutable.update { true }
-//                visitorsMutable.value.add(person)
             }
         } catch (e: Exception) {
             throw e
@@ -90,8 +85,6 @@ internal class DetailEventViewModel(
                     uiEventToDomainEventMapper.map(event)
                 )
                 eventMutable.update { getEvent(event.id).value }
-                personIsAddedToTheVisitorsMutable.update { false }
-//                visitorsMutable.value.remove(person)
             }
         } catch (e: Exception) {
             throw e

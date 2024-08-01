@@ -1,5 +1,6 @@
 package ru.alexsergeev.repository.repository
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
@@ -282,6 +283,7 @@ internal class EventRepositoryImpl : EventRepository {
         event: EventDomainModel
     ) {
         eventsMutable.value.find { it.id == event.id }?.visitors?.add(person)
+        eventsMutable.value.find { it.id == event.id }?.personIsAddedToTheVisitors = true
     }
 
     override fun removePersonFromVisitorsOfEvent(
@@ -289,6 +291,7 @@ internal class EventRepositoryImpl : EventRepository {
         event: EventDomainModel
     ) {
         eventsMutable.value.find { it.id == event.id }?.visitors?.remove(person)
+        eventsMutable.value.find { it.id == event.id }?.personIsAddedToTheVisitors = false
     }
 
 }

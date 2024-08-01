@@ -12,6 +12,6 @@ internal class UiEventToDomainEventMapper(
         input.visitors.forEach {
             visitorsDomain.add(uiPersonToDomainPersonMapper.map(it))
         }
-        EventDomainModel(id, title, date, city, isFinished, meetingAvatar, chips, imageUrl, visitorsDomain)
+        EventDomainModel(id, title, date, city, isFinished, meetingAvatar, chips, imageUrl, visitorsDomain, personIsAddedToTheVisitors)
     }
 }

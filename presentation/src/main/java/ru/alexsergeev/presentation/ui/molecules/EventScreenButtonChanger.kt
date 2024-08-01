@@ -16,17 +16,15 @@ import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 
 @Composable
 internal fun EventScreenButtonChanger(
-    personIsAddedToTheVisitorsFlow: Boolean,
     event: EventUiModel, person: PersonUiModel,
     detailEventViewModel: DetailEventViewModel = koinViewModel()
 ) {
-    if (!personIsAddedToTheVisitorsFlow) {
+    if (!event.personIsAddedToTheVisitors) {
         SimpleButton(
             modifier = Modifier
                 .fillMaxWidth(),
             text = stringResource(id = R.string.go_to_event),
             onClick = {
-                Log.d("test", person.avatar)
                 detailEventViewModel.addPersonToEventVisitorList(
                     person = person,
                     event = event
@@ -39,7 +37,6 @@ internal fun EventScreenButtonChanger(
                 .fillMaxWidth(),
             text = stringResource(id = R.string.go_to_another_event),
             onClick = {
-                Log.d("test1", person.avatar)
                 detailEventViewModel.removePersonFromEventVisitorsList(
                     event = event,
                     person = person

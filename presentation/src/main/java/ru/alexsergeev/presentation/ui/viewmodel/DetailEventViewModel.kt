@@ -72,9 +72,10 @@ internal class DetailEventViewModel(
                     uiPersonToDomainPersonMapper.map(person),
                     uiEventToDomainEventMapper.map(event)
                 )
-                eventMutable.update { event }
+//                getEvent(event.id)
+                eventMutable.update { getEvent(event.id).value }
                 personIsAddedToTheVisitorsMutable.update { true }
-                visitorsMutable.value.add(person)
+//                visitorsMutable.value.add(person)
             }
         } catch (e: Exception) {
             throw e
@@ -88,9 +89,9 @@ internal class DetailEventViewModel(
                     uiPersonToDomainPersonMapper.map(person),
                     uiEventToDomainEventMapper.map(event)
                 )
-                eventMutable.update { event }
+                eventMutable.update { getEvent(event.id).value }
                 personIsAddedToTheVisitorsMutable.update { false }
-                visitorsMutable.value.remove(person)
+//                visitorsMutable.value.remove(person)
             }
         } catch (e: Exception) {
             throw e

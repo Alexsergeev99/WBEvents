@@ -1,6 +1,7 @@
 package ru.alexsergeev.repository.repository
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
@@ -23,8 +24,8 @@ internal class EventRepositoryImpl : EventRepository {
         ),
     )
 
-    override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
-        val events = listOf(
+    private val eventsMutable = MutableStateFlow(
+        listOf(
             EventDomainModel(
                 1,
                 title = "Developer meeting",
@@ -33,7 +34,18 @@ internal class EventRepositoryImpl : EventRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 2,
@@ -43,7 +55,18 @@ internal class EventRepositoryImpl : EventRepository {
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                 listOf("Java", "Junior", "Astana"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 3,
@@ -53,7 +76,18 @@ internal class EventRepositoryImpl : EventRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 4,
@@ -63,7 +97,18 @@ internal class EventRepositoryImpl : EventRepository {
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                 listOf("Java", "Junior", "Astana"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 5,
@@ -73,7 +118,18 @@ internal class EventRepositoryImpl : EventRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 6,
@@ -83,7 +139,18 @@ internal class EventRepositoryImpl : EventRepository {
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                 listOf("Java", "Junior", "Astana"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 7,
@@ -93,7 +160,18 @@ internal class EventRepositoryImpl : EventRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 8,
@@ -103,7 +181,18 @@ internal class EventRepositoryImpl : EventRepository {
                 false,
                 "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
                 listOf("Android", "Senior only", "Moscow"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 9,
@@ -113,7 +202,18 @@ internal class EventRepositoryImpl : EventRepository {
                 false,
                 "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
                 listOf("Android", "Junior", "Moscow"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 10,
@@ -123,7 +223,18 @@ internal class EventRepositoryImpl : EventRepository {
                 false,
                 "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
                 listOf("Java", "Middle", "Astana"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             ),
             EventDomainModel(
                 11,
@@ -133,9 +244,24 @@ internal class EventRepositoryImpl : EventRepository {
                 false,
                 "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
                 listOf("Python", "Lead", "Minsk"),
-                visitors = visitors
+                visitors = mutableListOf(
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                    ),
+                    PersonDomainModel(
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
+                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                    ),
+                )
             )
         )
+    )
+
+    override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
+        val events = eventsMutable.value
         emit(events)
     }
 
@@ -155,16 +281,14 @@ internal class EventRepositoryImpl : EventRepository {
         person: PersonDomainModel,
         event: EventDomainModel
     ) {
-        event.visitors.add(person)
-        visitors.add(person)
+        eventsMutable.value.find { it.id == event.id }?.visitors?.add(person)
     }
 
     override fun removePersonFromVisitorsOfEvent(
         person: PersonDomainModel,
         event: EventDomainModel
     ) {
-        event.visitors.remove(person)
-        visitors.remove(person)
+        eventsMutable.value.find { it.id == event.id }?.visitors?.remove(person)
     }
 
 }

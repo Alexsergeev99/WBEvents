@@ -10,5 +10,6 @@ interface EventRepository {
     fun getEventVisitorsList(): Flow<List<PersonDomainModel>>
     fun addPersonToVisitorsOfEvent(person: PersonDomainModel, event: EventDomainModel)
     fun removePersonFromVisitorsOfEvent(person: PersonDomainModel, event: EventDomainModel)
+    fun getMyEventsList(): Flow<List<EventDomainModel>>
 
 }

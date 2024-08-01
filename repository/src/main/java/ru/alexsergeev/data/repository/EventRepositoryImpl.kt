@@ -4,6 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.last
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
@@ -293,5 +294,8 @@ internal class EventRepositoryImpl : EventRepository {
         eventsMutable.value.find { it.id == event.id }?.visitors?.remove(person)
         eventsMutable.value.find { it.id == event.id }?.personIsAddedToTheVisitors = false
     }
-
+    override fun getMyEventsList(): Flow<List<EventDomainModel>> = flow {
+        val myEvents = getEventsList().last().filter { it.personIsAddedToTheVisitors }
+        emit(myEvents)
+    }
 }

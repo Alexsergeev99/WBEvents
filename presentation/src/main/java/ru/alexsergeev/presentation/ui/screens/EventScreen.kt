@@ -41,8 +41,7 @@ internal fun EventScreen(
     val scroll = rememberScrollState(0)
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
     val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
-    val personIsAddedToTheVisitorsFlow by detailEventViewModel.personIsAddedToTheVisitorsFlow()
-        .collectAsStateWithLifecycle()
+
     Box(
         modifier = Modifier
             .fillMaxSize()

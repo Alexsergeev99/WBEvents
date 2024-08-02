@@ -15,8 +15,8 @@ import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @Composable
 fun PrimaryNavigation() {
+
     val navController = rememberNavController()
-    val viewModel: PersonProfileViewModel = koinViewModel()
 
     NavHost(
         navController = navController,
@@ -26,7 +26,7 @@ fun PrimaryNavigation() {
             SplashScreen(navController = navController)
         }
         composable("navigation") {
-            Navigation(viewModel)
+            Navigation()
         }
         composable("input_number") {
             BackHandler(true) {}

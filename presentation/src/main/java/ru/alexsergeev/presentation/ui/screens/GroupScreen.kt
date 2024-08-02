@@ -24,6 +24,7 @@ import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.molecules.MeetingCard
+import ru.alexsergeev.presentation.ui.navigation.Destination
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
@@ -33,7 +34,7 @@ import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 internal fun GroupScreen(
     navController: NavController,
     groupId: String,
-    detailGroupViewModel: DetailGroupViewModel = koinViewModel()
+    detailGroupViewModel: DetailGroupViewModel = koinViewModel(),
 ) {
     val community by detailGroupViewModel.getCommunity(groupId.toInt())
         .collectAsStateWithLifecycle()
@@ -87,7 +88,6 @@ internal fun GroupScreen(
                 community.communityEvents.forEach { event ->
                     item {
                         MeetingCard(
-                            navController = navController,
                             EventUiModel(
                                 id = event.id,
                                 title = event.title,
@@ -97,7 +97,14 @@ internal fun GroupScreen(
                                 meetingAvatar = event.meetingAvatar,
                                 chips = event.chips,
                                 visitors = event.visitors
-                            )
+                            ),
+                            goToEventScreen = {
+                                navController.navigate(
+                                    "${Destination.Events.Event.route}/${
+                                        it.toString()
+                                    }"
+                                )
+                            }
                         )
                     }
                 }

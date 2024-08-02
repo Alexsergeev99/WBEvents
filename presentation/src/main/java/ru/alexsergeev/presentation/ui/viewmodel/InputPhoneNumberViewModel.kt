@@ -23,12 +23,7 @@ internal class InputPhoneNumberViewModel(
     private val setPersonProfileUseCase: SetPersonProfileUseCase,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper
     ) : ViewModel() {
-    /*
-    This VM is not useful right now because we  don`t have back and I suppose that in this case use personProfileVM is more attractive.
-     */
-    /*
-    These two states below are using in personProfileVM now
-     */
+
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
             name = FullName(

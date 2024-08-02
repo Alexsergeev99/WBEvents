@@ -32,8 +32,8 @@ import ru.alexsergeev.presentation.ui.navigation.Destination
 
 @Composable
 internal fun MeetingCard(
-    navController: NavController,
     event: EventUiModel,
+    goToEventScreen: (Int) -> Unit = {}
 ) {
 
     Card(
@@ -41,9 +41,7 @@ internal fun MeetingCard(
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable {
-                navController.navigate(
-                    "${Destination.Events.Event.route}/${event.id.toString()}"
-                )
+                goToEventScreen(event.id)
             }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),

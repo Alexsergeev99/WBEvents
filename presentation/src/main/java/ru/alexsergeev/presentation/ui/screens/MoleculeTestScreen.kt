@@ -23,7 +23,6 @@ fun MoleculeTestScreen(navController: NavController, goToEventScreen: () -> Unit
     ) {
         item {
             MeetingCard(
-                navController = navController,
                 EventUiModel(
                     1,
                     title = "Developer meeting",
@@ -36,7 +35,6 @@ fun MoleculeTestScreen(navController: NavController, goToEventScreen: () -> Unit
                 ),
             )
             MeetingCard(
-                navController = navController,
                 EventUiModel(
                     1,
                     title = "Developer meeting",

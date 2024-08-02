@@ -26,6 +26,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
+import ru.alexsergeev.presentation.ui.navigation.Destination
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.Inactive
@@ -33,6 +34,7 @@ import ru.alexsergeev.presentation.ui.theme.MiddleButtonColor
 import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.MyEventsViewModel
 import ru.alexsergeev.wbevents.ui.presentation.molecules.MyEventsDivider
+import ru.alexsergeev.wbevents.ui.utils.pagerTabIndicatorOffset
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -103,7 +105,13 @@ internal fun MyEventsListScreen(
                     .fillMaxHeight(0.9f),
                 verticalAlignment = Alignment.Top,
             ) {
-                MyEventsDivider(navController, events, tabIndex)
+                MyEventsDivider(events, tabIndex) {
+                    navController.navigate(
+                        "${Destination.Events.Event.route}/${
+                            it.toString()
+                        }"
+                    )
+                }
             }
         }
     }

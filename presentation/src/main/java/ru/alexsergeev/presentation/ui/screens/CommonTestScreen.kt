@@ -37,7 +37,7 @@ fun CommonTestScreen(navController: NavController) {
                 "Moscow"
             )
             MeetingCard(
-                navController = navController,
+//                navController = navController,
                 EventUiModel(
                     1,
                     title = "Developer meeting",
@@ -50,7 +50,7 @@ fun CommonTestScreen(navController: NavController) {
                 ),
             )
             MeetingCard(
-                navController = navController,
+//                navController = navController,
                 EventUiModel(
                     1,
                     title = "Developer meeting",

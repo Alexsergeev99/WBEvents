@@ -26,8 +26,8 @@ import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 
 @Composable
 internal fun FinishedMeetingCard(
-    navController: NavController,
     event: EventUiModel,
+    goToEventScreen: (Int) -> Unit = {}
 ) {
     Card(
         modifier = Modifier
@@ -35,9 +35,7 @@ internal fun FinishedMeetingCard(
             .padding(vertical = 8.dp)
 
             .clickable {
-                navController.navigate(
-                    "${Destination.Events.Event.route}/${event.id.toString()}"
-                )
+                goToEventScreen(event.id)
             }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent),

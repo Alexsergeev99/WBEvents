@@ -26,13 +26,7 @@ import ru.alexsergeev.presentation.ui.screens.MyEventsListScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-internal fun Navigation(
-    vm: PersonProfileViewModel = koinViewModel()
-) {
-
-    val eventsViewModel: EventsViewModel = koinViewModel()
-    val groupsViewModel: GroupsViewModel = koinViewModel()
-
+internal fun Navigation() {
     val navHostController = rememberNavController()
     val selectedPage = remember { mutableIntStateOf(0) }
 
@@ -52,12 +46,12 @@ internal fun Navigation(
         NavHost(navController = navHostController, startDestination = Destination.Events.route) {
             eventsNavGraph(navController = navHostController)
             groupNavGraph(navController = navHostController)
-            menuNavGraph(navController = navHostController, vm)
+            menuNavGraph(navController = navHostController)
         }
     }
 }
 
-internal fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: PersonProfileViewModel) {
+internal fun NavGraphBuilder.menuNavGraph(navController: NavController) {
 
     navigation(
         route = Destination.Else.route,
@@ -66,7 +60,6 @@ internal fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: Pers
         composable(route = Destination.Else.Dashboard.route) {
             ElseMenuScreen(
                 navController = navController,
-                vm
             )
         }
     }
@@ -76,7 +69,7 @@ internal fun NavGraphBuilder.menuNavGraph(navController: NavController, vm: Pers
         )
     }
     composable(route = Destination.Else.Profile.route) {
-        ProfileScreen(navController = navController, vm)
+        ProfileScreen(navController = navController)
     }
 }
 

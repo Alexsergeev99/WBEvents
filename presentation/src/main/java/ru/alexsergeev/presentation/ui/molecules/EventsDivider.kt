@@ -13,16 +13,15 @@ private const val ACTIVE_EVENTS_INDEX = 1
 
 @Composable
 internal fun EventsDivider(
-    navController: NavController,
     events: List<EventUiModel>,
-    tabIndex: Int
+    tabIndex: Int,
+    goToEventScreen: (Int) -> Unit = {}
 ) {
     when (tabIndex) {
         ALL_EVENTS_INDEX -> LazyColumn(modifier = Modifier.fillMaxSize()) {
             events.forEach { event ->
                 item {
                     MeetingCard(
-                        navController = navController,
                         EventUiModel(
                             id = event.id,
                             title = event.title,
@@ -32,7 +31,8 @@ internal fun EventsDivider(
                             meetingAvatar = event.meetingAvatar,
                             chips = event.chips,
                             visitors = event.visitors
-                        )
+                        ),
+                        goToEventScreen = goToEventScreen
                     )
                 }
             }
@@ -43,7 +43,6 @@ internal fun EventsDivider(
                 item {
                     if (!event.isFinished) {
                         MeetingCard(
-                            navController = navController,
                             EventUiModel(
                                 id = event.id,
                                 title = event.title,
@@ -53,7 +52,8 @@ internal fun EventsDivider(
                                 meetingAvatar = event.meetingAvatar,
                                 chips = event.chips,
                                 visitors = event.visitors
-                            )
+                            ),
+                            goToEventScreen = goToEventScreen
                         )
                     }
                 }

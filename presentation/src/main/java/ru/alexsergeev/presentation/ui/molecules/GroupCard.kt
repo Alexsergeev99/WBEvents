@@ -25,16 +25,15 @@ import ru.alexsergeev.presentation.ui.theme.NeutralLight
 
 @Composable
 internal fun GroupCard(
-    navController: NavController,
-    group: GroupUiModel
+    group: GroupUiModel,
+    goToCommunityScreen: (Int) -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable {
-                Log.d("groupid", "${group.id}")
-                navController.navigate("${Destination.Groups.Group.route}/${group.id.toString()}")
+                goToCommunityScreen(group.id)
             }
             .bottomBorder(1.dp, NeutralLight),
         colors = CardDefaults.cardColors(Color.Transparent)

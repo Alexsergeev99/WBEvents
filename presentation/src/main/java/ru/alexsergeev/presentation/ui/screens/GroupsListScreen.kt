@@ -15,10 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.Search
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.molecules.GroupCard
+import ru.alexsergeev.presentation.ui.navigation.Destination
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
 
@@ -56,15 +57,16 @@ internal fun GroupsListScreen(
                 communities.forEach {
                     item {
                         GroupCard(
-                            navController = navController,
                             GroupUiModel(
                                 id = it.id,
                                 name = it.name,
                                 people = it.people,
                                 groupLogo = it.groupLogo,
                                 communityEvents = it.communityEvents
-                            ),
-                        )
+                            )
+                        ) {
+                            navController.navigate("${Destination.Groups.Group.route}/${it.toString()}")
+                        }
                     }
                 }
             }

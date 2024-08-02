@@ -20,7 +20,7 @@ import ru.alexsergeev.presentation.ui.molecules.PeopleAvatar
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarWithEdit
 
 @Composable
-fun CommonTestScreen(navController: NavController) {
+fun CommonTestScreen() {
     LazyColumn(
         modifier = Modifier
             .padding(start = 8.dp, end = 8.dp),
@@ -37,7 +37,6 @@ fun CommonTestScreen(navController: NavController) {
                 "Moscow"
             )
             MeetingCard(
-//                navController = navController,
                 EventUiModel(
                     1,
                     title = "Developer meeting",
@@ -50,7 +49,6 @@ fun CommonTestScreen(navController: NavController) {
                 ),
             )
             MeetingCard(
-//                navController = navController,
                 EventUiModel(
                     1,
                     title = "Developer meeting",
@@ -66,7 +64,6 @@ fun CommonTestScreen(navController: NavController) {
             PeopleAvatarWithEdit("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             PeopleAvatar("https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg")
             GroupCard(
-                navController = navController,
                 GroupUiModel(
                     1,
                     "Designa",

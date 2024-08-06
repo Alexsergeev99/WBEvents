@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.koin.core.KoinApplication.Companion.init
 import ru.alexsergeev.domain.usecases.interfaces.AddPersonToVisitorsUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventVisitorsListUseCase
@@ -120,6 +121,5 @@ internal class DetailEventViewModel(
     }
 
     fun getPersonData(): StateFlow<PersonUiModel> = personData
-    fun personIsAddedToTheVisitorsFlow() = personIsAddedToTheVisitors
 
 }

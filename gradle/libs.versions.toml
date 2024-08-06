@@ -3,6 +3,7 @@ accompanistPager = "0.19.0"
 accompanistSystemuicontroller = "0.27.0"
 agp = "8.4.0"
 coilCompose = "2.6.0"
+gson = "2.10.1"
 koinAndroid = "3.5.6"
 koin = "3.5.6"
 koinAndroidxCompose = "3.5.6"
@@ -20,6 +21,7 @@ activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 lottieCompose = "5.2.0"
 navigationCompose = "2.7.7"
+roomRuntime = "2.6.1"
 runtimeLivedata = "1.6.8"
 appcompat = "1.7.0"
 material = "1.12.0"
@@ -34,7 +36,11 @@ accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pa
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -69,4 +75,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+
 

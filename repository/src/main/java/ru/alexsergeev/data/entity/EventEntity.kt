@@ -29,60 +29,12 @@ data class EventEntity(
     @Embedded
     val visitors: Visitors,
     var personIsAddedToTheVisitors: Boolean = false,
-) {
-
-//    lateinit var dataPersonToDomainPersonMapper: DataPersonToDomainPersonMapper
-//    lateinit var domainPersonToDataPersonMapper: DomainPersonToDataPersonMapper
-
-//    fun visitorsData(visitors: MutableList<PersonDataModel>) : MutableList<PersonDataModel>{
-//    val visitorsData = mutableListOf<PersonDataModel>()
-//    visitors.forEach {
-//        visitorsData.add(it)
-//    }
-//        return visitorsData
-//}
-
-//    private fun visitorsDomain(visitors: MutableList<PersonDataModel>): MutableList<PersonDomainModel> {
-//        val visitorsDomain = mutableListOf<PersonDomainModel>()
-//        visitors.forEach {
-//            visitorsDomain.add(dataPersonToDomainPersonMapper.map(it))
-//        }
-//        return visitorsDomain
-//    }
-
-//    fun toDto() = EventEntity(
-//        id,
-//        title,
-//        date,
-//        city,
-//        isFinished,
-//        meetingAvatar,
-//        chips,
-//        imageUrl,
-//        visitors,
-//        personIsAddedToTheVisitors,
-//    )
-
-    //    companion object {
-//    fun fromDto(event: EventEntity) = EventDomainModel(
-//        id = event.id,
-//        title = event.title,
-//        date = event.date,
-//        city = event.city,
-//        isFinished = event.isFinished,
-//        meetingAvatar = event.meetingAvatar,
-//        chips = event.chips.chips,
-//        imageUrl = event.imageUrl,
-//        visitors = visitorsDomain(event.visitors.visitors),
-//        personIsAddedToTheVisitors = event.personIsAddedToTheVisitors,
-//    )
-//    }
-
-}
+)
 
 data class Chips(
     val chips: List<String>
 )
+
 data class Visitors(
     val visitors: MutableList<PersonDataModel>
 )
@@ -127,25 +79,14 @@ class EntityEventToDomainEventMapper(
         input.visitors.visitors.forEach {
             visitorsDomain.add(dataPersonToDomainPersonMapper.map(it))
         }
-        EventDomainModel(
-            id,
-            title,
-            date,
-            city,
-            isFinished,
-            meetingAvatar,
-            chips.chips,
-            imageUrl,
-            visitorsDomain,
-            personIsAddedToTheVisitors
-        )
+        EventDomainModel(id, title, date, city, isFinished, meetingAvatar, chips.chips, imageUrl, visitorsDomain, personIsAddedToTheVisitors)
     }
 }
 
 object ChipsConverters {
     @TypeConverter
     fun fromString(value: String?): List<String> {
-        val listType = object : TypeToken<List<String>>(){}.type
+        val listType = object : TypeToken<List<String>>() {}.type
         return Gson().fromJson(value, listType)
     }
 
@@ -158,12 +99,53 @@ object ChipsConverters {
 object VisitorsConverters {
     @TypeConverter
     fun fromString(value: String?): MutableList<PersonDataModel> {
-        val listType = object : TypeToken<MutableList<PersonDataModel>>(){}.type
+        val listType = object : TypeToken<MutableList<PersonDataModel>>() {}.type
         return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
     fun fromArrayList(list: MutableList<PersonDataModel?>): String {
         return Gson().toJson(list)
+    }
+}
+
+@Entity
+data class MyEventEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val title: String?,
+    val date: String?,
+    val city: String?,
+    val isFinished: Boolean = false,
+    val meetingAvatar: String,
+    @Embedded
+    val chips: Chips,
+    val imageUrl: String = "https://static.tildacdn.com/tild3062-6662-4137-a535-373262643465/msc.jpg",
+    @Embedded
+    val visitors: Visitors,
+    var personIsAddedToTheVisitors: Boolean = false,
+)
+
+class MyEventEntityToDomainEventMapper(
+    private val dataPersonToDomainPersonMapper: DataPersonToDomainPersonMapper
+) : Mapper<MyEventEntity, EventDomainModel> {
+    override fun map(input: MyEventEntity): EventDomainModel = with(input) {
+        val visitorsDomain = mutableListOf<PersonDomainModel>()
+        input.visitors.visitors.forEach {
+            visitorsDomain.add(dataPersonToDomainPersonMapper.map(it))
+        }
+        EventDomainModel(id, title, date, city, isFinished, meetingAvatar, chips.chips, imageUrl, visitorsDomain, personIsAddedToTheVisitors)
+    }
+}
+
+class DomainEventToMyEventEntityMapper(
+    private val domainPersonToDataPersonMapper: DomainPersonToDataPersonMapper
+) : Mapper<EventDomainModel, MyEventEntity> {
+    override fun map(input: EventDomainModel): MyEventEntity = with(input) {
+        val visitorsData = mutableListOf<PersonDataModel>()
+        input.visitors.forEach {
+            visitorsData.add(domainPersonToDataPersonMapper.map(it))
+        }
+        MyEventEntity(id, title, date, city, isFinished, meetingAvatar, Chips(chips), imageUrl, Visitors(visitorsData), personIsAddedToTheVisitors)
     }
 }

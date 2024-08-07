@@ -42,6 +42,7 @@ internal fun MyEventsListScreen(
     navController: NavController,
     myEventsViewModel: MyEventsViewModel = koinViewModel()
 ) {
+
     val tabList = listOf(
         stringResource(id = R.string.my_planned_events),
         stringResource(id = R.string.my_finished_events)

@@ -14,8 +14,8 @@ interface EventDao {
     fun getAll(): Flow<List<EventEntity>>
 
     @Query("SELECT * FROM MyEventEntity ORDER BY id DESC")
-//    fun getMyEvents(): Flow<List<MyEventEntity>>
-    fun getMyEvents(): List<MyEventEntity>
+    fun getMyEvents(): Flow<List<MyEventEntity>>
+//    fun getMyEvents(): List<MyEventEntity>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(myEvent: MyEventEntity)
 

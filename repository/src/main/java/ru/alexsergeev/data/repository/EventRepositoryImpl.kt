@@ -6,8 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.DomainEventToMyEventEntityMapper
@@ -18,7 +16,6 @@ import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.domain.repository.EventRepository
-import kotlin.coroutines.coroutineContext
 
 internal class EventRepositoryImpl(
     private val eventDao: EventDao,
@@ -326,12 +323,17 @@ internal class EventRepositoryImpl(
 //        emit(myEvents)
 //    }
 
-        override fun getMyEventsList(): Flow<List<EventDomainModel>> = flow {
-            val myEventsEntity = eventDao.getMyEvents()
+    override fun getMyEventsList(): Flow<List<EventDomainModel>> =
+        flow {
+            val eventsFlow = eventDao.getMyEvents()
             val myEventsDomain = mutableListOf<EventDomainModel>()
-            myEventsEntity.forEach {
-                myEventsDomain.add(myEventEntityToDomainEventMapper.map(it))
-            }
-            emit(myEventsDomain)
+                eventsFlow.collect { events ->
+                    events.forEach { event ->
+                        if(!myEventsDomain.contains(myEventEntityToDomainEventMapper.map(event))) {
+                            myEventsDomain.add(myEventEntityToDomainEventMapper.map(event))
+                        }
+                    }
+                    emit(myEventsDomain)
+                }
         }
 }

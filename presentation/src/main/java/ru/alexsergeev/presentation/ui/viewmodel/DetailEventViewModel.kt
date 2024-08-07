@@ -2,6 +2,7 @@ package ru.alexsergeev.presentation.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,6 +12,7 @@ import org.koin.core.KoinApplication.Companion.init
 import ru.alexsergeev.domain.usecases.interfaces.AddPersonToVisitorsUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventVisitorsListUseCase
+import ru.alexsergeev.domain.usecases.interfaces.GetMyEventsListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromVisitorsUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
@@ -31,7 +33,7 @@ internal class DetailEventViewModel(
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
     private val uiEventToDomainEventMapper: UiEventToDomainEventMapper,
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val eventMutable =
         MutableStateFlow<EventUiModel>(
@@ -57,8 +59,6 @@ internal class DetailEventViewModel(
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable
-    private val personIsAddedToTheVisitorsMutable = MutableStateFlow(false)
-    private val personIsAddedToTheVisitors: StateFlow<Boolean> = personIsAddedToTheVisitorsMutable
 
     init {
         getPersonDataFlow()

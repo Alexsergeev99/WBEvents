@@ -1,5 +1,6 @@
 package ru.alexsergeev.presentation.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,6 @@ import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
-import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 import ru.alexsergeev.wbevents.ui.presentation.molecules.EventParams
 import ru.alexsergeev.wbevents.ui.presentation.molecules.EventVisitorsOverlapping
 import ru.alexsergeev.wbevents.ui.presentation.molecules.MapImage

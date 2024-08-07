@@ -1,6 +1,5 @@
 package ru.alexsergeev.presentation.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,7 +33,7 @@ import ru.alexsergeev.wbevents.ui.presentation.molecules.EventVisitorsOverlappin
 import ru.alexsergeev.wbevents.ui.presentation.molecules.MapImage
 
 @Composable
-internal fun EventScreen(
+internal fun MyEventScreen(
     navController: NavController,
     eventId: String,
     detailEventViewModel: DetailEventViewModel = koinViewModel()
@@ -60,6 +59,9 @@ internal fun EventScreen(
                 text = event.title ?: "Meeting",
                 needToBack = true,
                 iAmGuest = event.personIsAddedToTheVisitors,
+                goToBackScreen = {
+                    navController.navigate(Destination.Else.MyEvents.route)
+                }
             )
             LazyColumn(
                 modifier = Modifier

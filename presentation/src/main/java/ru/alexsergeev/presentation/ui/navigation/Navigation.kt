@@ -22,6 +22,7 @@ import ru.alexsergeev.presentation.ui.screens.EventsListScreen
 import ru.alexsergeev.presentation.ui.screens.GroupScreen
 import ru.alexsergeev.presentation.ui.screens.GroupsListScreen
 import ru.alexsergeev.presentation.ui.screens.MapImageScreen
+import ru.alexsergeev.presentation.ui.screens.MyEventScreen
 import ru.alexsergeev.presentation.ui.screens.MyEventsListScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -70,6 +71,12 @@ internal fun NavGraphBuilder.menuNavGraph(navController: NavController) {
     }
     composable(route = Destination.Else.Profile.route) {
         ProfileScreen(navController = navController)
+    }
+    composable(route = "${Destination.Else.MyEvent.route}/{id}") {
+        MyEventScreen(
+            navController = navController,
+            it.arguments?.getString("id") ?: "0",
+        )
     }
 }
 

@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.navigation)
+    implementation(libs.accompanist.swiperefresh)
     implementation(project(":repository"))
     implementation(project(":domain"))
 }

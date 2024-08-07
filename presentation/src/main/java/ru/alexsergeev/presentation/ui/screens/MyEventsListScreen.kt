@@ -31,7 +31,6 @@ import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.Inactive
 import ru.alexsergeev.presentation.ui.theme.MiddleButtonColor
-import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.MyEventsViewModel
 import ru.alexsergeev.wbevents.ui.presentation.molecules.MyEventsDivider
 import ru.alexsergeev.wbevents.ui.utils.pagerTabIndicatorOffset
@@ -51,6 +50,7 @@ internal fun MyEventsListScreen(
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
 
+
     val events by myEventsViewModel.getMyEventsList().collectAsStateWithLifecycle()
 
     Box(
@@ -62,8 +62,9 @@ internal fun MyEventsListScreen(
         EventsTopBar(
             navController = navController,
             text = stringResource(id = R.string.my_events),
-            needToBack = true
+            needToBack = true,
         )
+
         Column(
             modifier = Modifier
                 .padding(bottom = 8.dp, top = 36.dp)
@@ -108,7 +109,7 @@ internal fun MyEventsListScreen(
             ) {
                 MyEventsDivider(events, tabIndex) {
                     navController.navigate(
-                        "${Destination.Events.Event.route}/${
+                        "${Destination.Else.MyEvent.route}/${
                             it.toString()
                         }"
                     )

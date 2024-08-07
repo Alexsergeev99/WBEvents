@@ -136,6 +136,7 @@ sealed class Destination(
         data object Dashboard : Else("dashboard")
         data object Profile : Else("profile")
         data object MyEvents : Else("my_events")
+        data object MyEvent : Else("my_event")
         data object EditProfile : Else("edit_profile")
 
 

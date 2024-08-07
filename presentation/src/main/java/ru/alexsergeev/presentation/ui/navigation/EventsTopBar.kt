@@ -24,7 +24,8 @@ fun EventsTopBar(
     needToBack: Boolean,
     needToEdit: Boolean = false,
     needToAdd: Boolean = false,
-    iAmGuest: Boolean = false
+    iAmGuest: Boolean = false,
+    goToBackScreen: () -> Unit = { navController.navigateUp() }
 ) {
     Row(
         modifier = Modifier
@@ -41,7 +42,8 @@ fun EventsTopBar(
                 Icon(
                     modifier = Modifier
                         .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                        .clickable { navController.navigateUp() },
+//                        .clickable { navController.navigate(Destination.Else.MyEvents.route) },
+                        .clickable { goToBackScreen() },
                     painter = painterResource(id = R.drawable.navigate_back),
                     contentDescription = "back"
                 )

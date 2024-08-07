@@ -1,12 +1,8 @@
 package ru.alexsergeev.repository.repository
 
-import android.util.Log
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.DomainEventToMyEventEntityMapper
 import ru.alexsergeev.data.entity.EntityEventToDomainEventMapper
@@ -16,6 +12,7 @@ import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.domain.repository.EventRepository
+import java.io.IOException
 
 internal class EventRepositoryImpl(
     private val eventDao: EventDao,
@@ -306,6 +303,7 @@ internal class EventRepositoryImpl(
     ) {
         eventsMutable.value.find { it.id == event.id }?.visitors?.add(person)
         eventsMutable.value.find { it.id == event.id }?.personIsAddedToTheVisitors = true
+        changeScreen(event.id)
         eventDao.insert(domainEventToMyEventEntityMapper.map(event))
     }
 
@@ -315,6 +313,7 @@ internal class EventRepositoryImpl(
     ) {
         eventsMutable.value.find { it.id == event.id }?.visitors?.remove(person)
         eventsMutable.value.find { it.id == event.id }?.personIsAddedToTheVisitors = false
+//        eventDao.changeScreen(event.id)
         eventDao.removeById(event.id)
     }
 
@@ -327,13 +326,17 @@ internal class EventRepositoryImpl(
         flow {
             val eventsFlow = eventDao.getMyEvents()
             val myEventsDomain = mutableListOf<EventDomainModel>()
-                eventsFlow.collect { events ->
-                    events.forEach { event ->
-                        if(!myEventsDomain.contains(myEventEntityToDomainEventMapper.map(event))) {
-                            myEventsDomain.add(myEventEntityToDomainEventMapper.map(event))
-                        }
+            eventsFlow.collect { events ->
+                events.forEach { event ->
+                    if (!myEventsDomain.contains(myEventEntityToDomainEventMapper.map(event))) {
+                        myEventsDomain.add(myEventEntityToDomainEventMapper.map(event))
                     }
-                    emit(myEventsDomain)
                 }
+                emit(myEventsDomain)
+            }
         }
+
+    override fun changeScreen(id: Int) {
+        eventDao.changeScreen(id)
+    }
 }

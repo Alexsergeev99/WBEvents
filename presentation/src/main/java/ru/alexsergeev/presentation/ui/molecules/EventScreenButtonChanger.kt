@@ -25,12 +25,6 @@ internal fun EventScreenButtonChanger(
     detailEventViewModel: DetailEventViewModel = koinViewModel()
 ) {
 
-    val personIsAddedToTheVisitors = remember {
-        mutableStateOf(false)
-    }
-
-//    personIsAddedToTheVisitors.value = findEvent(eventId = event.id)
-
     if (!event.personIsAddedToTheVisitors) {
 //    if (!personIsAddedToTheVisitors.value) {
         SimpleButton(
@@ -58,9 +52,3 @@ internal fun EventScreenButtonChanger(
         )
     }
 }
-
-//@Composable
-//internal fun findEvent(eventId: Int, detailEventViewModel: DetailEventViewModel = koinViewModel()): Boolean {
-//    val myEvents = detailEventViewModel.getMyEventsList().collectAsState().value.find { it.id == eventId }
-//    return myEvents != null
-//}

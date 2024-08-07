@@ -15,10 +15,15 @@ interface EventDao {
 
     @Query("SELECT * FROM MyEventEntity ORDER BY id DESC")
     fun getMyEvents(): Flow<List<MyEventEntity>>
-//    fun getMyEvents(): List<MyEventEntity>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(myEvent: MyEventEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(event: EventEntity)
+
     @Query("DELETE FROM MyEventEntity WHERE id = :id")
     fun removeById(id: Int)
+
+    @Query("UPDATE EventEntity SET personIsAddedToTheVisitors = CASE WHEN personIsAddedToTheVisitors THEN 0 ELSE 1 END WHERE id = :id")
+    fun changeScreen(id: Int)
 }

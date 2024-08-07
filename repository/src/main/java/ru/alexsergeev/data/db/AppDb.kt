@@ -9,9 +9,10 @@ import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.ChipsConverters
 import ru.alexsergeev.data.entity.EventEntity
 import ru.alexsergeev.data.entity.MyEventEntity
+import ru.alexsergeev.data.entity.PersonEntity
 import ru.alexsergeev.data.entity.VisitorsConverters
 
-@Database(entities = [EventEntity::class, MyEventEntity::class], version = 1)
+@Database(entities = [EventEntity::class, MyEventEntity::class, PersonEntity::class], version = 1)
 @TypeConverters(ChipsConverters::class, VisitorsConverters::class)
 abstract class AppDb : RoomDatabase() {
     abstract fun eventDao(): EventDao

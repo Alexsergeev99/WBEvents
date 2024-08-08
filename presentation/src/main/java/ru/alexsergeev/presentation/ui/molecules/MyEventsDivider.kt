@@ -24,7 +24,7 @@ internal fun MyEventsDivider(
     myEventsViewModel: MyEventsViewModel = koinViewModel(),
     goToEventScreen: (Int) -> Unit = {},
 ) {
-    val isLoading by myEventsViewModel.isLoading.collectAsStateWithLifecycle()
+    val isLoading by myEventsViewModel.isLoading().collectAsStateWithLifecycle()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
     SwipeRefresh(
         state = swipeRefreshState,

@@ -39,7 +39,7 @@ internal fun MyEventScreen(
     detailEventViewModel: DetailEventViewModel = koinViewModel()
 ) {
     val scroll = rememberScrollState(0)
-    val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val myEvent by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
     val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Box(
@@ -56,9 +56,9 @@ internal fun MyEventScreen(
         ) {
             EventsTopBar(
                 navController = navController,
-                text = event.title ?: "Meeting",
+                text = myEvent.title ?: "Meeting",
                 needToBack = true,
-                iAmGuest = event.personIsAddedToTheVisitors,
+                iAmGuest = myEvent.personIsAddedToTheVisitors,
                 goToBackScreen = {
                     navController.navigate(Destination.Else.MyEvents.route)
                 }
@@ -68,7 +68,7 @@ internal fun MyEventScreen(
                     .padding(bottom = 8.dp),
             ) {
                 item {
-                    EventParams(event)
+                    EventParams(myEvent)
                 }
                 item {
                     Row(
@@ -76,13 +76,13 @@ internal fun MyEventScreen(
                             .padding(vertical = 4.dp)
                             .align(Alignment.Start)
                     ) {
-                        event.chips.forEach {
+                        myEvent.chips.forEach {
                             OneChip(it)
                         }
                     }
                 }
                 item {
-                    MapImage(navController, event)
+                    MapImage(navController, myEvent)
                 }
                 item {
                     Text(
@@ -97,10 +97,10 @@ internal fun MyEventScreen(
                     )
                 }
                 item {
-                    EventVisitorsOverlapping(event)
+                    EventVisitorsOverlapping(myEvent)
                 }
                 item {
-                    EventScreenButtonChanger(event, person)
+                    EventScreenButtonChanger(myEvent, person)
                 }
             }
         }

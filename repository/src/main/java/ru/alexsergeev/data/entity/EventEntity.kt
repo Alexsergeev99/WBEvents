@@ -83,6 +83,18 @@ class EntityEventToDomainEventMapper(
     }
 }
 
+class DomainEventToEntityEventMapper(
+    private val domainPersonToDataPersonMapper: DomainPersonToDataPersonMapper
+) : Mapper<EventDomainModel, EventEntity> {
+    override fun map(input: EventDomainModel): EventEntity = with(input) {
+        val visitorsData = mutableListOf<PersonDataModel>()
+        input.visitors.forEach {
+            visitorsData.add(domainPersonToDataPersonMapper.map(it))
+        }
+        EventEntity(id, title, date, city, isFinished, meetingAvatar, Chips(chips), imageUrl, Visitors(visitorsData), personIsAddedToTheVisitors)
+    }
+}
+
 object ChipsConverters {
     @TypeConverter
     fun fromString(value: String?): List<String> {

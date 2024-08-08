@@ -50,7 +50,6 @@ internal fun MyEventsListScreen(
     val tabIndex = pagerState.currentPage
     val coroutineScope = rememberCoroutineScope()
 
-
     val events by myEventsViewModel.getMyEventsList().collectAsStateWithLifecycle()
 
     Box(

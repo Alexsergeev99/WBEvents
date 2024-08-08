@@ -11,6 +11,7 @@ interface EventRepository {
     fun addPersonToVisitorsOfEvent(person: PersonDomainModel, event: EventDomainModel)
     fun removePersonFromVisitorsOfEvent(person: PersonDomainModel, event: EventDomainModel)
     fun getMyEventsList(): Flow<List<EventDomainModel>>
+    fun getMyEvent(id: Int): Flow<EventDomainModel>
     fun changeScreen(id: Int)
 
 }

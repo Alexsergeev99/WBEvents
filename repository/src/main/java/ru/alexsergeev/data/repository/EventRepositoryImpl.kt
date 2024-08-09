@@ -1,13 +1,13 @@
 package ru.alexsergeev.repository.repository
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.DomainEventToEntityEventMapper
 import ru.alexsergeev.data.entity.DomainEventToMyEventEntityMapper
 import ru.alexsergeev.data.entity.EntityEventToDomainEventMapper
 import ru.alexsergeev.data.entity.MyEventEntityToDomainEventMapper
+import ru.alexsergeev.data.mock.mockEvents
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
@@ -35,305 +35,81 @@ internal class EventRepositoryImpl(
         ),
     )
 
-    private val eventsMutable = MutableStateFlow(
-        listOf(
-            EventDomainModel(
-                1,
-                title = "Developer meeting",
-                date = "13.01.2021",
-                city = "Moscow",
-                true,
-                "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                2,
-                title = "CoffeeCode",
-                date = "13.01.2025",
-                city = "Saint-Petersburg",
-                false,
-                "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                3,
-                title = "Developer meeting",
-                date = "13.01.2021",
-                city = "Moscow",
-                true,
-                "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                4,
-                title = "CoffeeCode",
-                date = "13.01.2025",
-                city = "Saint-Petersburg",
-                false,
-                "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                5,
-                title = "Developer meeting",
-                date = "13.01.2021",
-                city = "Moscow",
-                true,
-                "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                6,
-                title = "CoffeeCode",
-                date = "13.01.2025",
-                city = "Saint-Petersburg",
-                false,
-                "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-                listOf("Java", "Junior", "Astana"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                7,
-                title = "Developer meeting",
-                date = "13.01.2021",
-                city = "Moscow",
-                true,
-                "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
-                listOf("Kotlin", "Senior", "Karaganda"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                8,
-                title = "Окэй или не окэй?",
-                date = "13.01.2025",
-                city = "Moscow",
-                false,
-                "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
-                listOf("Android", "Senior only", "Moscow"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                9,
-                title = "Ради кайфа",
-                date = "13.01.2025",
-                city = "Moscow",
-                false,
-                "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
-                listOf("Android", "Junior", "Moscow"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                10,
-                title = "Встреча ради встречи",
-                date = "13.01.2025",
-                city = "Astana",
-                false,
-                "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
-                listOf("Java", "Middle", "Astana"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            ),
-            EventDomainModel(
-                11,
-                title = "Слишком простой отбор на стажировку",
-                date = "13.01.2025",
-                city = "Minsk",
-                false,
-                "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
-                listOf("Python", "Lead", "Minsk"),
-                visitors = mutableListOf(
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                    ),
-                    PersonDomainModel(
-                        FullName("Саша", "Сергеев"),
-                        phone = Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                    ),
-                )
-            )
-        )
-    )
-
     override fun getEventsList(): Flow<List<EventDomainModel>> {
 
+//        if(eventDao.getAll().isEmpty()) {
+//            eventDao.insertList(mockEvents)
+//        }
+
         return flow {
+
             val eventsFlow = eventDao.getAll()
             val eventsDomain = mutableListOf<EventDomainModel>()
-            eventsFlow.forEach { event ->
-                if (!eventsDomain.contains(entityEventToDomainEventMapper.map(event))) {
-                    eventsDomain.add(entityEventToDomainEventMapper.map(event))
-                }
-            }
-            emit(eventsDomain)
-        }
-    }
-    override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
-        eventDao.getEventById(id).collect { it ->
-            val event = entityEventToDomainEventMapper.map(it)
-            emit(event)
-        }
-    }
-
-    override fun getMyEvent(id: Int): Flow<EventDomainModel> = flow {
-        eventDao.getMyEventById(id).collect { it ->
-            val event = myEventEntityToDomainEventMapper.map(it)
-            emit(event)
-        }
-    }
-
-    override fun getEventVisitorsList(): Flow<List<PersonDomainModel>> = flow {
-        val visitors = visitors
-        emit(visitors)
-    }
-
-    override fun addPersonToVisitorsOfEvent(
-        person: PersonDomainModel,
-        event: EventDomainModel
-    ) {
-        eventDao.insert(domainEventToMyEventEntityMapper.map(event))
-        changeScreen(event.id)
-    }
-
-    override fun removePersonFromVisitorsOfEvent(
-        person: PersonDomainModel,
-        event: EventDomainModel
-    ) {
-        changeScreen(event.id)
-        eventDao.removeById(event.id)
-    }
-
-    override fun getMyEventsList(): Flow<List<EventDomainModel>> =
-        flow {
-            val eventsFlow = eventDao.getMyEvents()
-            val myEventsDomain = mutableListOf<EventDomainModel>()
-            eventsFlow.collect { events ->
-                events.forEach { event ->
-                    if (!myEventsDomain.contains(myEventEntityToDomainEventMapper.map(event))) {
-                        myEventsDomain.add(myEventEntityToDomainEventMapper.map(event))
+            eventsFlow.collect {
+                it.forEach { event ->
+                    if (!eventsDomain.contains(entityEventToDomainEventMapper.map(event))) {
+                        eventsDomain.add(entityEventToDomainEventMapper.map(event))
                     }
                 }
-                emit(myEventsDomain)
+                emit(eventsDomain)
+            }
+        }
+    }
+
+        override fun save() {
+//            eventDao.insertList(mockEvents)
+        }
+
+        override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
+            eventDao.getEventById(id).collect { it ->
+                val event = entityEventToDomainEventMapper.map(it)
+                emit(event)
             }
         }
 
-    override fun changeScreen(id: Int) {
-        eventDao.changeScreen(id)
+        override fun getMyEvent(id: Int): Flow<EventDomainModel> = flow {
+            eventDao.getMyEventById(id).collect { it ->
+                val event = myEventEntityToDomainEventMapper.map(it)
+                emit(event)
+            }
+        }
+
+        override fun getEventVisitorsList(): Flow<List<PersonDomainModel>> = flow {
+            val visitors = visitors
+            emit(visitors)
+        }
+
+        override fun addPersonToVisitorsOfEvent(
+            person: PersonDomainModel,
+            event: EventDomainModel
+        ) {
+            eventDao.insert(domainEventToMyEventEntityMapper.map(event))
+            changeScreen(event.id)
+        }
+
+        override fun removePersonFromVisitorsOfEvent(
+            person: PersonDomainModel,
+            event: EventDomainModel
+        ) {
+            changeScreen(event.id)
+            eventDao.removeById(event.id)
+        }
+
+        override fun getMyEventsList(): Flow<List<EventDomainModel>> =
+            flow {
+                val eventsFlow = eventDao.getMyEvents()
+                val myEventsDomain = mutableListOf<EventDomainModel>()
+                eventsFlow.collect { events ->
+                    events.forEach { event ->
+                        if (!myEventsDomain.contains(myEventEntityToDomainEventMapper.map(event))) {
+                            myEventsDomain.add(myEventEntityToDomainEventMapper.map(event))
+                        }
+                    }
+                    emit(myEventsDomain)
+                }
+            }
+
+        override fun changeScreen(id: Int) {
+            eventDao.changeScreen(id)
+        }
     }
-}

@@ -27,6 +27,8 @@ import ru.alexsergeev.domain.usecases.implementation.SetPersonProfileUseCaseImpl
 import ru.alexsergeev.domain.usecases.implementation.ValidateCodeUseCaseImpl
 import ru.alexsergeev.domain.usecases.interfaces.GetMyEventUseCase
 import ru.alexsergeev.domain.usecases.implementation.GetMyEventUseCaseImpl
+import ru.alexsergeev.domain.usecases.implementation.SaveUseCaseImpl
+import ru.alexsergeev.domain.usecases.interfaces.SaveUseCase
 
 
 val domainModule = module {
@@ -42,5 +44,6 @@ val domainModule = module {
     factoryOf(::ValidateCodeUseCaseImpl) bind ValidateCodeUseCase::class
     factoryOf(::AddPersonToVisitorsUseCaseImpl) bind AddPersonToVisitorsUseCase::class
     factoryOf(::RemovePersonFromVisitorsUseCaseImpl) bind RemovePersonFromVisitorsUseCase::class
+    factoryOf(::SaveUseCaseImpl) bind SaveUseCase::class
 
 }

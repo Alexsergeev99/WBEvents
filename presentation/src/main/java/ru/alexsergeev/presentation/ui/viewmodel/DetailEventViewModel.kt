@@ -90,7 +90,6 @@ internal class DetailEventViewModel(
                     uiEventToDomainEventMapper.map(event)
                 )
                 eventMutable.update { getEvent(event.id).value }
-//                myEventMutable.update { getMyEvent(event.id).value }
             }
         } catch (e: Exception) {
             throw e
@@ -105,7 +104,6 @@ internal class DetailEventViewModel(
                     uiEventToDomainEventMapper.map(event)
                 )
                 eventMutable.update { getEvent(event.id).value }
-//                myEventMutable.update { getMyEvent(event.id).value }
             }
         } catch (e: Exception) {
             throw e

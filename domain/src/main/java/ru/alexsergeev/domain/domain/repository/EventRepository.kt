@@ -13,5 +13,6 @@ interface EventRepository {
     fun getMyEventsList(): Flow<List<EventDomainModel>>
     fun getMyEvent(id: Int): Flow<EventDomainModel>
     fun changeScreen(id: Int)
+    fun save()
 
 }

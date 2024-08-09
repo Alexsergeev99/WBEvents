@@ -12,6 +12,7 @@ import ru.alexsergeev.domain.usecases.interfaces.GetEventVisitorsListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromVisitorsUseCase
+import ru.alexsergeev.domain.usecases.interfaces.SaveUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
@@ -24,8 +25,10 @@ import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 internal class EventsViewModel(
     private val getEventsListUseCase: GetEventsListUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
+    private val saveUseCase: SaveUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
+
 ) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
@@ -48,6 +51,9 @@ internal class EventsViewModel(
     private fun getEventsListFlow() {
         try {
             viewModelScope.launch {
+//                if (eventsMutable.value.isEmpty()) {
+//                    save()
+//                }
                 val eventsFlow = getEventsListUseCase.invoke()
                 eventsFlow.collect { events ->
                     events.forEach { event ->
@@ -76,5 +82,7 @@ internal class EventsViewModel(
 
     fun getEventsList(): StateFlow<List<EventUiModel>> = events
     fun getPersonData(): StateFlow<PersonUiModel> = personData
+
+    fun save() = saveUseCase.invoke()
 
 }

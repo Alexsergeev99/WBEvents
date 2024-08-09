@@ -19,8 +19,7 @@ import ru.alexsergeev.testwb.data.dto.PersonDataModel
 @Dao
 interface EventDao {
     @Query("SELECT * FROM EventEntity ORDER BY id DESC")
-    fun getAll(): List<EventEntity> = mockEvents
-//            Flow<List<EventEntity>>
+    fun getAll(): Flow<List<EventEntity>> = mockEvents // временное решение для корректной работы, пока отсутствует бэк
 
     @Query("SELECT * FROM MyEventEntity ORDER BY id DESC")
     fun getMyEvents(): Flow<List<MyEventEntity>>

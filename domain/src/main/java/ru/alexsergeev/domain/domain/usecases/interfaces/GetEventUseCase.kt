@@ -10,3 +10,7 @@ interface GetEventUseCase {
 interface GetMyEventUseCase {
     fun invoke(id: Int): Flow<EventDomainModel>
 }
+
+interface SaveUseCase {
+    fun invoke()
+}

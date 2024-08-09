@@ -30,7 +30,7 @@ internal class MyEventsViewModel(
     fun loadStuff() {
         viewModelScope.launch {
             isLoadingMutable.value = true
-            delay(3000L)
+            delay(2000L)
             getMyEventsListFlow()
             isLoadingMutable.value = false
         }

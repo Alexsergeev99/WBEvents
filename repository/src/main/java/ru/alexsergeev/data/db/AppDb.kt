@@ -23,6 +23,7 @@ abstract class AppDb : RoomDatabase() {
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build()
+
         fun provideDao(db: AppDb) = db.eventDao()
     }
 }

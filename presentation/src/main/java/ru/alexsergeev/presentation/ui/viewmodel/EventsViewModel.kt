@@ -2,34 +2,28 @@ package ru.alexsergeev.presentation.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.alexsergeev.domain.usecases.interfaces.AddPersonToVisitorsUseCase
-import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
-import ru.alexsergeev.domain.usecases.interfaces.GetEventVisitorsListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
-import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromVisitorsUseCase
-import ru.alexsergeev.domain.usecases.interfaces.SaveUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
-import ru.alexsergeev.presentation.ui.utils.UiEventToDomainEventMapper
-import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 internal class EventsViewModel(
     private val getEventsListUseCase: GetEventsListUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
-    private val saveUseCase: SaveUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
     private val events: StateFlow<List<EventUiModel>> = eventsMutable
@@ -43,17 +37,28 @@ internal class EventsViewModel(
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable
 
+    private val isLoadingMutable = MutableStateFlow(false)
+    private val isLoading = isLoadingMutable.asStateFlow()
+    fun isLoading() = isLoading
+
     init {
+        loadStuff()
         getEventsListFlow()
         getPersonDataFlow()
+    }
+
+    fun loadStuff() {
+        viewModelScope.launch {
+            isLoadingMutable.value = true
+            delay(2000L)
+            getEventsListFlow()
+            isLoadingMutable.value = false
+        }
     }
 
     private fun getEventsListFlow() {
         try {
             viewModelScope.launch {
-//                if (eventsMutable.value.isEmpty()) {
-//                    save()
-//                }
                 val eventsFlow = getEventsListUseCase.invoke()
                 eventsFlow.collect { events ->
                     events.forEach { event ->
@@ -82,7 +87,5 @@ internal class EventsViewModel(
 
     fun getEventsList(): StateFlow<List<EventUiModel>> = events
     fun getPersonData(): StateFlow<PersonUiModel> = personData
-
-    fun save() = saveUseCase.invoke()
 
 }

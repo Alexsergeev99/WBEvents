@@ -5,8 +5,10 @@ import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.DomainEventToEntityEventMapper
 import ru.alexsergeev.data.entity.DomainEventToMyEventEntityMapper
+import ru.alexsergeev.data.entity.DomainPersonToEntityPersonMapper
 import ru.alexsergeev.data.entity.EntityEventToDomainEventMapper
 import ru.alexsergeev.data.entity.MyEventEntityToDomainEventMapper
+import ru.alexsergeev.data.entity.Visitors
 import ru.alexsergeev.data.mock.mockEvents
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
@@ -19,8 +21,7 @@ internal class EventRepositoryImpl(
     private val entityEventToDomainEventMapper: EntityEventToDomainEventMapper,
     private val myEventEntityToDomainEventMapper: MyEventEntityToDomainEventMapper,
     private val domainEventToMyEventEntityMapper: DomainEventToMyEventEntityMapper,
-    private val domainEventToEventEntityMapper: DomainEventToEntityEventMapper
-) : EventRepository {
+    ) : EventRepository {
 
     private val visitors = mutableListOf(
         PersonDomainModel(
@@ -37,12 +38,7 @@ internal class EventRepositoryImpl(
 
     override fun getEventsList(): Flow<List<EventDomainModel>> {
 
-//        if(eventDao.getAll().isEmpty()) {
-//            eventDao.insertList(mockEvents)
-//        }
-
         return flow {
-
             val eventsFlow = eventDao.getAll()
             val eventsDomain = mutableListOf<EventDomainModel>()
             eventsFlow.collect {
@@ -56,20 +52,12 @@ internal class EventRepositoryImpl(
         }
     }
 
-        override fun save() {
-//            eventDao.insertList(mockEvents)
-        }
-
-        override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
+        override fun getEvent(id: Int, person: PersonDomainModel): Flow<EventDomainModel> = flow {
             eventDao.getEventById(id).collect { it ->
                 val event = entityEventToDomainEventMapper.map(it)
-                emit(event)
-            }
-        }
-
-        override fun getMyEvent(id: Int): Flow<EventDomainModel> = flow {
-            eventDao.getMyEventById(id).collect { it ->
-                val event = myEventEntityToDomainEventMapper.map(it)
+                if (event.personIsAddedToTheVisitors) {
+                    event.visitors.add(person)
+                }
                 emit(event)
             }
         }

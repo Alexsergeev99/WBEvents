@@ -2,6 +2,7 @@ package ru.alexsergeev.data.entity
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.google.gson.Gson
@@ -11,24 +12,23 @@ import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.testwb.data.dto.PersonDataModel
-import java.lang.reflect.Type
 
 
 @Entity
 data class EventEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val title: String?,
-    val date: String?,
-    val city: String?,
+    val title: String? = "",
+    val date: String? = "",
+    val city: String? = "",
     val isFinished: Boolean = false,
-    val meetingAvatar: String,
+    val meetingAvatar: String = "",
     @Embedded
-    val chips: Chips,
+    val chips: Chips = Chips(listOf()),
     val imageUrl: String = "https://static.tildacdn.com/tild3062-6662-4137-a535-373262643465/msc.jpg",
     @Embedded
-    val visitors: Visitors,
-    var personIsAddedToTheVisitors: Boolean = false,
+    val visitorEntity: Visitors,
+    val personIsAddedToTheVisitors: Boolean = false,
 )
 
 data class Chips(
@@ -36,7 +36,7 @@ data class Chips(
 )
 
 data class Visitors(
-    val visitors: MutableList<PersonDataModel>
+    val visitors: MutableList<PersonEntity>
 )
 
 interface Mapper<in I, out O> {
@@ -44,8 +44,8 @@ interface Mapper<in I, out O> {
 }
 
 class DataPersonToDomainPersonMapper(
-) : Mapper<PersonDataModel, PersonDomainModel> {
-    override fun map(input: PersonDataModel): PersonDomainModel = with(input) {
+) : Mapper<PersonEntity, PersonDomainModel> {
+    override fun map(input: PersonEntity): PersonDomainModel = with(input) {
         PersonDomainModel(
             FullName(
                 firstName = input.name.firstName,
@@ -57,16 +57,19 @@ class DataPersonToDomainPersonMapper(
     }
 }
 
-class DomainPersonToDataPersonMapper(
-) : Mapper<PersonDomainModel, PersonDataModel> {
-    override fun map(input: PersonDomainModel): PersonDataModel = with(input) {
-        PersonDataModel(
-            ru.alexsergeev.testwb.data.dto.FullName(
+class DomainPersonToEntityPersonMapper(
+) : Mapper<PersonDomainModel, PersonEntity> {
+    override fun map(input: PersonDomainModel): PersonEntity = with(input) {
+        PersonEntity(
+            name = ru.alexsergeev.data.entity.FullName(
                 firstName = input.name.firstName,
                 secondName = input.name.secondName
             ),
-            ru.alexsergeev.testwb.data.dto.Phone(input.phone.countryCode, input.phone.basicNumber),
-            avatar
+            phone = ru.alexsergeev.data.entity.Phone(
+                input.phone.countryCode,
+                input.phone.basicNumber
+            ),
+            avatar = avatar
         )
     }
 }
@@ -76,22 +79,44 @@ class EntityEventToDomainEventMapper(
 ) : Mapper<EventEntity, EventDomainModel> {
     override fun map(input: EventEntity): EventDomainModel = with(input) {
         val visitorsDomain = mutableListOf<PersonDomainModel>()
-        input.visitors.visitors.forEach {
+        input.visitorEntity.visitors.forEach {
             visitorsDomain.add(dataPersonToDomainPersonMapper.map(it))
         }
-        EventDomainModel(id, title, date, city, isFinished, meetingAvatar, chips.chips, imageUrl, visitorsDomain, personIsAddedToTheVisitors)
+        EventDomainModel(
+            id,
+            title,
+            date,
+            city,
+            isFinished,
+            meetingAvatar,
+            chips.chips,
+            imageUrl,
+            visitorsDomain,
+            personIsAddedToTheVisitors
+        )
     }
 }
 
 class DomainEventToEntityEventMapper(
-    private val domainPersonToDataPersonMapper: DomainPersonToDataPersonMapper
+    private val domainPersonToEntityPersonMapper: DomainPersonToEntityPersonMapper
 ) : Mapper<EventDomainModel, EventEntity> {
     override fun map(input: EventDomainModel): EventEntity = with(input) {
-        val visitorsData = mutableListOf<PersonDataModel>()
+        val visitorsData = mutableListOf<PersonEntity>()
         input.visitors.forEach {
-            visitorsData.add(domainPersonToDataPersonMapper.map(it))
+            visitorsData.add(domainPersonToEntityPersonMapper.map(it))
         }
-        EventEntity(id, title, date, city, isFinished, meetingAvatar, Chips(chips), imageUrl, Visitors(visitorsData), personIsAddedToTheVisitors)
+        EventEntity(
+            id,
+            title,
+            date,
+            city,
+            isFinished,
+            meetingAvatar,
+            Chips(chips),
+            imageUrl,
+            Visitors(visitorsData),
+            personIsAddedToTheVisitors
+        )
     }
 }
 
@@ -109,14 +134,16 @@ object ChipsConverters {
 }
 
 object VisitorsConverters {
-    @TypeConverter
-    fun fromString(value: String?): MutableList<PersonDataModel> {
-        val listType = object : TypeToken<MutableList<PersonDataModel>>() {}.type
-        return Gson().fromJson(value, listType)
-    }
 
     @TypeConverter
-    fun fromArrayList(list: MutableList<PersonDataModel?>): String {
+    fun fromEntityString(value: String?): MutableList<PersonEntity> {
+        val listType = object : TypeToken<MutableList<PersonEntity>>() {}.type
+        return Gson().fromJson(value, listType)
+    }
+    @TypeConverter
+    fun fromEntityArrayList(list: MutableList<PersonEntity?>): String {
         return Gson().toJson(list)
     }
+
+
 }

@@ -10,7 +10,7 @@ import ru.alexsergeev.data.entity.DataPersonToDomainPersonMapper
 import ru.alexsergeev.data.entity.EntityEventToDomainEventMapper
 import ru.alexsergeev.data.entity.MyEventEntityToDomainEventMapper
 import ru.alexsergeev.data.entity.DomainEventToMyEventEntityMapper
-import ru.alexsergeev.data.entity.DomainPersonToDataPersonMapper
+import ru.alexsergeev.data.entity.DomainPersonToEntityPersonMapper
 import ru.alexsergeev.data.entity.DomainEventToEntityEventMapper
 import ru.alexsergeev.domain.repository.EventRepository
 import ru.alexsergeev.domain.repository.GroupRepository
@@ -27,7 +27,7 @@ val dataModule = module {
     singleOf(::EntityEventToDomainEventMapper)
     singleOf(::MyEventEntityToDomainEventMapper)
     singleOf(::DomainEventToMyEventEntityMapper)
-    singleOf(::DomainPersonToDataPersonMapper)
+    singleOf(::DomainPersonToEntityPersonMapper)
     singleOf(::DataPersonToDomainPersonMapper)
     singleOf(::DomainEventToEntityEventMapper)
 

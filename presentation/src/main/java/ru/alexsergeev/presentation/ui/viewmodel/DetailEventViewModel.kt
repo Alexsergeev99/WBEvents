@@ -1,19 +1,13 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.koin.core.KoinApplication.Companion.init
 import ru.alexsergeev.domain.usecases.interfaces.AddPersonToVisitorsUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
-import ru.alexsergeev.domain.usecases.interfaces.GetEventVisitorsListUseCase
-import ru.alexsergeev.domain.usecases.interfaces.GetMyEventUseCase
-import ru.alexsergeev.domain.usecases.interfaces.GetMyEventsListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromVisitorsUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
@@ -34,8 +28,7 @@ internal class DetailEventViewModel(
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
     private val uiEventToDomainEventMapper: UiEventToDomainEventMapper,
-    private val getMyEventUseCase: GetMyEventUseCase,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val eventMutable =
         MutableStateFlow<EventUiModel>(
@@ -52,22 +45,6 @@ internal class DetailEventViewModel(
             )
         )
     private val event: StateFlow<EventUiModel> = eventMutable
-
-    private val myEventMutable =
-        MutableStateFlow<EventUiModel>(
-            EventUiModel(
-                id = 0,
-                title = "",
-                date = "",
-                city = "",
-                isFinished = false,
-                meetingAvatar = "",
-                chips = listOf(),
-                imageUrl = "",
-                visitors = mutableListOf()
-            )
-        )
-    private val myEvent: StateFlow<EventUiModel> = myEventMutable
 
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
@@ -89,7 +66,6 @@ internal class DetailEventViewModel(
                     uiPersonToDomainPersonMapper.map(person),
                     uiEventToDomainEventMapper.map(event)
                 )
-                eventMutable.update { getEvent(event.id).value }
             }
         } catch (e: Exception) {
             throw e
@@ -103,7 +79,6 @@ internal class DetailEventViewModel(
                     uiPersonToDomainPersonMapper.map(person),
                     uiEventToDomainEventMapper.map(event)
                 )
-                eventMutable.update { getEvent(event.id).value }
             }
         } catch (e: Exception) {
             throw e
@@ -113,26 +88,15 @@ internal class DetailEventViewModel(
     fun getEvent(id: Int): StateFlow<EventUiModel> {
         try {
             viewModelScope.launch {
-                val eventFlow = getEventUseCase.invoke(id)
+                val eventFlow = getEventUseCase.invoke(
+                    id,
+                    uiPersonToDomainPersonMapper.map(getPersonData().value)
+                )
                 eventFlow.collect { event ->
                     eventMutable.update { domainEventToUiEventMapper.map(event) }
                 }
             }
             return event
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    fun getMyEvent(id: Int): StateFlow<EventUiModel> {
-        try {
-            viewModelScope.launch {
-                val eventFlow = getMyEventUseCase.invoke(id)
-                eventFlow.collect { event ->
-                    myEventMutable.update { domainEventToUiEventMapper.map(event) }
-                }
-            }
-            return myEvent
         } catch (e: Exception) {
             throw e
         }

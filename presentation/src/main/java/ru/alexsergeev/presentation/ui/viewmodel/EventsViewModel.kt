@@ -22,7 +22,6 @@ internal class EventsViewModel(
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
-
     ) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())

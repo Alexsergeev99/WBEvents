@@ -26,7 +26,6 @@ internal fun EventScreenButtonChanger(
 ) {
 
     if (!event.personIsAddedToTheVisitors) {
-//    if (!personIsAddedToTheVisitors.value) {
         SimpleButton(
             modifier = Modifier
                 .fillMaxWidth(),

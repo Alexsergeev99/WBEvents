@@ -27,7 +27,7 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(myEvent: MyEventEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertEvent(event: EventEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

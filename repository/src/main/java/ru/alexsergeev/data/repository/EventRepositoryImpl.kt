@@ -45,6 +45,7 @@ internal class EventRepositoryImpl(
                 it.forEach { event ->
                     if (!eventsDomain.contains(entityEventToDomainEventMapper.map(event))) {
                         eventsDomain.add(entityEventToDomainEventMapper.map(event))
+                        eventDao.insertEvent(event)
                     }
                 }
                 emit(eventsDomain)

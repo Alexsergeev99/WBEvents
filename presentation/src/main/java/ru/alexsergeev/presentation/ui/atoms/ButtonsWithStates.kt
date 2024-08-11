@@ -66,7 +66,6 @@ fun ButtonTypes(
     val isPressed = remember {
         mutableStateOf(false)
     }
-    val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val animateButton by animateFloatAsState(
         targetValue = if (isPressed.value || focused) 0.2f else 0f,

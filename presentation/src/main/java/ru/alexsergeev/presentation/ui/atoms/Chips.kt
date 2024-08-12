@@ -49,3 +49,23 @@ fun OneChip(text: String) {
         )
     }
 }
+
+@Composable
+fun OneChipNew(text: String) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .padding(2.dp)
+            .height(20.dp)
+            .background(
+                color = ExtraLightButtonColor,
+                shape = RoundedCornerShape(20.dp)
+            )
+    ) {
+        Body1Text(
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+            text = text,
+            color = DarkButtonColor,
+        )
+    }
+}

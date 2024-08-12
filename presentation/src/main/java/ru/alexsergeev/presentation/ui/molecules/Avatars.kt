@@ -5,6 +5,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -40,6 +42,19 @@ fun PeopleAvatar(image: String, padding: Dp = 4.dp) {
         modifier = Modifier
             .padding(padding)
             .size(200.dp)
+            .clip(CircleShape),
+        contentScale = ContentScale.Crop,
+        model = image,
+        contentDescription = "avatar",
+    )
+}
+
+@Composable
+fun PeopleAvatarMax(image: String, padding: Dp = 4.dp) {
+    AsyncImage(
+        modifier = Modifier
+            .padding(padding)
+            .size(234.dp)
             .clip(CircleShape),
         contentScale = ContentScale.Crop,
         model = image,
@@ -158,4 +173,34 @@ fun PeopleAvatarWithEdit(image: String, padding: Dp = 4.dp, editPhoto: () -> Uni
             tint = NeutralActive
         )
     }
+}
+
+@Composable
+fun EventAvatarMax(image: String) {
+    AsyncImage(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(180.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.FillBounds,
+        model = image,
+        placeholder = painterResource(id = R.drawable.image_loading),
+        error = painterResource(id = R.drawable.image_error),
+        contentDescription = "groupAvatarNew",
+    )
+}
+
+@Composable
+fun EventAvatarMini(image: String, padding: Dp = 4.dp) {
+    AsyncImage(
+        modifier = Modifier
+            .padding(bottom = padding, end = padding)
+            .size(148.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.Crop,
+        model = image,
+        placeholder = painterResource(id = R.drawable.image_loading),
+        error = painterResource(id = R.drawable.image_error),
+        contentDescription = "meeting",
+    )
 }

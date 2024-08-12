@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -191,11 +192,57 @@ fun EventAvatarMax(image: String) {
 }
 
 @Composable
+fun EventAvatarDetail(image: String, padding: Dp = 4.dp) {
+    AsyncImage(
+        modifier = Modifier
+            .padding(bottom = padding, end = padding)
+            .width(366.dp)
+            .height(266.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.Crop,
+        model = image,
+        placeholder = painterResource(id = R.drawable.image_loading),
+        error = painterResource(id = R.drawable.image_error),
+        contentDescription = "meeting",
+    )
+}
+
+@Composable
 fun EventAvatarMini(image: String, padding: Dp = 4.dp) {
     AsyncImage(
         modifier = Modifier
             .padding(bottom = padding, end = padding)
             .size(148.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.Crop,
+        model = image,
+        placeholder = painterResource(id = R.drawable.image_loading),
+        error = painterResource(id = R.drawable.image_error),
+        contentDescription = "meeting",
+    )
+}
+
+@Composable
+fun SpeakerAvatar(image: String) {
+    AsyncImage(
+        modifier = Modifier
+            .size(104.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.Crop,
+        model = image,
+        placeholder = painterResource(id = R.drawable.image_loading),
+        error = painterResource(id = R.drawable.image_error),
+        contentDescription = "groupAvatarNew",
+    )
+}
+
+@Composable
+fun MapOfEvent(image: String = "https://s3-alpha-sig.figma.com/img/2665/267b/66f39a9456702ebd75802f466af83f6c?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=NrIeFj649sXwV42zleghborwo7RHNc618UU-gPZBSo-PqmIwUd~VAe0BS~UmSDRSewqpYAU3wymW8tOpLQSJ7AfTgBKghkgbtstYIXzJ6SDWbkKZXfLBPkTvwVTtSjsH6aqct81AIx~kj9XaG1TivuDXCqH6wrlDHqoW0RdV7vnFjjoXrXV82Iw~95E4G84lJJajX8mAyyqAiTtddRC5v38z7FzVK1QYg74V4xQI427gpgH7GtLUFT6xEpZ4H31Iy~gnpSngKXDqm9CkHxil4ORowyBDW8bNr2tRY7vY5ts6u5KLYsmYlikVzoKWJBWLnE-Rtel5KtCFb5VPDbzwsw__", padding: Dp = 4.dp) {
+    AsyncImage(
+        modifier = Modifier
+            .padding(bottom = padding, end = padding)
+            .width(366.dp)
+            .height(180.dp)
             .clip(RoundedCornerShape(15.dp)),
         contentScale = ContentScale.Crop,
         model = image,

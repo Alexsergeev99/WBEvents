@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -35,13 +36,18 @@ fun GradientButton(
     ),
     onClick: () -> Unit = { },
     isIconButton: Boolean = false,
+    isIconButtonDefault: Boolean = false,
     isTextButton: Boolean = false,
     shape: Dp = 32.dp
 ) {
-    Box(modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(shape)).background(gradient)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(vertical = 4.dp)
+        .clip(RoundedCornerShape(shape))
+        .background(gradient),
+        contentAlignment = Alignment.Center) {
         Button(
-            modifier = modifier
-               ,
+            modifier = modifier,
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
                 contentColor = Color.White
@@ -58,6 +64,14 @@ fun GradientButton(
                     painter = painterResource(id = R.drawable.add_community),
                     contentDescription = "add community",
                     tint = NeutralActive
+                )
+            }
+            if (isIconButtonDefault) {
+                Icon(
+                    modifier = Modifier.size(24.dp),
+                    painter = painterResource(id = R.drawable.add_community),
+                    contentDescription = "add community",
+                    tint = Color.White
                 )
             }
         }

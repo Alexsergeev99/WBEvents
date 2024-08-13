@@ -241,3 +241,20 @@ fun LogoButton(image: Int) {
         LogoItem(image)
     }
 }
+
+@Composable
+fun LogoButtonNew(image: Int) {
+    OutlinedButton(
+        modifier = Modifier
+            .padding(vertical = 16.dp, horizontal = 4.dp)
+            .width(72.dp),
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = MiddleButtonColor,
+            containerColor = Color.White
+        ),
+        shape = ButtonDefaults.outlinedShape,
+        border = BorderStroke(1.5.dp, MiddleButtonColor),
+        onClick = { /*TODO*/ }) {
+        LogoItem(image)
+    }
+}

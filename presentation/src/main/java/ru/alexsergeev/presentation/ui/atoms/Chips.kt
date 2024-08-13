@@ -1,6 +1,7 @@
 package ru.alexsergeev.presentation.ui.atoms
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -8,8 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.presentation.ui.theme.DarkButtonColor
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
@@ -51,21 +55,67 @@ fun OneChip(text: String) {
 }
 
 @Composable
-fun OneChipNew(text: String) {
+fun OneChipNew(text: String, canClick: Boolean = true) {
+
+    val isActive = remember {
+        mutableStateOf(false)
+    }
+
+    val boxColor = if(isActive.value) Color(0xFF9A10F0) else Color(0xFFF6F6FA)
+    val textColor = if(isActive.value) Color(0xFFF6F6FA) else Color(0xFF9A10F0)
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .padding(2.dp)
-            .height(20.dp)
+            .height(22.dp)
             .background(
-                color = ExtraLightButtonColor,
+                color = boxColor,
                 shape = RoundedCornerShape(20.dp)
             )
+            .clickable {
+                if(canClick) {
+                    isActive.value = !isActive.value
+                }
+            }
     ) {
         Body1Text(
             modifier = Modifier.padding(start = 8.dp, end = 8.dp),
             text = text,
-            color = DarkButtonColor,
+            color = textColor,
+        )
+    }
+}
+
+@Composable
+fun OneChipBig(text: String, canClick: Boolean = true) {
+
+    val isActive = remember {
+        mutableStateOf(false)
+    }
+
+    val boxColor = if(isActive.value) Color(0xFF9A10F0) else Color(0xFFF6F6FA)
+    val textColor = if(isActive.value) Color(0xFFF6F6FA) else Color(0xFF9A10F0)
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .padding(2.dp)
+            .height(48.dp)
+            .background(
+                color = boxColor,
+                shape = RoundedCornerShape(20.dp)
+            )
+            .clickable {
+                if(canClick) {
+                    isActive.value = !isActive.value
+                }
+            }
+    ) {
+        Body1Text(
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+            text = text,
+            color = textColor,
         )
     }
 }

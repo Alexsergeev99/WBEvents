@@ -7,6 +7,7 @@ import ru.alexsergeev.presentation.ui.newComponents.SearchNew
 import ru.alexsergeev.presentation.ui.newScreens.CommunityScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.EventScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.MainScreen
+import ru.alexsergeev.presentation.ui.newScreens.PersonProfileScreenNew
 
 class MainActivity : ComponentActivity() {
 
@@ -15,7 +16,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            PrimaryNavigation()
-            CommunityScreenNew()
+            PersonProfileScreenNew()
         }
     }
 }

@@ -76,6 +76,17 @@ fun PeopleAvatarNew(image: String) {
 }
 
 @Composable
+fun PeopleAvatarNewDetail(image: String) {
+    AsyncImage(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(350.dp),
+        model = image,
+        contentDescription = "avatar",
+    )
+}
+
+@Composable
 fun PeopleAvatarSmall(image: String, padding: Dp = 4.dp) {
     AsyncImage(
         modifier = Modifier
@@ -212,6 +223,22 @@ fun EventAvatarDetail(image: String, padding: Dp = 4.dp) {
             .padding(bottom = padding, end = padding)
             .width(366.dp)
             .height(266.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.Crop,
+        model = image,
+        placeholder = painterResource(id = R.drawable.image_loading),
+        error = painterResource(id = R.drawable.image_error),
+        contentDescription = "meeting",
+    )
+}
+
+@Composable
+fun EventAvatarInProfileScreen(image: String, padding: Dp = 4.dp) {
+    AsyncImage(
+        modifier = Modifier
+            .padding(bottom = padding, end = padding)
+            .width(212.dp)
+            .height(148.dp)
             .clip(RoundedCornerShape(15.dp)),
         contentScale = ContentScale.Crop,
         model = image,

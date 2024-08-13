@@ -21,7 +21,8 @@ import ru.alexsergeev.presentation.ui.theme.NeutralActive
 @Composable
 internal fun CommunityCardNew(
     group: GroupUiModel,
-    goToCommunityScreen: (Int) -> Unit = {}
+    goToCommunityScreen: (Int) -> Unit = {},
+    needToAdd: Boolean = true
 ) {
 
     val gradient = Brush.horizontalGradient(
@@ -49,15 +50,17 @@ internal fun CommunityCardNew(
                 text = group.name,
                 color = NeutralActive,
             )
-            GradientButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(34.dp),
-                gradient = gradient,
-                text = "",
-                isIconButton = true,
-                shape = 8.dp
-            )
+            if(needToAdd) {
+                GradientButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(34.dp),
+                    gradient = gradient,
+                    text = "",
+                    isIconButton = true,
+                    shape = 8.dp
+                )
+            }
         }
     }
 }

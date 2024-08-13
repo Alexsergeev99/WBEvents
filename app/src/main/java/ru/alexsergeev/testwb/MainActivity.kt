@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
+import ru.alexsergeev.presentation.ui.newScreens.CommunityScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.EventScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.MainScreen
 
@@ -14,7 +15,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            PrimaryNavigation()
-            EventScreenNew()
+            CommunityScreenNew()
         }
     }
 }

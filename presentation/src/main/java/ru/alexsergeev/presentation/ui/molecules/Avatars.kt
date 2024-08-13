@@ -148,6 +148,20 @@ fun GroupAvatarNew(image: String) {
 }
 
 @Composable
+fun GroupAvatarNewDetail(image: String) {
+    AsyncImage(
+        modifier = Modifier
+            .size(168.dp)
+            .clip(RoundedCornerShape(15.dp)),
+        contentScale = ContentScale.Crop,
+        model = image,
+        placeholder = painterResource(id = R.drawable.image_loading),
+        error = painterResource(id = R.drawable.image_error),
+        contentDescription = "groupAvatarNew",
+    )
+}
+
+@Composable
 fun PeopleAvatarWithEdit(image: String, padding: Dp = 4.dp, editPhoto: () -> Unit = {}) {
     Box(
         modifier = Modifier

@@ -15,8 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,9 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
-import ru.alexsergeev.presentation.ui.theme.Neutral
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
-import ru.alexsergeev.presentation.ui.theme.NeutralBackground
 
 @Composable
 fun SearchNew(
@@ -115,7 +111,11 @@ fun SearchNew(
             ),
             decorationBox = { innerTextField ->
                 if (text.value.isEmpty()) {
-                    Text(text = hint, color = Neutral, style = EventsTheme.typography.bodyText1)
+                    Text(
+                        text = hint,
+                        color = EventsTheme.colors.weakColor,
+                        style = EventsTheme.typography.bodyText1
+                    )
                 }
                 innerTextField()
             },

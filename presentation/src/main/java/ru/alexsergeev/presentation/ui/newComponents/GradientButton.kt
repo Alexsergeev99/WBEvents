@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.Subheading2Text
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
@@ -63,7 +64,7 @@ fun GradientButton(
                     modifier = Modifier.size(24.dp),
                     painter = painterResource(id = R.drawable.add_community),
                     contentDescription = "add community",
-                    tint = NeutralActive
+                    tint = EventsTheme.colors.activeComponent
                 )
             }
             if (isIconButtonDefault) {

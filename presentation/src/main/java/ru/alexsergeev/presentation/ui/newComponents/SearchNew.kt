@@ -61,7 +61,7 @@ fun SearchNew(
 
     val gradient = Brush.horizontalGradient(
         listOf(
-            Color(0xFFFFFFFF), Color(0xFFF6F6FA)
+            Color.White, EventsTheme.colors.disabledComponent
         )
     )
 
@@ -91,7 +91,7 @@ fun SearchNew(
                         .size(16.dp),
                     painter = painterResource(id = R.drawable.search_new),
                     contentDescription = null,
-                    tint = Neutral
+                    tint = EventsTheme.colors.weakColor
                 )
             }
         }

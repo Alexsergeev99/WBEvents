@@ -36,7 +36,7 @@ internal fun CommunityCardNew(
     Box(
         modifier = Modifier
             .width(104.dp)
-            .height(166.dp)
+            .height(180.dp)
             .padding(vertical = 8.dp, horizontal = 4.dp)
             .clickable {
                 goToCommunityScreen(group.id)

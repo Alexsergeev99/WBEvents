@@ -26,15 +26,19 @@ import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.newComponents.CommunityCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewInProfileScreen
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
+import ru.alexsergeev.presentation.ui.theme.LocalColors
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun PersonProfileScreenNew() {
+internal fun PersonProfileScreenNew(person: PersonUiModel) {
 
     val testEvent = EventUiModel(
         id = 1,
@@ -63,7 +67,7 @@ fun PersonProfileScreenNew() {
         item {
             Text(
                 modifier = Modifier.padding(horizontal = 4.dp),
-                text = "Саша",
+                text = person.name.firstName,
                 fontSize = 48.sp,
                 fontWeight = FontWeight.Bold,
                 color = NeutralActive,
@@ -189,7 +193,7 @@ fun PersonProfileScreenNew() {
                         text = "Выйти",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color(0xFF76778E)
+                        color = EventsTheme.colors.weakColor
                     )
                 }
             }

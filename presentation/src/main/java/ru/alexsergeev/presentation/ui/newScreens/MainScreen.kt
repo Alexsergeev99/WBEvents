@@ -20,11 +20,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.R
+import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.newComponents.CommunityCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNew
+import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewMini
 import ru.alexsergeev.presentation.ui.newComponents.PersonCardNew
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
@@ -51,6 +56,12 @@ fun MainScreen() {
         people = 10000,
         groupLogo = stringResource(id = R.string.wb_logo),
         communityEvents = listOf()
+    )
+
+    val testPerson = PersonUiModel(
+        name = FullName("Саша", "Сергеев"),
+        phone = Phone("+7", "9999999999"),
+        avatar = stringResource(id = R.string.mock_user_avatar),
     )
 
     Column(
@@ -142,29 +153,29 @@ fun MainScreen() {
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
-                    OneChipNew(text = "Дизайн")
-                    OneChipNew(text = "Разработка")
-                    OneChipNew(text = "Продакт менеджмент")
-                    OneChipNew(text = "Проджект менеджмент")
-                    OneChipNew(text = "Backend")
-                    OneChipNew(text = "Frontend")
-                    OneChipNew(text = "Mobile")
-                    OneChipNew(text = "Web")
-                    OneChipNew(text = "Тестирование")
-                    OneChipNew(text = "Продажи")
-                    OneChipNew(text = "Бизнес")
-                    OneChipNew(text = "Маркетинг")
-                    OneChipNew(text = "Безопасность")
-                    OneChipNew(text = "Девопс")
-                    OneChipNew(text = "Аналитика")
-                    OneChipNew(text = "Все категории")
+                    OneChipMiddle(text = "Дизайн")
+                    OneChipMiddle(text = "Разработка")
+                    OneChipMiddle(text = "Продакт менеджмент")
+                    OneChipMiddle(text = "Проджект менеджмент")
+                    OneChipMiddle(text = "Backend")
+                    OneChipMiddle(text = "Frontend")
+                    OneChipMiddle(text = "Mobile")
+                    OneChipMiddle(text = "Web")
+                    OneChipMiddle(text = "Тестирование")
+                    OneChipMiddle(text = "Продажи")
+                    OneChipMiddle(text = "Бизнес")
+                    OneChipMiddle(text = "Маркетинг")
+                    OneChipMiddle(text = "Безопасность")
+                    OneChipMiddle(text = "Девопс")
+                    OneChipMiddle(text = "Аналитика")
+                    OneChipMiddle(text = "Все категории")
                 }
             }
             item {
                 Column {
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
                 }
             }
             item {
@@ -182,27 +193,27 @@ fun MainScreen() {
             item {
                 LazyRow(Modifier.padding(horizontal = 4.dp)) {
                     item {
-                        PersonCardNew()
+                        PersonCardNew(testPerson)
                     }
                     item {
-                        PersonCardNew()
+                        PersonCardNew(testPerson)
                     }
                     item {
-                        PersonCardNew()
+                        PersonCardNew(testPerson)
                     }
                     item {
-                        PersonCardNew()
+                        PersonCardNew(testPerson)
                     }
                     item {
-                        PersonCardNew()
+                        PersonCardNew(testPerson)
                     }
                 }
             }
             item {
                 Column {
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
                 }
             }
             item {
@@ -235,9 +246,9 @@ fun MainScreen() {
             }
             item {
                 Column {
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
                 }
             }
         }

@@ -27,8 +27,8 @@ import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
 internal fun PersonCardNew(
-//    person: PersonUiModel,
-//    goToProfileScreen: (Int) -> Unit = {}
+    person: PersonUiModel,
+    goToProfileScreen: (Int) -> Unit = {}
 ) {
 
     Box(

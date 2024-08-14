@@ -36,9 +36,56 @@ internal fun EventCardNew(
 ) {
     Box(
         modifier = Modifier
+            .width(320.dp)
+            .height(306.dp)
+            .padding(vertical = 8.dp, horizontal = 4.dp)
+            .clickable {
+                goToEventScreen(event.id)
+            }
+    ) {
+        Column(
+            horizontalAlignment = Alignment.Start
+        ) {
+            EventAvatarMax("https://s3-alpha-sig.figma.com/img/5d33/6ebd/e64d2ae58f903a77264a0e3dc0191cfd?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LDkX4hg2Rih1PmRNu3V0585bNrmoR1pulfVU1HAieCgql27O474YsQm5HBH8-nZ4BE3z5V2SkVuWGB72MLHX6QMfSwfU7jZQ6rQLbrUAT1w0mpxpLk~ygLT7l~lPAX9Lbk77HuXs4OsQGLuGK-gAMJ2r6qmKkpfrPyuJRhy~XSFqniVMKW~PUCvEW5ohHKE2OWQN722JrU~i6rtMtV16UgMNTuIrhkg7ggSbZp9fpraHmHoHFJ5SMOL6Si0kEKhZReBvZgJBgxOJtmtzmMUAxUrJJNg1PNqkKxCKjkUmEQdZBghGW295O5sxMTLAnsilRcXWCJ8kqb~838GxVqU2KA__")
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
+                Column(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                ) {
+                    Text(
+                        text = "Python Days",
+                        fontSize = 34.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = NeutralActive,
+                    )
+                    Body1Text(text = "10 августа · Кожевенная линия, 40", color = NeutralWeak)
+                    FlowRow(
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                    ) {
+                        OneChipNew("Тестирование")
+                        OneChipNew("Тестирование")
+                        OneChipNew("Тестирование")
+                        OneChipNew("Тестирование")
+                        OneChipNew("Тестирование")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+internal fun EventCardNewBig(
+    event: EventUiModel,
+    goToEventScreen: (Int) -> Unit = {}
+) {
+    Box(
+        modifier = Modifier
             .fillMaxWidth()
-            .height(326.dp)
-            .padding(vertical = 8.dp)
+            .height(306.dp)
+            .padding(vertical = 8.dp, horizontal = 4.dp)
             .clickable {
                 goToEventScreen(event.id)
             }

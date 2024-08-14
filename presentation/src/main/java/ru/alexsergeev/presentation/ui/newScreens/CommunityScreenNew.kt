@@ -17,25 +17,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
-import ru.alexsergeev.presentation.R
-import ru.alexsergeev.presentation.ui.atoms.OneChipNew
+import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
 import ru.alexsergeev.presentation.ui.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.FullName
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.molecules.GroupAvatarNewDetail
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNew
+import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewMini
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CommunityScreenNew() {
+internal fun CommunityScreenNew(community: GroupUiModel) {
 
     val testEvent = EventUiModel(
         id = 1,
@@ -56,7 +60,7 @@ fun CommunityScreenNew() {
     ) {
         EventsTopBar(
             navController = rememberNavController(),
-            text = "WildBerries",
+            text = community.name,
             needToBack = true
         )
         LazyColumn(horizontalAlignment = Alignment.Start) {
@@ -65,13 +69,13 @@ fun CommunityScreenNew() {
                     modifier = Modifier
                         .fillMaxWidth(), contentAlignment = Alignment.CenterStart
                 ) {
-                    GroupAvatarNewDetail(stringResource(id = R.string.wb_logo))
+                    GroupAvatarNewDetail(community.groupLogo)
                 }
             }
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "WildBerries",
+                    text = community.name,
                     fontSize = 34.sp,
                     fontWeight = FontWeight.Bold,
                     color = NeutralActive,
@@ -79,11 +83,10 @@ fun CommunityScreenNew() {
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
-                    OneChipNew(text = "Дизайн")
-                    OneChipNew(text = "Разработка")
-                    OneChipNew(text = "Продажи")
-                    OneChipNew(text = "Разработка")
-                    OneChipNew(text = "Продажи")
+                    OneChipMiddle(text = "Дизайн")
+                    OneChipMiddle(text = "Разработка")
+                    OneChipMiddle(text = "Продажи")
+                    OneChipMiddle(text = "Android")
                 }
             }
             item {
@@ -104,7 +107,7 @@ fun CommunityScreenNew() {
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
-                    color = Color(0xFF9A10F0),
+                    color = EventsTheme.colors.activeComponent,
                 )
             }
             item {
@@ -149,9 +152,9 @@ fun CommunityScreenNew() {
             }
             item {
                 Column(horizontalAlignment = Alignment.Start) {
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
-                    EventCardNew(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
+                    EventCardNewBig(testEvent)
                 }
             }
             item {
@@ -183,4 +186,42 @@ fun CommunityScreenNew() {
             }
         }
     }
+}
+
+@Composable
+fun CommunityScreenDemo() {
+    CommunityScreenNew(
+        community = GroupUiModel(
+            2,
+            name = "WB",
+            people = 588,
+            groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+            communityEvents = listOf(
+                EventUiModel(
+                    9,
+                    title = "Ради кайфа",
+                    date = "13.01.2025",
+                    city = "Moscow",
+                    false,
+                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+                    listOf("Android", "Junior", "Moscow"),
+                    visitors = mutableListOf(
+                        PersonUiModel(
+                            name = FullName(
+                                "Саша",
+                                "Сергеев"
+                            ),
+                            phone = Phone("+7", "9994449999"),
+                            avatar = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                        ),
+                        PersonUiModel(
+                            FullName("Саша", "Сергеев"),
+                            phone = Phone("+7", "9994449999"),
+                            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                        ),
+                    )
+                )
+            )
+        )
+    )
 }

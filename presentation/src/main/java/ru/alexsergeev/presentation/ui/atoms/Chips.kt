@@ -61,8 +61,8 @@ fun OneChipNew(text: String, canClick: Boolean = true) {
         mutableStateOf(false)
     }
 
-    val boxColor = if(isActive.value) Color(0xFF9A10F0) else Color(0xFFF6F6FA)
-    val textColor = if(isActive.value) Color(0xFFF6F6FA) else Color(0xFF9A10F0)
+    val boxColor = if(isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
+    val textColor = if(isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
 
     Box(
         contentAlignment = Alignment.Center,
@@ -94,14 +94,47 @@ fun OneChipBig(text: String, canClick: Boolean = true) {
         mutableStateOf(false)
     }
 
-    val boxColor = if(isActive.value) Color(0xFF9A10F0) else Color(0xFFF6F6FA)
-    val textColor = if(isActive.value) Color(0xFFF6F6FA) else Color(0xFF9A10F0)
+    val boxColor = if(isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
+    val textColor = if(isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .padding(2.dp)
             .height(48.dp)
+            .background(
+                color = boxColor,
+                shape = RoundedCornerShape(20.dp)
+            )
+            .clickable {
+                if(canClick) {
+                    isActive.value = !isActive.value
+                }
+            }
+    ) {
+        Body1Text(
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+            text = text,
+            color = textColor,
+        )
+    }
+}
+
+@Composable
+fun OneChipMiddle(text: String, canClick: Boolean = true) {
+
+    val isActive = remember {
+        mutableStateOf(false)
+    }
+
+    val boxColor = if(isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
+    val textColor = if(isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .padding(2.dp)
+            .height(36.dp)
             .background(
                 color = boxColor,
                 shape = RoundedCornerShape(20.dp)

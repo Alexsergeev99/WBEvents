@@ -19,5 +19,10 @@ object EventsTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalTypography.current
+
+    val colors: Colors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalColors.current
 }
 

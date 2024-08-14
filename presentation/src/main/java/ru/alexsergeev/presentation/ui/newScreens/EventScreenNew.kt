@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,6 +30,8 @@ import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.Body1Text
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.molecules.EventAvatarDetail
 import ru.alexsergeev.presentation.ui.molecules.MapOfEvent
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
@@ -38,12 +39,13 @@ import ru.alexsergeev.presentation.ui.molecules.SpeakerAvatar
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewInEventScreen
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EventScreenNew() {
+internal fun EventScreenNew(event: EventUiModel, community: GroupUiModel) {
 
     val testEvent = EventUiModel(
         id = 1,
@@ -56,12 +58,6 @@ fun EventScreenNew() {
         visitors = mutableListOf()
     )
 
-    val gradient = Brush.horizontalGradient(
-        listOf(
-            Color(0xFF9A10F0),
-            Color(0xFF9A10F0)
-        )
-    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,7 +67,7 @@ fun EventScreenNew() {
     ) {
         EventsTopBar(
             navController = rememberNavController(),
-            text = "Как повышать грейд. Лекция...",
+            text = event.title ?: "Event",
             needToBack = true
         )
         LazyColumn {
@@ -80,13 +76,13 @@ fun EventScreenNew() {
                     modifier = Modifier
                         .fillMaxWidth(), contentAlignment = Alignment.Center
                 ) {
-                    EventAvatarDetail("https://s3-alpha-sig.figma.com/img/5310/9837/d03623c9359404e018318e330b337649?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lVPvM9Qi0ns-tSgHiBvd1tPgQMJZJXZ0t4gxTbARVQxz8g1Nt7T36nh5GDgAb7I6AdBQwDI5sQtkiLeDacY8jHoWMiCXtQjOdg~fBInBDUQOMIUYSzGShZOooYiXfmCOB4dS66wlvaTMcEQ8-R0UzNmuXVo9xbFxBMsg2XHC~iDaUpgSgEFxS2eFtFwzdP89VFPOAI-voeNKFdoIOaXkbN8q1uzFPZmWO6KQhPET8FTAbrCxgSgYXEoqXpuPs36VXVvqBjFgs8zYX~UAP77cSm8M3C~8qsQOpaxeii8JO8lezJszfNwu92usCMZxn106b-LWh6F0lHl04br1w4-gJg__")
+                    EventAvatarDetail(event.meetingAvatar)
                 }
             }
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Как повышать грейд. Лекция Павла Хорикова",
+                    text = event.title ?: "Event",
                     fontSize = 34.sp,
                     fontWeight = FontWeight.Bold,
                     color = NeutralActive,
@@ -95,15 +91,15 @@ fun EventScreenNew() {
             item {
                 Body1Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "16 августа · Кожевенная линия, 40",
-                    color = NeutralWeak
+                    text = "${event.date} · ${event.city}",
+                    color = EventsTheme.colors.weakColor
                 )
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
-                    OneChipNew(text = "Дизайн")
-                    OneChipNew(text = "Разработка")
-                    OneChipNew(text = "Продажи")
+                    event.chips.forEach {
+                        OneChipNew(text = it)
+                    }
                 }
             }
             item {
@@ -177,7 +173,7 @@ fun EventScreenNew() {
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Севкабель Порт, Кожевенная линия, 40,",
+                    text = event.city ?: "",
                     fontSize = 34.sp,
                     fontWeight = FontWeight.Bold,
                     color = NeutralActive,
@@ -198,7 +194,7 @@ fun EventScreenNew() {
                 }
             }
             item {
-                MapOfEvent()
+                MapOfEvent(event.imageUrl)
             }
             item {
                 Spacer(Modifier.height(24.dp))
@@ -213,7 +209,7 @@ fun EventScreenNew() {
                 )
             }
             item {
-                OverlappingRow(visitors = mutableListOf())
+                OverlappingRow(event.visitors)
             }
             item {
                 Spacer(Modifier.height(24.dp))
@@ -241,7 +237,7 @@ fun EventScreenNew() {
                     ) {
                         Text(
                             modifier = Modifier.padding(horizontal = 4.dp),
-                            text = "WB",
+                            text = community.name,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                             color = NeutralActive,
@@ -260,16 +256,7 @@ fun EventScreenNew() {
                             .height(144.dp)
                             .width(104.dp)
                     ) {
-                        SpeakerAvatar(image = stringResource(id = R.string.wb_logo))
-                        GradientButton(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(34.dp),
-                            gradient = gradient,
-                            text = "",
-                            isIconButtonDefault = true,
-                            shape = 8.dp
-                        )
+                        SpeakerAvatar(community.groupLogo)
                     }
                 }
             }
@@ -322,4 +309,63 @@ fun EventScreenNew() {
             }
         }
     }
+}
+
+@Composable
+fun EventScreenDemo() {
+    EventScreenNew(
+        event = EventUiModel(
+            9,
+            title = "Ради кайфа",
+            date = "13.01.2025",
+            city = "Moscow",
+            false,
+            "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+            chips = listOf("Android", "Junior", "Moscow"),
+            visitors = mutableListOf(
+                PersonUiModel(
+                    name = ru.alexsergeev.presentation.ui.models.FullName("Саша", "Сергеев"),
+                    phone = ru.alexsergeev.presentation.ui.models.Phone("+7", "9994449999"),
+                    avatar = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                ),
+                PersonUiModel(
+                    ru.alexsergeev.presentation.ui.models.FullName("Саша", "Сергеев"),
+                    phone = ru.alexsergeev.presentation.ui.models.Phone("+7", "9994449999"),
+                    avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                ),
+            )
+        ),
+        community = GroupUiModel(
+            2,
+            name = "WB",
+            people = 588,
+            groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+            communityEvents = listOf(
+                EventUiModel(
+                    9,
+                    title = "Ради кайфа",
+                    date = "13.01.2025",
+                    city = "Moscow",
+                    false,
+                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+                    listOf("Android", "Junior", "Moscow"),
+                    visitors = mutableListOf(
+                        PersonUiModel(
+                            name = ru.alexsergeev.presentation.ui.models.FullName(
+                                "Саша",
+                                "Сергеев"
+                            ),
+                            phone = ru.alexsergeev.presentation.ui.models.Phone("+7", "9994449999"),
+                            avatar = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
+                        ),
+                        PersonUiModel(
+                            ru.alexsergeev.presentation.ui.models.FullName("Саша", "Сергеев"),
+                            phone = ru.alexsergeev.presentation.ui.models.Phone("+7", "9994449999"),
+                            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
+                        ),
+                    )
+                )
+            )
+        )
+    )
 }

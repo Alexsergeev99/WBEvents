@@ -1,4 +1,4 @@
-package ru.alexsergeev.presentation.ui.newScreens
+package ru.alexsergeev.presentation.ui.newScreens.community
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +34,9 @@ import ru.alexsergeev.presentation.ui.newComponents.EventCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewMini
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
+import ru.alexsergeev.presentation.ui.newScreens.BigText
+import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
+import ru.alexsergeev.presentation.ui.newScreens.testEvent
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
@@ -41,16 +44,6 @@ import ru.alexsergeev.presentation.ui.theme.NeutralActive
 @Composable
 internal fun CommunityScreenNew(community: GroupUiModel) {
 
-    val testEvent = EventUiModel(
-        id = 1,
-        title = "QA Talks 2024",
-        city = "SpB",
-        date = "13.08.2024",
-        isFinished = false,
-        meetingAvatar = "",
-        chips = listOf(),
-        visitors = mutableListOf()
-    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,13 +66,7 @@ internal fun CommunityScreenNew(community: GroupUiModel) {
                 }
             }
             item {
-                Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = community.name,
-                    fontSize = 34.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = NeutralActive,
-                )
+                BigText(text = community.name)
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
@@ -127,13 +114,7 @@ internal fun CommunityScreenNew(community: GroupUiModel) {
                 Spacer(Modifier.height(16.dp))
             }
             item {
-                Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Подписаны",
-                    fontSize = 34.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = NeutralActive,
-                )
+                BigText(text = "Подписаны")
             }
             item {
                 OverlappingRow(visitors = mutableListOf())
@@ -142,13 +123,7 @@ internal fun CommunityScreenNew(community: GroupUiModel) {
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Встречи",
-                    fontSize = 34.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = NeutralActive,
-                )
+                BigText(text = "Встречи")
             }
             item {
                 Column(horizontalAlignment = Alignment.Start) {
@@ -161,67 +136,11 @@ internal fun CommunityScreenNew(community: GroupUiModel) {
                 Spacer(Modifier.height(48.dp))
             }
             item {
-                Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Прошлые встречи",
-                    fontSize = 34.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = NeutralActive,
-                )
+                BigText(text = "Прошлые встречи")
             }
             item {
-                LazyRow(
-                    Modifier.padding(horizontal = 4.dp)
-                ) {
-                    item {
-                        EventCardNewMini(testEvent)
-                    }
-                    item {
-                        EventCardNewMini(testEvent)
-                    }
-                    item {
-                        EventCardNewMini(testEvent)
-                    }
-                }
+                EventCardNewMiniRow()
             }
         }
     }
-}
-
-@Composable
-fun CommunityScreenDemo() {
-    CommunityScreenNew(
-        community = GroupUiModel(
-            2,
-            name = "WB",
-            people = 588,
-            groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
-            communityEvents = listOf(
-                EventUiModel(
-                    9,
-                    title = "Ради кайфа",
-                    date = "13.01.2025",
-                    city = "Moscow",
-                    false,
-                    "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
-                    listOf("Android", "Junior", "Moscow"),
-                    visitors = mutableListOf(
-                        PersonUiModel(
-                            name = FullName(
-                                "Саша",
-                                "Сергеев"
-                            ),
-                            phone = Phone("+7", "9994449999"),
-                            avatar = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-                        ),
-                        PersonUiModel(
-                            FullName("Саша", "Сергеев"),
-                            phone = Phone("+7", "9994449999"),
-                            avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-                        ),
-                    )
-                )
-            )
-        )
-    )
 }

@@ -1,4 +1,4 @@
-package ru.alexsergeev.presentation.ui.newScreens
+package ru.alexsergeev.presentation.ui.newScreens.person
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -32,6 +32,9 @@ import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.newComponents.CommunityCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewInProfileScreen
+import ru.alexsergeev.presentation.ui.newScreens.BigText
+import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
+import ru.alexsergeev.presentation.ui.newScreens.testEvent
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.LocalColors
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
@@ -39,25 +42,6 @@ import ru.alexsergeev.presentation.ui.theme.NeutralActive
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun PersonProfileScreenNew(person: PersonUiModel) {
-
-    val testEvent = EventUiModel(
-        id = 1,
-        title = "QA Talks 2024",
-        city = "SpB",
-        date = "13.08.2024",
-        isFinished = false,
-        meetingAvatar = "",
-        chips = listOf(),
-        visitors = mutableListOf()
-    )
-
-    val testCommunity = GroupUiModel(
-        id = 1,
-        name = "WB Tech",
-        people = 10000,
-        groupLogo = stringResource(id = R.string.wb_logo),
-        communityEvents = listOf()
-    )
 
     LazyColumn(modifier = Modifier.padding(8.dp),
         horizontalAlignment = Alignment.Start) {
@@ -109,75 +93,25 @@ internal fun PersonProfileScreenNew(person: PersonUiModel) {
             Spacer(Modifier.height(8.dp))
         }
         item {
-            Row(modifier = Modifier.padding(4.dp)) {
-                Image(
-                    modifier = Modifier
-                        .size(54.dp)
-                        .padding(horizontal = 4.dp),
-                    painter = painterResource(id = R.drawable.habr),
-                    contentDescription = "habr"
-                )
-                Image(
-                    modifier = Modifier
-                        .size(54.dp)
-                        .padding(horizontal = 4.dp),
-                    painter = painterResource(id = R.drawable.telegram),
-                    contentDescription = "telegram"
-                )
-            }
+            SocialNetworksRow()
         }
         item {
             Spacer(Modifier.height(24.dp))
         }
         item {
-            Text(
-                modifier = Modifier.padding(horizontal = 4.dp),
-                text = "Мои встречи",
-                fontSize = 34.sp,
-                fontWeight = FontWeight.Bold,
-                color = NeutralActive,
-            )
+            BigText(text = "Мои встречи")
         }
         item {
-            LazyRow(Modifier.padding(horizontal = 4.dp)) {
-                item {
-                    EventCardNewInProfileScreen(testEvent)
-                }
-                item {
-                    EventCardNewInProfileScreen(testEvent)
-                }
-                item {
-                    EventCardNewInProfileScreen(testEvent)
-                }
-            }
+            EventCardNewInProfileScreenRow()
         }
         item {
             Spacer(Modifier.height(24.dp))
         }
         item {
-            Text(
-                modifier = Modifier.padding(horizontal = 4.dp),
-                text = "Мои сообщества",
-                fontSize = 34.sp,
-                fontWeight = FontWeight.Bold,
-                color = NeutralActive,
-            )
+            BigText(text = "Мои сообщества")
         }
         item {
-            LazyRow(Modifier.padding(horizontal = 4.dp)) {
-                item {
-                    CommunityCardNew(group = testCommunity, needToAdd = false)
-                }
-                item {
-                    CommunityCardNew(group = testCommunity, needToAdd = false)
-                }
-                item {
-                    CommunityCardNew(group = testCommunity, needToAdd = false)
-                }
-                item {
-                    CommunityCardNew(group = testCommunity, needToAdd = false)
-                }
-            }
+            CommunityCardNewRow()
         }
         item {
             Spacer(Modifier.height(12.dp))

@@ -11,38 +11,42 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
-import ru.alexsergeev.presentation.ui.models.EventUiModel
-import ru.alexsergeev.presentation.ui.models.FullName
-import ru.alexsergeev.presentation.ui.models.GroupUiModel
-import ru.alexsergeev.presentation.ui.models.PersonUiModel
-import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.molecules.GroupAvatarNewDetail
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
+import ru.alexsergeev.presentation.ui.navigation.Destination
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
-import ru.alexsergeev.presentation.ui.newComponents.EventCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
-import ru.alexsergeev.presentation.ui.newComponents.EventCardNewMini
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.newScreens.BigText
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
-import ru.alexsergeev.presentation.ui.newScreens.testEvent
+import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRowInCommunityScreen
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
+import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun CommunityScreenNew(community: GroupUiModel) {
+internal fun CommunityScreenNew(
+    navController: NavController = rememberNavController(),
+    groupId: String,
+    detailGroupViewModel: DetailGroupViewModel = koinViewModel(),
+) {
+
+    val community by detailGroupViewModel.getCommunity(groupId.toInt())
+        .collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -52,7 +56,7 @@ internal fun CommunityScreenNew(community: GroupUiModel) {
         verticalArrangement = Arrangement.Center
     ) {
         EventsTopBar(
-            navController = rememberNavController(),
+            navController = navController,
             text = community.name,
             needToBack = true
         )
@@ -125,11 +129,15 @@ internal fun CommunityScreenNew(community: GroupUiModel) {
             item {
                 BigText(text = "Встречи")
             }
-            item {
-                Column(horizontalAlignment = Alignment.Start) {
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
+            community.communityEvents.forEach { event ->
+                item {
+                    EventCardNewBig(event) {
+                        navController.navigate(
+                            "${Destination.Events.Event.route}/${
+                                it.toString()
+                            }"
+                        )
+                    }
                 }
             }
             item {
@@ -139,7 +147,7 @@ internal fun CommunityScreenNew(community: GroupUiModel) {
                 BigText(text = "Прошлые встречи")
             }
             item {
-                EventCardNewMiniRow()
+                EventCardNewMiniRowInCommunityScreen(community)
             }
         }
     }

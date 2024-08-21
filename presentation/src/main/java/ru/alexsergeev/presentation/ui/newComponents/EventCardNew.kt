@@ -37,7 +37,6 @@ internal fun EventCardNew(
     Box(
         modifier = Modifier
             .width(320.dp)
-            .height(306.dp)
             .padding(vertical = 8.dp, horizontal = 4.dp)
             .clickable {
                 goToEventScreen(event.id)
@@ -46,28 +45,26 @@ internal fun EventCardNew(
         Column(
             horizontalAlignment = Alignment.Start
         ) {
-            EventAvatarMax("https://s3-alpha-sig.figma.com/img/5d33/6ebd/e64d2ae58f903a77264a0e3dc0191cfd?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LDkX4hg2Rih1PmRNu3V0585bNrmoR1pulfVU1HAieCgql27O474YsQm5HBH8-nZ4BE3z5V2SkVuWGB72MLHX6QMfSwfU7jZQ6rQLbrUAT1w0mpxpLk~ygLT7l~lPAX9Lbk77HuXs4OsQGLuGK-gAMJ2r6qmKkpfrPyuJRhy~XSFqniVMKW~PUCvEW5ohHKE2OWQN722JrU~i6rtMtV16UgMNTuIrhkg7ggSbZp9fpraHmHoHFJ5SMOL6Si0kEKhZReBvZgJBgxOJtmtzmMUAxUrJJNg1PNqkKxCKjkUmEQdZBghGW295O5sxMTLAnsilRcXWCJ8kqb~838GxVqU2KA__")
+            EventAvatarMax(image = event.meetingAvatar)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
                 Column(
                     modifier = Modifier
                         .padding(vertical = 4.dp)
                 ) {
                     Text(
-                        text = "Python Days",
+                        text = event.title ?: "",
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
                     )
-                    Body1Text(text = "10 августа · Кожевенная линия, 40", color = NeutralWeak)
+                    Body1Text(text = "${event.date} · ${event.city}", color = NeutralWeak)
                     FlowRow(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                     ) {
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
+                        event.chips.forEach {
+                            OneChipNew(it)
+                        }
                     }
                 }
             }
@@ -84,7 +81,6 @@ internal fun EventCardNewBig(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(306.dp)
             .padding(vertical = 8.dp, horizontal = 4.dp)
             .clickable {
                 goToEventScreen(event.id)
@@ -93,28 +89,26 @@ internal fun EventCardNewBig(
         Column(
             horizontalAlignment = Alignment.Start
         ) {
-            EventAvatarMax("https://s3-alpha-sig.figma.com/img/5d33/6ebd/e64d2ae58f903a77264a0e3dc0191cfd?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LDkX4hg2Rih1PmRNu3V0585bNrmoR1pulfVU1HAieCgql27O474YsQm5HBH8-nZ4BE3z5V2SkVuWGB72MLHX6QMfSwfU7jZQ6rQLbrUAT1w0mpxpLk~ygLT7l~lPAX9Lbk77HuXs4OsQGLuGK-gAMJ2r6qmKkpfrPyuJRhy~XSFqniVMKW~PUCvEW5ohHKE2OWQN722JrU~i6rtMtV16UgMNTuIrhkg7ggSbZp9fpraHmHoHFJ5SMOL6Si0kEKhZReBvZgJBgxOJtmtzmMUAxUrJJNg1PNqkKxCKjkUmEQdZBghGW295O5sxMTLAnsilRcXWCJ8kqb~838GxVqU2KA__")
+            EventAvatarMax(image = event.meetingAvatar)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
                 Column(
                     modifier = Modifier
                         .padding(vertical = 4.dp)
                 ) {
                     Text(
-                        text = "Python Days",
+                        text = event.title ?: "",
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
                     )
-                    Body1Text(text = "10 августа · Кожевенная линия, 40", color = NeutralWeak)
+                    Body1Text(text = "${event.date} · ${event.city}", color = NeutralWeak)
                     FlowRow(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                     ) {
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
+                        event.chips.forEach {
+                            OneChipNew(it)
+                        }
                     }
                 }
             }
@@ -140,18 +134,18 @@ internal fun EventCardNewMini(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EventAvatarMini("https://s3-alpha-sig.figma.com/img/5d33/6ebd/e64d2ae58f903a77264a0e3dc0191cfd?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LDkX4hg2Rih1PmRNu3V0585bNrmoR1pulfVU1HAieCgql27O474YsQm5HBH8-nZ4BE3z5V2SkVuWGB72MLHX6QMfSwfU7jZQ6rQLbrUAT1w0mpxpLk~ygLT7l~lPAX9Lbk77HuXs4OsQGLuGK-gAMJ2r6qmKkpfrPyuJRhy~XSFqniVMKW~PUCvEW5ohHKE2OWQN722JrU~i6rtMtV16UgMNTuIrhkg7ggSbZp9fpraHmHoHFJ5SMOL6Si0kEKhZReBvZgJBgxOJtmtzmMUAxUrJJNg1PNqkKxCKjkUmEQdZBghGW295O5sxMTLAnsilRcXWCJ8kqb~838GxVqU2KA__")
+            EventAvatarMini(image = event.meetingAvatar)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
                 Column() {
                     Text(
-                        text = "Python Days",
+                        text = event.title ?: "",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
                     )
                     Text(
                         maxLines = 3,
-                        text = "10 августа · Кожевенная линия, 40",
+                        text = "${event.date} · ${event.city}",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralWeak)
@@ -159,11 +153,9 @@ internal fun EventCardNewMini(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                     ) {
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
+                        event.chips.forEach {
+                            OneChipNew(it)
+                        }
                     }
                 }
             }
@@ -189,18 +181,18 @@ internal fun EventCardNewInEventScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EventAvatarMini("https://s3-alpha-sig.figma.com/img/5d33/6ebd/e64d2ae58f903a77264a0e3dc0191cfd?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LDkX4hg2Rih1PmRNu3V0585bNrmoR1pulfVU1HAieCgql27O474YsQm5HBH8-nZ4BE3z5V2SkVuWGB72MLHX6QMfSwfU7jZQ6rQLbrUAT1w0mpxpLk~ygLT7l~lPAX9Lbk77HuXs4OsQGLuGK-gAMJ2r6qmKkpfrPyuJRhy~XSFqniVMKW~PUCvEW5ohHKE2OWQN722JrU~i6rtMtV16UgMNTuIrhkg7ggSbZp9fpraHmHoHFJ5SMOL6Si0kEKhZReBvZgJBgxOJtmtzmMUAxUrJJNg1PNqkKxCKjkUmEQdZBghGW295O5sxMTLAnsilRcXWCJ8kqb~838GxVqU2KA__")
+            EventAvatarMini(image = event.meetingAvatar)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
                 Column() {
                     Text(
-                        text = "Python Days",
+                        text = event.title ?: "",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
                     )
                     Text(
                         maxLines = 3,
-                        text = "10 августа · Кожевенная линия, 40",
+                        text = "${event.date} · ${event.city}",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralWeak)
@@ -208,9 +200,9 @@ internal fun EventCardNewInEventScreen(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                     ) {
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
+                        event.chips.forEach {
+                            OneChipNew(it)
+                        }
                     }
                 }
             }
@@ -236,18 +228,18 @@ internal fun EventCardNewInProfileScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EventAvatarInProfileScreen("https://s3-alpha-sig.figma.com/img/5d33/6ebd/e64d2ae58f903a77264a0e3dc0191cfd?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LDkX4hg2Rih1PmRNu3V0585bNrmoR1pulfVU1HAieCgql27O474YsQm5HBH8-nZ4BE3z5V2SkVuWGB72MLHX6QMfSwfU7jZQ6rQLbrUAT1w0mpxpLk~ygLT7l~lPAX9Lbk77HuXs4OsQGLuGK-gAMJ2r6qmKkpfrPyuJRhy~XSFqniVMKW~PUCvEW5ohHKE2OWQN722JrU~i6rtMtV16UgMNTuIrhkg7ggSbZp9fpraHmHoHFJ5SMOL6Si0kEKhZReBvZgJBgxOJtmtzmMUAxUrJJNg1PNqkKxCKjkUmEQdZBghGW295O5sxMTLAnsilRcXWCJ8kqb~838GxVqU2KA__")
+            EventAvatarInProfileScreen(event.meetingAvatar)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-                Column() {
+                Column {
                     Text(
-                        text = "Python Days",
+                        text = event.title ?: "",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
                     )
                     Text(
                         maxLines = 3,
-                        text = "10 августа · Кожевенная линия, 40",
+                        text = "${event.date} · ${event.city}",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralWeak)
@@ -255,9 +247,9 @@ internal fun EventCardNewInProfileScreen(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                     ) {
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
-                        OneChipNew("Тестирование")
+                        event.chips.forEach {
+                            OneChipNew(it)
+                        }
                     }
                 }
             }

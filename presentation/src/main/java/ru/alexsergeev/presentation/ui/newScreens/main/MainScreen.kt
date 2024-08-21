@@ -10,10 +10,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.newComponents.CommunityCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
@@ -26,9 +30,14 @@ import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.testCommunity
 import ru.alexsergeev.presentation.ui.newScreens.testEvent
 import ru.alexsergeev.presentation.ui.newScreens.testPerson
+import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 
 @Composable
-fun MainScreen() {
+internal fun MainScreen(
+    eventsViewModel: EventsViewModel = koinViewModel(),
+) {
+
+    val events by eventsViewModel.getEventsList().collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -40,7 +49,7 @@ fun MainScreen() {
         }
         LazyColumn() {
             item {
-                EventCardNewRow()
+                EventCardNewRow(events)
             }
             item {
                 Spacer(Modifier.height(48.dp))
@@ -49,7 +58,7 @@ fun MainScreen() {
                 BigText(text = "Ближайшие встречи в Санкт-Петербурге")
             }
             item {
-                EventCardNewMiniRow()
+                EventCardNewMiniRow(events)
             }
             item {
                 Spacer(Modifier.height(48.dp))
@@ -71,9 +80,9 @@ fun MainScreen() {
             }
             item {
                 Column {
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
+                     for (i in 0..2) {
+                        EventCardNewBig(events[i])
+                    }
                 }
             }
             item {
@@ -87,9 +96,9 @@ fun MainScreen() {
             }
             item {
                 Column {
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
+                    for (i in 3..5) {
+                        EventCardNewBig(events[i])
+                    }
                 }
             }
             item {
@@ -103,11 +112,16 @@ fun MainScreen() {
             }
             item {
                 Column {
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
-                    EventCardNewBig(testEvent)
+                    for (i in 6..8) {
+                        EventCardNewBig(events[i])
+                    }
                 }
             }
         }
     }
+}
+
+@Composable
+fun MainScreenDemo() {
+    MainScreen()
 }

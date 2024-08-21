@@ -12,10 +12,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.Body1Text
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.models.EventUiModel
@@ -26,10 +30,19 @@ import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newScreens.BigText
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
+import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun EventScreenNew(event: EventUiModel, community: GroupUiModel) {
+internal fun EventScreenNew(
+    navController: NavController = rememberNavController(),
+    eventId: String,
+    detailEventViewModel: DetailEventViewModel = koinViewModel(),
+    community: GroupUiModel
+) {
+
+    val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -39,7 +52,7 @@ internal fun EventScreenNew(event: EventUiModel, community: GroupUiModel) {
         verticalArrangement = Arrangement.Center
     ) {
         EventsTopBar(
-            navController = rememberNavController(),
+            navController = navController,
             text = event.title ?: "Event",
             needToBack = true
         )

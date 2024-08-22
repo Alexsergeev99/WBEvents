@@ -21,8 +21,8 @@ import ru.alexsergeev.presentation.ui.theme.NeutralActive
 @Composable
 internal fun CommunityCardNew(
     group: GroupUiModel,
+    needToAdd: Boolean = true,
     goToCommunityScreen: (Int) -> Unit = {},
-    needToAdd: Boolean = true
 ) {
 
     val gradient = Brush.horizontalGradient(

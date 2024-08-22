@@ -132,11 +132,7 @@ internal fun CommunityScreenNew(
             community.communityEvents.forEach { event ->
                 item {
                     EventCardNewBig(event) {
-                        navController.navigate(
-                            "${Destination.Events.Event.route}/${
-                                it.toString()
-                            }"
-                        )
+                        navController.navigate("event_screen_new/${it}")
                     }
                 }
             }
@@ -147,7 +143,7 @@ internal fun CommunityScreenNew(
                 BigText(text = "Прошлые встречи")
             }
             item {
-                EventCardNewMiniRowInCommunityScreen(community)
+                EventCardNewMiniRowInCommunityScreen(navController, community)
             }
         }
     }

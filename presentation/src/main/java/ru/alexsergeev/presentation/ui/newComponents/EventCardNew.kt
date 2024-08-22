@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.ui.atoms.Body1Text
@@ -37,6 +38,7 @@ internal fun EventCardNew(
     Box(
         modifier = Modifier
             .width(320.dp)
+            .height(300.dp)
             .padding(vertical = 8.dp, horizontal = 4.dp)
             .clickable {
                 goToEventScreen(event.id)
@@ -56,6 +58,8 @@ internal fun EventCardNew(
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Body1Text(text = "${event.date} · ${event.city}", color = NeutralWeak)
                     FlowRow(
@@ -81,6 +85,7 @@ internal fun EventCardNewBig(
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .height(300.dp)
             .padding(vertical = 8.dp, horizontal = 4.dp)
             .clickable {
                 goToEventScreen(event.id)
@@ -100,6 +105,8 @@ internal fun EventCardNewBig(
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Body1Text(text = "${event.date} · ${event.city}", color = NeutralWeak)
                     FlowRow(

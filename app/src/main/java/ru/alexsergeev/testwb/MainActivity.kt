@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import ru.alexsergeev.presentation.ui.navigation.NavigationNew
 import ru.alexsergeev.presentation.ui.newComponents.SwitchItem
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenDemo
 import ru.alexsergeev.presentation.ui.newScreens.main.MainScreenDemo
@@ -19,12 +20,8 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            PrimaryNavigation()
-//            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-//                Column {
-//                    SwitchItem()
-//                }
-//            }
-            MainScreenDemo()
+            NavigationNew()
+//            MainScreenDemo()
         }
     }
 }

@@ -12,6 +12,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import org.koin.androidx.compose.koinViewModel
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenNew
+import ru.alexsergeev.presentation.ui.newScreens.event.EventScreenNew
+import ru.alexsergeev.presentation.ui.newScreens.main.MainScreen
 import ru.alexsergeev.presentation.ui.screens.ProfileScreen
 import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
@@ -121,6 +125,32 @@ fun NavGraphBuilder.groupNavGraph(navController: NavController) {
             GroupScreen(
                 navController = navController,
                 it.arguments?.getString("id") ?: "0",
+            )
+        }
+    }
+}
+
+@Composable
+fun NavigationNew() {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = "main_screen"
+    ) {
+        composable("main_screen") {
+            MainScreen(navController = navController)
+        }
+        composable("event_screen_new/{id}") {
+            EventScreenNew(
+                navController = navController,
+                it.arguments?.getString("id") ?: throw Exception(),
+                community = GroupUiModel(2, "luxury", 300, "", listOf())
+            )
+        }
+        composable("community_screen_new/{id}") {
+            CommunityScreenNew(
+                navController = navController,
+                it.arguments?.getString("id") ?: throw Exception(),
             )
         }
     }

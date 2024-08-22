@@ -290,18 +290,3 @@ internal val mockEvents = flow {
     )
     emit(events)
 }
-
-//internal val visitors = mutableListOf(
-//    VisitorEntity(
-//        id  = 1,
-//        ru.alexsergeev.domain.domain.models.FullName("Саша", "Сергеев"),
-//        phone = ru.alexsergeev.domain.domain.models.Phone("+7", "9994449999"),
-//        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg"
-//    ),
-//    VisitorEntity(
-//        id = 2,
-//        ru.alexsergeev.domain.domain.models.FullName("Саша", "Сергеев"),
-//        phone = ru.alexsergeev.domain.domain.models.Phone("+7", "9994449999"),
-//        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/"
-//    ),
-//)

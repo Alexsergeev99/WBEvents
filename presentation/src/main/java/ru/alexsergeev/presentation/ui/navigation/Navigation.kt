@@ -16,6 +16,7 @@ import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.event.EventScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.main.MainScreen
+import ru.alexsergeev.presentation.ui.newScreens.person.PersonProfileScreenNew
 import ru.alexsergeev.presentation.ui.screens.ProfileScreen
 import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
@@ -151,6 +152,11 @@ fun NavigationNew() {
             CommunityScreenNew(
                 navController = navController,
                 it.arguments?.getString("id") ?: throw Exception(),
+            )
+        }
+        composable("profile_screen_new") {
+            PersonProfileScreenNew(
+                navController = navController,
             )
         }
     }

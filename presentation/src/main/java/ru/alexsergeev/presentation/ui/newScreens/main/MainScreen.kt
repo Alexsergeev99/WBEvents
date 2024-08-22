@@ -1,13 +1,12 @@
 package ru.alexsergeev.presentation.ui.newScreens.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,17 +19,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
-import ru.alexsergeev.presentation.ui.newComponents.CommunityCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
-import ru.alexsergeev.presentation.ui.newComponents.PersonCardNew
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
 import ru.alexsergeev.presentation.ui.newScreens.BigText
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewRow
-import ru.alexsergeev.presentation.ui.newScreens.testCommunity
-import ru.alexsergeev.presentation.ui.newScreens.testEvent
-import ru.alexsergeev.presentation.ui.newScreens.testPerson
 import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
 
@@ -50,7 +44,13 @@ internal fun MainScreen(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             SearchNew(hint = "Найти встречи и сообщества")
-            Icon(painter = painterResource(id = R.drawable.user), contentDescription = "user")
+            Icon(
+                modifier = Modifier.clickable {
+                    navController.navigate("profile_screen_new")
+                },
+                painter = painterResource(id = R.drawable.user),
+                contentDescription = "user"
+            )
         }
         LazyColumn() {
             item {
@@ -85,8 +85,8 @@ internal fun MainScreen(
             }
             item {
                 Column {
-                     for (i in 0..2) {
-                        EventCardNewBig(events[i]){
+                    for (i in 0..2) {
+                        EventCardNewBig(events[i]) {
                             navController.navigate("event_screen_new/${it}")
                         }
                     }
@@ -104,7 +104,7 @@ internal fun MainScreen(
             item {
                 Column {
                     for (i in 3..5) {
-                        EventCardNewBig(events[i]){
+                        EventCardNewBig(events[i]) {
                             navController.navigate("event_screen_new/${it}")
                         }
                     }
@@ -130,9 +130,4 @@ internal fun MainScreen(
             }
         }
     }
-}
-
-@Composable
-fun MainScreenDemo() {
-    MainScreen(navController = rememberNavController())
 }

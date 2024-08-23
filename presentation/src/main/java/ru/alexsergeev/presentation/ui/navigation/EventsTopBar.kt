@@ -25,8 +25,9 @@ fun EventsTopBar(
     needToEdit: Boolean = false,
     needToAdd: Boolean = false,
     iAmGuest: Boolean = false,
-    goToBackScreen: () -> Unit = { navController.navigateUp() }
-) {
+    goToEditScreen: () -> Unit = { },
+    goToBackScreen: () -> Unit = { navController.navigateUp() },
+    ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,9 +43,9 @@ fun EventsTopBar(
                 Icon(
                     modifier = Modifier
                         .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-//                        .clickable { navController.navigate(Destination.Else.MyEvents.route) },
                         .clickable { goToBackScreen() },
                     painter = painterResource(id = R.drawable.navigate_back),
+                    tint = EventsTheme.colors.activeComponent,
                     contentDescription = "back"
                 )
             }
@@ -60,8 +61,9 @@ fun EventsTopBar(
             Icon(
                 modifier = Modifier
                     .padding(vertical = 6.dp)
-                    .clickable { },
+                    .clickable { goToEditScreen() },
                 painter = painterResource(id = R.drawable.edit),
+                tint = EventsTheme.colors.activeComponent,
                 contentDescription = "edit"
             )
         }

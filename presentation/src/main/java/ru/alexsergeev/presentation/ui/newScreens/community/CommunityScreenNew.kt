@@ -26,12 +26,10 @@ import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
 import ru.alexsergeev.presentation.ui.molecules.GroupAvatarNewDetail
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
-import ru.alexsergeev.presentation.ui.navigation.Destination
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
+import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
-import ru.alexsergeev.presentation.ui.newScreens.BigText
-import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRowInCommunityScreen
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive

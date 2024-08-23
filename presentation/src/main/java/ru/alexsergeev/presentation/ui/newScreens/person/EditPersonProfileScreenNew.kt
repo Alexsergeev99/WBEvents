@@ -1,9 +1,11 @@
 package ru.alexsergeev.presentation.ui.newScreens.person
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,17 +23,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
-import ru.alexsergeev.presentation.ui.atoms.OneChipNew
+import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
+import ru.alexsergeev.presentation.ui.newComponents.RowWithSwitch
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
-import ru.alexsergeev.presentation.ui.newScreens.BigText
-import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
+import ru.alexsergeev.presentation.ui.newComponents.SwitchItem
+import ru.alexsergeev.presentation.ui.newComponents.Textarea
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
-import ru.alexsergeev.presentation.ui.theme.NeutralActive
-import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -43,55 +43,100 @@ fun EditPersonProfileScreenNew(
             PeopleAvatarNewDetail(
                 stringResource(id = R.string.mock_user_avatar)
             )
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+            ) {
                 EventsTopBar(navController = navController, text = "", needToBack = true)
             }
         }
         LazyColumn(
             modifier = Modifier.padding(8.dp),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                SearchNew("Имя Фамилия")
+                SearchNew("Имя Фамилия", isSearch = false)
             }
             item {
-                SearchNew("+7 000 000-00-00")
+                SearchNew("+7 000 000-00-00", isSearch = false)
 
             }
             item {
-                SearchNew("Город")
+                SearchNew("Город", isSearch = false)
             }
             item {
-                SearchNew("Расскажите о себе")
+                Textarea("Расскажите о себе")
             }
             item {
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = "Интересы")
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        text = "Интересы",
+                        style = EventsTheme.typography.heading2,
+                        color = Color.Black
+                    )
+                }
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
-                    OneChipNew(text = "Android")
-                    OneChipNew(text = "Разработка")
-                    OneChipNew(text = "Kotlin")
-                    OneChipNew(text = "Mobile")
-                    OneChipNew(text = "+ Добавить")
+                    OneChipMiddle(text = "Android")
+                    OneChipMiddle(text = "Разработка")
+                    OneChipMiddle(text = "Kotlin")
+                    OneChipMiddle(text = "Android")
+                    OneChipMiddle(text = "Разработка")
+                    OneChipMiddle(text = "Mobile")
+                    OneChipMiddle(text = "+ Добавить")
                 }
             }
             item {
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                SearchNew("Хабр")
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        text = "Социальные сети",
+                        style = EventsTheme.typography.heading2,
+                        color = Color.Black
+                    )
+                }
             }
             item {
-                SearchNew("Телеграм")
+                SearchNew("Хабр", isSearch = false)
+            }
+            item {
+                SearchNew("Телеграм", isSearch = false)
             }
             item {
                 Spacer(Modifier.height(8.dp))
+            }
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(end = 14.dp),
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    RowWithSwitch(text = "Показывать мои сообщества")
+                    Spacer(Modifier.height(8.dp))
+                    RowWithSwitch(text = "Показывать мои встречи")
+                    Spacer(Modifier.height(24.dp))
+                    RowWithSwitch(text = "Включить уведомления")
+                }
+            }
+            item {
+                Spacer(Modifier.height(24.dp))
             }
             item {
                 Box(
@@ -101,10 +146,10 @@ fun EditPersonProfileScreenNew(
                     TextButton(onClick = { /*TODO*/ }) {
                         Text(
                             modifier = Modifier.padding(horizontal = 4.dp),
-                            text = "Выйти",
+                            text = "Удалить профиль",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = EventsTheme.colors.weakColor
+                            color = Color.Red
                         )
                     }
                 }

@@ -22,8 +22,8 @@ import ru.alexsergeev.presentation.ui.theme.EventsTheme
 @Composable
 internal fun SwitchItem(
     scale: Float = 2f,
-    width: Dp = 48.dp,
-    height: Dp = 24.dp,
+    width: Dp = 24.dp,
+    height: Dp = 12.dp,
     checkedTrackColor: Color = EventsTheme.colors.activeComponent,
     uncheckedTrackColor: Color = EventsTheme.colors.switchBackground,
     gapBetweenThumbAndTrackEdge: Dp = 1.5.dp

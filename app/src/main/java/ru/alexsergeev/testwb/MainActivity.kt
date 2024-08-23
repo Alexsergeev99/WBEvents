@@ -14,8 +14,7 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            PrimaryNavigation()
-//            NavigationNew()
-            EditPersonProfileScreenNew(rememberNavController())
+            NavigationNew()
         }
     }
 }

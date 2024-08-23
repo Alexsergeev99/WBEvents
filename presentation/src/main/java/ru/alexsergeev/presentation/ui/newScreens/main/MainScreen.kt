@@ -16,12 +16,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
+import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
-import ru.alexsergeev.presentation.ui.newScreens.BigText
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewRow

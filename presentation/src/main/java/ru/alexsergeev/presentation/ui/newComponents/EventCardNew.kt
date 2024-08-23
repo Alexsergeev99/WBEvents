@@ -55,7 +55,7 @@ internal fun EventCardNew(
                 ) {
                     Text(
                         text = event.title ?: "",
-                        fontSize = 34.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
                         maxLines = 1,
@@ -102,7 +102,7 @@ internal fun EventCardNewBig(
                 ) {
                     Text(
                         text = event.title ?: "",
-                        fontSize = 34.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         color = NeutralActive,
                         maxLines = 1,

@@ -81,8 +81,9 @@ fun PeopleAvatarNewDetail(image: String) {
     AsyncImage(
         modifier = Modifier
             .fillMaxWidth()
-            .height(410.dp),
+            .height(350.dp),
         model = image,
+        contentScale = ContentScale.FillBounds,
         contentDescription = "avatar",
     )
 }

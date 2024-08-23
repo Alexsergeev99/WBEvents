@@ -28,7 +28,7 @@ import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
-import ru.alexsergeev.presentation.ui.newScreens.BigText
+import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
@@ -46,11 +46,22 @@ internal fun PersonProfileScreenNew(
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
             PeopleAvatarNewDetail(
-                stringResource(id = R.string.mock_user_avatar))
-            Box(modifier = Modifier
+                stringResource(id = R.string.mock_user_avatar)
+            )
+            Box(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp)) {
-                EventsTopBar(navController = navController, text = "", needToBack = true)
+                    .padding(horizontal = 24.dp)
+            ) {
+                EventsTopBar(
+                    navController = navController,
+                    text = "",
+                    needToBack = true,
+                    needToEdit = true,
+                    goToEditScreen = {
+                        navController.navigate("edit_profile_screen_new")
+                    }
+                )
             }
         }
         LazyColumn(

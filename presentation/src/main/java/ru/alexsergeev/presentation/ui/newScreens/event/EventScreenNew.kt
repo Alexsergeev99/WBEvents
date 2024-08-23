@@ -22,13 +22,12 @@ import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.Body1Text
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
-import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.molecules.EventAvatarDetail
 import ru.alexsergeev.presentation.ui.molecules.MapOfEvent
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
-import ru.alexsergeev.presentation.ui.newScreens.BigText
+import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 

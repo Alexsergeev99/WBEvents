@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -80,7 +81,7 @@ fun PeopleAvatarNewDetail(image: String) {
     AsyncImage(
         modifier = Modifier
             .fillMaxWidth()
-            .height(350.dp),
+            .height(410.dp),
         model = image,
         contentDescription = "avatar",
     )

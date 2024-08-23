@@ -20,7 +20,7 @@ import ru.alexsergeev.presentation.ui.theme.EventsTheme
 
 
 @Composable
-fun SwitchItem(
+internal fun SwitchItem(
     scale: Float = 2f,
     width: Dp = 48.dp,
     height: Dp = 24.dp,

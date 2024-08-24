@@ -17,7 +17,7 @@ internal val mockEvents = flow {
             date = "13.01.2021",
             city = "Moscow",
             true,
-            "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
+            "https://s3-alpha-sig.figma.com/img/1e90/ce78/0f37865722ee6b6927715576f9352a79?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Htn~EXGmFFEAUu4NWjOnuIgobzlYEly~yxLukh3HQkgP6Hx81LxK7RmzfZjhoMb5EJI0daTurHM3f~cZ6n5i9I6MdHCbvH08byZKDTJ7vORtHn0f1V9aPjxLPQycYILKm3wqcyUTZ8ofKv-czlBvq9dNKfz--3kfqQOpFgBpn6VnRNJfE1qUI6f17hNjrNwAKvJTI3-16qVCZrRNBfTWJ~bQ6QHF2HC6jHlHqpoE3m1LkqmohlZDre6G2w7TffHXT3vpBlGCpRWtfyN~KxSO-IMvwwnVFSWT3D5m5XOYHYPG2yzHUCA5f8tU3YUg9qsw8dktj6oyV5qFG7hTkw80rA__",
             Chips(listOf("Android", "Junior", "Moscow")),
             visitorEntity = Visitors(
                 mutableListOf(
@@ -67,7 +67,7 @@ internal val mockEvents = flow {
             date = "13.01.2021",
             city = "Moscow",
             true,
-            "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
+            "https://s3-alpha-sig.figma.com/img/1e90/ce78/0f37865722ee6b6927715576f9352a79?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Htn~EXGmFFEAUu4NWjOnuIgobzlYEly~yxLukh3HQkgP6Hx81LxK7RmzfZjhoMb5EJI0daTurHM3f~cZ6n5i9I6MdHCbvH08byZKDTJ7vORtHn0f1V9aPjxLPQycYILKm3wqcyUTZ8ofKv-czlBvq9dNKfz--3kfqQOpFgBpn6VnRNJfE1qUI6f17hNjrNwAKvJTI3-16qVCZrRNBfTWJ~bQ6QHF2HC6jHlHqpoE3m1LkqmohlZDre6G2w7TffHXT3vpBlGCpRWtfyN~KxSO-IMvwwnVFSWT3D5m5XOYHYPG2yzHUCA5f8tU3YUg9qsw8dktj6oyV5qFG7hTkw80rA__",
             Chips(listOf("Android", "Junior", "Moscow")),
             visitorEntity = Visitors(
                 mutableListOf(
@@ -117,7 +117,7 @@ internal val mockEvents = flow {
             date = "13.01.2021",
             city = "Moscow",
             true,
-            "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
+            "https://s3-alpha-sig.figma.com/img/1e90/ce78/0f37865722ee6b6927715576f9352a79?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Htn~EXGmFFEAUu4NWjOnuIgobzlYEly~yxLukh3HQkgP6Hx81LxK7RmzfZjhoMb5EJI0daTurHM3f~cZ6n5i9I6MdHCbvH08byZKDTJ7vORtHn0f1V9aPjxLPQycYILKm3wqcyUTZ8ofKv-czlBvq9dNKfz--3kfqQOpFgBpn6VnRNJfE1qUI6f17hNjrNwAKvJTI3-16qVCZrRNBfTWJ~bQ6QHF2HC6jHlHqpoE3m1LkqmohlZDre6G2w7TffHXT3vpBlGCpRWtfyN~KxSO-IMvwwnVFSWT3D5m5XOYHYPG2yzHUCA5f8tU3YUg9qsw8dktj6oyV5qFG7hTkw80rA__",
             Chips(listOf("Android", "Junior", "Moscow")),
             visitorEntity = Visitors(
                 mutableListOf(

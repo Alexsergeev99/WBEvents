@@ -137,7 +137,7 @@ fun OneChipMiddle(text: String, canClick: Boolean = true) {
             .height(36.dp)
             .background(
                 color = boxColor,
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(8.dp)
             )
             .clickable {
                 if(canClick) {

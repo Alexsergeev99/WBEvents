@@ -71,7 +71,7 @@ internal fun PersonProfileScreenNew(
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = person.name.firstName,
+                    text = person.name.firstName.ifBlank { "Пользователь" },
                     fontSize = 48.sp,
                     fontWeight = FontWeight.Bold,
                     color = NeutralActive,

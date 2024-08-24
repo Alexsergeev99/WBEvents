@@ -1,6 +1,7 @@
 package ru.alexsergeev.presentation.ui.newComponents
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -38,6 +39,7 @@ fun GradientButton(
     onClick: () -> Unit = { },
     isIconButton: Boolean = false,
     isIconButtonDefault: Boolean = false,
+    addCommunity: Boolean = false,
     isTextButton: Boolean = false,
     shape: Dp = 32.dp
 ) {
@@ -45,7 +47,8 @@ fun GradientButton(
         .fillMaxSize()
         .padding(vertical = 4.dp)
         .clip(RoundedCornerShape(shape))
-        .background(gradient),
+        .background(gradient)
+        .clickable { onClick() },
         contentAlignment = Alignment.Center) {
         Button(
             modifier = modifier,
@@ -65,6 +68,14 @@ fun GradientButton(
                     painter = painterResource(id = R.drawable.add_community),
                     contentDescription = "add community",
                     tint = EventsTheme.colors.activeComponent
+                )
+            }
+            if (addCommunity) {
+                Icon(
+                    modifier = Modifier.size(24.dp),
+                    painter = painterResource(id = R.drawable.added_community),
+                    contentDescription = "added community",
+                    tint = Color.White
                 )
             }
             if (isIconButtonDefault) {

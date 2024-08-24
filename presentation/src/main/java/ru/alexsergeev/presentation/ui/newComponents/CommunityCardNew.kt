@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -16,20 +18,29 @@ import androidx.compose.ui.unit.dp
 import ru.alexsergeev.presentation.ui.atoms.Body1Text
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.molecules.GroupAvatarNew
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
 internal fun CommunityCardNew(
     group: GroupUiModel,
-    needToAdd: Boolean = true,
     goToCommunityScreen: (Int) -> Unit = {},
 ) {
 
+    val needToAdd = remember {
+        mutableStateOf(true)
+    }
     val gradient = Brush.horizontalGradient(
         listOf(
             Color(0xFFFEF1FB), Color(0xFFFDF1FC), Color(0xFFFCF0FC),
             Color(0xFFFBF0FD), Color(0xFFF9EFFD), Color(0xFFF8EEFE),
             Color(0xFFF6EEFE), Color(0xFFF4EDFF)
+        )
+    )
+    val addedGradient = Brush.horizontalGradient(
+        listOf(
+            EventsTheme.colors.activeComponent,
+            EventsTheme.colors.activeComponent
         )
     )
 
@@ -50,7 +61,7 @@ internal fun CommunityCardNew(
                 text = group.name,
                 color = NeutralActive,
             )
-            if(needToAdd) {
+            if(needToAdd.value) {
                 GradientButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -58,7 +69,24 @@ internal fun CommunityCardNew(
                     gradient = gradient,
                     text = "",
                     isIconButton = true,
-                    shape = 8.dp
+                    shape = 8.dp,
+                    onClick = {
+                        needToAdd.value = false
+                    }
+                )
+            }
+            if(!needToAdd.value) {
+                GradientButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(34.dp),
+                    gradient = addedGradient,
+                    text = "",
+                    addCommunity = true,
+                    shape = 8.dp,
+                    onClick = {
+                        needToAdd.value = true
+                    }
                 )
             }
         }

@@ -3,6 +3,8 @@ package ru.alexsergeev.data.entity
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.alexsergeev.data.utils.DataPersonToDomainPersonMapper
+import ru.alexsergeev.data.utils.DomainPersonToEntityPersonMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.testwb.data.dto.PersonDataModel
@@ -23,27 +25,3 @@ data class MyEventEntity(
     val visitorEntity: Visitors = Visitors(mutableListOf()),
     val personIsAddedToTheVisitors: Boolean = false,
 )
-
-class MyEventEntityToDomainEventMapper(
-    private val dataPersonToDomainPersonMapper: DataPersonToDomainPersonMapper
-) : Mapper<MyEventEntity, EventDomainModel> {
-    override fun map(input: MyEventEntity): EventDomainModel = with(input) {
-        val visitorsDomain = mutableListOf<PersonDomainModel>()
-        input.visitorEntity.visitors.forEach {
-            visitorsDomain.add(dataPersonToDomainPersonMapper.map(it))
-        }
-        EventDomainModel(id, title, date, city, isFinished, meetingAvatar, chips.chips, imageUrl, visitorsDomain, personIsAddedToTheVisitors)
-    }
-}
-
-class DomainEventToMyEventEntityMapper(
-    private val domainPersonToEntityPersonMapper: DomainPersonToEntityPersonMapper
-) : Mapper<EventDomainModel, MyEventEntity> {
-    override fun map(input: EventDomainModel): MyEventEntity = with(input) {
-        val visitorsData = mutableListOf<PersonEntity>()
-        input.visitors.forEach {
-            visitorsData.add(domainPersonToEntityPersonMapper.map(it))
-        }
-        MyEventEntity(id, title, date, city, isFinished, meetingAvatar, Chips(chips), imageUrl, Visitors(visitorsData), personIsAddedToTheVisitors)
-    }
-}

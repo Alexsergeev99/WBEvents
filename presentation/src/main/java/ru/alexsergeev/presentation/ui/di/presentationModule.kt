@@ -4,8 +4,10 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
+import ru.alexsergeev.presentation.ui.utils.DomainEventListToUiEventListMapper
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.DomainCommunityListToUiCommunityListMapper
 import ru.alexsergeev.presentation.ui.utils.UiEventToDomainEventMapper
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 import ru.alexsergeev.presentation.ui.viewmodel.CodeScreenViewModel
@@ -32,7 +34,9 @@ val presentationModule = module {
     viewModelOf(::MyEventsViewModel)
 
     singleOf(::DomainEventToUiEventMapper)
+    singleOf(::DomainEventListToUiEventListMapper)
     singleOf(::DomainGroupToUiGroupMapper)
+    singleOf(::DomainCommunityListToUiCommunityListMapper)
     singleOf(::DomainPersonToUiPersonMapper)
     singleOf(::UiEventToDomainEventMapper)
     singleOf(::UiPersonToDomainPersonMapper)

@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ru.alexsergeev.data.dao.EventDao
-import ru.alexsergeev.data.entity.ChipsConverters
 import ru.alexsergeev.data.entity.EventEntity
 import ru.alexsergeev.data.entity.MyEventEntity
 import ru.alexsergeev.data.entity.PersonEntity
-import ru.alexsergeev.data.entity.VisitorsConverters
+import ru.alexsergeev.data.utils.ChipsConverters
+import ru.alexsergeev.data.utils.VisitorsConverters
 
 @Database(entities = [EventEntity::class, MyEventEntity::class, PersonEntity::class], version = 1)
 @TypeConverters(ChipsConverters::class, VisitorsConverters::class)

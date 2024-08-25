@@ -1,21 +1,18 @@
 package ru.alexsergeev.repository.repository
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.Chips
-import ru.alexsergeev.data.entity.DomainEventToMyEventEntityMapper
-import ru.alexsergeev.data.entity.EntityEventToDomainEventMapper
 import ru.alexsergeev.data.entity.EventEntity
-import ru.alexsergeev.data.entity.MyEventEntity
-import ru.alexsergeev.data.entity.MyEventEntityToDomainEventMapper
 import ru.alexsergeev.data.entity.Visitors
+import ru.alexsergeev.data.utils.DomainEventToMyEventEntityMapper
+import ru.alexsergeev.data.utils.EntityEventListToDomainEventListMapper
+import ru.alexsergeev.data.utils.EntityEventToDomainEventMapper
+import ru.alexsergeev.data.utils.MyEventEntityToDomainEventMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
@@ -27,6 +24,7 @@ internal class EventRepositoryImpl(
     private val entityEventToDomainEventMapper: EntityEventToDomainEventMapper,
     private val myEventEntityToDomainEventMapper: MyEventEntityToDomainEventMapper,
     private val domainEventToMyEventEntityMapper: DomainEventToMyEventEntityMapper,
+    private val entityEventListToDomainEventListMapper: EntityEventListToDomainEventListMapper,
 ) : EventRepository {
 
     private val visitors = mutableListOf(
@@ -61,6 +59,7 @@ internal class EventRepositoryImpl(
         cacheEvents.value = eventDao.getAll().last()
         eventDao.insertList(cacheEvents.value)
     }
+
     private suspend fun fetchEvent(id: Int) {
         cacheEvent.value = eventDao.getEventById(id).first()
     }
@@ -71,14 +70,14 @@ internal class EventRepositoryImpl(
             if (cacheEvents.value.isEmpty()) {
                 fetchEvents()
             }
-            val eventsDomain = mutableListOf<EventDomainModel>()
+//            val eventsDomain = mutableListOf<EventDomainModel>()
             cacheEvents.collect {
-                it.forEach { event ->
-                    if (!eventsDomain.contains(entityEventToDomainEventMapper.map(event))) {
-                        eventsDomain.add(entityEventToDomainEventMapper.map(event))
-                    }
-                }
-                emit(eventsDomain)
+//                it.forEach { event ->
+//                    if (!eventsDomain.contains(entityEventToDomainEventMapper.map(event))) {
+//                        eventsDomain.add(entityEventToDomainEventMapper.map(event))
+//                    }
+//                }
+                emit(entityEventListToDomainEventListMapper.map(cacheEvents.value))
             }
         }
     }

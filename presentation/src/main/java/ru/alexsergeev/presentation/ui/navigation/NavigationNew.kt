@@ -5,11 +5,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
-import ru.alexsergeev.presentation.ui.newScreens.ChangeInterestsScreen
+import ru.alexsergeev.presentation.ui.newScreens.person.ChangeInterestsScreen
 import ru.alexsergeev.presentation.ui.newScreens.SplashScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.event.EventScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.main.MainScreen
+import ru.alexsergeev.presentation.ui.newScreens.person.CorrectInterestsScreen
 import ru.alexsergeev.presentation.ui.newScreens.person.EditPersonProfileScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.person.PersonProfileScreenNew
 
@@ -53,6 +54,11 @@ fun NavigationNew() {
         }
         composable("add_interests") {
             ChangeInterestsScreen(
+                navController = navController,
+            )
+        }
+        composable("correct_interests") {
+            CorrectInterestsScreen(
                 navController = navController,
             )
         }

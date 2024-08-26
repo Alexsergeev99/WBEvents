@@ -1,4 +1,4 @@
-package ru.alexsergeev.presentation.ui.newScreens
+package ru.alexsergeev.presentation.ui.newScreens.person
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -15,8 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -30,17 +29,17 @@ import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.OneChipBig
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
+import ru.alexsergeev.presentation.ui.newScreens.mockTags
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.ChangeTagsScreenViewModel
 
-@SuppressLint("MutableCollectionMutableState", "StateFlowValueCalledInComposition")
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChangeInterestsScreen(
     navController: NavController,
     viewModel: ChangeTagsScreenViewModel = koinViewModel()
 ) {
-    val person = viewModel.getPersonData().collectAsStateWithLifecycle()
+    val person by viewModel.getPersonData().collectAsStateWithLifecycle()
 
     val gradient = Brush.horizontalGradient(
         listOf(
@@ -55,13 +54,6 @@ internal fun ChangeInterestsScreen(
             EventsTheme.colors.activeComponent
         )
     )
-
-    val tags = remember {
-        mutableStateOf(mutableListOf<String>())
-    }
-    val tag = remember {
-        mutableStateOf("")
-    }
 
     Column(
         modifier = Modifier
@@ -98,16 +90,16 @@ internal fun ChangeInterestsScreen(
                 FlowRow {
                     mockTags.forEach {
                         OneChipBig(it) {
-                            if (person.value.tags.contains(it)) {
+                            if (person.tags.contains(it)) {
                                 viewModel.setPersonData(
-                                    person.value.copy(
-                                        tags = (person.value.tags - it).toMutableList()
+                                    person.copy(
+                                        tags = (person.tags - it).toMutableList()
                                     )
                                 )
                             } else {
                                 viewModel.setPersonData(
-                                    person.value.copy(
-                                        tags = (person.value.tags + it).toMutableList()
+                                    person.copy(
+                                        tags = (person.tags + it).toMutableList()
                                     )
                                 )
                             }
@@ -123,7 +115,7 @@ internal fun ChangeInterestsScreen(
                 .height(50.dp),
             contentAlignment = Alignment.Center
         ) {
-            if (person.value.tags.isEmpty()) {
+            if (person.tags.isEmpty()) {
                 GradientButton(
                     modifier = Modifier
                         .width(350.dp)

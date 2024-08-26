@@ -55,7 +55,7 @@ fun OneChip(text: String) {
 }
 
 @Composable
-fun OneChipNew(text: String, canClick: Boolean = true) {
+fun OneChipNew(text: String, canClick: Boolean = true, onClick:() -> Unit = {}) {
 
     val isActive = remember {
         mutableStateOf(false)
@@ -76,6 +76,7 @@ fun OneChipNew(text: String, canClick: Boolean = true) {
             .clickable {
                 if(canClick) {
                     isActive.value = !isActive.value
+                    onClick()
                 }
             }
     ) {

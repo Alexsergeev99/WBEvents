@@ -102,11 +102,12 @@ internal fun PersonProfileScreenNew(
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
-                    OneChipNew(text = "Android")
-                    OneChipNew(text = "Разработка", false)
-                    OneChipNew(text = "Kotlin")
-                    OneChipNew(text = "Mobile")
-                    OneChipNew(text = "Jetpack Compose")
+                    person.tags.forEach {
+                        OneChipNew(text = it, canClick = false)
+                    }
+                    OneChipNew(text = "Добавить", canClick = true) {
+
+                    }
                 }
             }
             item {

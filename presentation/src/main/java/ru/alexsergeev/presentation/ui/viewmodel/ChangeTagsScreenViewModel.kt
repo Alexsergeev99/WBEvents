@@ -38,9 +38,6 @@ internal class ChangeTagsScreenViewModel(
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable
 
-    private val personAvatarMutable =
-        MutableStateFlow("https://www.1zoom.me/big2/62/199578-yana.jpg")
-    private val personAvatar: StateFlow<String> = personAvatarMutable
     fun getPersonData(): StateFlow<PersonUiModel> {
         try {
             viewModelScope.launch {
@@ -62,9 +59,5 @@ internal class ChangeTagsScreenViewModel(
         } catch (e: Exception) {
             throw e
         }
-    }
-    fun getPersonAvatarFlow(): StateFlow<String> = personAvatar
-    fun setPersonAvatarFlow(avatar: String) {
-        personAvatarMutable.value = avatar
     }
 }

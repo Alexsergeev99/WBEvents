@@ -12,7 +12,7 @@ import ru.alexsergeev.data.entity.Visitors
 import ru.alexsergeev.data.utils.DomainEventToMyEventEntityMapper
 import ru.alexsergeev.data.utils.EntityEventListToDomainEventListMapper
 import ru.alexsergeev.data.utils.EntityEventToDomainEventMapper
-import ru.alexsergeev.data.utils.MyEventEntityToDomainEventMapper
+import ru.alexsergeev.data.utils.MyEntityEventListToDomainEventListMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
@@ -22,10 +22,11 @@ import ru.alexsergeev.domain.repository.EventRepository
 internal class EventRepositoryImpl(
     private val eventDao: EventDao,
     private val entityEventToDomainEventMapper: EntityEventToDomainEventMapper,
-    private val myEventEntityToDomainEventMapper: MyEventEntityToDomainEventMapper,
     private val domainEventToMyEventEntityMapper: DomainEventToMyEventEntityMapper,
     private val entityEventListToDomainEventListMapper: EntityEventListToDomainEventListMapper,
-) : EventRepository {
+    private val myEntityEventListToDomainEventListMapper: MyEntityEventListToDomainEventListMapper,
+
+    ) : EventRepository {
 
     private val visitors = mutableListOf(
         PersonDomainModel(
@@ -70,13 +71,7 @@ internal class EventRepositoryImpl(
             if (cacheEvents.value.isEmpty()) {
                 fetchEvents()
             }
-//            val eventsDomain = mutableListOf<EventDomainModel>()
             cacheEvents.collect {
-//                it.forEach { event ->
-//                    if (!eventsDomain.contains(entityEventToDomainEventMapper.map(event))) {
-//                        eventsDomain.add(entityEventToDomainEventMapper.map(event))
-//                    }
-//                }
                 emit(entityEventListToDomainEventListMapper.map(cacheEvents.value))
             }
         }
@@ -119,14 +114,8 @@ internal class EventRepositoryImpl(
     override fun getMyEventsList(): Flow<List<EventDomainModel>> =
         flow {
             val eventsFlow = eventDao.getMyEvents()
-            val myEventsDomain = mutableListOf<EventDomainModel>()
             eventsFlow.collect { events ->
-                events.forEach { event ->
-                    if (!myEventsDomain.contains(myEventEntityToDomainEventMapper.map(event))) {
-                        myEventsDomain.add(myEventEntityToDomainEventMapper.map(event))
-                    }
-                }
-                emit(myEventsDomain)
+                emit(myEntityEventListToDomainEventListMapper.map(events))
             }
         }
 

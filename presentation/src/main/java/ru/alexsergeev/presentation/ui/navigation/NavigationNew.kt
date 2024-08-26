@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.newScreens.SplashScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.event.EventScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.main.MainScreen
@@ -16,7 +17,7 @@ fun NavigationNew() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = "main_screen"
+        startDestination = "splash_screen_new"
     ) {
         composable("main_screen") {
             MainScreen(navController = navController)
@@ -41,6 +42,11 @@ fun NavigationNew() {
         }
         composable("edit_profile_screen_new") {
             EditPersonProfileScreenNew(
+                navController = navController,
+            )
+        }
+        composable("splash_screen_new") {
+            SplashScreenNew(
                 navController = navController,
             )
         }

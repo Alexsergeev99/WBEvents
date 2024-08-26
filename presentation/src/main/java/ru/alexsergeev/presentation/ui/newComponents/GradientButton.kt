@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,12 +18,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.Subheading2Text
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
-import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
 fun GradientButton(
@@ -43,13 +44,15 @@ fun GradientButton(
     isTextButton: Boolean = false,
     shape: Dp = 32.dp
 ) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(vertical = 4.dp)
-        .clip(RoundedCornerShape(shape))
-        .background(gradient)
-        .clickable { onClick() },
-        contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 4.dp)
+            .clip(RoundedCornerShape(shape))
+            .background(gradient)
+            .clickable { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
         Button(
             modifier = modifier,
             colors = ButtonDefaults.buttonColors(
@@ -60,7 +63,14 @@ fun GradientButton(
             shape = RoundedCornerShape(shape)
         ) {
             if (isTextButton) {
-                Subheading2Text(text = text, color = Color.White)
+                Text(
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                    text = text,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+//                Subheading2Text(text = text, color = Color.White)
             }
             if (isIconButton) {
                 Icon(

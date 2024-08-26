@@ -31,3 +31,5 @@ internal val testPerson = PersonUiModel(
     avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
 )
 
+internal val mockTags = listOf("Дизайн", "Разработка", "Продакт менеджмент", "Проджект менеджмент", "Backend", "Frontend", "Mobile",
+    "Тестирование", "Продажи", "Бизнес", "Безопасность", "Web", "Devops", "Маркетинг", "Аналитика")

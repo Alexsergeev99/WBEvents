@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.alexsergeev.domain.repository.PersonProfileRepository
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.FullName
@@ -16,13 +15,12 @@ import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
-private const val PHONE_NUMBER_LENGTH = 10
-internal class InputPhoneNumberViewModel(
+internal class ChangeTagsScreenViewModel(
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
     private val setPersonProfileUseCase: SetPersonProfileUseCase,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
@@ -69,6 +67,4 @@ internal class InputPhoneNumberViewModel(
     fun setPersonAvatarFlow(avatar: String) {
         personAvatarMutable.value = avatar
     }
-    fun checkPhoneLength(length: Int): Boolean = length == PHONE_NUMBER_LENGTH
-
 }

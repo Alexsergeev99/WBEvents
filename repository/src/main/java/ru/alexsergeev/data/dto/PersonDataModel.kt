@@ -4,6 +4,7 @@ data class PersonDataModel(
     val name: FullName,
     val phone: Phone,
     val avatar: String,
+    val tags: MutableList<String>
 )
 
 data class FullName(

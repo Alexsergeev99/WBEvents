@@ -15,7 +15,8 @@ internal class PersonProfileRepositoryImpl : PersonProfileRepository {
         PersonDomainModel(
             FullName("", ""),
             phone = Phone("+7", ""),
-            "https://www.1zoom.me/big2/62/199578-yana.jpg"
+            "https://www.1zoom.me/big2/62/199578-yana.jpg",
+            mutableListOf<String>()
         )
     )
 

@@ -24,16 +24,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.OneChipBig
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
+import ru.alexsergeev.presentation.ui.viewmodel.ChangeTagsScreenViewModel
 
-@SuppressLint("MutableCollectionMutableState")
+@SuppressLint("MutableCollectionMutableState", "StateFlowValueCalledInComposition")
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ChangeInterestsScreen(navController: NavController) {
+internal fun ChangeInterestsScreen(
+    navController: NavController,
+    viewModel: ChangeTagsScreenViewModel = koinViewModel()
+) {
+    val person = viewModel.getPersonData().collectAsStateWithLifecycle()
 
     val gradient = Brush.horizontalGradient(
         listOf(
@@ -91,12 +98,18 @@ fun ChangeInterestsScreen(navController: NavController) {
                 FlowRow {
                     mockTags.forEach {
                         OneChipBig(it) {
-                            if(tags.value.contains(it)) {
-                                tags.value.remove(it)
-                                tag.value = ""
+                            if (person.value.tags.contains(it)) {
+                                viewModel.setPersonData(
+                                    person.value.copy(
+                                        tags = (person.value.tags - it).toMutableList()
+                                    )
+                                )
                             } else {
-                                tags.value.add(it)
-                                tag.value = it
+                                viewModel.setPersonData(
+                                    person.value.copy(
+                                        tags = (person.value.tags + it).toMutableList()
+                                    )
+                                )
                             }
                         }
                     }
@@ -110,8 +123,8 @@ fun ChangeInterestsScreen(navController: NavController) {
                 .height(50.dp),
             contentAlignment = Alignment.Center
         ) {
-                if (tag.value.isBlank()) {
-                    GradientButton(
+            if (person.value.tags.isEmpty()) {
+                GradientButton(
                     modifier = Modifier
                         .width(350.dp)
                         .height(50.dp),

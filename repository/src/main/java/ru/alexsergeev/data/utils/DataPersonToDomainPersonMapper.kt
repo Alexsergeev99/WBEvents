@@ -14,7 +14,8 @@ internal class DataPersonToDomainPersonMapper(
                 secondName = input.name.secondName
             ),
             Phone(input.phone.countryCode, input.phone.basicNumber),
-            avatar
+            avatar,
+            tags
         )
     }
 }

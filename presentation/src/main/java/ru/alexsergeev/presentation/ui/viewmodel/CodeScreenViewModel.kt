@@ -35,7 +35,8 @@ internal class CodeScreenViewModel(
                 countryCode = "",
                 basicNumber = ""
             ),
-            avatar = ""
+            avatar = "",
+            tags = mutableListOf<String>()
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable

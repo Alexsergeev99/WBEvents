@@ -13,6 +13,7 @@ data class PersonEntity(
     @Embedded
     val phone: Phone,
     val avatar: String = "",
+    val tags: MutableList<String>
 )
 
 data class FullName(

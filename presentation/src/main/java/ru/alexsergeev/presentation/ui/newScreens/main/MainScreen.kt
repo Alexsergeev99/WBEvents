@@ -120,7 +120,7 @@ internal fun MainScreen(
             }
             item {
                 Column {
-                    for (i in 6..8) {
+                    for (i in 6..<events.size) {
                         EventCardNewBig(events[i]) {
                             navController.navigate("event_screen_new/${it}")
                         }

@@ -16,7 +16,8 @@ internal class UiPersonToDomainPersonMapper : Mapper<PersonUiModel, PersonDomain
                 input.phone.countryCode,
                 input.phone.basicNumber
             ),
-            avatar
+            avatar,
+            tags
         )
     }
 }

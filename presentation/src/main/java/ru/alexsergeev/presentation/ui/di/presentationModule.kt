@@ -19,6 +19,7 @@ import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.InputPhoneNumberViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.MyEventsViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.ChangeTagsScreenViewModel
 
 
 val presentationModule = module {
@@ -32,6 +33,7 @@ val presentationModule = module {
     viewModelOf(::DetailGroupViewModel)
     viewModelOf(::InputPhoneNumberViewModel)
     viewModelOf(::MyEventsViewModel)
+    viewModelOf(::ChangeTagsScreenViewModel)
 
     singleOf(::DomainEventToUiEventMapper)
     singleOf(::DomainEventListToUiEventListMapper)

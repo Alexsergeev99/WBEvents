@@ -105,9 +105,6 @@ internal fun PersonProfileScreenNew(
                     person.tags.forEach {
                         OneChipNew(text = it, canClick = false)
                     }
-                    OneChipNew(text = "Добавить", canClick = true) {
-
-                    }
                 }
             }
             item {

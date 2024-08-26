@@ -37,6 +37,7 @@ fun GradientButton(
             Color(0xFF8306F7), Color(0xFF6600FF)
         )
     ),
+    textColor: Color = Color.White,
     onClick: () -> Unit = { },
     isIconButton: Boolean = false,
     isIconButtonDefault: Boolean = false,
@@ -68,9 +69,8 @@ fun GradientButton(
                     text = text,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Color.White
+                    color = textColor
                 )
-//                Subheading2Text(text = text, color = Color.White)
             }
             if (isIconButton) {
                 Icon(

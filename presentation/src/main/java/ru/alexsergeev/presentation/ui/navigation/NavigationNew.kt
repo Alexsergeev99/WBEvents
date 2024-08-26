@@ -13,6 +13,7 @@ import ru.alexsergeev.presentation.ui.newScreens.main.MainScreen
 import ru.alexsergeev.presentation.ui.newScreens.person.CorrectInterestsScreen
 import ru.alexsergeev.presentation.ui.newScreens.person.EditPersonProfileScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.person.PersonProfileScreenNew
+import ru.alexsergeev.presentation.ui.newScreens.person.RemoveProfileScreen
 
 @Composable
 fun NavigationNew() {
@@ -59,6 +60,11 @@ fun NavigationNew() {
         }
         composable("correct_interests") {
             CorrectInterestsScreen(
+                navController = navController,
+            )
+        }
+        composable("remove_profile") {
+            RemoveProfileScreen(
                 navController = navController,
             )
         }

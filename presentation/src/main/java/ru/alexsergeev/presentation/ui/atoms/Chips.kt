@@ -55,14 +55,16 @@ fun OneChip(text: String) {
 }
 
 @Composable
-fun OneChipNew(text: String, canClick: Boolean = true, onClick:() -> Unit = {}) {
+fun OneChipNew(text: String, canClick: Boolean = true, onClick: () -> Unit = {}) {
 
     val isActive = remember {
         mutableStateOf(false)
     }
 
-    val boxColor = if(isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
-    val textColor = if(isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
+    val boxColor =
+        if (isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
+    val textColor =
+        if (isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
 
     Box(
         contentAlignment = Alignment.Center,
@@ -74,7 +76,7 @@ fun OneChipNew(text: String, canClick: Boolean = true, onClick:() -> Unit = {}) 
                 shape = RoundedCornerShape(20.dp)
             )
             .clickable {
-                if(canClick) {
+                if (canClick) {
                     isActive.value = !isActive.value
                     onClick()
                 }
@@ -89,14 +91,13 @@ fun OneChipNew(text: String, canClick: Boolean = true, onClick:() -> Unit = {}) 
 }
 
 @Composable
-fun OneChipBig(text: String, canClick: Boolean = true, onClick:() -> Unit = {}) {
-
-    val isActive = remember {
-        mutableStateOf(false)
-    }
-
-    val boxColor = if(isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
-    val textColor = if(isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
+fun OneChipBig(
+    text: String,
+    canClick: Boolean = true,
+    boxColor: Color = EventsTheme.colors.disabledComponent,
+    textColor: Color = EventsTheme.colors.activeComponent,
+    onClick: () -> Unit = {}
+) {
 
     Box(
         contentAlignment = Alignment.Center,
@@ -108,8 +109,7 @@ fun OneChipBig(text: String, canClick: Boolean = true, onClick:() -> Unit = {}) 
                 shape = RoundedCornerShape(20.dp)
             )
             .clickable {
-                if(canClick) {
-                    isActive.value = !isActive.value
+                if (canClick) {
                     onClick()
                 }
             }
@@ -123,14 +123,16 @@ fun OneChipBig(text: String, canClick: Boolean = true, onClick:() -> Unit = {}) 
 }
 
 @Composable
-fun OneChipMiddle(text: String, canClick: Boolean = true) {
+fun OneChipMiddle(text: String, canClick: Boolean = true, onClick: () -> Unit = {}) {
 
     val isActive = remember {
         mutableStateOf(false)
     }
 
-    val boxColor = if(isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
-    val textColor = if(isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
+    val boxColor =
+        if (isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
+    val textColor =
+        if (isActive.value) EventsTheme.colors.disabledComponent else EventsTheme.colors.activeComponent
 
     Box(
         contentAlignment = Alignment.Center,
@@ -142,7 +144,8 @@ fun OneChipMiddle(text: String, canClick: Boolean = true) {
                 shape = RoundedCornerShape(8.dp)
             )
             .clickable {
-                if(canClick) {
+                if (canClick) {
+                    onClick()
                     isActive.value = !isActive.value
                 }
             }

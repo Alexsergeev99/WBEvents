@@ -88,14 +88,20 @@ internal fun CorrectInterestsScreen(
             item {
                 FlowRow {
                     mockTags.forEach {
-                        OneChipBig(it) {
-                            if (person.tags.contains(it)) {
+                        if (person.tags.contains(it)) {
+                            OneChipBig(
+                                it,
+                                boxColor = EventsTheme.colors.activeComponent,
+                                textColor = EventsTheme.colors.disabledComponent
+                            ) {
                                 viewModel.setPersonData(
                                     person.copy(
                                         tags = (person.tags - it).toMutableList()
                                     )
                                 )
-                            } else {
+                            }
+                        } else {
+                            OneChipBig(it) {
                                 viewModel.setPersonData(
                                     person.copy(
                                         tags = (person.tags + it).toMutableList()
@@ -135,7 +141,7 @@ internal fun CorrectInterestsScreen(
                     text = "Сохранить",
                     shape = 28.dp,
                     onClick = {
-                        navController.navigate("main_screen")
+                        navController.navigate("edit_profile_screen_new")
                     }
                 )
             }

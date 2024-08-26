@@ -1,6 +1,5 @@
 package ru.alexsergeev.presentation.ui.newScreens.person
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,15 +42,8 @@ internal fun ChangeInterestsScreen(
 
     val gradient = Brush.horizontalGradient(
         listOf(
-            Color(0xFFFEF1FB), Color(0xFFFDF1FC), Color(0xFFFCF0FC),
-            Color(0xFFFBF0FD), Color(0xFFF9EFFD), Color(0xFFF8EEFE),
-            Color(0xFFF6EEFE), Color(0xFFF4EDFF)
-        )
-    )
-    val addedGradient = Brush.horizontalGradient(
-        listOf(
-            EventsTheme.colors.activeComponent,
-            EventsTheme.colors.activeComponent
+            EventsTheme.colors.disabledComponent,
+            EventsTheme.colors.disabledComponent
         )
     )
 
@@ -89,14 +81,20 @@ internal fun ChangeInterestsScreen(
             item {
                 FlowRow {
                     mockTags.forEach {
-                        OneChipBig(it) {
-                            if (person.tags.contains(it)) {
+                        if (person.tags.contains(it)) {
+                            OneChipBig(
+                                it,
+                                boxColor = EventsTheme.colors.activeComponent,
+                                textColor = EventsTheme.colors.disabledComponent
+                            ) {
                                 viewModel.setPersonData(
                                     person.copy(
                                         tags = (person.tags - it).toMutableList()
                                     )
                                 )
-                            } else {
+                            }
+                        } else {
+                            OneChipBig(it) {
                                 viewModel.setPersonData(
                                     person.copy(
                                         tags = (person.tags + it).toMutableList()
@@ -122,6 +120,7 @@ internal fun ChangeInterestsScreen(
                         .height(50.dp),
                     gradient = gradient,
                     isTextButton = true,
+                    textColor = EventsTheme.colors.disabledText,
                     text = "Сохранить",
                     shape = 28.dp,
                     onClick = {}
@@ -131,7 +130,6 @@ internal fun ChangeInterestsScreen(
                     modifier = Modifier
                         .width(350.dp)
                         .height(50.dp),
-                    gradient = addedGradient,
                     isTextButton = true,
                     text = "Сохранить",
                     shape = 28.dp,

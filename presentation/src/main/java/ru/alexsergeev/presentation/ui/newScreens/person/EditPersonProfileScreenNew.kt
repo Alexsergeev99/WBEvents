@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,22 +22,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.RowWithSwitch
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
-import ru.alexsergeev.presentation.ui.newComponents.SwitchItem
 import ru.alexsergeev.presentation.ui.newComponents.Textarea
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
+import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EditPersonProfileScreenNew(
+internal fun EditPersonProfileScreenNew(
     navController: NavController,
+    personProfileViewModel: PersonProfileViewModel = koinViewModel()
 ) {
+
+    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
+
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
             PeopleAvatarNewDetail(
@@ -85,14 +91,18 @@ fun EditPersonProfileScreenNew(
                 }
             }
             item {
-                FlowRow(modifier = Modifier.padding(4.dp)) {
-                    OneChipMiddle(text = "Android")
-                    OneChipMiddle(text = "Разработка")
-                    OneChipMiddle(text = "Kotlin")
-                    OneChipMiddle(text = "Android")
-                    OneChipMiddle(text = "Разработка")
-                    OneChipMiddle(text = "Mobile")
-                    OneChipMiddle(text = "+ Добавить")
+                FlowRow(
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    person.tags.forEach {
+                        OneChipMiddle(text = it, canClick = false)
+                    }
+                    OneChipMiddle(text = "+ Добавить", canClick = true) {
+                        navController.navigate("correct_interests")
+                    }
                 }
             }
             item {
@@ -143,7 +153,7 @@ fun EditPersonProfileScreenNew(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {
-                    TextButton(onClick = { /*TODO*/ }) {
+                    TextButton(onClick = { navController.navigate("remove_profile") }) {
                         Text(
                             modifier = Modifier.padding(horizontal = 4.dp),
                             text = "Удалить профиль",

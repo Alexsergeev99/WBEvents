@@ -3,10 +3,7 @@ package ru.alexsergeev.testwb
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.navigation.compose.rememberNavController
 import ru.alexsergeev.presentation.ui.navigation.NavigationNew
-import ru.alexsergeev.presentation.ui.newScreens.SplashScreenNew
-import ru.alexsergeev.presentation.ui.newScreens.person.EditPersonProfileScreenNew
 
 class MainActivity : ComponentActivity() {
 

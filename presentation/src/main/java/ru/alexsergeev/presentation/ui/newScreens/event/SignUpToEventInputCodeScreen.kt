@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -30,29 +32,27 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
-import ru.alexsergeev.presentation.ui.models.Phone
-import ru.alexsergeev.presentation.ui.molecules.InputCodeCountryField
-import ru.alexsergeev.presentation.ui.molecules.InputNumberTextField
+import ru.alexsergeev.presentation.ui.models.FullName
+import ru.alexsergeev.presentation.ui.molecules.OtpTextField
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
+import ru.alexsergeev.presentation.ui.newComponents.SearchNew
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
+import ru.alexsergeev.presentation.ui.viewmodel.CodeScreenViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
-import ru.alexsergeev.presentation.ui.viewmodel.InputPhoneNumberViewModel
-
-private const val INPUT_PHONE_HINT = "999 999-99-99"
 
 @Composable
-internal fun SignUpToEventInputNumberScreen(
+internal fun SignUpToEventInputCodeScreen(
     navController: NavController,
     eventId: String,
     detailEventViewModel: DetailEventViewModel = koinViewModel(),
-    inputPhoneNumberViewModel: InputPhoneNumberViewModel = koinViewModel()
+    codeScreenViewModel: CodeScreenViewModel = koinViewModel()
 ) {
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
-    val person by inputPhoneNumberViewModel.getPersonData().collectAsStateWithLifecycle()
+    val person by codeScreenViewModel.getPersonData().collectAsStateWithLifecycle()
 
-    val checkPhoneNumberLength = remember {
+    val correctCode = remember {
         mutableStateOf(false)
     }
 
@@ -98,38 +98,52 @@ internal fun SignUpToEventInputNumberScreen(
             maxLines = 2,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            InputCodeCountryField(onTextChange = {
-                inputPhoneNumberViewModel.setPersonData(
-                    person.copy(
-                        phone = Phone(it, ""),
-                    )
-                )
-            })
-            InputNumberTextField(hint = INPUT_PHONE_HINT, height = 56.dp, onTextChange = {
-                inputPhoneNumberViewModel.setPersonData(
-                    person.copy(
-                        phone = Phone(person.phone.countryCode, it),
-                    )
-                )
-                checkPhoneNumberLength.value =
-                    inputPhoneNumberViewModel.checkPhoneLength(it.length)
+        SearchNew(
+            hint = "0000",
+            isSearch = false,
+            hintColor = EventsTheme.colors.neutral,
+            onTextChange = {
+                Log.d("test", correctCode.value.toString())
+                codeScreenViewModel.validateCodeFlow(it.toInt())
+                if (codeScreenViewModel.validateCode().value) {
+                    correctCode.value = true
+                }
+                Log.d("test1", correctCode.value.toString())
             }
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Text(
+                text = "Отправили код на ${person.phone.countryCode} ${person.phone.basicNumber}",
+                fontSize = 14.sp,
+                fontWeight = FontWeight(400),
+                color = EventsTheme.colors.weakColor,
+                maxLines = 2,
             )
         }
-        Spacer(modifier = Modifier.height(440.dp))
-        if (!checkPhoneNumberLength.value) {
-            Box(
-                modifier = Modifier
-                    .width(350.dp)
-                    .height(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
+        Spacer(modifier = Modifier.height(400.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            TextButton(onClick = { /*TODO*/ }) {
+                Text(
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                    text = "Получить новый код через 10",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = EventsTheme.colors.weakColor
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Box(
+            modifier = Modifier
+                .width(350.dp)
+                .height(56.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (!correctCode.value) {
                 GradientButton(
                     modifier = Modifier
                         .width(350.dp)
@@ -137,27 +151,20 @@ internal fun SignUpToEventInputNumberScreen(
                     gradient = gradient,
                     isTextButton = true,
                     textColor = EventsTheme.colors.disabledText,
-                    text = "Получить код",
+                    text = "Отправить и подтвердить запись",
                     shape = 28.dp,
                     onClick = {}
                 )
-            }
-        } else {
-            Box(
-                modifier = Modifier
-                    .width(350.dp)
-                    .height(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
+            } else {
                 GradientButton(
                     modifier = Modifier
                         .width(350.dp)
                         .height(56.dp),
                     isTextButton = true,
-                    text = "Получить код",
+                    text = "Отправить и подтвердить запись",
                     shape = 28.dp,
                     onClick = {
-                        navController.navigate("sign_up_event_code/${event.id}")
+
                     }
                 )
             }

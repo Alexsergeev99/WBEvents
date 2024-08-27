@@ -18,6 +18,7 @@ internal fun BigText(text: String, fontSize: Int = 24) {
         fontSize = fontSize.sp,
         fontWeight = FontWeight.Bold,
         maxLines = 3,
+        lineHeight = fontSize.sp,
         color = NeutralActive,
     )
 }

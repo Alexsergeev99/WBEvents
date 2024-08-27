@@ -1,7 +1,10 @@
 package ru.alexsergeev.presentation.ui.newScreens.event
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 
 @Composable
-internal fun GoToEventButtonColumn() {
+internal fun GoToEventButtonColumn(onClick:() -> Unit) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             modifier = Modifier.padding(horizontal = 4.dp),
@@ -24,11 +27,14 @@ internal fun GoToEventButtonColumn() {
             maxLines = 2,
             color = Color(0xFF9A10F0),
         )
-        GradientButton(
-            modifier = Modifier
-                .fillMaxSize(),
-            text = "Записаться на встречу",
-            isTextButton = true
-        )
+        Box(modifier = Modifier.fillMaxWidth().height(56.dp), contentAlignment = Alignment.Center) {
+            GradientButton(
+                modifier = Modifier
+                    .fillMaxSize(),
+                onClick = onClick,
+                text = "Записаться на встречу",
+                isTextButton = true
+            )
+        }
     }
 }

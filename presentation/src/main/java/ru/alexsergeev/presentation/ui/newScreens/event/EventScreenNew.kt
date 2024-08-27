@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,21 +42,20 @@ internal fun EventScreenNew(
 ) {
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
-    val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
     ) {
         EventsTopBar(
             navController = navController,
             text = event.title ?: "Event",
             needToBack = true
         )
-        LazyColumn {
+        LazyColumn(modifier = Modifier.fillMaxHeight(if(event.isFinished) 1f else 0.9f)) {
             item {
                 Box(
                     modifier = Modifier
@@ -66,6 +66,15 @@ internal fun EventScreenNew(
             }
             item {
                 BigText(text = event.title ?: "Event")
+            }
+            if (event.isFinished) {
+                item {
+                    Body1Text(
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        text = "Встреча завершена",
+                        color = EventsTheme.colors.weakColor
+                    )
+                }
             }
             item {
                 Body1Text(
@@ -141,8 +150,10 @@ internal fun EventScreenNew(
             item {
                 Spacer(Modifier.height(48.dp))
             }
-            item {
-                GoToEventButtonColumn()
+        }
+        if (!event.isFinished) {
+            GoToEventButtonColumn() {
+                navController.navigate("sign_up_event_first/${event.id}")
             }
         }
     }

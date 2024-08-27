@@ -46,6 +46,7 @@ import ru.alexsergeev.wbevents.ui.utils.MaskVisualTransformation
 @Composable
 internal fun SearchNew(
     hint: String,
+    hintColor: Color = EventsTheme.colors.weakColor,
     isSearch: Boolean = true,
     padding: Dp = 8.dp,
     isEnabled: (Boolean) = true,
@@ -115,7 +116,7 @@ internal fun SearchNew(
                 if (text.value.isEmpty()) {
                     Text(
                         text = hint,
-                        color = EventsTheme.colors.weakColor,
+                        color = hintColor,
                         style = EventsTheme.typography.bodyText1
                     )
                 }

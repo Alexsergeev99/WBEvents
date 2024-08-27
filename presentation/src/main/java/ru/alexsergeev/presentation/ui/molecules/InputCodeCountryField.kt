@@ -55,8 +55,8 @@ fun InputCodeCountryField(onTextChange: (String) -> Unit = {}) {
             .background(NeutralBackground)
     ) {
         DropdownMenuItem(modifier = Modifier
-            .height(40.dp)
-            .width(66.dp)
+            .height(56.dp)
+            .width(86.dp)
             .menuAnchor(),
             contentPadding = PaddingValues(horizontal = 6.dp, vertical = 8.dp),
             onClick = {

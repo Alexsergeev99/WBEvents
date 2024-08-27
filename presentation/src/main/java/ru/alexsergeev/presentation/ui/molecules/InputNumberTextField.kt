@@ -45,12 +45,12 @@ import ru.alexsergeev.presentation.ui.theme.NeutralBackground
 import kotlin.math.absoluteValue
 
 @Composable
-fun InputNumberTextField(
+internal fun InputNumberTextField(
     hint: String,
     padding: Dp = 8.dp,
     isEnabled: (Boolean) = true,
-    height: Dp = 36.dp,
-    width: Dp = 326.dp,
+    height: Dp = 56.dp,
+    width: Dp = 250.dp,
     cornerShape: Shape = RoundedCornerShape(8.dp),
     backgroundColor: Color = NeutralBackground,
     onSearchClicked: () -> Unit = {},

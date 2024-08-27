@@ -4,7 +4,9 @@ internal data class PersonUiModel(
     val name: FullName,
     val phone: Phone,
     val avatar: String,
-    val tags: MutableList<String>
+    val tags: MutableList<String>,
+    val city: String = "",
+    val info: String = ""
 )
 
 internal data class FullName(

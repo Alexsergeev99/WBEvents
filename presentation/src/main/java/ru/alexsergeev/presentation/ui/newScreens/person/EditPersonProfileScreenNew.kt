@@ -27,6 +27,8 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
+import ru.alexsergeev.presentation.ui.models.FullName
+import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.RowWithSwitch
@@ -54,7 +56,12 @@ internal fun EditPersonProfileScreenNew(
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp)
             ) {
-                EventsTopBar(navController = navController, text = "", needToBack = true)
+                EventsTopBar(
+                    navController = navController,
+                    text = "",
+                    needToBack = true,
+                    needToSave = true
+                )
             }
         }
         LazyColumn(
@@ -62,17 +69,59 @@ internal fun EditPersonProfileScreenNew(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                SearchNew("Имя Фамилия", isSearch = false)
+                SearchNew(
+                    person.name.firstName.ifBlank { "Имя Фамилия" },
+                    isSearch = false,
+                    onTextChange = {
+                        val fullName: List<String?> = it.split(" ")
+                        if (fullName.size == 1) {
+                            personProfileViewModel.setPersonData(
+                                person.copy(
+                                    name = FullName(fullName[0] ?: "Пользователь", ""),
+                                )
+                            )
+                        } else {
+                            personProfileViewModel.setPersonData(
+                                person.copy(
+                                    name = FullName(fullName[0] ?: "Пользователь", fullName[1] ?: ""),
+                                )
+                            )
+                        }
+                    }
+                )
             }
             item {
-                SearchNew("+7 000 000-00-00", isSearch = false)
-
+                SearchNew(
+                    person.phone.basicNumber.ifBlank { "+7 000 000-00-00" },
+                    isSearch = false,
+                    onTextChange = {
+                        personProfileViewModel.setPersonData(
+                            person.copy(
+                                phone = Phone("", it),
+                            )
+                        )
+                    }
+                )
             }
             item {
-                SearchNew("Город", isSearch = false)
+                SearchNew(person.city.ifBlank { "Город" }, isSearch = false, onTextChange = {
+                    personProfileViewModel.setPersonData(
+                        person.copy(
+                            city = it,
+                        )
+                    )
+                }
+                )
             }
             item {
-                Textarea("Расскажите о себе")
+                Textarea(person.info.ifBlank { "Расскажите о себе" }, onTextChange = {
+                    personProfileViewModel.setPersonData(
+                        person.copy(
+                            info = it,
+                        )
+                    )
+                }
+                )
             }
             item {
                 Spacer(Modifier.height(24.dp))
@@ -100,7 +149,7 @@ internal fun EditPersonProfileScreenNew(
                     person.tags.forEach {
                         OneChipMiddle(text = it, canClick = false)
                     }
-                    OneChipMiddle(text = "+ Добавить", canClick = true) {
+                    OneChipMiddle(text = "+  Добавить", canClick = true) {
                         navController.navigate("correct_interests")
                     }
                 }

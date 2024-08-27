@@ -80,7 +80,7 @@ internal fun PersonProfileScreenNew(
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Москва",
+                    text = person.city.ifBlank { "Ни рода, ни племени" },
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
@@ -90,7 +90,7 @@ internal fun PersonProfileScreenNew(
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Занимаюсь разработкой мобильных приложений под Android. Учу Kotlin.",
+                    text = person.info.ifBlank { "Так то хороший парень" },
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,

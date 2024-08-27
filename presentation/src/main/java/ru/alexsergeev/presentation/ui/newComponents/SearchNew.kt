@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -40,9 +41,10 @@ import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
+import ru.alexsergeev.wbevents.ui.utils.MaskVisualTransformation
 
 @Composable
-fun SearchNew(
+internal fun SearchNew(
     hint: String,
     isSearch: Boolean = true,
     padding: Dp = 8.dp,
@@ -124,7 +126,7 @@ fun SearchNew(
                 imeAction = ImeAction.Search
             ),
             keyboardActions = KeyboardActions(onSearch = { onSearchClicked() }),
-            singleLine = true
+            singleLine = true,
         )
     }
 }

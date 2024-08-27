@@ -8,15 +8,19 @@ import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
+import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 internal class PersonProfileViewModel(
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
-) : ViewModel() {
+    private val setPersonProfileUseCase: SetPersonProfileUseCase,
+    private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper
+    ) : ViewModel() {
 
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
@@ -41,6 +45,17 @@ internal class PersonProfileViewModel(
                 personDataMutable.update { domainPersonToUiPersonMapper.map(person) }
             }
             return personData
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun setPersonData(personUiModel: PersonUiModel) {
+        try {
+            viewModelScope.launch {
+                setPersonProfileUseCase.invoke(uiPersonToDomainPersonMapper.map(personUiModel))
+                personDataMutable.update { personUiModel }
+            }
         } catch (e: Exception) {
             throw e
         }

@@ -30,7 +30,10 @@ import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
-fun Textarea(hint: String) {
+fun Textarea(
+    hint: String,
+    onTextChange: (String) -> Unit = {},
+) {
     val gradient = Brush.horizontalGradient(
         listOf(
             Color.White, EventsTheme.colors.disabledComponent
@@ -48,7 +51,10 @@ fun Textarea(hint: String) {
     ) {
         BasicTextField(
             value = text.value,
-            onValueChange = { text.value = it },
+            onValueChange = {
+                text.value = it
+                onTextChange(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)

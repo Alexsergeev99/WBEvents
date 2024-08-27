@@ -18,7 +18,9 @@ internal class DomainPersonToEntityPersonMapper(
                 input.phone.basicNumber
             ),
             avatar = avatar,
-            tags = tags
+            tags = tags,
+            city = city,
+            info = info
         )
     }
 }

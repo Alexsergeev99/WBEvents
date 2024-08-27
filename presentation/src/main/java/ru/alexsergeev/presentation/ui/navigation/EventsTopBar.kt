@@ -24,6 +24,7 @@ fun EventsTopBar(
     needToBack: Boolean,
     needToEdit: Boolean = false,
     needToAdd: Boolean = false,
+    needToSave: Boolean = false,
     iAmGuest: Boolean = false,
     goToEditScreen: () -> Unit = { },
     goToBackScreen: () -> Unit = { navController.navigateUp() },
@@ -65,6 +66,16 @@ fun EventsTopBar(
                 painter = painterResource(id = R.drawable.edit),
                 tint = EventsTheme.colors.activeComponent,
                 contentDescription = "edit"
+            )
+        }
+        if (needToSave) {
+            Icon(
+                modifier = Modifier
+                    .padding(vertical = 6.dp)
+                    .clickable { goToBackScreen() },
+                painter = painterResource(id = R.drawable.check_mark),
+                tint = EventsTheme.colors.activeComponent,
+                contentDescription = "save"
             )
         }
         if (needToAdd) {

@@ -4,7 +4,9 @@ data class PersonDataModel(
     val name: FullName,
     val phone: Phone,
     val avatar: String,
-    val tags: MutableList<String>
+    val tags: MutableList<String>,
+    val city: String = "",
+    val info: String = ""
 )
 
 data class FullName(

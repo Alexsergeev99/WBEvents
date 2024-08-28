@@ -31,6 +31,8 @@ import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.MyEventsViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -38,10 +40,14 @@ internal fun EventScreenNew(
     navController: NavController = rememberNavController(),
     eventId: String,
     detailEventViewModel: DetailEventViewModel = koinViewModel(),
+    myEventsViewModel: MyEventsViewModel = koinViewModel(),
+    personProfileViewModel: PersonProfileViewModel = koinViewModel(),
     community: GroupUiModel
 ) {
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val myEvents by myEventsViewModel.getMyEventsList().collectAsStateWithLifecycle()
+    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -151,9 +157,15 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(48.dp))
             }
         }
-        if (!event.isFinished) {
-            GoToEventButtonColumn() {
-                navController.navigate("sign_up_event_first/${event.id}")
+        if(myEvents.contains(event)) {
+            SignOutByEventColumn() {
+                detailEventViewModel.removePersonFromEventVisitorsList(event, person)
+            }
+        } else {
+            if (!event.isFinished) {
+                GoToEventButtonColumn() {
+                    navController.navigate("sign_up_event_first/${event.id}")
+                }
             }
         }
     }

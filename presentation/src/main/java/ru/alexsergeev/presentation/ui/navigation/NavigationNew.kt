@@ -9,6 +9,7 @@ import ru.alexsergeev.presentation.ui.newScreens.person.ChangeInterestsScreen
 import ru.alexsergeev.presentation.ui.newScreens.SplashScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.event.EventScreenNew
+import ru.alexsergeev.presentation.ui.newScreens.event.SignUpIsSuccessfulScreen
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventInputCodeScreen
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventInputNumberScreen
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventStartedScreen
@@ -49,6 +50,12 @@ fun NavigationNew() {
         }
         composable("sign_up_event_code/{id}") {
             SignUpToEventInputCodeScreen(
+                navController = navController,
+                it.arguments?.getString("id") ?: throw Exception(),
+            )
+        }
+        composable("sign_up_successful/{id}") {
+            SignUpIsSuccessfulScreen(
                 navController = navController,
                 it.arguments?.getString("id") ?: throw Exception(),
             )

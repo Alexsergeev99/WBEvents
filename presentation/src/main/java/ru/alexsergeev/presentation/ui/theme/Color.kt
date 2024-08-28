@@ -24,8 +24,8 @@ data class Colors(
     val disabledComponent: Color,
     val switchBackground: Color,
     val disabledText: Color,
-    val neutral: Color
-
+    val neutral: Color,
+    val green: Color
 )
 
 val ColorInstance = Colors(
@@ -34,7 +34,8 @@ val ColorInstance = Colors(
     disabledComponent = Color(0xFFF6F6FA),
     switchBackground = Color(0xFFEFEFEF),
     disabledText = Color(0xFF9797AF),
-    neutral = Neutral
+    neutral = Neutral,
+    green = Color(0xFF00BF59)
 )
 
 val LocalColors = staticCompositionLocalOf { ColorInstance }

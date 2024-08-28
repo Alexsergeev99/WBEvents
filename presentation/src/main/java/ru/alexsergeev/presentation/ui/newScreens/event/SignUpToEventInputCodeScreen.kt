@@ -164,7 +164,8 @@ internal fun SignUpToEventInputCodeScreen(
                     text = "Отправить и подтвердить запись",
                     shape = 28.dp,
                     onClick = {
-
+                        detailEventViewModel.addPersonToEventVisitorList(event, person)
+                        navController.navigate("sign_up_successful/${event.id}")
                     }
                 )
             }

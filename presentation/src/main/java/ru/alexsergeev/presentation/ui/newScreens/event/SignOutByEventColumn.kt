@@ -21,19 +21,28 @@ import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 
 @Composable
-internal fun GoToEventButtonColumn(onClick: () -> Unit) {
+internal fun SignOutByEventColumn(onClick: () -> Unit) {
+
+    val gradient = Brush.horizontalGradient(
+        listOf(
+            Color(0xFFFEF1FB), Color(0xFFFDF1FC), Color(0xFFFCF0FC),
+            Color(0xFFFBF0FD), Color(0xFFF9EFFD), Color(0xFFF8EEFE),
+            Color(0xFFF6EEFE), Color(0xFFF4EDFF)
+        )
+    )
+
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp, 8.dp, 0.dp, 0.dp)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(4.dp),
-            text = "Всего 30 мест. Если передумаете — отпишитесь",
+            modifier = Modifier.padding(horizontal = 4.dp),
+            text = "✓ Вы пойдёте",
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 2,
-            color = EventsTheme.colors.activeComponent,
+            color = EventsTheme.colors.green,
         )
         Box(
             modifier = Modifier
@@ -44,10 +53,11 @@ internal fun GoToEventButtonColumn(onClick: () -> Unit) {
                 modifier = Modifier
                     .fillMaxSize(),
                 onClick = onClick,
-                text = "Записаться на встречу",
+                gradient = gradient,
+                text = "Не смогу пойти",
+                textColor = EventsTheme.colors.activeComponent,
                 isTextButton = true
             )
         }
     }
 }
-

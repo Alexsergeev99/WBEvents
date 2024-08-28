@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -19,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -32,8 +32,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
-import ru.alexsergeev.presentation.ui.models.FullName
-import ru.alexsergeev.presentation.ui.molecules.OtpTextField
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
@@ -66,108 +64,120 @@ internal fun SignUpToEventInputCodeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp),
+            .padding(16.dp)
+            .imePadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(modifier = Modifier.fillMaxWidth(0.7f), contentAlignment = Alignment.CenterStart) {
-                BigText(text = "Вход и запись на встречу", 50)
-            }
-            Icon(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .clickable {
-                        navController.navigateUp()
-                    },
-                painter = painterResource(id = R.drawable.close),
-                contentDescription = "close"
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Start),
-            text = "${event.title} · ${event.date} · ${event.city}",
-            fontSize = 18.sp,
-            fontWeight = FontWeight(400),
-            color = Color.Black,
-            maxLines = 2,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        SearchNew(
-            hint = "0000",
-            isSearch = false,
-            hintColor = EventsTheme.colors.neutral,
-            onTextChange = {
-                Log.d("test", correctCode.value.toString())
-                codeScreenViewModel.validateCodeFlow(it.toInt())
-                if (codeScreenViewModel.validateCode().value) {
-                    correctCode.value = true
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(0.7f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    BigText(text = "Вход и запись на встречу", 50)
                 }
-                Log.d("test1", correctCode.value.toString())
+                Icon(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            navController.navigateUp()
+                        },
+                    painter = painterResource(id = R.drawable.close),
+                    contentDescription = "close"
+                )
             }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Отправили код на ${person.phone.countryCode} ${person.phone.basicNumber}",
-                fontSize = 14.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Start),
+                text = "${event.title} · ${event.date} · ${event.city}",
+                fontSize = 18.sp,
                 fontWeight = FontWeight(400),
-                color = EventsTheme.colors.weakColor,
+                color = Color.Black,
                 maxLines = 2,
             )
-        }
-        Spacer(modifier = Modifier.height(400.dp))
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            TextButton(onClick = { /*TODO*/ }) {
+            Spacer(modifier = Modifier.height(8.dp))
+            SearchNew(
+                hint = "0000",
+                isSearch = false,
+                hintColor = EventsTheme.colors.neutral,
+                onTextChange = {
+                    codeScreenViewModel.validateCodeFlow(if (it.isNotBlank()) it.toInt() else 0)
+                    if (codeScreenViewModel.validateCode().value) {
+                        correctCode.value = true
+                    }
+                }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Получить новый код через 10",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = EventsTheme.colors.weakColor
+                    text = "Отправили код на ${person.phone.countryCode} ${person.phone.basicNumber}",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight(400),
+                    color = EventsTheme.colors.weakColor,
+                    maxLines = 2,
                 )
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .width(350.dp)
-                .height(56.dp),
-            contentAlignment = Alignment.Center
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (!correctCode.value) {
-                GradientButton(
-                    modifier = Modifier
-                        .width(350.dp)
-                        .height(56.dp),
-                    gradient = gradient,
-                    isTextButton = true,
-                    textColor = EventsTheme.colors.disabledText,
-                    text = "Отправить и подтвердить запись",
-                    shape = 28.dp,
-                    onClick = {}
-                )
-            } else {
-                GradientButton(
-                    modifier = Modifier
-                        .width(350.dp)
-                        .height(56.dp),
-                    isTextButton = true,
-                    text = "Отправить и подтвердить запись",
-                    shape = 28.dp,
-                    onClick = {
-                        detailEventViewModel.addPersonToEventVisitorList(event, person)
-                        navController.navigate("sign_up_successful/${event.id}")
-                    }
-                )
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                TextButton(onClick = { /*TODO*/ }) {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        text = "Получить новый код через 10",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = EventsTheme.colors.weakColor
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Box(
+                modifier = Modifier
+                    .width(350.dp)
+                    .height(56.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                if (!correctCode.value) {
+                    GradientButton(
+                        modifier = Modifier
+                            .width(350.dp)
+                            .height(56.dp),
+                        gradient = gradient,
+                        isTextButton = true,
+                        textColor = EventsTheme.colors.disabledText,
+                        text = "Отправить и подтвердить запись",
+                        shape = 28.dp,
+                        onClick = {}
+                    )
+                } else {
+                    GradientButton(
+                        modifier = Modifier
+                            .width(350.dp)
+                            .height(56.dp),
+                        isTextButton = true,
+                        text = "Отправить и подтвердить запись",
+                        shape = 28.dp,
+                        onClick = {
+                            detailEventViewModel.addPersonToEventVisitorList(event, person)
+                            navController.navigate("sign_up_successful/${event.id}")
+                        }
+                    )
+                }
             }
         }
     }

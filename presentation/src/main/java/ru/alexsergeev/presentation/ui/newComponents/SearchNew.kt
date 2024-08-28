@@ -123,7 +123,7 @@ internal fun SearchNew(
                 innerTextField()
             },
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Search
             ),
             keyboardActions = KeyboardActions(onSearch = { onSearchClicked() }),

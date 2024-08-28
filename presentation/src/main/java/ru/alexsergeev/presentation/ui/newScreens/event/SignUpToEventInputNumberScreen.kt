@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -66,63 +67,75 @@ internal fun SignUpToEventInputNumberScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp),
+            .padding(16.dp)
+            .imePadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Box(modifier = Modifier.fillMaxWidth(0.7f), contentAlignment = Alignment.CenterStart) {
-                BigText(text = "Вход и запись на встречу", 50)
+        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(0.7f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    BigText(text = "Вход и запись на встречу", 50)
+                }
+                Icon(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            navController.navigateUp()
+                        },
+                    painter = painterResource(id = R.drawable.close),
+                    contentDescription = "close"
+                )
             }
-            Icon(
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
                 modifier = Modifier
-                    .padding(8.dp)
-                    .clickable {
-                        navController.navigateUp()
-                    },
-                painter = painterResource(id = R.drawable.close),
-                contentDescription = "close"
+                    .fillMaxWidth()
+                    .align(Alignment.Start),
+                text = "${event.title} · ${event.date} · ${event.city}",
+                fontSize = 18.sp,
+                fontWeight = FontWeight(400),
+                color = Color.Black,
+                maxLines = 2,
             )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Start),
-            text = "${event.title} · ${event.date} · ${event.city}",
-            fontSize = 18.sp,
-            fontWeight = FontWeight(400),
-            color = Color.Black,
-            maxLines = 2,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            InputCodeCountryField(onTextChange = {
-                inputPhoneNumberViewModel.setPersonData(
-                    person.copy(
-                        phone = Phone(it, ""),
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                InputCodeCountryField(onTextChange = {
+                    inputPhoneNumberViewModel.setPersonData(
+                        person.copy(
+                            phone = Phone(it, ""),
+                        )
                     )
-                )
-            })
-            InputNumberTextField(hint = INPUT_PHONE_HINT, height = 56.dp, onTextChange = {
-                inputPhoneNumberViewModel.setPersonData(
-                    person.copy(
-                        phone = Phone(person.phone.countryCode, it),
+                })
+                InputNumberTextField(hint = INPUT_PHONE_HINT, height = 56.dp, onTextChange = {
+                    inputPhoneNumberViewModel.setPersonData(
+                        person.copy(
+                            phone = Phone(person.phone.countryCode, it),
+                        )
                     )
+                    checkPhoneNumberLength.value =
+                        inputPhoneNumberViewModel.checkPhoneLength(it.length)
+                }
                 )
-                checkPhoneNumberLength.value =
-                    inputPhoneNumberViewModel.checkPhoneLength(it.length)
             }
-            )
         }
-        Spacer(modifier = Modifier.height(440.dp))
+//        Box(
+//            modifier = Modifier
+//                .width(350.dp)
+//                .height(56.dp),
+//            contentAlignment = Alignment.Center
+//        ) {
         if (!checkPhoneNumberLength.value) {
             Box(
                 modifier = Modifier

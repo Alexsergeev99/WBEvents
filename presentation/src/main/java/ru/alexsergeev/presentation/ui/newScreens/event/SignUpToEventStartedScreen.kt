@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -50,103 +51,116 @@ internal fun SignUpToEventStartedScreen(
         listOf(
             EventsTheme.colors.disabledComponent,
             EventsTheme.colors.disabledComponent,
-            )
+        )
     )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp),
+            .padding(16.dp)
+            .imePadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Box(modifier = Modifier.fillMaxWidth(0.7f), contentAlignment = Alignment.CenterStart) {
-                BigText(text = "Вход и запись на встречу", 50)
+        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(0.7f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    BigText(text = "Вход и запись на встречу", 50)
+                }
+                Icon(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            navController.navigateUp()
+                        },
+                    painter = painterResource(id = R.drawable.close),
+                    contentDescription = "close"
+                )
             }
-            Icon(
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
                 modifier = Modifier
-                    .padding(8.dp)
-                    .clickable {
-                        navController.navigateUp()
-                    },
-                painter = painterResource(id = R.drawable.close),
-                contentDescription = "close"
+                    .fillMaxWidth()
+                    .align(Alignment.Start),
+                text = "${event.title} · ${event.date} · ${event.city}",
+                fontSize = 18.sp,
+                fontWeight = FontWeight(400),
+                color = Color.Black,
+                maxLines = 2,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            SearchNew(
+                hint = person.name.firstName.ifBlank { "Имя и фамилия" },
+                isSearch = false,
+                hintColor = EventsTheme.colors.neutral,
+                onTextChange = {
+                    val fullName: List<String?> = it.split(" ")
+                    if (fullName.size == 1) {
+                        personProfileViewModel.setPersonData(
+                            person.copy(
+                                name = FullName(fullName[0] ?: "Пользователь", ""),
+                            )
+                        )
+                    } else {
+                        personProfileViewModel.setPersonData(
+                            person.copy(
+                                name = FullName(fullName[0] ?: "Пользователь", fullName[1] ?: ""),
+                            )
+                        )
+                    }
+                }
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Start),
-            text = "${event.title} · ${event.date} · ${event.city}",
-            fontSize = 18.sp,
-            fontWeight = FontWeight(400),
-            color = Color.Black,
-            maxLines = 2,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        SearchNew(
-            person.name.firstName.ifBlank { "Имя и фамилия" },
-            isSearch = false,
-            hintColor = EventsTheme.colors.neutral,
-            onTextChange = {
-                val fullName: List<String?> = it.split(" ")
-                if (fullName.size == 1) {
-                    personProfileViewModel.setPersonData(
-                        person.copy(
-                            name = FullName(fullName[0] ?: "Пользователь", ""),
-                        )
-                    )
-                } else {
-                    personProfileViewModel.setPersonData(
-                        person.copy(
-                            name = FullName(fullName[0] ?: "Пользователь", fullName[1] ?: ""),
-                        )
+                .width(350.dp)
+                .height(56.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (person.name.firstName.isBlank()) {
+                Box(
+                    modifier = Modifier
+                        .width(350.dp)
+                        .height(56.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    GradientButton(
+                        modifier = Modifier
+                            .width(350.dp)
+                            .height(56.dp),
+                        gradient = gradient,
+                        isTextButton = true,
+                        textColor = EventsTheme.colors.disabledText,
+                        text = "Продолжить",
+                        shape = 28.dp,
+                        onClick = {}
                     )
                 }
-            }
-        )
-        Spacer(modifier = Modifier.height(440.dp))
-        if(person.name.firstName.isBlank()) {
-            Box(
-                modifier = Modifier
-                    .width(350.dp)
-                    .height(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                GradientButton(
+            } else {
+                Box(
                     modifier = Modifier
                         .width(350.dp)
                         .height(56.dp),
-                    gradient = gradient,
-                    isTextButton = true,
-                    textColor = EventsTheme.colors.disabledText,
-                    text = "Продолжить",
-                    shape = 28.dp,
-                    onClick = {}
-                )
-            }
-        } else {
-            Box(
-                modifier = Modifier
-                    .width(350.dp)
-                    .height(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                GradientButton(
-                    modifier = Modifier
-                        .width(350.dp)
-                        .height(56.dp),
-                    isTextButton = true,
-                    text = "Продолжить",
-                    shape = 28.dp,
-                    onClick = {
-                        navController.navigate("sign_up_event_second/${event.id}")
-                    }
-                )
+                    contentAlignment = Alignment.Center
+                ) {
+                    GradientButton(
+                        modifier = Modifier
+                            .width(350.dp)
+                            .height(56.dp),
+                        isTextButton = true,
+                        text = "Продолжить",
+                        shape = 28.dp,
+                        onClick = {
+                            navController.navigate("sign_up_event_second/${event.id}")
+                        }
+                    )
+                }
             }
         }
     }

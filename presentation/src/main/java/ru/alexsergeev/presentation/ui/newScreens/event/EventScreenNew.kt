@@ -157,7 +157,7 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(48.dp))
             }
         }
-        if(myEvents.contains(event)) {
+        if (event.personIsAddedToTheVisitors) {
             SignOutByEventColumn() {
                 detailEventViewModel.removePersonFromEventVisitorsList(event, person)
             }

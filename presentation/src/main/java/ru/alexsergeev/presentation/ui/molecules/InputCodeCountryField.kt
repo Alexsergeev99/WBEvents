@@ -18,11 +18,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import ru.alexsergeev.domain.domain.models.CountryCodeUiModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.Neutral
 import ru.alexsergeev.presentation.ui.theme.NeutralBackground
-import ru.alexsergeev.testwb.data.dto.CountryCodeDataModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,10 +31,10 @@ fun InputCodeCountryField(onTextChange: (String) -> Unit = {}) {
     var expanded by remember { mutableStateOf(false) }
 
     val countryList = listOf(
-        CountryCodeDataModel("Russia", "+7", R.drawable.flag_russia),
-        CountryCodeDataModel("Kazakhstan", "+7", R.drawable.flag_kz),
-        CountryCodeDataModel("Armenia", "+374", R.drawable.flag_armenia),
-        CountryCodeDataModel("USA", "+1", R.drawable.flag_usa)
+        CountryCodeUiModel("Russia", "+7", R.drawable.flag_russia),
+        CountryCodeUiModel("Kazakhstan", "+7", R.drawable.flag_kz),
+        CountryCodeUiModel("Armenia", "+374", R.drawable.flag_armenia),
+        CountryCodeUiModel("USA", "+1", R.drawable.flag_usa)
     )
 
     val selectedText = remember {

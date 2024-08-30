@@ -2,9 +2,12 @@ package ru.alexsergeev.data.mock
 
 import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.data.entity.Chips
+import ru.alexsergeev.data.entity.Communities
 import ru.alexsergeev.data.entity.EventEntity
+import ru.alexsergeev.data.entity.GroupEntity
 import ru.alexsergeev.data.entity.PersonEntity
 import ru.alexsergeev.data.entity.Visitors
+import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.testwb.data.dto.FullName
 import ru.alexsergeev.testwb.data.dto.PersonDataModel
 import ru.alexsergeev.testwb.data.dto.Phone
@@ -26,14 +29,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -53,14 +58,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -80,14 +87,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -107,14 +116,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -134,14 +145,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -161,14 +174,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -188,14 +203,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -215,14 +232,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -242,14 +261,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -269,14 +290,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )
@@ -297,14 +320,16 @@ internal val mockEvents = flow {
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
                         ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
                         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>()
+                        tags = mutableListOf<String>(),
+                        communities = Communities(mutableListOf())
                     ),
                 )
             )

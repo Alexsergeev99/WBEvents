@@ -40,13 +40,11 @@ internal fun EventScreenNew(
     navController: NavController = rememberNavController(),
     eventId: String,
     detailEventViewModel: DetailEventViewModel = koinViewModel(),
-    myEventsViewModel: MyEventsViewModel = koinViewModel(),
     personProfileViewModel: PersonProfileViewModel = koinViewModel(),
     community: GroupUiModel
 ) {
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
-    val myEvents by myEventsViewModel.getMyEventsList().collectAsStateWithLifecycle()
     val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Column(
@@ -59,7 +57,8 @@ internal fun EventScreenNew(
         EventsTopBar(
             navController = navController,
             text = event.title ?: "Event",
-            needToBack = true
+            needToBack = true,
+            needToShare = true
         )
         LazyColumn(modifier = Modifier.fillMaxHeight(if(event.isFinished) 1f else 0.9f)) {
             item {

@@ -6,7 +6,8 @@ data class PersonDomainModel(
     val avatar: String,
     val tags: MutableList<String>,
     val city: String = "",
-    val info: String = ""
+    val info: String = "",
+    val communities: MutableList<GroupDomainModel>
 )
 
 data class FullName(

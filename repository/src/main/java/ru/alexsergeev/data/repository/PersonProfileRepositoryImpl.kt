@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import ru.alexsergeev.domain.domain.models.FullName
+import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.domain.repository.PersonProfileRepository
@@ -16,7 +17,8 @@ internal class PersonProfileRepositoryImpl : PersonProfileRepository {
             FullName("", ""),
             phone = Phone("+7", ""),
             "https://www.1zoom.me/big2/62/199578-yana.jpg",
-            mutableListOf<String>()
+            mutableListOf<String>(),
+            communities = mutableListOf<GroupDomainModel>()
         )
     )
 

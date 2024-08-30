@@ -6,7 +6,8 @@ internal data class PersonUiModel(
     val avatar: String,
     val tags: MutableList<String>,
     val city: String = "",
-    val info: String = ""
+    val info: String = "",
+    val communities: MutableList<GroupUiModel>
 )
 
 internal data class FullName(

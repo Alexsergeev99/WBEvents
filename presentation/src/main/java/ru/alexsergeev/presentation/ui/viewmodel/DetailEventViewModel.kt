@@ -51,7 +51,8 @@ internal class DetailEventViewModel(
             name = FullName("", ""),
             phone = Phone("", ""),
             avatar = "",
-            tags = mutableListOf<String>()
+            tags = mutableListOf<String>(),
+            communities = mutableListOf()
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable

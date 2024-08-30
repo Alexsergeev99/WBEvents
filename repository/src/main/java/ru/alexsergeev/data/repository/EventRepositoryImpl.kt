@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.last
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.Chips
 import ru.alexsergeev.data.entity.EventEntity
+import ru.alexsergeev.data.entity.GroupEntity
 import ru.alexsergeev.data.entity.Visitors
 import ru.alexsergeev.data.utils.DomainEventToMyEventEntityMapper
 import ru.alexsergeev.data.utils.EntityEventListToDomainEventListMapper
@@ -15,6 +16,7 @@ import ru.alexsergeev.data.utils.EntityEventToDomainEventMapper
 import ru.alexsergeev.data.utils.MyEntityEventListToDomainEventListMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
+import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.domain.repository.EventRepository
@@ -33,13 +35,15 @@ internal class EventRepositoryImpl(
             FullName("Саша", "Сергеев"),
             phone = Phone("+7", "9994449999"),
             "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-            tags = mutableListOf<String>()
+            tags = mutableListOf<String>(),
+            communities = mutableListOf<GroupDomainModel>()
         ),
         PersonDomainModel(
             FullName("Саша", "Сергеев"),
             phone = Phone("+7", "9994449999"),
             "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-            tags = mutableListOf<String>()
+            tags = mutableListOf<String>(),
+            communities = mutableListOf<GroupDomainModel>()
         ),
     )
 

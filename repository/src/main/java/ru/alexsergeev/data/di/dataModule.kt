@@ -14,6 +14,8 @@ import ru.alexsergeev.data.utils.EntityEventListToDomainEventListMapper
 import ru.alexsergeev.data.utils.EntityEventToDomainEventMapper
 import ru.alexsergeev.data.utils.MyEntityEventListToDomainEventListMapper
 import ru.alexsergeev.data.utils.MyEventEntityToDomainEventMapper
+import ru.alexsergeev.data.utils.DomainGroupToEntityGroupMapper
+import ru.alexsergeev.data.utils.EntityGroupToDomainGroupMapper
 import ru.alexsergeev.domain.repository.EventRepository
 import ru.alexsergeev.domain.repository.GroupRepository
 import ru.alexsergeev.domain.repository.PersonProfileRepository
@@ -34,6 +36,8 @@ val dataModule = module {
     singleOf(::DomainPersonToEntityPersonMapper)
     singleOf(::DataPersonToDomainPersonMapper)
     singleOf(::DomainEventToEntityEventMapper)
+    singleOf(::DomainGroupToEntityGroupMapper)
+    singleOf(::EntityGroupToDomainGroupMapper)
 
     single { buildDatabase(androidContext()) }
     single { provideDao(get()) }

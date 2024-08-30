@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -25,10 +26,11 @@ fun EventsTopBar(
     needToEdit: Boolean = false,
     needToAdd: Boolean = false,
     needToSave: Boolean = false,
+    needToShare: Boolean = false,
     iAmGuest: Boolean = false,
     goToEditScreen: () -> Unit = { },
     goToBackScreen: () -> Unit = { navController.navigateUp() },
-    ) {
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -36,28 +38,23 @@ fun EventsTopBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (needToBack) {
-                Icon(
-                    modifier = Modifier
-                        .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                        .clickable { goToBackScreen() },
-                    painter = painterResource(id = R.drawable.navigate_back),
-                    tint = EventsTheme.colors.activeComponent,
-                    contentDescription = "back"
-                )
-            }
-            Text(
+        if (needToBack) {
+            Icon(
                 modifier = Modifier
-                    .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
-                text = text,
-                color = NeutralActive,
-                style = EventsTheme.typography.subheading1
+                    .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                    .clickable { goToBackScreen() },
+                painter = painterResource(id = R.drawable.navigate_back),
+                tint = EventsTheme.colors.activeComponent,
+                contentDescription = "back"
             )
         }
+        Text(
+            modifier = Modifier
+                .padding(top = 6.dp, bottom = 6.dp, start = 6.dp),
+            text = text,
+            color = NeutralActive,
+            style = EventsTheme.typography.subheading1
+        )
         if (needToEdit) {
             Icon(
                 modifier = Modifier
@@ -94,6 +91,25 @@ fun EventsTopBar(
                     .clickable { },
                 painter = painterResource(id = R.drawable.check_mark),
                 contentDescription = "check_mark"
+            )
+        }
+        if (needToShare) {
+            Icon(
+                modifier = Modifier
+                    .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                    .clickable { },
+                painter = painterResource(id = R.drawable.share),
+                tint = EventsTheme.colors.activeComponent,
+                contentDescription = "share"
+            )
+        } else {
+            Icon(
+                modifier = Modifier
+                    .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
+                    .clickable { },
+                painter = painterResource(id = R.drawable.share),
+                tint = Color.Transparent,
+                contentDescription = "share"
             )
         }
     }

@@ -3,6 +3,7 @@ package ru.alexsergeev.data.entity
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.alexsergeev.testwb.data.dto.GroupDataModel
 
 @Entity
 data class PersonEntity(
@@ -15,7 +16,9 @@ data class PersonEntity(
     val avatar: String = "",
     val tags: MutableList<String>,
     val city: String = "",
-    val info: String = ""
+    val info: String = "",
+    @Embedded
+    val communities: Communities = Communities(mutableListOf())
 )
 
 data class FullName(
@@ -26,4 +29,8 @@ data class FullName(
 data class Phone(
     val countryCode: String,
     val basicNumber: String,
+)
+
+data class Communities(
+    val communities: MutableList<GroupEntity>
 )

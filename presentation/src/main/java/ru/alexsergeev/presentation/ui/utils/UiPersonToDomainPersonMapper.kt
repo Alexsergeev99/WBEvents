@@ -1,12 +1,19 @@
 package ru.alexsergeev.presentation.ui.utils
 
 import ru.alexsergeev.domain.domain.models.FullName
+import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 
-internal class UiPersonToDomainPersonMapper : Mapper<PersonUiModel, PersonDomainModel> {
+internal class UiPersonToDomainPersonMapper(
+    private val uiGroupToDomainGroupMapper: UiGroupToDomainGroupMapper
+) : Mapper<PersonUiModel, PersonDomainModel> {
     override fun map(input: PersonUiModel): PersonDomainModel = with(input) {
+        val communitiesDomain = mutableListOf<GroupDomainModel>()
+        input.communities.forEach {
+            communitiesDomain.add(uiGroupToDomainGroupMapper.map(it))
+        }
         PersonDomainModel(
             FullName(
                 firstName = input.name.firstName,
@@ -19,7 +26,8 @@ internal class UiPersonToDomainPersonMapper : Mapper<PersonUiModel, PersonDomain
             avatar,
             tags,
             city = city,
-            info = info
+            info = info,
+            communitiesDomain
         )
     }
 }

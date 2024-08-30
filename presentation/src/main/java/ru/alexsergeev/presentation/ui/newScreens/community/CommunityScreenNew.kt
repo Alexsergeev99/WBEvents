@@ -56,7 +56,8 @@ internal fun CommunityScreenNew(
         EventsTopBar(
             navController = navController,
             text = community.name,
-            needToBack = true
+            needToBack = true,
+            needToShare = true
         )
         LazyColumn(horizontalAlignment = Alignment.Start) {
             item {

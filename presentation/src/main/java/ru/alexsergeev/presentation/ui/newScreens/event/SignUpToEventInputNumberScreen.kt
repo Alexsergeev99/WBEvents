@@ -67,7 +67,7 @@ internal fun SignUpToEventInputNumberScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(28.dp)
             .imePadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
@@ -130,12 +130,6 @@ internal fun SignUpToEventInputNumberScreen(
                 )
             }
         }
-//        Box(
-//            modifier = Modifier
-//                .width(350.dp)
-//                .height(56.dp),
-//            contentAlignment = Alignment.Center
-//        ) {
         if (!checkPhoneNumberLength.value) {
             Box(
                 modifier = Modifier

@@ -5,6 +5,6 @@ import ru.alexsergeev.domain.domain.models.GroupDomainModel
 
 internal class EntityGroupToDomainGroupMapper : Mapper<GroupEntity, GroupDomainModel> {
     override fun map(input: GroupEntity): GroupDomainModel = with(input) {
-        GroupDomainModel(id, name, people, groupLogo, listOf())
+        GroupDomainModel(id, name, people, groupLogo, communityEvents = listOf())
     }
 }

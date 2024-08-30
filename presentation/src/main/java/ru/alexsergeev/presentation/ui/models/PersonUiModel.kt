@@ -7,7 +7,7 @@ internal data class PersonUiModel(
     val tags: MutableList<String>,
     val city: String = "",
     val info: String = "",
-    val communities: MutableList<GroupUiModel>
+    val communities: List<GroupUiModel>
 )
 
 internal data class FullName(

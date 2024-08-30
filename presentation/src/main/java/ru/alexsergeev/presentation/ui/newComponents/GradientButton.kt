@@ -38,12 +38,12 @@ fun GradientButton(
         )
     ),
     textColor: Color = Color.White,
-    onClick: () -> Unit = { },
     isIconButton: Boolean = false,
     isIconButtonDefault: Boolean = false,
     addCommunity: Boolean = false,
     isTextButton: Boolean = false,
-    shape: Dp = 32.dp
+    shape: Dp = 32.dp,
+    onClick: () -> Unit = { },
 ) {
     Box(
         modifier = Modifier

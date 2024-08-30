@@ -5,5 +5,6 @@ internal data class GroupUiModel(
     val name: String,
     val people: Long,
     val groupLogo: String,
+    val communitySubscribers: List<PersonUiModel> = listOf(),
     val communityEvents: List<EventUiModel>
 )

@@ -7,7 +7,7 @@ data class PersonDataModel(
     val tags: MutableList<String>,
     val city: String = "",
     val info: String = "",
-    val communities: MutableList<GroupDataModel>
+    val communities: List<GroupDataModel>
 )
 
 data class FullName(

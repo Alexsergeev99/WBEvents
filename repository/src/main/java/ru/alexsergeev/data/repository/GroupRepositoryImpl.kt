@@ -229,7 +229,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 name = "Ozon",
                 people = 85,
                 groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
-                listOf(
+                communityEvents = listOf(
                     EventDomainModel(
                         10,
                         title = "Встреча ради встречи",
@@ -247,7 +247,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 name = "Yandex",
                 people = 23,
                 groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
-                listOf(
+                communityEvents = listOf(
                     EventDomainModel(
                         11,
                         title = "Слишком простой отбор на стажировку",

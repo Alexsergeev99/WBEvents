@@ -5,4 +5,5 @@ data class GroupDataModel(
     val name: String,
     val people: Long,
     val groupLogo: String,
-)
+    val communitySubscribers: List<PersonDataModel>,
+    )

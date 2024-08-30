@@ -16,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,6 +47,15 @@ internal fun CommunityScreenNew(
 
     val community by detailGroupViewModel.getCommunity(groupId.toInt())
         .collectAsStateWithLifecycle()
+    val person by detailGroupViewModel.getPersonData().collectAsStateWithLifecycle()
+
+    val gradient = Brush.horizontalGradient(
+        listOf(
+            Color(0xFFFEF1FB), Color(0xFFFDF1FC), Color(0xFFFCF0FC),
+            Color(0xFFFBF0FD), Color(0xFFF9EFFD), Color(0xFFF8EEFE),
+            Color(0xFFF6EEFE), Color(0xFFF4EDFF)
+        )
+    )
 
     Column(
         modifier = Modifier
@@ -83,22 +94,47 @@ internal fun CommunityScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                GradientButton(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    text = "Подписаться",
-                    isTextButton = true
-                )
-            }
-            item {
-                Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Будем приглашать на встречи сообщества и рекомендовать похожие.",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 2,
-                    color = EventsTheme.colors.activeComponent,
-                )
+                if(!person.communities.contains(community)) {
+                    GradientButton(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        text = "Подписаться",
+                        isTextButton = true
+                    ) {
+                        detailGroupViewModel.setPersonData(
+                            person.copy(
+                                communities = person.communities + community
+                            )
+                        )
+                    }
+                } else {
+                        GradientButton(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            gradient = gradient,
+                            text = "Вы подписаны",
+                            textColor = EventsTheme.colors.activeComponent,
+                            isTextButton = true
+                        ) {
+                            detailGroupViewModel.setPersonData(
+                                person.copy(
+                                    communities = person.communities - community
+                                )
+                            )
+                        }
+                    }
+                }
+            if(!person.communities.contains(community)) {
+                item {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        text = "Будем приглашать на встречи сообщества и рекомендовать похожие.",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 2,
+                        color = EventsTheme.colors.activeComponent,
+                    )
+                }
             }
             item {
                 Spacer(Modifier.height(24.dp))

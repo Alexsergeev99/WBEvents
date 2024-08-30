@@ -22,7 +22,7 @@ internal class UiPersonToDomainPersonMapperWithParams(
             tags,
             city = city,
             info = info,
-            uiCommunityListToDomainCommunityListMapper.map(communities).toMutableList()
+            uiCommunityListToDomainCommunityListMapper.map(communities)
         )
     }
 }

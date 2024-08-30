@@ -18,7 +18,7 @@ data class PersonEntity(
     val city: String = "",
     val info: String = "",
     @Embedded
-    val communities: Communities = Communities(mutableListOf())
+    val communities: Communities = Communities(listOf())
 )
 
 data class FullName(
@@ -32,5 +32,5 @@ data class Phone(
 )
 
 data class Communities(
-    val communities: MutableList<GroupEntity>
+    val communities: List<GroupEntity>
 )

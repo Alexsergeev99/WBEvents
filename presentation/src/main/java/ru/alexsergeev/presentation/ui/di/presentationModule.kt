@@ -8,9 +8,12 @@ import ru.alexsergeev.presentation.ui.utils.DomainEventListToUiEventListMapper
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
+import ru.alexsergeev.presentation.ui.utils.UiCommunityListToDomainCommunityListMapper
 import ru.alexsergeev.presentation.ui.utils.UiEventToDomainEventMapper
 import ru.alexsergeev.presentation.ui.utils.UiGroupToDomainGroupMapper
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
+import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapperWithParams
 import ru.alexsergeev.presentation.ui.viewmodel.ChangeTagsScreenViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.CodeScreenViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
@@ -40,10 +43,13 @@ val presentationModule = module {
     singleOf(::DomainEventListToUiEventListMapper)
     singleOf(::DomainGroupToUiGroupMapper)
     singleOf(::DomainCommunityListToUiCommunityListMapper)
+    singleOf(::DomainPersonToUiPersonMapperWithParams)
     singleOf(::DomainPersonToUiPersonMapper)
     singleOf(::UiEventToDomainEventMapper)
     singleOf(::UiPersonToDomainPersonMapper)
     singleOf(::UiGroupToDomainGroupMapper)
+    singleOf(::UiPersonToDomainPersonMapperWithParams)
+    singleOf(::UiCommunityListToDomainCommunityListMapper)
 
 }
 

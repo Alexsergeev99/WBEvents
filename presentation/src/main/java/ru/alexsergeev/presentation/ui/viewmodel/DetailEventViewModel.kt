@@ -15,7 +15,7 @@ import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
-import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
 import ru.alexsergeev.presentation.ui.utils.UiEventToDomainEventMapper
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
@@ -25,7 +25,7 @@ internal class DetailEventViewModel(
     private val removePersonFromVisitorsUseCase: RemovePersonFromVisitorsUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
-    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
+    private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
     private val uiEventToDomainEventMapper: UiEventToDomainEventMapper,
 ) : ViewModel() {
@@ -109,7 +109,7 @@ internal class DetailEventViewModel(
             viewModelScope.launch {
                 val personDataFlow = getPersonProfileUseCase.invoke()
                 personDataFlow.collect { person ->
-                    personDataMutable.update { domainPersonToUiPersonMapper.map(person) }
+                    personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
                 }
             }
             return personData

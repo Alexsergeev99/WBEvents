@@ -9,7 +9,7 @@ interface Mapper<in I, out O> {
 }
 
 internal class DomainEventToUiEventMapper(
-    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper
+    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
 ) : Mapper<EventDomainModel, EventUiModel> {
     override fun map(input: EventDomainModel): EventUiModel = with(input) {
         val visitorsUi = mutableListOf<PersonUiModel>()

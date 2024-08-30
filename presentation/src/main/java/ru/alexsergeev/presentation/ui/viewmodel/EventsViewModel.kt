@@ -16,13 +16,13 @@ import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainEventListToUiEventListMapper
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
-import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
 
 internal class EventsViewModel(
     private val getEventsListUseCase: GetEventsListUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
-    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
+    private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
     private val domainEventListToUiEventListMapper: DomainEventListToUiEventListMapper,
     ) : ViewModel() {
 
@@ -79,7 +79,7 @@ internal class EventsViewModel(
             viewModelScope.launch {
                 val personDataFlow = getPersonProfileUseCase.invoke()
                 personDataFlow.collect { person ->
-                    personDataMutable.update { domainPersonToUiPersonMapper.map(person) }
+                    personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
                 }
             }
             return personData

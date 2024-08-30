@@ -5,7 +5,9 @@ import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 
-internal class UiPersonToDomainPersonMapper : Mapper<PersonUiModel, PersonDomainModel> {
+internal class UiPersonToDomainPersonMapperWithParams(
+    private val uiCommunityListToDomainCommunityListMapper: UiCommunityListToDomainCommunityListMapper
+) : Mapper<PersonUiModel, PersonDomainModel> {
     override fun map(input: PersonUiModel): PersonDomainModel = with(input) {
         PersonDomainModel(
             FullName(
@@ -20,7 +22,7 @@ internal class UiPersonToDomainPersonMapper : Mapper<PersonUiModel, PersonDomain
             tags,
             city = city,
             info = info,
-            mutableListOf()
+            uiCommunityListToDomainCommunityListMapper.map(communities).toMutableList()
         )
     }
 }

@@ -12,12 +12,12 @@ import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
-import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 internal class PersonProfileViewModel(
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
-    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
+    private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
     private val setPersonProfileUseCase: SetPersonProfileUseCase,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper
     ) : ViewModel() {
@@ -43,7 +43,7 @@ internal class PersonProfileViewModel(
         try {
             viewModelScope.launch {
                 val person = getPersonProfileUseCase.invoke().last()
-                personDataMutable.update { domainPersonToUiPersonMapper.map(person) }
+                personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
             }
             return personData
         } catch (e: Exception) {

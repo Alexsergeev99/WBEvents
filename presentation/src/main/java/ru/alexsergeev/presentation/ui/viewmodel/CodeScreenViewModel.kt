@@ -7,19 +7,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.alexsergeev.domain.domain.repository.BaseRepository
-import ru.alexsergeev.domain.repository.PersonProfileRepository
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.ValidateCodeUseCase
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
-import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapper
+import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
 
 internal class CodeScreenViewModel(
     private val validateCodeUseCase: ValidateCodeUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
-    private val domainPersonToUiPersonMapper: DomainPersonToUiPersonMapper,
+    private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
     ) : ViewModel() {
 
     private val codeIsValidMutable = MutableStateFlow<Boolean>(false)
@@ -56,7 +54,7 @@ internal class CodeScreenViewModel(
         try {
             viewModelScope.launch {
                 val person = getPersonProfileUseCase.invoke().last()
-                personDataMutable.update { domainPersonToUiPersonMapper.map(person) }
+                personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
             }
             return personData
         } catch (e: Exception) {

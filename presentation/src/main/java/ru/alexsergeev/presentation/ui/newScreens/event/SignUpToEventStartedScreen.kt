@@ -41,11 +41,10 @@ internal fun SignUpToEventStartedScreen(
     navController: NavController,
     eventId: String,
     detailEventViewModel: DetailEventViewModel = koinViewModel(),
-    personProfileViewModel: PersonProfileViewModel = koinViewModel()
 ) {
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
-    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
+    val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
 
     val gradient = Brush.horizontalGradient(
         listOf(
@@ -102,13 +101,13 @@ internal fun SignUpToEventStartedScreen(
                 onTextChange = {
                     val fullName: List<String?> = it.split(" ")
                     if (fullName.size == 1) {
-                        personProfileViewModel.setPersonData(
+                        detailEventViewModel.setPersonData(
                             person.copy(
                                 name = FullName(fullName[0] ?: "Пользователь", ""),
                             )
                         )
                     } else {
-                        personProfileViewModel.setPersonData(
+                        detailEventViewModel.setPersonData(
                             person.copy(
                                 name = FullName(fullName[0] ?: "Пользователь", fullName[1] ?: ""),
                             )

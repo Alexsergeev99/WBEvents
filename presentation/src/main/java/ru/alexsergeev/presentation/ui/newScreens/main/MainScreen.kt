@@ -24,18 +24,16 @@ import ru.alexsergeev.presentation.ui.newComponents.SearchNew
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewRow
-import ru.alexsergeev.presentation.ui.viewmodel.EventsViewModel
-import ru.alexsergeev.presentation.ui.viewmodel.GroupsViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.MainScreenViewModel
 
 @Composable
 internal fun MainScreen(
     navController: NavController,
-    eventsViewModel: EventsViewModel = koinViewModel(),
-    groupsViewModel: GroupsViewModel = koinViewModel()
+    mainScreenViewModel: MainScreenViewModel = koinViewModel(),
 ) {
 
-    val events by eventsViewModel.getEventsList().collectAsStateWithLifecycle()
-    val communities by groupsViewModel.getCommunitiesList().collectAsStateWithLifecycle()
+    val events by mainScreenViewModel.getEventsList().collectAsStateWithLifecycle()
+    val communities by mainScreenViewModel.getCommunitiesList().collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

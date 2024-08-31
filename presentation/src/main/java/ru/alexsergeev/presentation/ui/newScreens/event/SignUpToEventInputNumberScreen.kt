@@ -1,6 +1,5 @@
 package ru.alexsergeev.presentation.ui.newScreens.event
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,7 +36,6 @@ import ru.alexsergeev.presentation.ui.molecules.InputNumberTextField
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
-import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.InputPhoneNumberViewModel
 
 private const val INPUT_PHONE_HINT = "999 999-99-99"
@@ -46,11 +44,10 @@ private const val INPUT_PHONE_HINT = "999 999-99-99"
 internal fun SignUpToEventInputNumberScreen(
     navController: NavController,
     eventId: String,
-    detailEventViewModel: DetailEventViewModel = koinViewModel(),
     inputPhoneNumberViewModel: InputPhoneNumberViewModel = koinViewModel()
 ) {
 
-    val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val event by inputPhoneNumberViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
     val person by inputPhoneNumberViewModel.getPersonData().collectAsStateWithLifecycle()
 
     val checkPhoneNumberLength = remember {
@@ -72,7 +69,10 @@ internal fun SignUpToEventInputNumberScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

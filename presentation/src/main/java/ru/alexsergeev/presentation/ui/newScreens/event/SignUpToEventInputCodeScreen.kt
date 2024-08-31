@@ -1,6 +1,5 @@
 package ru.alexsergeev.presentation.ui.newScreens.event
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,17 +36,15 @@ import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.CodeScreenViewModel
-import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 
 @Composable
 internal fun SignUpToEventInputCodeScreen(
     navController: NavController,
     eventId: String,
-    detailEventViewModel: DetailEventViewModel = koinViewModel(),
     codeScreenViewModel: CodeScreenViewModel = koinViewModel()
 ) {
 
-    val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val event by codeScreenViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
     val person by codeScreenViewModel.getPersonData().collectAsStateWithLifecycle()
 
     val correctCode = remember {
@@ -173,7 +170,7 @@ internal fun SignUpToEventInputCodeScreen(
                         text = "Отправить и подтвердить запись",
                         shape = 28.dp,
                         onClick = {
-                            detailEventViewModel.addPersonToEventVisitorList(event, person)
+                            codeScreenViewModel.addPersonToEventVisitorList(event, person)
                             navController.navigate("sign_up_successful/${event.id}")
                         }
                     )

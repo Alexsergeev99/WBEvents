@@ -40,12 +40,11 @@ internal fun EventScreenNew(
     navController: NavController = rememberNavController(),
     eventId: String,
     detailEventViewModel: DetailEventViewModel = koinViewModel(),
-    personProfileViewModel: PersonProfileViewModel = koinViewModel(),
     community: GroupUiModel
 ) {
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
-    val person by personProfileViewModel.getPersonData().collectAsStateWithLifecycle()
+    val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

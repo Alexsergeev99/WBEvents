@@ -14,7 +14,6 @@ import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
-import ru.alexsergeev.presentation.ui.utils.DomainEventListToUiEventListMapper
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
 
@@ -23,8 +22,7 @@ internal class EventsViewModel(
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
     private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
-    private val domainEventListToUiEventListMapper: DomainEventListToUiEventListMapper,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val eventsMutable = MutableStateFlow<MutableList<EventUiModel>>(mutableListOf())
     private val events: StateFlow<List<EventUiModel>> = eventsMutable

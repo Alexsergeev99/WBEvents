@@ -10,6 +10,7 @@ import ru.alexsergeev.domain.usecases.interfaces.AddPersonToVisitorsUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromVisitorsUseCase
+import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
@@ -24,6 +25,7 @@ internal class DetailEventViewModel(
     private val addPersonToVisitorsUseCase: AddPersonToVisitorsUseCase,
     private val removePersonFromVisitorsUseCase: RemovePersonFromVisitorsUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
+    private val setPersonProfileUseCase: SetPersonProfileUseCase,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
     private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
@@ -119,5 +121,16 @@ internal class DetailEventViewModel(
     }
 
     fun getPersonData(): StateFlow<PersonUiModel> = personData
+
+    fun setPersonData(personUiModel: PersonUiModel) {
+        try {
+            viewModelScope.launch {
+                setPersonProfileUseCase.invoke(uiPersonToDomainPersonMapper.map(personUiModel))
+                personDataMutable.update { personUiModel }
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
 
 }

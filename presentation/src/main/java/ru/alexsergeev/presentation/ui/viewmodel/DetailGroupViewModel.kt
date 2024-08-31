@@ -47,6 +47,18 @@ internal class DetailGroupViewModel(
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable
+
+    private fun getPersonDataFlow(): StateFlow<PersonUiModel> {
+        try {
+            viewModelScope.launch {
+                val person = getPersonProfileUseCase.invoke().last()
+                personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
+            }
+            return personData
+        } catch (e: Exception) {
+            throw e
+        }
+    }
     fun getCommunity(id: Int): StateFlow<GroupUiModel> {
         try {
             viewModelScope.launch {
@@ -60,18 +72,7 @@ internal class DetailGroupViewModel(
             throw e
         }
     }
-
-    fun getPersonData(): StateFlow<PersonUiModel> {
-        try {
-            viewModelScope.launch {
-                val person = getPersonProfileUseCase.invoke().last()
-                personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
-            }
-            return personData
-        } catch (e: Exception) {
-            throw e
-        }
-    }
+    fun getPersonData(): StateFlow<PersonUiModel> = personData
 
     fun setPersonData(personUiModel: PersonUiModel) {
         try {

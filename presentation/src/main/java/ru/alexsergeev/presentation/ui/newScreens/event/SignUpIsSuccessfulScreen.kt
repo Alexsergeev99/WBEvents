@@ -51,7 +51,7 @@ internal fun SignUpIsSuccessfulScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-                BigText(text = "Вы записались на встречу", 50, color = Color.White)
+                BigText(text = "Вы записались на встречу", color = Color.White)
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -59,8 +59,7 @@ internal fun SignUpIsSuccessfulScreen(
                     .fillMaxWidth()
                     .align(Alignment.Start),
                 text = "${event.title} · ${event.date} · ${event.city}",
-                fontSize = 18.sp,
-                fontWeight = FontWeight(400),
+                style = EventsTheme.typography.subheading1,
                 color = Color.White,
                 maxLines = 3,
             )
@@ -79,8 +78,7 @@ internal fun SignUpIsSuccessfulScreen(
                     Text(
                         modifier = Modifier.padding(horizontal = 4.dp),
                         text = "Мои встречи",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        style = EventsTheme.typography.subheading1,
                         color = EventsTheme.colors.activeComponent
                     )
                 }

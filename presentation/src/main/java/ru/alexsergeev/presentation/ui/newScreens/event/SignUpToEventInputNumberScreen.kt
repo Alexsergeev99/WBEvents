@@ -81,7 +81,7 @@ internal fun SignUpToEventInputNumberScreen(
                     modifier = Modifier.fillMaxWidth(0.7f),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    BigText(text = "Вход и запись на встречу", 50)
+                    BigText(text = "Вход и запись на встречу")
                 }
                 Icon(
                     modifier = Modifier
@@ -99,8 +99,7 @@ internal fun SignUpToEventInputNumberScreen(
                     .fillMaxWidth()
                     .align(Alignment.Start),
                 text = "${event.title} · ${event.date} · ${event.city}",
-                fontSize = 18.sp,
-                fontWeight = FontWeight(400),
+                style = EventsTheme.typography.subheading1,
                 color = Color.Black,
                 maxLines = 2,
             )

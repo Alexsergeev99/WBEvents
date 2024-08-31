@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +19,7 @@ import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.atoms.Subheading1Text
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNew
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
@@ -44,9 +46,10 @@ internal fun PersonCardNew(
                 stringResource(id = R.string.mock_user_avatar)
             )
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-                Subheading1Text(
+                Text(
+                    modifier = Modifier.padding(horizontal = 4.dp),
                     text = "Саша",
-                    color = NeutralActive,
+                    style = EventsTheme.typography.subheading1,
                 )
             }
             OneChipNew(text = "Разработка")

@@ -29,6 +29,7 @@ import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.BigText
+import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
@@ -46,7 +47,7 @@ internal fun PersonProfileScreenNew(
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
             PeopleAvatarNewDetail(
-                stringResource(id = R.string.mock_user_avatar)
+                person.avatar
             )
             Box(
                 modifier = Modifier
@@ -69,30 +70,22 @@ internal fun PersonProfileScreenNew(
             horizontalAlignment = Alignment.Start
         ) {
             item {
-                Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = person.name.firstName.ifBlank { "Пользователь" },
-                    fontSize = 48.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = NeutralActive,
-                )
+                BigText(text = person.name.firstName.ifBlank { "Пользователь" })
             }
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = person.city.ifBlank { "Ни рода, ни племени" },
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 2,
+                    style = EventsTheme.typography.heading3,
                     color = Color.Black,
+                    maxLines = 2,
                 )
             }
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = person.info.ifBlank { "Так то хороший парень" },
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
+                    style = EventsTheme.typography.subheading3,
                     maxLines = 2,
                     color = Color.Black,
                 )
@@ -117,7 +110,7 @@ internal fun PersonProfileScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = "Мои встречи")
+                MiddleText(text = "Мои встречи")
             }
             item {
                 EventCardNewInProfileScreenRow()
@@ -126,7 +119,7 @@ internal fun PersonProfileScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = "Мои сообщества")
+                MiddleText(text = "Мои сообщества")
             }
             item {
                 CommunityCardNewRow(navController, listOf())
@@ -143,8 +136,7 @@ internal fun PersonProfileScreenNew(
                         Text(
                             modifier = Modifier.padding(horizontal = 4.dp),
                             text = "Выйти",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.SemiBold,
+                            style = EventsTheme.typography.subheading1,
                             color = EventsTheme.colors.weakColor
                         )
                     }

@@ -7,11 +7,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.R
-import ru.alexsergeev.presentation.ui.theme.NeutralActive
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 
 @Composable
 internal fun MetroStationInfo() {
@@ -22,9 +20,7 @@ internal fun MetroStationInfo() {
         )
         Text(
             text = "Приморская",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            color = NeutralActive,
+            style = EventsTheme.typography.heading3,
         )
     }
 }

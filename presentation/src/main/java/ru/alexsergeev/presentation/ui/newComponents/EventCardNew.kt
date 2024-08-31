@@ -55,13 +55,17 @@ internal fun EventCardNew(
                 ) {
                     Text(
                         text = event.title ?: "",
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = NeutralActive,
+                        style = EventsTheme.typography.heading2,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Body1Text(text = "${event.date} · ${event.city}", color = NeutralWeak)
+                    Text(
+                        text = "${event.date} · ${event.city}",
+                        style = EventsTheme.typography.subheading3,
+                        color = EventsTheme.colors.weakColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                     FlowRow(
                         modifier = Modifier
                             .padding(vertical = 8.dp)

@@ -20,6 +20,7 @@ import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
+import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
@@ -57,7 +58,7 @@ internal fun MainScreen(
                 Spacer(Modifier.height(48.dp))
             }
             item {
-                BigText(text = "Ближайшие встречи в Санкт-Петербурге")
+                MiddleText(text = "Ближайшие встречи")
             }
             item {
                 EventCardNewMiniRow(navController, events)
@@ -66,7 +67,7 @@ internal fun MainScreen(
                 Spacer(Modifier.height(48.dp))
             }
             item {
-                BigText(text = "Сообщества для тестировщиков")
+                MiddleText(text = "Сообщества для тестировщиков")
             }
             item {
                 CommunityCardNewRow(navController, communities)
@@ -75,7 +76,7 @@ internal fun MainScreen(
                 Spacer(Modifier.height(48.dp))
             }
             item {
-                BigText(text = "Другие встречи")
+                MiddleText(text = "Другие встречи")
             }
             item {
                 TagsMiddleFlowRowMock()
@@ -93,7 +94,7 @@ internal fun MainScreen(
                 Spacer(Modifier.height(48.dp))
             }
             item {
-                BigText(text = "Вы можете их знать")
+                MiddleText(text = "Вы можете их знать")
             }
             item {
                 PersonCardNewRow()
@@ -111,7 +112,7 @@ internal fun MainScreen(
                 Spacer(Modifier.height(48.dp))
             }
             item {
-                BigText(text = "Популярные сообщества в IT")
+                MiddleText(text = "Популярные сообщества в IT")
             }
             item {
                 CommunityCardNewRow(navController, communities)

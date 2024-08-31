@@ -30,8 +30,7 @@ internal fun GoToEventButtonColumn(onClick: () -> Unit) {
         Text(
             modifier = Modifier.padding(4.dp),
             text = "Всего 30 мест. Если передумаете — отпишитесь",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
+            style = EventsTheme.typography.heading3,
             maxLines = 2,
             color = EventsTheme.colors.activeComponent,
         )

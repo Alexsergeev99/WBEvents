@@ -68,7 +68,7 @@ internal fun CorrectInterestsScreen(
                 .padding(8.dp)
         ) {
             item {
-                BigText(text = "Интересы", 50)
+                BigText(text = "Интересы")
             }
             item {
                 Spacer(modifier = Modifier.height(8.dp))
@@ -76,9 +76,7 @@ internal fun CorrectInterestsScreen(
             item {
                 Text(
                     text = "Выберите интересы, чтобы мы рекомендовали полезные встречи",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight(400),
-                    color = Color.Black,
+                    style = EventsTheme.typography.subheading1,
                     maxLines = 2,
                 )
             }

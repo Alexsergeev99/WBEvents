@@ -16,12 +16,22 @@ val sfProFontFamily = FontFamily(
     Font(R.font.sf_pro_display_regular, FontWeight.Normal),
 )
 
+val interFontFamily = FontFamily(
+    Font(R.font.inter_bold, FontWeight.Bold),
+    Font(R.font.inter_medium, FontWeight.SemiBold),
+    Font(R.font.inter_light, FontWeight.Normal),
+)
+
 @Immutable
 data class Typography(
+    val extraText: TextStyle,
     val heading1: TextStyle,
     val heading2: TextStyle,
+    val heading3: TextStyle,
     val subheading1: TextStyle,
     val subheading2: TextStyle,
+    val subheading3: TextStyle,
+    val subheading4: TextStyle,
     val bodyText1: TextStyle,
     val bodyText2: TextStyle,
     val metadata1: TextStyle,
@@ -35,25 +45,39 @@ val lineHeightStyle = LineHeightStyle(
 )
 
 val TypographyInstance = Typography(
+    extraText = TextStyle(
+        fontFamily = interFontFamily,
+        fontWeight = FontWeight(600),
+        fontSize = 48.sp,
+        lineHeight = 44.sp,
+        lineHeightStyle = lineHeightStyle
+    ),
     heading1 = TextStyle(
         fontFamily = sfProFontFamily,
-        fontWeight = FontWeight.Bold,
-        fontSize = 32.sp,
-        lineHeight = 38.sp,
+        fontWeight = FontWeight(700),
+        fontSize = 34.sp,
+        lineHeight = 34.sp,
         lineHeightStyle = lineHeightStyle
     ),
     heading2 = TextStyle(
-        fontFamily = sfProFontFamily,
+        fontFamily = interFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
-        lineHeight = 28.sp,
+        lineHeight = 26.sp,
+        lineHeightStyle = lineHeightStyle
+    ),
+    heading3 = TextStyle(
+        fontFamily = interFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp,
+        lineHeight = 16.sp,
         lineHeightStyle = lineHeightStyle
     ),
     subheading1 = TextStyle(
-        fontFamily = sfProFontFamily,
+        fontFamily = interFontFamily,
         fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
-        lineHeight = 30.sp,
+        lineHeight = 22.sp,
         lineHeightStyle = lineHeightStyle
     ),
     subheading2 = TextStyle(
@@ -61,6 +85,20 @@ val TypographyInstance = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         lineHeight = 28.sp,
+        lineHeightStyle = lineHeightStyle
+    ),
+    subheading3 = TextStyle(
+        fontFamily = interFontFamily,
+        fontWeight = FontWeight(500),
+        fontSize = 14.sp,
+        lineHeight = 16.sp,
+        lineHeightStyle = lineHeightStyle
+    ),
+    subheading4 = TextStyle(
+        fontFamily = interFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+        lineHeight = 20.sp,
         lineHeightStyle = lineHeightStyle
     ),
     bodyText1 = TextStyle(
@@ -78,10 +116,10 @@ val TypographyInstance = Typography(
         lineHeightStyle = lineHeightStyle
     ),
     metadata1 = TextStyle(
-        fontFamily = sfProFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        lineHeight = 20.sp,
+        fontFamily = interFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        lineHeight = 16.sp,
         lineHeightStyle = lineHeightStyle
     ),
     metadata2 = TextStyle(

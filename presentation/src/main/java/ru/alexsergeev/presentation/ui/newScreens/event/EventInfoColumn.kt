@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
@@ -16,18 +17,14 @@ internal fun EventInfoColumn() {
         Text(
             modifier = Modifier.padding(horizontal = 4.dp),
             text = "Узнайте, как расти в профессии, улучшать навыки и получать повышение. Практические советы и реальные кейсы.",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
+            style = EventsTheme.typography.heading3,
             maxLines = 3,
-            color = NeutralActive,
         )
         Text(
             modifier = Modifier.padding(horizontal = 4.dp),
             text = "Павел поделится эффективными стратегиями карьерного роста и методикой развития профессиональных навыков в IT.",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
+            style = EventsTheme.typography.heading3,
             maxLines = 3,
-            color = NeutralActive,
         )
     }
 }

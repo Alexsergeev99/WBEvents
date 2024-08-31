@@ -39,8 +39,7 @@ internal fun SignOutByEventColumn(onClick: () -> Unit) {
         Text(
             modifier = Modifier.padding(horizontal = 4.dp),
             text = "✓ Вы пойдёте",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
+            style = EventsTheme.typography.heading3,
             maxLines = 2,
             color = EventsTheme.colors.green,
         )

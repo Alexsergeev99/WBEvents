@@ -32,6 +32,8 @@ import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
+import ru.alexsergeev.presentation.ui.newComponents.HeaderText
+import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRowInCommunityScreen
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
@@ -80,7 +82,7 @@ internal fun CommunityScreenNew(
                 }
             }
             item {
-                BigText(text = community.name)
+                HeaderText(text = community.name)
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
@@ -153,7 +155,7 @@ internal fun CommunityScreenNew(
                 Spacer(Modifier.height(16.dp))
             }
             item {
-                BigText(text = "Подписаны")
+                MiddleText(text = "Подписаны")
             }
             item {
                 OverlappingRow(visitors = mutableListOf())
@@ -162,7 +164,7 @@ internal fun CommunityScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = "Встречи")
+                MiddleText(text = "Встречи")
             }
             community.communityEvents.forEach { event ->
                 item {
@@ -175,7 +177,7 @@ internal fun CommunityScreenNew(
                 Spacer(Modifier.height(48.dp))
             }
             item {
-                BigText(text = "Прошлые встречи")
+                MiddleText(text = "Прошлые встречи")
             }
             item {
                 EventCardNewMiniRowInCommunityScreen(navController, community)

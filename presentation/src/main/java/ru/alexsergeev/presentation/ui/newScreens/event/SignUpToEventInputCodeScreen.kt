@@ -78,7 +78,7 @@ internal fun SignUpToEventInputCodeScreen(
                     modifier = Modifier.fillMaxWidth(0.7f),
                     contentAlignment = Alignment.CenterStart
                 ) {
-                    BigText(text = "Вход и запись на встречу", 50)
+                    BigText(text = "Вход и запись на встречу")
                 }
                 Icon(
                     modifier = Modifier
@@ -96,9 +96,7 @@ internal fun SignUpToEventInputCodeScreen(
                     .fillMaxWidth()
                     .align(Alignment.Start),
                 text = "${event.title} · ${event.date} · ${event.city}",
-                fontSize = 18.sp,
-                fontWeight = FontWeight(400),
-                color = Color.Black,
+                style = EventsTheme.typography.subheading1,
                 maxLines = 2,
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -117,8 +115,7 @@ internal fun SignUpToEventInputCodeScreen(
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Text(
                     text = "Отправили код на ${person.phone.countryCode} ${person.phone.basicNumber}",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight(400),
+                    style = EventsTheme.typography.subheading3,
                     color = EventsTheme.colors.weakColor,
                     maxLines = 2,
                 )
@@ -136,8 +133,7 @@ internal fun SignUpToEventInputCodeScreen(
                     Text(
                         modifier = Modifier.padding(horizontal = 4.dp),
                         text = "Получить новый код через 10",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        style = EventsTheme.typography.subheading1,
                         color = EventsTheme.colors.weakColor
                     )
                 }

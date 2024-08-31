@@ -102,15 +102,6 @@ fun EventsTopBar(
                 tint = EventsTheme.colors.activeComponent,
                 contentDescription = "share"
             )
-        } else {
-            Icon(
-                modifier = Modifier
-                    .padding(top = 6.dp, bottom = 6.dp, end = 6.dp)
-                    .clickable { },
-                painter = painterResource(id = R.drawable.share),
-                tint = Color.Transparent,
-                contentDescription = "share"
-            )
         }
     }
 }

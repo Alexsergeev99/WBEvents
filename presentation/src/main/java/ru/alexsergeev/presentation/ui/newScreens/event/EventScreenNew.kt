@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -29,6 +30,8 @@ import ru.alexsergeev.presentation.ui.molecules.MapOfEvent
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.BigText
+import ru.alexsergeev.presentation.ui.newComponents.HeaderText
+import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 import ru.alexsergeev.presentation.ui.viewmodel.MyEventsViewModel
@@ -69,21 +72,23 @@ internal fun EventScreenNew(
                 }
             }
             item {
-                BigText(text = event.title ?: "Event")
+                HeaderText(text = event.title ?: "Event")
             }
             if (event.isFinished) {
                 item {
-                    Body1Text(
+                    Text(
                         modifier = Modifier.padding(horizontal = 4.dp),
                         text = "Встреча завершена",
+                        style = EventsTheme.typography.heading3,
                         color = EventsTheme.colors.weakColor
                     )
                 }
             }
             item {
-                Body1Text(
+                Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = "${event.date} · ${event.city}",
+                    style = EventsTheme.typography.heading3,
                     color = EventsTheme.colors.weakColor
                 )
             }
@@ -104,7 +109,7 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = "Ведущий")
+                MiddleText(text = "Ведущий")
             }
             item {
                 Spacer(Modifier.height(16.dp))
@@ -116,7 +121,7 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = event.city ?: "")
+                MiddleText(text = event.city ?: "")
             }
             item {
                 MetroStationInfo()
@@ -128,7 +133,7 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = "Пойдут на встречу")
+                MiddleText(text = "Пойдут на встречу")
             }
             item {
                 OverlappingRow(event.visitors)
@@ -137,7 +142,7 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                BigText(text = "Организатор")
+                MiddleText(text = "Организатор")
             }
             item {
                 CommunityInfoInEventScreen(community)
@@ -146,7 +151,7 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(20.dp))
             }
             item {
-                BigText(text = "Другие встречи сообщества")
+                MiddleText(text = "Другие встречи сообщества")
             }
             item {
                 EventCardNewInEventScreenRow()

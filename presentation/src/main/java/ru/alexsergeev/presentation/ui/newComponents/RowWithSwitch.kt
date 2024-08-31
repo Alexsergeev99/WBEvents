@@ -23,8 +23,7 @@ internal fun RowWithSwitch(text: String) {
         Text(
             modifier = Modifier.padding(horizontal = 4.dp),
             text = text,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
+            style = EventsTheme.typography.subheading1,
             color = EventsTheme.colors.activeComponent
         )
         SwitchItem()

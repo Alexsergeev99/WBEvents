@@ -5,19 +5,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
-import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
-internal fun BigText(text: String, color: Color = Color.Black) {
+internal fun HeaderText(text: String, color: Color = Color.Black) {
     Text(
         modifier = Modifier.padding(horizontal = 4.dp),
         text = text,
-        style = EventsTheme.typography.extraText,
+        style = EventsTheme.typography.heading1,
         color = color,
     )
 }

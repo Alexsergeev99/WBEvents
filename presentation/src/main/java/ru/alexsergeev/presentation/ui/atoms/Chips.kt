@@ -82,9 +82,10 @@ fun OneChipNew(text: String, canClick: Boolean = true, onClick: () -> Unit = {})
                 }
             }
     ) {
-        Body1Text(
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+        Text(
+            modifier = Modifier.padding(horizontal = 4.dp),
             text = text,
+            style = EventsTheme.typography.metadata1,
             color = textColor,
         )
     }
@@ -114,9 +115,10 @@ fun OneChipBig(
                 }
             }
     ) {
-        Body1Text(
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+        Text(
+            modifier = Modifier.padding(horizontal = 4.dp),
             text = text,
+            style = EventsTheme.typography.subheading4,
             color = textColor,
         )
     }
@@ -150,9 +152,10 @@ fun OneChipMiddle(text: String, canClick: Boolean = true, onClick: () -> Unit = 
                 }
             }
     ) {
-        Body1Text(
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+        Text(
+            modifier = Modifier.padding(horizontal = 4.dp),
             text = text,
+            style = EventsTheme.typography.metadata1,
             color = textColor,
         )
     }

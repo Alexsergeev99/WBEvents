@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.molecules.SpeakerAvatar
+import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
@@ -34,17 +35,12 @@ internal fun CommunityInfoInEventScreen(community: GroupUiModel) {
             Text(
                 modifier = Modifier.padding(horizontal = 4.dp),
                 text = community.name,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                color = NeutralActive,
+                style = EventsTheme.typography.heading3
             )
             Text(
                 modifier = Modifier.padding(horizontal = 4.dp),
                 text = "Просто лучшая компания.",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 4,
-                color = NeutralActive,
+                style = EventsTheme.typography.heading3
             )
         }
         Column(

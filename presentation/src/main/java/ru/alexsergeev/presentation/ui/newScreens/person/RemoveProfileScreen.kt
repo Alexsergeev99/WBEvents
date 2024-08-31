@@ -53,7 +53,7 @@ internal fun RemoveProfileScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(modifier = Modifier.fillMaxWidth(0.7f), contentAlignment = Alignment.CenterStart) {
-                BigText(text = "Точно удалить профиль?", 50)
+                BigText(text = "Точно удалить профиль?")
             }
             Icon(
                 modifier = Modifier
@@ -71,17 +71,13 @@ internal fun RemoveProfileScreen(
                 .fillMaxWidth()
                 .align(Alignment.Start),
             text = "Не надо...... Мы крутые",
-            fontSize = 20.sp,
-            fontWeight = FontWeight(400),
-            color = Color.Black,
+            style = EventsTheme.typography.subheading1,
             maxLines = 2,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "Мы удалим профиль, но не сразу. У вас будет 30 дней, чтобы зайти и обратно всё вернуть",
-            fontSize = 20.sp,
-            fontWeight = FontWeight(400),
-            color = Color.Black,
+            style = EventsTheme.typography.subheading1,
             maxLines = 3,
         )
         Spacer(modifier = Modifier.height(440.dp))

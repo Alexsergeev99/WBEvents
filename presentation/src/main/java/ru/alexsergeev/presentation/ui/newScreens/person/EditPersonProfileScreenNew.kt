@@ -206,8 +206,7 @@ internal fun EditPersonProfileScreenNew(
                         Text(
                             modifier = Modifier.padding(horizontal = 4.dp),
                             text = "Удалить профиль",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.SemiBold,
+                            style = EventsTheme.typography.subheading1,
                             color = Color.Red
                         )
                     }

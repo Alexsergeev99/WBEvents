@@ -8,11 +8,10 @@ import kotlinx.coroutines.flow.last
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.Chips
 import ru.alexsergeev.data.entity.EventEntity
-import ru.alexsergeev.data.entity.GroupEntity
 import ru.alexsergeev.data.entity.Visitors
 import ru.alexsergeev.data.utils.DomainEventToMyEventEntityMapper
 import ru.alexsergeev.data.utils.EntityEventListToDomainEventListMapper
-import ru.alexsergeev.data.utils.EntityEventToDomainEventMapper
+import ru.alexsergeev.data.utils.EntityEventToDomainEventMapperWithParams
 import ru.alexsergeev.data.utils.MyEntityEventListToDomainEventListMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
@@ -23,7 +22,7 @@ import ru.alexsergeev.domain.repository.EventRepository
 
 internal class EventRepositoryImpl(
     private val eventDao: EventDao,
-    private val entityEventToDomainEventMapper: EntityEventToDomainEventMapper,
+    private val entityEventToDomainEventMapperWithParams: EntityEventToDomainEventMapperWithParams,
     private val domainEventToMyEventEntityMapper: DomainEventToMyEventEntityMapper,
     private val entityEventListToDomainEventListMapper: EntityEventListToDomainEventListMapper,
     private val myEntityEventListToDomainEventListMapper: MyEntityEventListToDomainEventListMapper,
@@ -88,7 +87,7 @@ internal class EventRepositoryImpl(
             fetchEvent(id)
         }
         eventDao.getEventById(id).collect { it ->
-            val event = entityEventToDomainEventMapper.map(it)
+            val event = entityEventToDomainEventMapperWithParams.map(it)
             if (event.personIsAddedToTheVisitors) {
                 event.visitors.add(person)
             }

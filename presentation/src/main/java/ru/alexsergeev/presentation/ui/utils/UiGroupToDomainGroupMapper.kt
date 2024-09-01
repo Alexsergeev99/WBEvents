@@ -19,6 +19,6 @@ internal class UiGroupToDomainGroupMapper(
         input.communitySubscribers.forEach {
             communitySubscribersDomain.add(uiPersonToDomainPersonMapper.map(it))
         }
-        GroupDomainModel(id, name, people, groupLogo, communitySubscribersDomain, communityEventsDomain)
+        GroupDomainModel(id, name, people, groupLogo, info, tags, communitySubscribersDomain, communityEventsDomain)
     }
 }

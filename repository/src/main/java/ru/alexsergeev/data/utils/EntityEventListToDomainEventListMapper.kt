@@ -5,10 +5,10 @@ import ru.alexsergeev.data.entity.MyEventEntity
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 
 internal class EntityEventListToDomainEventListMapper(
-    private val entityEventToDomainEventMapper: EntityEventToDomainEventMapper
+    private val entityEventToDomainEventMapperWithParams: EntityEventToDomainEventMapperWithParams
 ) : Mapper<List<EventEntity>, List<EventDomainModel>> {
     override fun map(input: List<EventEntity>): List<EventDomainModel> = with(input) {
-        input.map { entityEventToDomainEventMapper.map(it) }
+        input.map { entityEventToDomainEventMapperWithParams.map(it) }
     }
 }
 

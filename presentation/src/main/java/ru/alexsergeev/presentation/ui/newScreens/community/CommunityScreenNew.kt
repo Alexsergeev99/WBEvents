@@ -86,10 +86,9 @@ internal fun CommunityScreenNew(
             }
             item {
                 FlowRow(modifier = Modifier.padding(4.dp)) {
-                    OneChipMiddle(text = "Дизайн")
-                    OneChipMiddle(text = "Разработка")
-                    OneChipMiddle(text = "Продажи")
-                    OneChipMiddle(text = "Android")
+                    community.tags.forEach {
+                        OneChipMiddle(text = it)
+                    }
                 }
             }
             item {
@@ -144,7 +143,7 @@ internal fun CommunityScreenNew(
             item {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
-                    text = "Сообщество профессионалов в сфере IT. Объединяем специалистов разных направлений для обмена опытом, знаниями и идеями.",
+                    text = community.info,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 3,
@@ -158,7 +157,7 @@ internal fun CommunityScreenNew(
                 MiddleText(text = "Подписаны")
             }
             item {
-                OverlappingRow(visitors = mutableListOf())
+                OverlappingRow(visitors = community.communitySubscribers.toMutableList())
             }
             item {
                 Spacer(Modifier.height(24.dp))

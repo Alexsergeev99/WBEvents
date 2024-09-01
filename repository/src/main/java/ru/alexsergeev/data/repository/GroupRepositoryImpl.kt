@@ -193,6 +193,8 @@ internal class GroupRepositoryImpl : GroupRepository {
                 name = "Tinkoff",
                 people = 100,
                 groupLogo = "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
+                info = "Сообщество для своих",
+                tags = listOf("Android", "Разработка", "Moscow", "Mobile", "IOS"),
                 communityEvents = listOf(
                     EventDomainModel(
                         8,
@@ -211,6 +213,8 @@ internal class GroupRepositoryImpl : GroupRepository {
                 name = "WB",
                 people = 588,
                 groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+                info = "Сообщество для своих",
+                tags = listOf("Android", "Разработка", "Moscow", "Mobile", "IOS"),
                 communityEvents = listOf(
                     EventDomainModel(
                         9,
@@ -229,6 +233,8 @@ internal class GroupRepositoryImpl : GroupRepository {
                 name = "Ozon",
                 people = 85,
                 groupLogo = "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
+                info = "Сообщество для своих",
+                tags = listOf("Android", "Разработка", "Moscow", "Mobile", "IOS"),
                 communityEvents = listOf(
                     EventDomainModel(
                         10,
@@ -247,6 +253,8 @@ internal class GroupRepositoryImpl : GroupRepository {
                 name = "Yandex",
                 people = 23,
                 groupLogo = "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
+                info = "Сообщество для своих",
+                tags = listOf("Android", "Разработка", "Moscow", "Mobile", "IOS"),
                 communityEvents = listOf(
                     EventDomainModel(
                         11,

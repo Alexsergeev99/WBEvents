@@ -28,7 +28,7 @@ internal class DetailGroupViewModel(
 
     ) : ViewModel() {
     private val communityMutable =
-        MutableStateFlow<GroupUiModel>(GroupUiModel(0, "", 0, "", communityEvents = listOf()))
+        MutableStateFlow<GroupUiModel>(GroupUiModel(0, "", 0, "", "", listOf(), communityEvents = listOf()))
     private val community: StateFlow<GroupUiModel> = communityMutable
 
     private val personDataMutable = MutableStateFlow(

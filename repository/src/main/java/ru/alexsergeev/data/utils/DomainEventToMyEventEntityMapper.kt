@@ -7,12 +7,12 @@ import ru.alexsergeev.data.entity.Visitors
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 
 internal class DomainEventToMyEventEntityMapper(
-    private val domainPersonToEntityPersonMapper: DomainPersonToEntityPersonMapper
+    private val domainPersonToEntityPersonMapperWithParams: DomainPersonToEntityPersonMapperWithParams
 ) : Mapper<EventDomainModel, MyEventEntity> {
     override fun map(input: EventDomainModel): MyEventEntity = with(input) {
         val visitorsData = mutableListOf<PersonEntity>()
         input.visitors.forEach {
-            visitorsData.add(domainPersonToEntityPersonMapper.map(it))
+            visitorsData.add(domainPersonToEntityPersonMapperWithParams.map(it))
         }
         MyEventEntity(id, title, date, city, isFinished, meetingAvatar, Chips(chips), imageUrl, Visitors(visitorsData), personIsAddedToTheVisitors)
     }

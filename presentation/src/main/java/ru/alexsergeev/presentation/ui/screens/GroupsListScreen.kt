@@ -62,6 +62,8 @@ internal fun GroupsListScreen(
                                 name = it.name,
                                 people = it.people,
                                 groupLogo = it.groupLogo,
+                                info = it.info,
+                                tags = it.tags,
                                 communityEvents = it.communityEvents
                             )
                         ) {

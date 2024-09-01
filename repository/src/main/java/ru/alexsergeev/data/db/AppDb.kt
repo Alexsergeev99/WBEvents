@@ -12,10 +12,19 @@ import ru.alexsergeev.data.entity.MyEventEntity
 import ru.alexsergeev.data.entity.PersonEntity
 import ru.alexsergeev.data.utils.ChipsConverters
 import ru.alexsergeev.data.utils.CommunitiesConverters
+import ru.alexsergeev.data.utils.EventsConverters
 import ru.alexsergeev.data.utils.VisitorsConverters
 
-@Database(entities = [EventEntity::class, MyEventEntity::class, PersonEntity::class, GroupEntity::class], version = 1)
-@TypeConverters(ChipsConverters::class, VisitorsConverters::class, CommunitiesConverters::class)
+@Database(
+    entities = [EventEntity::class, MyEventEntity::class, PersonEntity::class, GroupEntity::class],
+    version = 1
+)
+@TypeConverters(
+    ChipsConverters::class,
+    VisitorsConverters::class,
+    CommunitiesConverters::class,
+    EventsConverters::class
+)
 abstract class AppDb : RoomDatabase() {
     abstract fun eventDao(): EventDao
 

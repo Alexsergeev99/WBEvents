@@ -22,6 +22,8 @@ internal val testCommunity = GroupUiModel(
     name = "WB Tech",
     people = 10000,
     groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+    info = "",
+    tags = listOf(),
     communityEvents = listOf()
 )
 

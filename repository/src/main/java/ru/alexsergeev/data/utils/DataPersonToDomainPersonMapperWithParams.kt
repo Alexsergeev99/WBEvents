@@ -2,11 +2,18 @@ package ru.alexsergeev.data.utils
 
 import ru.alexsergeev.data.entity.PersonEntity
 import ru.alexsergeev.domain.domain.models.FullName
+import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 
-internal class DataPersonToDomainPersonMapper : Mapper<PersonEntity, PersonDomainModel> {
+internal class DataPersonToDomainPersonMapperWithParams(
+    private val entityGroupToDomainGroupMapper: EntityGroupToDomainGroupMapper
+) : Mapper<PersonEntity, PersonDomainModel> {
     override fun map(input: PersonEntity): PersonDomainModel = with(input) {
+        val communitiesDomain = mutableListOf<GroupDomainModel>()
+        input.communities.communities.forEach {
+            communitiesDomain.add(entityGroupToDomainGroupMapper.map(it))
+        }
         PersonDomainModel(
             FullName(
                 firstName = input.name.firstName,
@@ -17,7 +24,7 @@ internal class DataPersonToDomainPersonMapper : Mapper<PersonEntity, PersonDomai
             tags,
             city,
             info,
-            listOf()
+            communitiesDomain
         )
     }
 }

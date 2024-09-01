@@ -18,16 +18,3 @@ internal object VisitorsConverters {
         return Gson().toJson(list)
     }
 }
-
-internal object CommunitiesConverters {
-    @TypeConverter
-    fun fromEntityString(value: String?): MutableList<GroupEntity> {
-        val listType = object : TypeToken<MutableList<GroupEntity>>() {}.type
-        return Gson().fromJson(value, listType)
-    }
-
-    @TypeConverter
-    fun fromEntityArrayList(list: MutableList<GroupEntity?>): String {
-        return Gson().toJson(list)
-    }
-}

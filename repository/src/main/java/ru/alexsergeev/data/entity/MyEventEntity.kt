@@ -3,11 +3,6 @@ package ru.alexsergeev.data.entity
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.alexsergeev.data.utils.DataPersonToDomainPersonMapper
-import ru.alexsergeev.data.utils.DomainPersonToEntityPersonMapper
-import ru.alexsergeev.domain.domain.models.EventDomainModel
-import ru.alexsergeev.domain.domain.models.PersonDomainModel
-import ru.alexsergeev.testwb.data.dto.PersonDataModel
 
 @Entity
 data class MyEventEntity(

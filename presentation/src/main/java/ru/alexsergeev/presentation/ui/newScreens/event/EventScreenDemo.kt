@@ -16,6 +16,8 @@ fun EventScreenDemo() {
             name = "WB",
             people = 588,
             groupLogo = "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
+            info = "Сообщество для своих",
+            tags = listOf("Android", "Разработка", "Moscow", "Mobile", "IOS"),
             communityEvents = listOf(
                 EventUiModel(
                     9,

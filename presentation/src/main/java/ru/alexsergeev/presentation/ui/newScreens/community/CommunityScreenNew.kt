@@ -1,5 +1,6 @@
 package ru.alexsergeev.presentation.ui.newScreens.community
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,6 +39,7 @@ import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRowInComm
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -102,11 +104,13 @@ internal fun CommunityScreenNew(
                         text = "Подписаться",
                         isTextButton = true
                     ) {
+                        Log.d("test", person.communities.toString())
                         detailGroupViewModel.setPersonData(
                             person.copy(
                                 communities = person.communities + community
                             )
                         )
+                        Log.d("test1", person.communities.toString())
                     }
                 } else {
                         GradientButton(
@@ -117,11 +121,13 @@ internal fun CommunityScreenNew(
                             textColor = EventsTheme.colors.activeComponent,
                             isTextButton = true
                         ) {
+                            Log.d("test2", person.communities.toString())
                             detailGroupViewModel.setPersonData(
                                 person.copy(
                                     communities = person.communities - community
                                 )
                             )
+                            Log.d("test3", person.communities.toString())
                         }
                     }
                 }

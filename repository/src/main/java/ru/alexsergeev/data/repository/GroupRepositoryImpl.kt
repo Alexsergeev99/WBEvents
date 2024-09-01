@@ -2,6 +2,8 @@ package ru.alexsergeev.repository.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.update
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.GroupDomainModel

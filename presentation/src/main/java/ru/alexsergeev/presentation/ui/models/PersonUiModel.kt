@@ -19,3 +19,9 @@ internal data class Phone(
     val countryCode: String,
     val basicNumber: String,
 )
+
+internal data class PersonUiModelMini(
+    val name: FullName,
+    val avatar: String,
+    val tags: MutableList<String>,
+)

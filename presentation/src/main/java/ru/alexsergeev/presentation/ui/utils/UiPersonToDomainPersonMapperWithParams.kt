@@ -4,6 +4,7 @@ import ru.alexsergeev.domain.domain.models.FullName
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 
 internal class UiPersonToDomainPersonMapperWithParams(
     private val uiCommunityListToDomainCommunityListMapper: UiCommunityListToDomainCommunityListMapper

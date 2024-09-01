@@ -5,6 +5,7 @@ import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 import ru.alexsergeev.presentation.ui.models.Phone
 
 @Composable
@@ -28,22 +29,18 @@ fun EventScreenDemo() {
                     "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
                     listOf("Android", "Junior", "Moscow"),
                     visitors = mutableListOf(
-                        PersonUiModel(
+                        PersonUiModelMini(
                             name = FullName(
                                 "Саша",
                                 "Сергеев"
                             ),
-                            phone = Phone("+7", "9994449999"),
                             avatar = "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
                             tags = mutableListOf<String>(),
-                            communities = mutableListOf()
                         ),
-                        PersonUiModel(
+                        PersonUiModelMini(
                             FullName("Саша", "Сергеев"),
-                            phone = Phone("+7", "9994449999"),
                             avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
                             tags = mutableListOf<String>(),
-                            communities = mutableListOf()
                         ),
                     )
                 )

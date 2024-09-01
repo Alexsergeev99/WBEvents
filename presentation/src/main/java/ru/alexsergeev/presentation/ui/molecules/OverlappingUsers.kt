@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
@@ -53,7 +54,7 @@ fun OverlappingUsers(
 }
 
 @Composable
-internal fun OverlappingRow(visitors: MutableList<PersonUiModel>) {
+internal fun OverlappingRow(visitors: MutableList<PersonUiModelMini>) {
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(verticalAlignment = Alignment.CenterVertically) {

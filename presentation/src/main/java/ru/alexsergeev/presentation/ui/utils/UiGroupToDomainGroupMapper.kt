@@ -8,7 +8,7 @@ import ru.alexsergeev.presentation.ui.models.PersonUiModel
 
 internal class UiGroupToDomainGroupMapper(
     private val uiEventToDomainEventMapper: UiEventToDomainEventMapper,
-    private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
+    private val uiPersonMiniToDomainPersonMapper: UiPersonMiniToDomainPersonMapper,
     ) : Mapper<GroupUiModel, GroupDomainModel> {
     override fun map(input: GroupUiModel): GroupDomainModel = with(input) {
         val communityEventsDomain = mutableListOf<EventDomainModel>()
@@ -17,7 +17,7 @@ internal class UiGroupToDomainGroupMapper(
         }
         val communitySubscribersDomain = mutableListOf<PersonDomainModel>()
         input.communitySubscribers.forEach {
-            communitySubscribersDomain.add(uiPersonToDomainPersonMapper.map(it))
+            communitySubscribersDomain.add(uiPersonMiniToDomainPersonMapper.map(it))
         }
         GroupDomainModel(id, name, people, groupLogo, info, tags, communitySubscribersDomain, communityEventsDomain)
     }

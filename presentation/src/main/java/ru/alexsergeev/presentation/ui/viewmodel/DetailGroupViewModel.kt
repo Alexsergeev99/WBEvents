@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
+import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapperWithParams
 
 internal class DetailGroupViewModel(
     private val getCommunityUseCase: GetCommunityUseCase,
@@ -24,8 +26,8 @@ internal class DetailGroupViewModel(
     private val setPersonProfileUseCase: SetPersonProfileUseCase,
     private val domainGroupToUiGroupMapper: DomainGroupToUiGroupMapper,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
-    private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
-
+//    private val uiPersonToDomainPersonMapperWithParams: UiPersonToDomainPersonMapperWithParams,
+    private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams
     ) : ViewModel() {
     private val communityMutable =
         MutableStateFlow<GroupUiModel>(GroupUiModel(0, "", 0, "", "", listOf(), communityEvents = listOf()))
@@ -51,7 +53,7 @@ internal class DetailGroupViewModel(
     private fun getPersonDataFlow(): StateFlow<PersonUiModel> {
         try {
             viewModelScope.launch {
-                val person = getPersonProfileUseCase.invoke().last()
+                val person = getPersonProfileUseCase.invoke().first()
                 personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
             }
             return personData
@@ -59,6 +61,11 @@ internal class DetailGroupViewModel(
             throw e
         }
     }
+
+    init {
+        getPersonDataFlow()
+    }
+
     fun getCommunity(id: Int): StateFlow<GroupUiModel> {
         try {
             viewModelScope.launch {

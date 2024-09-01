@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -17,21 +18,26 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.Body1Text
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.molecules.GroupAvatarNew
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
+import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 
 @Composable
 internal fun CommunityCardNew(
     group: GroupUiModel,
+    detailGroupViewModel: DetailGroupViewModel = koinViewModel(),
     goToCommunityScreen: (Int) -> Unit = {},
 ) {
 
-    val needToAdd = remember {
-        mutableStateOf(true)
-    }
+    val community by detailGroupViewModel.getCommunity(group.id)
+        .collectAsStateWithLifecycle()
+    val person by detailGroupViewModel.getPersonData().collectAsStateWithLifecycle()
+
     val gradient = Brush.horizontalGradient(
         listOf(
             Color(0xFFFEF1FB), Color(0xFFFDF1FC), Color(0xFFFCF0FC),
@@ -65,7 +71,7 @@ internal fun CommunityCardNew(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            if(needToAdd.value) {
+            if(!person.communities.contains(community)) {
                 GradientButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -75,11 +81,14 @@ internal fun CommunityCardNew(
                     isIconButton = true,
                     shape = 8.dp,
                     onClick = {
-                        needToAdd.value = false
+                        detailGroupViewModel.setPersonData(
+                            person.copy(
+                                communities = person.communities + community
+                            )
+                        )
                     }
                 )
-            }
-            if(!needToAdd.value) {
+            } else {
                 GradientButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -89,7 +98,11 @@ internal fun CommunityCardNew(
                     addCommunity = true,
                     shape = 8.dp,
                     onClick = {
-                        needToAdd.value = true
+                        detailGroupViewModel.setPersonData(
+                            person.copy(
+                                communities = person.communities - community
+                            )
+                        )
                     }
                 )
             }

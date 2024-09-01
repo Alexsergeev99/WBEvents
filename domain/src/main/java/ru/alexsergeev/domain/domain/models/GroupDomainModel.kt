@@ -7,6 +7,6 @@ data class GroupDomainModel(
     val groupLogo: String,
     val info: String,
     val tags: List<String>,
-    val communitySubscribers: List<PersonDomainModel> = listOf(),
+    val communitySubscribers: MutableList<PersonDomainModel> = mutableListOf(),
     val communityEvents: List<EventDomainModel>
 )

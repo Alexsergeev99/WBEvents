@@ -5,11 +5,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.alexsergeev.domain.usecases.interfaces.AddPersonToSubscribersUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetCommunityUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
+import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromSubscribersUseCase
 import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
@@ -17,20 +18,32 @@ import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
+import ru.alexsergeev.presentation.ui.utils.UiGroupToDomainGroupMapper
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
-import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapperWithParams
 
 internal class DetailGroupViewModel(
     private val getCommunityUseCase: GetCommunityUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val setPersonProfileUseCase: SetPersonProfileUseCase,
+    private val addPersonToSubscribersUseCase: AddPersonToSubscribersUseCase,
+    private val removePersonFromSubscribersUseCase: RemovePersonFromSubscribersUseCase,
     private val domainGroupToUiGroupMapper: DomainGroupToUiGroupMapper,
+    private val uiGroupToDomainGroupMapper: UiGroupToDomainGroupMapper,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
-//    private val uiPersonToDomainPersonMapperWithParams: UiPersonToDomainPersonMapperWithParams,
     private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams
-    ) : ViewModel() {
+) : ViewModel() {
     private val communityMutable =
-        MutableStateFlow<GroupUiModel>(GroupUiModel(0, "", 0, "", "", listOf(), communityEvents = listOf()))
+        MutableStateFlow<GroupUiModel>(
+            GroupUiModel(
+                0,
+                "",
+                0,
+                "",
+                "",
+                listOf(),
+                communityEvents = listOf()
+            )
+        )
     private val community: StateFlow<GroupUiModel> = communityMutable
 
     private val personDataMutable = MutableStateFlow(
@@ -79,6 +92,33 @@ internal class DetailGroupViewModel(
             throw e
         }
     }
+
+    fun addPersonToEventVisitorList(group: GroupUiModel, person: PersonUiModel) {
+        try {
+            viewModelScope.launch {
+                addPersonToSubscribersUseCase.invoke(
+                    uiGroupToDomainGroupMapper.map(group),
+                    uiPersonToDomainPersonMapper.map(person),
+                )
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun removePersonFromEventVisitorsList(group: GroupUiModel, person: PersonUiModel) {
+        try {
+            viewModelScope.launch {
+                removePersonFromSubscribersUseCase.invoke(
+                    uiGroupToDomainGroupMapper.map(group),
+                    uiPersonToDomainPersonMapper.map(person),
+                )
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
     fun getPersonData(): StateFlow<PersonUiModel> = personData
 
     fun setPersonData(personUiModel: PersonUiModel) {

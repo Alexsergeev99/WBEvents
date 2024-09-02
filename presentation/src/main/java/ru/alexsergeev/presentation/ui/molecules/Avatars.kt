@@ -89,11 +89,10 @@ fun PeopleAvatarNewDetail(image: String) {
 }
 
 @Composable
-fun PeopleAvatarSmall(image: String, padding: Dp = 4.dp) {
+fun PeopleAvatarSmall(image: String) {
     AsyncImage(
         modifier = Modifier
-            .padding(vertical = padding)
-            .size(50.dp)
+            .size(48.dp)
             .clip(CircleShape),
         model = image,
         contentDescription = "avatar",

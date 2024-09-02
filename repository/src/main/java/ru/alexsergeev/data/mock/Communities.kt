@@ -1,5 +1,6 @@
 package ru.alexsergeev.data.mock
 
+import ru.alexsergeev.data.entity.Visitors
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
 
@@ -22,7 +23,8 @@ internal val communities = listOf(
                 listOf("Android", "Senior only", "Moscow"),
                 visitors = visitors
             )
-        )
+        ),
+        communitySubscribers = visitors
     ),
     GroupDomainModel(
         2,
@@ -43,7 +45,7 @@ internal val communities = listOf(
                 visitors = visitors
             )
         ),
-        communitySubscribers = mutableListOf()
+        communitySubscribers = visitors
     ),
     GroupDomainModel(
         3,
@@ -63,7 +65,8 @@ internal val communities = listOf(
                 listOf("Java", "Middle", "Astana"),
                 visitors = visitors
             )
-        )
+        ),
+        communitySubscribers = visitors
     ),
     GroupDomainModel(
         4,
@@ -83,6 +86,7 @@ internal val communities = listOf(
                 listOf("Python", "Lead", "Minsk"),
                 visitors = visitors
             )
-        )
+        ),
+        communitySubscribers = visitors
     ),
 )

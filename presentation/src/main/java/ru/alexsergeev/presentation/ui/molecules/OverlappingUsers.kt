@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
@@ -58,17 +56,21 @@ internal fun OverlappingRow(visitors: MutableList<PersonUiModelMini>) {
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Spacer(modifier = Modifier.width(16.dp))
             Box {
                 if (visitors.size in MIN_VISITORS_IMAGES..MAX_VISITORS_IMAGES) {
                     OverlappingUsers(overlappingPercentage = OVERLAPPING_PERCENTAGE) {
                         for (i in ZERO_VISITORS_IMAGES..<visitors.size) {
-                            ExampleAvatar(image = visitors[i].avatar)
+                            PeopleAvatarSmall(image = visitors[i].avatar)
                         }
                     }
                 }
             }
             if (visitors.size > MAX_VISITORS_IMAGES) {
+                OverlappingUsers(overlappingPercentage = OVERLAPPING_PERCENTAGE) {
+                    for (i in ZERO_VISITORS_IMAGES..<MAX_VISITORS_IMAGES) {
+                        PeopleAvatarSmall(image = visitors[i].avatar)
+                    }
+                }
                 Text(
                     text = "+${visitors.size - MAX_VISITORS_IMAGES}",
                     color = NeutralActive,

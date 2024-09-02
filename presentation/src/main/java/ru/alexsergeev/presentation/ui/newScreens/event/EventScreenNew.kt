@@ -136,7 +136,9 @@ internal fun EventScreenNew(
                 MiddleText(text = "Пойдут на встречу")
             }
             item {
-                OverlappingRow(event.visitors)
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    OverlappingRow(event.visitors)
+                }
             }
             item {
                 Spacer(Modifier.height(24.dp))

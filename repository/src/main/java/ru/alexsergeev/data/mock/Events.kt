@@ -4,15 +4,14 @@ import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.data.entity.Chips
 import ru.alexsergeev.data.entity.Communities
 import ru.alexsergeev.data.entity.EventEntity
-import ru.alexsergeev.data.entity.GroupEntity
+import ru.alexsergeev.data.entity.FullName
 import ru.alexsergeev.data.entity.PersonEntity
+import ru.alexsergeev.data.entity.Phone
 import ru.alexsergeev.data.entity.Visitors
-import ru.alexsergeev.domain.domain.models.GroupDomainModel
-import ru.alexsergeev.testwb.data.dto.FullName
-import ru.alexsergeev.testwb.data.dto.PersonDataModel
-import ru.alexsergeev.testwb.data.dto.Phone
+import ru.alexsergeev.data.utils.DomainPersonToEntityPersonMapper
 
 internal val mockEvents = flow {
+    val domainPersonToEntityPersonMapper = DomainPersonToEntityPersonMapper()
     val events = listOf(
         EventEntity(
             1,
@@ -26,16 +25,16 @@ internal val mockEvents = flow {
                 mutableListOf(
                     PersonEntity(
                         1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
                         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
                         tags = mutableListOf<String>(),
                         communities = Communities(mutableListOf())
                     ),
                     PersonEntity(
                         2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
+                        FullName("Саша", "Сергеев"),
+                        phone = Phone("+7", "9994449999"),
                         "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
                         tags = mutableListOf<String>(),
                         communities = Communities(mutableListOf())
@@ -51,26 +50,7 @@ internal val mockEvents = flow {
             false,
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
         ),
         EventEntity(
             3,
@@ -80,26 +60,8 @@ internal val mockEvents = flow {
             true,
             "https://s3-alpha-sig.figma.com/img/1e90/ce78/0f37865722ee6b6927715576f9352a79?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Htn~EXGmFFEAUu4NWjOnuIgobzlYEly~yxLukh3HQkgP6Hx81LxK7RmzfZjhoMb5EJI0daTurHM3f~cZ6n5i9I6MdHCbvH08byZKDTJ7vORtHn0f1V9aPjxLPQycYILKm3wqcyUTZ8ofKv-czlBvq9dNKfz--3kfqQOpFgBpn6VnRNJfE1qUI6f17hNjrNwAKvJTI3-16qVCZrRNBfTWJ~bQ6QHF2HC6jHlHqpoE3m1LkqmohlZDre6G2w7TffHXT3vpBlGCpRWtfyN~KxSO-IMvwwnVFSWT3D5m5XOYHYPG2yzHUCA5f8tU3YUg9qsw8dktj6oyV5qFG7hTkw80rA__",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             4,
@@ -109,26 +71,8 @@ internal val mockEvents = flow {
             false,
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             5,
@@ -138,26 +82,8 @@ internal val mockEvents = flow {
             true,
             "https://s3-alpha-sig.figma.com/img/1e90/ce78/0f37865722ee6b6927715576f9352a79?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Htn~EXGmFFEAUu4NWjOnuIgobzlYEly~yxLukh3HQkgP6Hx81LxK7RmzfZjhoMb5EJI0daTurHM3f~cZ6n5i9I6MdHCbvH08byZKDTJ7vORtHn0f1V9aPjxLPQycYILKm3wqcyUTZ8ofKv-czlBvq9dNKfz--3kfqQOpFgBpn6VnRNJfE1qUI6f17hNjrNwAKvJTI3-16qVCZrRNBfTWJ~bQ6QHF2HC6jHlHqpoE3m1LkqmohlZDre6G2w7TffHXT3vpBlGCpRWtfyN~KxSO-IMvwwnVFSWT3D5m5XOYHYPG2yzHUCA5f8tU3YUg9qsw8dktj6oyV5qFG7hTkw80rA__",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             6,
@@ -167,26 +93,8 @@ internal val mockEvents = flow {
             false,
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             7,
@@ -196,26 +104,8 @@ internal val mockEvents = flow {
             true,
             "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             8,
@@ -225,26 +115,8 @@ internal val mockEvents = flow {
             false,
             "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             9,
@@ -254,26 +126,8 @@ internal val mockEvents = flow {
             false,
             "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             10,
@@ -283,26 +137,8 @@ internal val mockEvents = flow {
             false,
             "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity = Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
+
         ),
         EventEntity(
             11,
@@ -312,27 +148,7 @@ internal val mockEvents = flow {
             false,
             "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
             Chips(listOf("Android", "Junior", "Moscow")),
-            visitorEntity =
-            Visitors(
-                mutableListOf(
-                    PersonEntity(
-                        1,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                    PersonEntity(
-                        2,
-                        ru.alexsergeev.data.entity.FullName("Саша", "Сергеев"),
-                        phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
-                        "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
-                        tags = mutableListOf<String>(),
-                        communities = Communities(mutableListOf())
-                    ),
-                )
-            )
+            visitorEntity = Visitors(visitorsEntity)
         )
     )
     emit(events)

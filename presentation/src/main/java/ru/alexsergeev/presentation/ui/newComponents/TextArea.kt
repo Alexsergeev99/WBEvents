@@ -61,13 +61,6 @@ fun Textarea(
                 .padding(10.dp)
                 .background(gradient),
             textStyle = EventsTheme.typography.subheading1,
-//            TextStyle(
-//                fontSize = 14.sp,
-//                fontFamily = FontFamily(Font(R.font.sf_pro_display_semibold)),
-//                fontWeight = FontWeight.SemiBold,
-//                textAlign = TextAlign.Left,
-//                color = NeutralActive
-//            ),
             decorationBox = { innerTextField ->
                 if (text.value.isEmpty()) {
                     Text(

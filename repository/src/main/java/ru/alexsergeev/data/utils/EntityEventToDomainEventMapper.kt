@@ -15,6 +15,7 @@ internal class EntityEventToDomainEventMapper : Mapper<EventEntity, EventDomainM
             chips.chips,
             imageUrl,
             mutableListOf(),
+            eventInfo,
             communityId,
             personIsAddedToTheVisitors
         )

@@ -46,7 +46,8 @@ internal fun EventsDivider(
                                 isFinished = event.isFinished,
                                 meetingAvatar = event.meetingAvatar,
                                 chips = event.chips,
-                                visitors = event.visitors
+                                visitors = event.visitors,
+                                eventInfo = event.eventInfo
                             ),
                             goToEventScreen = goToEventScreen
                         )
@@ -67,7 +68,8 @@ internal fun EventsDivider(
                                     isFinished = event.isFinished,
                                     meetingAvatar = event.meetingAvatar,
                                     chips = event.chips,
-                                    visitors = event.visitors
+                                    visitors = event.visitors,
+                                    eventInfo = event.eventInfo
                                 ),
                                 goToEventScreen = goToEventScreen
                             )

@@ -96,7 +96,8 @@ internal fun GroupScreen(
                                 isFinished = event.isFinished,
                                 meetingAvatar = event.meetingAvatar,
                                 chips = event.chips,
-                                visitors = event.visitors
+                                visitors = event.visitors,
+                                eventInfo = event.eventInfo
                             ),
                             goToEventScreen = {
                                 navController.navigate(

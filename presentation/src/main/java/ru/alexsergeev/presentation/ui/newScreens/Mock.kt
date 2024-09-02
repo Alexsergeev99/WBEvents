@@ -14,7 +14,8 @@ internal val testEvent = EventUiModel(
     isFinished = false,
     meetingAvatar = "https://s3-alpha-sig.figma.com/img/5d33/6ebd/e64d2ae58f903a77264a0e3dc0191cfd?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LPRQgL-rlh5m2BRXK3mn-84iViqklWEXxlm1F4tgRnYetgt8mBBXHc4ssvwtbDV-xhhv0-vnlxbqxp1x7JafSYBTeFfwIYF6Vi8C1yJ8qhJqcVQ22gOlK6lY28W~lKHeUYBCxqCOzqLM~ZeDtJUtg1-tTzb9OYJb0IJ7KaKyHYUMjhGEqHRisyL54oGdRwAA0VgHPVjx5A9Afvbru5cimRJZseCTVAvBy6CHm7OtdK2Vew9SachwrHOk4046NJAC0fnoBwbLn3l91ZxSXMJpwhPsmCGW17yHVRdLophsqLnVlOvXWCDn~GJSbWTsgujOKqXCtzT1ms1TMmi-pOrraA__",
     chips = listOf(),
-    visitors = mutableListOf()
+    visitors = mutableListOf(),
+    eventInfo = ""
 )
 
 internal val testCommunity = GroupUiModel(

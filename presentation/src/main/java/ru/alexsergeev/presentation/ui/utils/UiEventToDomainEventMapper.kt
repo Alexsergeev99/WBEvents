@@ -22,6 +22,7 @@ internal class UiEventToDomainEventMapper(
             chips,
             imageUrl,
             visitorsDomain,
+            eventInfo,
             communityId,
             personIsAddedToTheVisitors
         )

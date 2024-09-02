@@ -22,6 +22,7 @@ internal class EntityEventToDomainEventMapperWithParams(
             chips.chips,
             imageUrl,
             visitorsDomain,
+            eventInfo,
             communityId,
             personIsAddedToTheVisitors
         )

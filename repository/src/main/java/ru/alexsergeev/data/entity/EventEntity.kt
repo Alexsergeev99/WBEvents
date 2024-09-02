@@ -23,6 +23,7 @@ data class EventEntity(
     val imageUrl: String = "https://static.tildacdn.com/tild3062-6662-4137-a535-373262643465/msc.jpg",
     @Embedded
     val visitorEntity: Visitors,
+    val eventInfo: String,
     val communityId: Int,
     val personIsAddedToTheVisitors: Boolean = false,
 )

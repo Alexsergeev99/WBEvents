@@ -58,6 +58,7 @@ internal class InputPhoneNumberViewModel(
                 meetingAvatar = "",
                 chips = listOf(),
                 imageUrl = "",
+                eventInfo = "",
                 communityId = 1,
                 visitors = mutableListOf()
             )

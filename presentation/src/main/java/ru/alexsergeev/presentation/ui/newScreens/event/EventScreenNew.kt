@@ -103,7 +103,7 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                EventInfoColumn()
+                EventInfoColumn(event)
             }
             item {
                 Spacer(Modifier.height(24.dp))

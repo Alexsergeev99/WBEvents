@@ -24,6 +24,7 @@ internal class DomainEventToEntityEventMapperWithParams(
             Chips(chips),
             imageUrl,
             Visitors(visitorsData),
+            eventInfo,
             communityId,
             personIsAddedToTheVisitors
         )

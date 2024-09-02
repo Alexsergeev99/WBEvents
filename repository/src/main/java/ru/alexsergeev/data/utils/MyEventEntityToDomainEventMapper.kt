@@ -12,6 +12,19 @@ internal class MyEventEntityToDomainEventMapper(
         input.visitorEntity.visitors.forEach {
             visitorsDomain.add(dataPersonToDomainPersonMapperWithParams.map(it))
         }
-        EventDomainModel(id, title, date, city, isFinished, meetingAvatar, chips.chips, imageUrl, visitorsDomain, communityId, personIsAddedToTheVisitors)
+        EventDomainModel(
+            id,
+            title,
+            date,
+            city,
+            isFinished,
+            meetingAvatar,
+            chips.chips,
+            imageUrl,
+            visitorsDomain,
+            eventInfo,
+            communityId,
+            personIsAddedToTheVisitors
+        )
     }
 }

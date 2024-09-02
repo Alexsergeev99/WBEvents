@@ -57,6 +57,7 @@ internal class EventRepositoryImpl(
             meetingAvatar = "",
             chips = Chips(listOf()),
             imageUrl = "",
+            eventInfo = "",
             communityId = 1,
             visitorEntity = Visitors(mutableListOf())
         )

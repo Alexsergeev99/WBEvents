@@ -4,6 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import ru.alexsergeev.data.mock.communities
+import ru.alexsergeev.data.mock.mockEventInfo
 import ru.alexsergeev.data.mock.visitors
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
@@ -22,6 +23,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
+                eventInfo = mockEventInfo,
                 communityId = 1,
                 visitors = visitors
             ),
@@ -33,6 +35,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                 listOf("Java", "Junior", "Astana"),
+                eventInfo = mockEventInfo,
                 communityId = 2,
                 visitors = visitors
             ),
@@ -44,6 +47,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
+                eventInfo = mockEventInfo,
                 communityId = 3,
                 visitors = visitors
             ),
@@ -55,6 +59,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                 listOf("Java", "Junior", "Astana"),
+                eventInfo = mockEventInfo,
                 communityId = 4,
                 visitors = visitors
             ),
@@ -66,6 +71,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
+                eventInfo = mockEventInfo,
                 communityId = 1,
                 visitors = visitors
             ),
@@ -77,6 +83,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 false,
                 "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
                 listOf("Java", "Junior", "Astana"),
+                eventInfo = mockEventInfo,
                 communityId = 2,
                 visitors = visitors
             ),
@@ -88,6 +95,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 true,
                 "https://f.vividscreen.info/soft/0343e0e7f2f37aeb23ac5e55e2615c28/Android-Tech-Background-1200x1024.jpg",
                 listOf("Kotlin", "Senior", "Karaganda"),
+                eventInfo = mockEventInfo,
                 communityId = 3,
                 visitors = visitors
             ),
@@ -99,6 +107,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 false,
                 "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
                 listOf("Android", "Senior only", "Moscow"),
+                eventInfo = mockEventInfo,
                 communityId = 1,
                 visitors = visitors
             ),
@@ -110,6 +119,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 false,
                 "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
                 listOf("Android", "Junior", "Moscow"),
+                eventInfo = mockEventInfo,
                 communityId = 2,
                 visitors = visitors
             ),
@@ -121,6 +131,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 false,
                 "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
                 listOf("Java", "Middle", "Astana"),
+                eventInfo = mockEventInfo,
                 communityId = 3,
                 visitors = visitors
             ),
@@ -132,6 +143,7 @@ internal class GroupRepositoryImpl : GroupRepository {
                 false,
                 "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
                 listOf("Python", "Lead", "Minsk"),
+                eventInfo = mockEventInfo,
                 communityId = 4,
                 visitors = visitors
             )

@@ -28,6 +28,7 @@ fun EventScreenDemo() {
                     false,
                     "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
                     listOf("Android", "Junior", "Moscow"),
+                    eventInfo = "",
                     visitors = mutableListOf(
                         PersonUiModelMini(
                             name = FullName(

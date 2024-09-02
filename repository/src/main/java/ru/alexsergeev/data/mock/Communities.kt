@@ -1,6 +1,9 @@
 package ru.alexsergeev.data.mock
 
 import ru.alexsergeev.data.entity.Visitors
+import ru.alexsergeev.data.utils.DomainEventToEntityEventMapper
+import ru.alexsergeev.data.utils.DomainGroupToEntityGroupMapper
+import ru.alexsergeev.data.utils.DomainPersonToEntityPersonMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
 
@@ -21,6 +24,7 @@ internal val communities = listOf(
                 false,
                 "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
                 listOf("Android", "Senior only", "Moscow"),
+                communityId = 1,
                 visitors = visitors
             )
         ),
@@ -42,6 +46,7 @@ internal val communities = listOf(
                 false,
                 "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
                 listOf("Android", "Junior", "Moscow"),
+                communityId = 2,
                 visitors = visitors
             )
         ),
@@ -63,6 +68,7 @@ internal val communities = listOf(
                 false,
                 "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
                 listOf("Java", "Middle", "Astana"),
+                communityId = 3,
                 visitors = visitors
             )
         ),
@@ -84,6 +90,7 @@ internal val communities = listOf(
                 false,
                 "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
                 listOf("Python", "Lead", "Minsk"),
+                communityId = 4,
                 visitors = visitors
             )
         ),

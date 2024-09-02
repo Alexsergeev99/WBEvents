@@ -14,6 +14,6 @@ internal class DomainEventToMyEventEntityMapper(
         input.visitors.forEach {
             visitorsData.add(domainPersonToEntityPersonMapperWithParams.map(it))
         }
-        MyEventEntity(id, title, date, city, isFinished, meetingAvatar, Chips(chips), imageUrl, Visitors(visitorsData), personIsAddedToTheVisitors)
+        MyEventEntity(id, title, date, city, isFinished, meetingAvatar, Chips(chips), imageUrl, Visitors(visitorsData), communityId, personIsAddedToTheVisitors)
     }
 }

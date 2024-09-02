@@ -147,7 +147,7 @@ internal fun EventScreenNew(
                 MiddleText(text = "Организатор")
             }
             item {
-                CommunityInfoInEventScreen(community)
+                CommunityInfoInEventScreen(event.communityId)
             }
             item {
                 Spacer(Modifier.height(20.dp))
@@ -156,7 +156,7 @@ internal fun EventScreenNew(
                 MiddleText(text = "Другие встречи сообщества")
             }
             item {
-                EventCardNewInEventScreenRow()
+                EventCardNewInEventScreenRow(event.communityId)
             }
             item {
                 Spacer(Modifier.height(48.dp))

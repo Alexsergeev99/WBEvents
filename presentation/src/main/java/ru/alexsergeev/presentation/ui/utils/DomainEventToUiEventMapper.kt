@@ -2,7 +2,6 @@ package ru.alexsergeev.presentation.ui.utils
 
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.presentation.ui.models.EventUiModel
-import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 
 interface Mapper<in I, out O> {
@@ -17,6 +16,18 @@ internal class DomainEventToUiEventMapper(
         input.visitors.forEach {
             visitorsUi.add(domainPersonToUiPersonMiniMapper.map(it))
         }
-        EventUiModel(id, title, date, city, isFinished, meetingAvatar, chips, imageUrl, visitorsUi, personIsAddedToTheVisitors)
+        EventUiModel(
+            id,
+            title,
+            date,
+            city,
+            isFinished,
+            meetingAvatar,
+            chips,
+            imageUrl,
+            visitorsUi,
+            communityId,
+            personIsAddedToTheVisitors
+        )
     }
 }

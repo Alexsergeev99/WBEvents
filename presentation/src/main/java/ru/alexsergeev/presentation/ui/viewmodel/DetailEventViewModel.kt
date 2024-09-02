@@ -43,6 +43,7 @@ internal class DetailEventViewModel(
                 meetingAvatar = "",
                 chips = listOf(),
                 imageUrl = "",
+                communityId = 1,
                 visitors = mutableListOf()
             )
         )

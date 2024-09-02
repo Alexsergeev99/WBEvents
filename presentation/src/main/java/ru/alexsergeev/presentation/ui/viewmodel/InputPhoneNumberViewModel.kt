@@ -12,6 +12,7 @@ import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
+import ru.alexsergeev.presentation.ui.models.GroupUiModelInEventScreen
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
@@ -57,6 +58,7 @@ internal class InputPhoneNumberViewModel(
                 meetingAvatar = "",
                 chips = listOf(),
                 imageUrl = "",
+                communityId = 1,
                 visitors = mutableListOf()
             )
         )

@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import ru.alexsergeev.presentation.ui.navigation.NavigationNew
 import ru.alexsergeev.presentation.ui.navigation.PrimaryNavigation
 import ru.alexsergeev.presentation.ui.newScreens.event.VisitorListDetailScreen
+import ru.alexsergeev.presentation.ui.newScreens.person.CoordinateScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -15,7 +16,8 @@ class MainActivity : ComponentActivity() {
 //        enableEdgeToEdge()
         setContent {
 //            PrimaryNavigation()
-            NavigationNew()
+//            NavigationNew()
+            CoordinateScreen()
         }
     }
 }

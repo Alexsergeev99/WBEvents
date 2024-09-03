@@ -32,26 +32,3 @@ internal class DomainGroupToUiGroupMapper(
         )
     }
 }
-
-internal class DomainGroupToUiGroupMiniMapper(
-    private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
-    private val domainPersonToUiPersonMiniMapper: DomainPersonToUiPersonMiniMapper,
-) : Mapper<GroupDomainModel, GroupUiModelInEventScreen> {
-    override fun map(input: GroupDomainModel): GroupUiModelInEventScreen = with(input) {
-        val communityEventsUi = mutableListOf<EventUiModel>()
-        input.communityEvents.forEach {
-            communityEventsUi.add(domainEventToUiEventMapper.map(it))
-        }
-        val communitySubscribersUi = mutableListOf<PersonUiModelMini>()
-        input.communitySubscribers.forEach {
-            communitySubscribersUi.add(domainPersonToUiPersonMiniMapper.map(it))
-        }
-        GroupUiModelInEventScreen(
-            id,
-            name,
-            groupLogo,
-            info,
-            communityEventsUi
-        )
-    }
-}

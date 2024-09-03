@@ -5,7 +5,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
-import ru.alexsergeev.presentation.ui.newScreens.person.ChangeInterestsScreen
 import ru.alexsergeev.presentation.ui.newScreens.SplashScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.event.EventScreenNew
@@ -14,6 +13,9 @@ import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventInputCodeScr
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventInputNumberScreen
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventStartedScreen
 import ru.alexsergeev.presentation.ui.newScreens.main.MainScreen
+import ru.alexsergeev.presentation.ui.newScreens.person.ChangeAvatarScreen
+import ru.alexsergeev.presentation.ui.newScreens.person.ChangeInterestsScreen
+import ru.alexsergeev.presentation.ui.newScreens.person.CoordinateScreen
 import ru.alexsergeev.presentation.ui.newScreens.person.CorrectInterestsScreen
 import ru.alexsergeev.presentation.ui.newScreens.person.EditPersonProfileScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.person.PersonProfileScreenNew
@@ -33,7 +35,15 @@ fun NavigationNew() {
             EventScreenNew(
                 navController = navController,
                 it.arguments?.getString("id") ?: throw Exception(),
-                community = GroupUiModel(2, "luxury", 300, "", "", listOf(),  communityEvents = listOf())
+                community = GroupUiModel(
+                    2,
+                    "luxury",
+                    300,
+                    "",
+                    "",
+                    listOf(),
+                    communityEvents = listOf()
+                )
             )
         }
         composable("sign_up_event_first/{id}") {
@@ -76,6 +86,11 @@ fun NavigationNew() {
                 navController = navController,
             )
         }
+        composable("change_avatar") {
+            ChangeAvatarScreen(
+                navController = navController
+            )
+        }
         composable("splash_screen_new") {
             SplashScreenNew(
                 navController = navController,
@@ -83,6 +98,11 @@ fun NavigationNew() {
         }
         composable("add_interests") {
             ChangeInterestsScreen(
+                navController = navController,
+            )
+        }
+        composable("add_geo") {
+            CoordinateScreen(
                 navController = navController,
             )
         }

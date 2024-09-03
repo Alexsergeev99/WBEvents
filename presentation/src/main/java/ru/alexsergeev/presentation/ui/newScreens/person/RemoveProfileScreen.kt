@@ -47,73 +47,85 @@ internal fun RemoveProfileScreen(
             .fillMaxSize()
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Box(modifier = Modifier.fillMaxWidth(0.7f), contentAlignment = Alignment.CenterStart) {
-                BigText(text = "Точно удалить профиль?")
+        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(0.7f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    BigText(text = "Точно удалить профиль?")
+                }
+                Icon(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            navController.navigateUp()
+                        },
+                    painter = painterResource(id = R.drawable.close),
+                    contentDescription = "close"
+                )
             }
-            Icon(
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
                 modifier = Modifier
-                    .padding(8.dp)
-                    .clickable {
-                        navController.navigateUp()
-                    },
-                painter = painterResource(id = R.drawable.close),
-                contentDescription = "close"
+                    .fillMaxWidth()
+                    .align(Alignment.Start),
+                text = "Не надо...... Мы крутые",
+                style = EventsTheme.typography.subheading1,
+                maxLines = 2,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Мы удалим профиль, но не сразу. У вас будет 30 дней, чтобы зайти и обратно всё вернуть",
+                style = EventsTheme.typography.subheading1,
+                maxLines = 3,
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Start),
-            text = "Не надо...... Мы крутые",
-            style = EventsTheme.typography.subheading1,
-            maxLines = 2,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Мы удалим профиль, но не сразу. У вас будет 30 дней, чтобы зайти и обратно всё вернуть",
-            style = EventsTheme.typography.subheading1,
-            maxLines = 3,
-        )
-        Spacer(modifier = Modifier.height(440.dp))
-        Box(
-            modifier = Modifier
-                .width(350.dp)
-                .height(50.dp),
-            contentAlignment = Alignment.Center
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            GradientButton(
+            Box(
                 modifier = Modifier
                     .width(350.dp)
-                    .height(56.dp),
-                gradient = gradient,
-                isTextButton = true,
-                textColor = EventsTheme.colors.activeComponent,
-                text = "Удалить",
-                shape = 28.dp,
-                onClick = {}
-            )
-        }
-        Box(
-            modifier = Modifier
-                .width(350.dp)
-                .height(50.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            GradientButton(
+                    .height(50.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                GradientButton(
+                    modifier = Modifier
+                        .width(350.dp)
+                        .height(56.dp),
+                    gradient = gradient,
+                    isTextButton = true,
+                    textColor = EventsTheme.colors.activeComponent,
+                    text = "Удалить",
+                    shape = 28.dp,
+                    onClick = {}
+                )
+            }
+            Box(
                 modifier = Modifier
                     .width(350.dp)
-                    .height(56.dp),
-                isTextButton = true,
-                text = "Не надо",
-                shape = 28.dp,
-                onClick = {}
-            )
+                    .height(50.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                GradientButton(
+                    modifier = Modifier
+                        .width(350.dp)
+                        .height(56.dp),
+                    isTextButton = true,
+                    text = "Не надо",
+                    shape = 28.dp,
+                    onClick = {}
+                )
+            }
         }
     }
 }

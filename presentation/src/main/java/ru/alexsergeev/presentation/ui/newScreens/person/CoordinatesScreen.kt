@@ -12,15 +12,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 
 @Composable
 fun CoordinateScreen(
-    onButtonClick: () -> Unit = {},
+    navController: NavController,
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
     ) {
         Image(
             painter = painterResource(id = R.drawable.map_image),
@@ -35,11 +37,12 @@ fun CoordinateScreen(
                 .padding(16.dp)
         ) {
             GradientButton(
+                modifier = Modifier.fillMaxSize(),
                 isTextButton = true,
                 text = "Подтвердить",
                 textColor = Color.White
             ) {
-                onButtonClick()
+                navController.navigate("main_screen")
             }
         }
     }

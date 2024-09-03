@@ -132,7 +132,7 @@ internal fun ChangeInterestsScreen(
                     text = "Сохранить",
                     shape = 28.dp,
                     onClick = {
-                        navController.navigate("main_screen")
+                        navController.navigate("add_geo")
                     }
                 )
             }
@@ -143,7 +143,7 @@ internal fun ChangeInterestsScreen(
                 .height(50.dp),
             contentAlignment = Alignment.Center
         ) {
-            TextButton(onClick = { navController.navigate("main_screen") }) {
+            TextButton(onClick = { navController.navigate("add_geo") }) {
                 Text(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = "Расскажу позже",

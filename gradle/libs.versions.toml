@@ -4,6 +4,7 @@ accompanistSwiperefresh = "0.24.13-rc"
 accompanistSystemuicontroller = "0.27.0"
 agp = "8.4.0"
 coilCompose = "2.6.0"
+composeImagePickerVersion = "1.0.8"
 gson = "2.10.1"
 koinAndroid = "3.5.6"
 koin = "3.5.6"
@@ -43,6 +44,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+huhx-compose-image-picker = { module = "io.github.huhx:compose-image-picker", version.ref = "composeImagePickerVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

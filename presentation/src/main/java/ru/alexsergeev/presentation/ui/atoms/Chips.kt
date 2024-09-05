@@ -136,10 +136,6 @@ fun OneChipMiddle(
     onClick: () -> Unit = {}
 ) {
 
-//    val isActive1 = remember {
-//        mutableStateOf(isActive)
-//    }
-
     val boxColor =
         if (isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent
     val textColor =

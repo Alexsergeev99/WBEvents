@@ -1,9 +1,11 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.usecases.interfaces.GetCommunitiesListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
@@ -30,6 +32,14 @@ internal class MainScreenViewModel(
     private val changedTagsMutable =
         MutableStateFlow<MutableList<String>>(mockTags.toMutableList())
     private val changedTags: StateFlow<List<String>> = changedTagsMutable
+
+    private val _chipStates = mutableStateListOf<Boolean>().apply {
+        repeat(mockTags.size) { add(false) }
+    }
+    val chipStates: List<Boolean> = _chipStates
+
+    private val _allCategoriesChipState = MutableStateFlow<Boolean>(true)
+    val allCategoriesChipState: StateFlow<Boolean> = _allCategoriesChipState
 
     init {
         getEventsListFlow()
@@ -66,24 +76,37 @@ internal class MainScreenViewModel(
         }
     }
 
+    private fun setChangedTagsList(tag: String) {
+        if (changedTags.value.contains(tag)) {
+            changedTagsMutable.value.remove(tag)
+            getEventsListFlow()
+        } else {
+            changedTagsMutable.value.add(tag)
+            getEventsListFlow()
+        }
+    }
+
     fun getCommunitiesList(): StateFlow<List<GroupUiModel>> = communities
     fun getEventsList(): StateFlow<List<EventUiModel>> = events
 
     fun getChangedTagsList(): StateFlow<List<String>> = changedTags
 
-    fun setChangedTagsList(tag: String) {
-        if (changedTags.value.contains(tag)) {
-            changedTagsMutable.value.remove(tag)
-        } else {
-            changedTagsMutable.value.add(tag)
-        }
-    }
-
     fun addAllChangedTagsList() {
-            changedTagsMutable.value.addAll(mockTags)
+        changedTagsMutable.value.addAll(mockTags)
+        getEventsListFlow()
     }
 
     fun removeAllChangedTagsList() {
-            changedTagsMutable.value.removeAll(mockTags)
+        changedTagsMutable.value.removeAll(mockTags)
+        getEventsListFlow()
+    }
+
+    fun toggleChip(index: Int) {
+        _chipStates[index] = !_chipStates[index]
+        setChangedTagsList(mockTags[index])
+    }
+
+    fun toggleAllCategoriesChip() {
+        _allCategoriesChipState.value = !_allCategoriesChipState.value
     }
 }

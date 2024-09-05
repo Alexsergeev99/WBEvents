@@ -1,5 +1,6 @@
 package ru.alexsergeev.presentation.ui.newScreens.main
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
 import ru.alexsergeev.presentation.ui.newScreens.mockTags
 import ru.alexsergeev.presentation.ui.viewmodel.MainScreenViewModel
 
+@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun TagsMiddleFlowRowMock(
@@ -22,21 +24,22 @@ internal fun TagsMiddleFlowRowMock(
 ) {
 
     val tags by mainScreenViewModel.getChangedTagsList().collectAsStateWithLifecycle()
-    val chipStates = remember { mockTags.map { mutableStateOf(false) } }
+    val chipStates = mainScreenViewModel.chipStates
+    val allCategoriesChipState by mainScreenViewModel.allCategoriesChipState.collectAsStateWithLifecycle()
+
 
     FlowRow(modifier = Modifier.padding(4.dp)) {
         mockTags.forEachIndexed() { index, it ->
-            OneChipMiddle(text = it, isActive = chipStates[index]) {
-                chipStates[index].value != chipStates[index].value
-                mainScreenViewModel.setChangedTagsList(it)
+            OneChipMiddle(text = it, isActive = mutableStateOf(chipStates[index])) {
+                mainScreenViewModel.toggleChip(index)
             }
         }
-        OneChipMiddle(text = "Все категории", active = true) {
+        OneChipMiddle(text = "Все категории", active = true, isActive = mutableStateOf(allCategoriesChipState)) {
             if (tags.containsAll(mockTags)) {
-                chipStates[chipStates.size-1].value = false
+                mainScreenViewModel.toggleAllCategoriesChip()
                 mainScreenViewModel.removeAllChangedTagsList()
             } else {
-                chipStates[chipStates.size-1].value = true
+                mainScreenViewModel.toggleAllCategoriesChip()
                 mainScreenViewModel.addAllChangedTagsList()
             }
         }

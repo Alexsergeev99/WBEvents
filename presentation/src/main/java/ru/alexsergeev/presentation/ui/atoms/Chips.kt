@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -125,11 +126,19 @@ fun OneChipBig(
 }
 
 @Composable
-fun OneChipMiddle(text: String, canClick: Boolean = true, onClick: () -> Unit = {}) {
+fun OneChipMiddle(
+    text: String,
+    canClick: Boolean = true,
+    active: Boolean = false,
+    isActive: MutableState<Boolean> = remember {
+        mutableStateOf(active)
+    },
+    onClick: () -> Unit = {}
+) {
 
-    val isActive = remember {
-        mutableStateOf(false)
-    }
+//    val isActive1 = remember {
+//        mutableStateOf(isActive)
+//    }
 
     val boxColor =
         if (isActive.value) EventsTheme.colors.activeComponent else EventsTheme.colors.disabledComponent

@@ -18,7 +18,7 @@ internal val mockEvents = flow {
             city = "Moscow",
             true,
             "https://i.pinimg.com/originals/1f/a2/45/1fa245bcea702d2a8237b6bd47815b31.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Mobile", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 1,
             visitorEntity = Visitors(visitorsEntity)
@@ -30,7 +30,7 @@ internal val mockEvents = flow {
             city = "Saint-Petersburg",
             false,
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Mobile", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 2,
             visitorEntity = Visitors(visitorsEntity)
@@ -42,7 +42,7 @@ internal val mockEvents = flow {
             city = "Moscow",
             true,
             "https://i.pinimg.com/originals/1f/a2/45/1fa245bcea702d2a8237b6bd47815b31.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Mobile", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 3,
             visitorEntity = Visitors(visitorsEntity)
@@ -54,7 +54,7 @@ internal val mockEvents = flow {
             city = "Saint-Petersburg",
             false,
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Mobile", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 4,
             visitorEntity = Visitors(visitorsEntity)
@@ -66,7 +66,7 @@ internal val mockEvents = flow {
             city = "Moscow",
             true,
             "https://i.pinimg.com/originals/1f/a2/45/1fa245bcea702d2a8237b6bd47815b31.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Mobile", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 1,
             visitorEntity = Visitors(visitorsEntity)
@@ -78,7 +78,7 @@ internal val mockEvents = flow {
             city = "Saint-Petersburg",
             false,
             "https://ict.xabar.uz/static/crop/4/2/920__95_4233601839.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Mobile", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 2,
             visitorEntity = Visitors(visitorsEntity)
@@ -90,7 +90,7 @@ internal val mockEvents = flow {
             city = "Moscow",
             true,
             "https://i.pinimg.com/originals/1f/a2/45/1fa245bcea702d2a8237b6bd47815b31.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Разработка", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 3,
             visitorEntity = Visitors(visitorsEntity)
@@ -102,7 +102,7 @@ internal val mockEvents = flow {
             city = "Moscow",
             false,
             "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Разработка", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 1,
             visitorEntity = Visitors(visitorsEntity)
@@ -114,7 +114,7 @@ internal val mockEvents = flow {
             city = "Moscow",
             false,
             "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Разработка", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 2,
             visitorEntity = Visitors(visitorsEntity)
@@ -126,7 +126,7 @@ internal val mockEvents = flow {
             city = "Astana",
             false,
             "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Разработка", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 3,
             visitorEntity = Visitors(visitorsEntity)
@@ -138,7 +138,7 @@ internal val mockEvents = flow {
             city = "Minsk",
             false,
             "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
-            Chips(listOf("Android", "Junior", "Moscow")),
+            Chips(listOf("Разработка", "Junior", "Moscow")),
             eventInfo = mockEventInfo,
             communityId = 4,
             visitorEntity = Visitors(visitorsEntity)

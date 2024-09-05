@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,7 +23,6 @@ import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
-import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
@@ -42,6 +40,7 @@ internal fun MainScreen(
 
     val events by mainScreenViewModel.getEventsList().collectAsStateWithLifecycle()
     val communities by mainScreenViewModel.getCommunitiesList().collectAsStateWithLifecycle()
+    val changedTags by mainScreenViewModel.getChangedTagsList().collectAsStateWithLifecycle()
 
     var filteredEvents: MutableList<EventUiModel>
     var filteredCommunities: MutableList<GroupUiModel>
@@ -69,7 +68,7 @@ internal fun MainScreen(
                 events.toMutableList()
             } else {
                 val resultList = mutableListOf<EventUiModel>()
-                for (event in events) {
+                events.forEach { event ->
                     if (event.title?.lowercase(Locale.getDefault())
                             ?.contains(searchedText.lowercase(Locale.getDefault())) == true
                     ) {
@@ -83,7 +82,7 @@ internal fun MainScreen(
                 communities.toMutableList()
             } else {
                 val resultList = mutableListOf<GroupUiModel>()
-                for (community in communities) {
+                communities.forEach { community ->
                     if (community.name.lowercase(Locale.getDefault())
                             .contains(searchedText.lowercase(Locale.getDefault()))
                     ) {
@@ -126,9 +125,11 @@ internal fun MainScreen(
             if (filteredEvents.isNotEmpty()) {
                 item {
                     Column {
-                        for (i in 0..minOf(2, filteredEvents.size-1)) {
-                            EventCardNewBig(filteredEvents[i]) {
-                                navController.navigate("event_screen_new/${it}")
+                        for (i in 0..minOf(2, filteredEvents.size - 1)) {
+                            if (filteredEvents[i].chips.any { it in changedTags }) {
+                                EventCardNewBig(filteredEvents[i]) {
+                                    navController.navigate("event_screen_new/${it}")
+                                }
                             }
                         }
                     }
@@ -143,12 +144,14 @@ internal fun MainScreen(
             item {
                 PersonCardNewRow()
             }
-            if(filteredEvents.size >= 3) {
+            if (filteredEvents.size >= 3) {
                 item {
                     Column {
-                        for (i in 3..minOf(5, filteredEvents.size-1)) {
-                            EventCardNewBig(filteredEvents[i]) {
-                                navController.navigate("event_screen_new/${it}")
+                        for (i in 3..minOf(5, filteredEvents.size - 1)) {
+                            if (filteredEvents[i].chips.any { it in changedTags }) {
+                                EventCardNewBig(filteredEvents[i]) {
+                                    navController.navigate("event_screen_new/${it}")
+                                }
                             }
                         }
                     }
@@ -163,12 +166,14 @@ internal fun MainScreen(
             item {
                 CommunityCardNewRow(navController, filteredCommunities)
             }
-            if(filteredEvents.size >= 6) {
+            if (filteredEvents.size >= 6) {
                 item {
                     Column {
                         for (i in 6..<filteredEvents.size) {
-                            EventCardNewBig(filteredEvents[i]) {
-                                navController.navigate("event_screen_new/${it}")
+                            if (filteredEvents[i].chips.any { it in changedTags }) {
+                                EventCardNewBig(filteredEvents[i]) {
+                                    navController.navigate("event_screen_new/${it}")
+                                }
                             }
                         }
                     }

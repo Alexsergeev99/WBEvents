@@ -9,6 +9,7 @@ import ru.alexsergeev.domain.usecases.interfaces.GetCommunitiesListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
+import ru.alexsergeev.presentation.ui.newScreens.mockTags
 import ru.alexsergeev.presentation.ui.utils.DomainEventToUiEventMapper
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 
@@ -25,6 +26,10 @@ internal class MainScreenViewModel(
     private val communitiesMutable =
         MutableStateFlow<MutableList<GroupUiModel>>(mutableListOf())
     private val communities: StateFlow<List<GroupUiModel>> = communitiesMutable
+
+    private val changedTagsMutable =
+        MutableStateFlow<MutableList<String>>(mockTags.toMutableList())
+    private val changedTags: StateFlow<List<String>> = changedTagsMutable
 
     init {
         getEventsListFlow()
@@ -63,4 +68,22 @@ internal class MainScreenViewModel(
 
     fun getCommunitiesList(): StateFlow<List<GroupUiModel>> = communities
     fun getEventsList(): StateFlow<List<EventUiModel>> = events
+
+    fun getChangedTagsList(): StateFlow<List<String>> = changedTags
+
+    fun setChangedTagsList(tag: String) {
+        if (changedTags.value.contains(tag)) {
+            changedTagsMutable.value.remove(tag)
+        } else {
+            changedTagsMutable.value.add(tag)
+        }
+    }
+
+    fun addAllChangedTagsList() {
+            changedTagsMutable.value.addAll(mockTags)
+    }
+
+    fun removeAllChangedTagsList() {
+            changedTagsMutable.value.removeAll(mockTags)
+    }
 }

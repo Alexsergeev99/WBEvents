@@ -43,7 +43,6 @@ internal fun EventScreenNew(
     navController: NavController = rememberNavController(),
     eventId: String,
     detailEventViewModel: DetailEventViewModel = koinViewModel(),
-    community: GroupUiModel
 ) {
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()

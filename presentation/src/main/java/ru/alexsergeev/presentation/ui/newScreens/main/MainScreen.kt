@@ -9,15 +9,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
+import ru.alexsergeev.presentation.ui.models.EventUiModel
+import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
@@ -26,6 +32,7 @@ import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewRow
 import ru.alexsergeev.presentation.ui.viewmodel.MainScreenViewModel
+import java.util.Locale
 
 @Composable
 internal fun MainScreen(
@@ -36,12 +43,16 @@ internal fun MainScreen(
     val events by mainScreenViewModel.getEventsList().collectAsStateWithLifecycle()
     val communities by mainScreenViewModel.getCommunitiesList().collectAsStateWithLifecycle()
 
+    var filteredEvents: MutableList<EventUiModel>
+    var filteredCommunities: MutableList<GroupUiModel>
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
+
     Column(
         modifier = Modifier
             .padding(8.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            SearchNew(hint = "Найти встречи и сообщества")
+            SearchNew(hint = "Найти встречи и сообщества", text = textState)
             Icon(
                 modifier = Modifier.clickable {
                     navController.navigate("profile_screen_new")
@@ -50,9 +61,40 @@ internal fun MainScreen(
                 contentDescription = "user"
             )
         }
-        LazyColumn() {
+        LazyColumn {
+
+            val searchedText = textState.value.text
+
+            filteredEvents = if (searchedText.isEmpty()) {
+                events.toMutableList()
+            } else {
+                val resultList = mutableListOf<EventUiModel>()
+                for (event in events) {
+                    if (event.title?.lowercase(Locale.getDefault())
+                            ?.contains(searchedText.lowercase(Locale.getDefault())) == true
+                    ) {
+                        resultList.add(event)
+                    }
+                }
+                resultList
+            }
+
+            filteredCommunities = if (searchedText.isEmpty()) {
+                communities.toMutableList()
+            } else {
+                val resultList = mutableListOf<GroupUiModel>()
+                for (community in communities) {
+                    if (community.name.lowercase(Locale.getDefault())
+                            .contains(searchedText.lowercase(Locale.getDefault()))
+                    ) {
+                        resultList.add(community)
+                    }
+                }
+                resultList
+            }
+
             item {
-                EventCardNewRow(navController, events)
+                EventCardNewRow(navController, filteredEvents)
             }
             item {
                 Spacer(Modifier.height(48.dp))
@@ -61,7 +103,7 @@ internal fun MainScreen(
                 MiddleText(text = "Ближайшие встречи")
             }
             item {
-                EventCardNewMiniRow(navController, events)
+                EventCardNewMiniRow(navController, filteredEvents)
             }
             item {
                 Spacer(Modifier.height(48.dp))
@@ -70,7 +112,7 @@ internal fun MainScreen(
                 MiddleText(text = "Сообщества для тестировщиков")
             }
             item {
-                CommunityCardNewRow(navController, communities)
+                CommunityCardNewRow(navController, filteredCommunities)
             }
             item {
                 Spacer(Modifier.height(48.dp))
@@ -81,11 +123,13 @@ internal fun MainScreen(
             item {
                 TagsMiddleFlowRowMock()
             }
-            item {
-                Column {
-                    for (i in 0..2) {
-                        EventCardNewBig(events[i]) {
-                            navController.navigate("event_screen_new/${it}")
+            if (filteredEvents.isNotEmpty()) {
+                item {
+                    Column {
+                        for (i in 0..minOf(2, filteredEvents.size-1)) {
+                            EventCardNewBig(filteredEvents[i]) {
+                                navController.navigate("event_screen_new/${it}")
+                            }
                         }
                     }
                 }
@@ -99,11 +143,13 @@ internal fun MainScreen(
             item {
                 PersonCardNewRow()
             }
-            item {
-                Column {
-                    for (i in 3..5) {
-                        EventCardNewBig(events[i]) {
-                            navController.navigate("event_screen_new/${it}")
+            if(filteredEvents.size >= 3) {
+                item {
+                    Column {
+                        for (i in 3..minOf(5, filteredEvents.size-1)) {
+                            EventCardNewBig(filteredEvents[i]) {
+                                navController.navigate("event_screen_new/${it}")
+                            }
                         }
                     }
                 }
@@ -115,13 +161,15 @@ internal fun MainScreen(
                 MiddleText(text = "Популярные сообщества в IT")
             }
             item {
-                CommunityCardNewRow(navController, communities)
+                CommunityCardNewRow(navController, filteredCommunities)
             }
-            item {
-                Column {
-                    for (i in 6..<events.size) {
-                        EventCardNewBig(events[i]) {
-                            navController.navigate("event_screen_new/${it}")
+            if(filteredEvents.size >= 6) {
+                item {
+                    Column {
+                        for (i in 6..<filteredEvents.size) {
+                            EventCardNewBig(filteredEvents[i]) {
+                                navController.navigate("event_screen_new/${it}")
+                            }
                         }
                     }
                 }

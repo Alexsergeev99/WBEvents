@@ -35,15 +35,6 @@ fun NavigationNew() {
             EventScreenNew(
                 navController = navController,
                 it.arguments?.getString("id") ?: throw Exception(),
-                community = GroupUiModel(
-                    2,
-                    "luxury",
-                    300,
-                    "",
-                    "",
-                    listOf(),
-                    communityEvents = listOf()
-                )
             )
         }
         composable("sign_up_event_first/{id}") {

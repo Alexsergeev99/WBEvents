@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -55,7 +56,7 @@ internal fun SearchNew(
     cornerShape: Shape = RoundedCornerShape(18.dp),
     onSearchClicked: () -> Unit = {},
     onTextChange: (String) -> Unit = {},
-    text: MutableState<String> = remember { mutableStateOf("") }
+    text: MutableState<TextFieldValue> = remember { mutableStateOf(TextFieldValue("")) }
 ) {
 
     val gradient = Brush.horizontalGradient(
@@ -78,8 +79,8 @@ internal fun SearchNew(
             modifier = Modifier
                 .background(gradient, shape = CircleShape)
                 .clickable {
-                    if (text.value.isNotEmpty()) {
-                        text.value = ""
+                    if (text.value.text.isNotEmpty()) {
+                        text.value = TextFieldValue("")
                         onTextChange("")
                     }
                 },
@@ -102,12 +103,12 @@ internal fun SearchNew(
             value = text.value,
             onValueChange = {
                 text.value = it
-                onTextChange(it)
+                onTextChange(it.toString())
             },
             enabled = isEnabled,
             textStyle = EventsTheme.typography.subheading1,
             decorationBox = { innerTextField ->
-                if (text.value.isEmpty()) {
+                if (text.value.text.isEmpty()) {
                     Text(
                         text = hint,
                         color = hintColor,

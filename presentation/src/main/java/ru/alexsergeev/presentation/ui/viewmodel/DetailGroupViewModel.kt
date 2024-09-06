@@ -7,10 +7,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.alexsergeev.domain.usecases.interfaces.AddPersonToSubscribersUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetCommunityUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
-import ru.alexsergeev.domain.usecases.interfaces.RemovePersonFromSubscribersUseCase
 import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
@@ -18,17 +16,13 @@ import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 import ru.alexsergeev.presentation.ui.utils.DomainPersonToUiPersonMapperWithParams
-import ru.alexsergeev.presentation.ui.utils.UiGroupToDomainGroupMapper
 import ru.alexsergeev.presentation.ui.utils.UiPersonToDomainPersonMapper
 
 internal class DetailGroupViewModel(
     private val getCommunityUseCase: GetCommunityUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
     private val setPersonProfileUseCase: SetPersonProfileUseCase,
-    private val addPersonToSubscribersUseCase: AddPersonToSubscribersUseCase,
-    private val removePersonFromSubscribersUseCase: RemovePersonFromSubscribersUseCase,
     private val domainGroupToUiGroupMapper: DomainGroupToUiGroupMapper,
-    private val uiGroupToDomainGroupMapper: UiGroupToDomainGroupMapper,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
     private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams
 ) : ViewModel() {

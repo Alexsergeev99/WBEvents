@@ -70,7 +70,9 @@ internal fun CommunityScreenNew(
             text = community.name,
             needToBack = true,
             needToShare = true
-        )
+        ) {
+            navController.navigate("main_screen")
+        }
         LazyColumn(horizontalAlignment = Alignment.Start) {
             item {
                 Box(

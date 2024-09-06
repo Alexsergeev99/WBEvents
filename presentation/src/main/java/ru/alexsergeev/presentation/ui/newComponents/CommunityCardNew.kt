@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,11 +18,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.presentation.ui.atoms.Body1Text
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.molecules.GroupAvatarNew
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
-import ru.alexsergeev.presentation.ui.theme.NeutralActive
 import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 
 @Composable
@@ -34,8 +30,6 @@ internal fun CommunityCardNew(
     goToCommunityScreen: (Int) -> Unit = {},
 ) {
 
-    val community by detailGroupViewModel.getCommunity(group.id)
-        .collectAsStateWithLifecycle()
     val person by detailGroupViewModel.getPersonData().collectAsStateWithLifecycle()
 
     val gradient = Brush.horizontalGradient(
@@ -71,7 +65,7 @@ internal fun CommunityCardNew(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            if (!person.myCommunities.contains(community.id)) {
+            if (!person.myCommunities.contains(group.id)) {
                 GradientButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -83,7 +77,7 @@ internal fun CommunityCardNew(
                     onClick = {
                         detailGroupViewModel.setPersonData(
                             person.copy(
-                                myCommunities = person.myCommunities + community.id
+                                myCommunities = person.myCommunities + group.id
                             )
                         )
                     }
@@ -100,7 +94,7 @@ internal fun CommunityCardNew(
                     onClick = {
                         detailGroupViewModel.setPersonData(
                             person.copy(
-                                myCommunities = person.myCommunities - community.id
+                                myCommunities = person.myCommunities - group.id
                             )
                         )
                     }

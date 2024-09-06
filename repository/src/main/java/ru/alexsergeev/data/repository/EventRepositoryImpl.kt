@@ -15,7 +15,6 @@ import ru.alexsergeev.data.utils.EntityEventToDomainEventMapperWithParams
 import ru.alexsergeev.data.utils.MyEntityEventListToDomainEventListMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
-import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.domain.repository.EventRepository
@@ -44,7 +43,8 @@ internal class EventRepositoryImpl(
             "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
             tags = mutableListOf<String>(),
             myEvents = listOf(),
-            myCommunities = listOf()        ),
+            myCommunities = listOf()
+        ),
     )
 
     private val cacheEvents = MutableStateFlow<List<EventEntity>>(mutableListOf())
@@ -86,14 +86,8 @@ internal class EventRepositoryImpl(
     }
 
     override fun getEvent(id: Int, person: PersonDomainModel): Flow<EventDomainModel> = flow {
-        if (cacheEvent.value.id != id || cacheEvent.value.id == 0) {
-            fetchEvent(id)
-        }
-        eventDao.getEventById(id).collect { it ->
-            val event = entityEventToDomainEventMapperWithParams.map(it)
-            if (event.personIsAddedToTheVisitors) {
-                event.visitors.add(person)
-            }
+        getEventsList().collect { events ->
+            val event = events.find { id == it.id } ?: throw Exception()
             emit(event)
         }
     }

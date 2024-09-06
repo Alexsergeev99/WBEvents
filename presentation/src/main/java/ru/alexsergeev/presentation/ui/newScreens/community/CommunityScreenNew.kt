@@ -1,6 +1,5 @@
 package ru.alexsergeev.presentation.ui.newScreens.community
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -95,21 +94,18 @@ internal fun CommunityScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                if (!person.communities.contains(community)) {
+                if (!person.myCommunities.contains(community.id)) {
                     GradientButton(
                         modifier = Modifier
                             .fillMaxSize(),
                         text = "Подписаться",
                         isTextButton = true
                     ) {
-                        Log.d("test4", community.communitySubscribers.toString())
                         detailGroupViewModel.setPersonData(
                             person.copy(
-                                communities = person.communities + community
+                                myCommunities = person.myCommunities + community.id
                             )
                         )
-//                        detailGroupViewModel.addPersonToEventVisitorList(community, person)
-                        Log.d("test5", community.communitySubscribers.toString())
                     }
                 } else {
                     GradientButton(
@@ -120,18 +116,15 @@ internal fun CommunityScreenNew(
                         textColor = EventsTheme.colors.activeComponent,
                         isTextButton = true
                     ) {
-                        Log.d("test6", community.communitySubscribers.toString())
                         detailGroupViewModel.setPersonData(
                             person.copy(
-                                communities = person.communities - community
+                                myCommunities = person.myCommunities - community.id
                             )
                         )
-//                        detailGroupViewModel.removePersonFromEventVisitorsList(community, person)
-                        Log.d("test7", community.communitySubscribers.toString())
                     }
                 }
             }
-            if (!person.communities.contains(community)) {
+            if (!person.myCommunities.contains(community.id)) {
                 item {
                     Text(
                         modifier = Modifier.padding(horizontal = 4.dp),

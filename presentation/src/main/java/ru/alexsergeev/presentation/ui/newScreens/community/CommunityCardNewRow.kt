@@ -6,18 +6,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.newComponents.CommunityCardNew
-import ru.alexsergeev.presentation.ui.newComponents.EventCardNewMini
-import ru.alexsergeev.presentation.ui.newScreens.testCommunity
 
 @Composable
-internal fun CommunityCardNewRow(navController: NavController, communities: List<GroupUiModel>) {
+internal fun CommunityCardNewRow(
+    navController: NavController,
+    communities: List<GroupUiModel>
+) {
     LazyRow(Modifier.padding(horizontal = 4.dp)) {
         item {
-            communities.forEach {community ->
-                CommunityCardNew(community){
+            communities.forEach { it ->
+                CommunityCardNew(it) {
                     navController.navigate("community_screen_new/${it}")
                 }
             }

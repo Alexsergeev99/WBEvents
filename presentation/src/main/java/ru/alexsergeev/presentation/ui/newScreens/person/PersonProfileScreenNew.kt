@@ -30,6 +30,7 @@ import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
+import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRowInProfileScreen
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
@@ -89,7 +90,7 @@ internal fun PersonProfileScreenNew(
             }
         }
         LazyColumn(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(8.dp).fillMaxWidth(),
             horizontalAlignment = Alignment.Start
         ) {
             item {
@@ -136,7 +137,7 @@ internal fun PersonProfileScreenNew(
                 MiddleText(text = "Мои встречи")
             }
             item {
-                EventCardNewInProfileScreenRow()
+                EventCardNewInProfileScreenRow(navController, person)
             }
             item {
                 Spacer(Modifier.height(24.dp))
@@ -145,7 +146,7 @@ internal fun PersonProfileScreenNew(
                 MiddleText(text = "Мои сообщества")
             }
             item {
-                CommunityCardNewRow(navController, listOf())
+                CommunityCardNewRowInProfileScreen(navController, person)
             }
             item {
                 Spacer(Modifier.height(12.dp))

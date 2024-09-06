@@ -12,7 +12,7 @@ internal class DomainPersonToUiPersonMapperWithParams(
         PersonUiModel(
             FullName(firstName = input.name.firstName, secondName = input.name.secondName),
             Phone(input.phone.countryCode, input.phone.basicNumber),
-            avatar, tags, city, info, domainCommunityListToUiCommunityListMapper.map(communities)
+            avatar, tags, city, info, myEvents, myCommunities
         )
     }
 }

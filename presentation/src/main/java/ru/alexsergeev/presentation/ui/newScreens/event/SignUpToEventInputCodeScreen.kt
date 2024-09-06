@@ -167,6 +167,11 @@ internal fun SignUpToEventInputCodeScreen(
                         shape = 28.dp,
                         onClick = {
                             codeScreenViewModel.addPersonToEventVisitorList(event, person)
+                            codeScreenViewModel.setPersonData(
+                                person.copy(
+                                    myEvents = person.myEvents + event.id
+                                )
+                            )
                             navController.navigate("sign_up_successful/${event.id}")
                         }
                     )

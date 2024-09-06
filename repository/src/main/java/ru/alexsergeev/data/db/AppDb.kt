@@ -13,6 +13,7 @@ import ru.alexsergeev.data.entity.PersonEntity
 import ru.alexsergeev.data.utils.ChipsConverters
 import ru.alexsergeev.data.utils.CommunitiesConverters
 import ru.alexsergeev.data.utils.EventsConverters
+import ru.alexsergeev.data.utils.IntListConverters
 import ru.alexsergeev.data.utils.VisitorsConverters
 
 @Database(
@@ -23,7 +24,8 @@ import ru.alexsergeev.data.utils.VisitorsConverters
     ChipsConverters::class,
     VisitorsConverters::class,
     CommunitiesConverters::class,
-    EventsConverters::class
+    EventsConverters::class,
+    IntListConverters::class
 )
 abstract class AppDb : RoomDatabase() {
     abstract fun eventDao(): EventDao

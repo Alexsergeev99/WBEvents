@@ -22,7 +22,8 @@ internal class UiPersonToDomainPersonMapper(
             tags = tags,
             info = info,
             city = city,
-            communities = uiCommunityListToDomainCommunityListMapper.map(communities)
+            myEvents = myEvents,
+            myCommunities = myCommunities
         )
     }
 }

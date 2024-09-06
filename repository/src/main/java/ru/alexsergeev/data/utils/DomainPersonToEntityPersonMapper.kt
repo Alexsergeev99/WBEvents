@@ -1,6 +1,5 @@
 package ru.alexsergeev.data.utils
 
-import ru.alexsergeev.data.entity.Communities
 import ru.alexsergeev.data.entity.FullName
 import ru.alexsergeev.data.entity.PersonEntity
 import ru.alexsergeev.data.entity.Phone
@@ -21,7 +20,8 @@ internal class DomainPersonToEntityPersonMapper : Mapper<PersonDomainModel, Pers
             tags = tags,
             city = city,
             info = info,
-            communities = Communities(listOf())
+            myEvents = myEvents,
+            myCommunities = myCommunities
         )
     }
 }

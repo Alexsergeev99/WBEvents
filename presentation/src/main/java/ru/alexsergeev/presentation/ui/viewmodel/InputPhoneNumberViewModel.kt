@@ -42,7 +42,8 @@ internal class InputPhoneNumberViewModel(
             ),
             avatar = "",
             tags = mutableListOf<String>(),
-            communities = mutableListOf()
+            myCommunities = listOf(),
+            myEvents = listOf()
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable

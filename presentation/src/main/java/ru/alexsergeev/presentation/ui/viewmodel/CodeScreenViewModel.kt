@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.usecases.interfaces.AddPersonToVisitorsUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetPersonProfileUseCase
+import ru.alexsergeev.domain.usecases.interfaces.SetPersonProfileUseCase
 import ru.alexsergeev.domain.usecases.interfaces.ValidateCodeUseCase
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
@@ -26,6 +27,7 @@ internal class CodeScreenViewModel(
     private val validateCodeUseCase: ValidateCodeUseCase,
     private val addPersonToVisitorsUseCase: AddPersonToVisitorsUseCase,
     private val getPersonProfileUseCase: GetPersonProfileUseCase,
+    private val setPersonProfileUseCase: SetPersonProfileUseCase,
     private val domainPersonToUiPersonMapperWithParams: DomainPersonToUiPersonMapperWithParams,
     private val uiPersonToDomainPersonMapper: UiPersonToDomainPersonMapper,
     private val domainEventToUiEventMapper: DomainEventToUiEventMapper,
@@ -65,7 +67,8 @@ internal class CodeScreenViewModel(
             ),
             avatar = "",
             tags = mutableListOf<String>(),
-            communities = mutableListOf()
+            myCommunities = listOf(),
+            myEvents = listOf()
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable
@@ -116,6 +119,17 @@ internal class CodeScreenViewModel(
                     uiPersonToDomainPersonMapper.map(person),
                     uiEventToDomainEventMapper.map(event)
                 )
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun setPersonData(personUiModel: PersonUiModel) {
+        try {
+            viewModelScope.launch {
+                setPersonProfileUseCase.invoke(uiPersonToDomainPersonMapper.map(personUiModel))
+                personDataMutable.update { personUiModel }
             }
         } catch (e: Exception) {
             throw e

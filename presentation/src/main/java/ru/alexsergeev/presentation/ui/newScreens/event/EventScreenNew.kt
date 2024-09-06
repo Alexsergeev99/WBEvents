@@ -163,6 +163,11 @@ internal fun EventScreenNew(
         }
         if (event.personIsAddedToTheVisitors) {
             SignOutByEventColumn() {
+                detailEventViewModel.setPersonData(
+                    person.copy(
+                        myEvents = person.myEvents - event.id
+                    )
+                )
                 detailEventViewModel.removePersonFromEventVisitorsList(event, person)
             }
         } else {

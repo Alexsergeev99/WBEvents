@@ -103,7 +103,7 @@ internal fun SearchNew(
             value = text.value,
             onValueChange = {
                 text.value = it
-                onTextChange(it.toString())
+                onTextChange(it.text)
             },
             enabled = isEnabled,
             textStyle = EventsTheme.typography.subheading1,

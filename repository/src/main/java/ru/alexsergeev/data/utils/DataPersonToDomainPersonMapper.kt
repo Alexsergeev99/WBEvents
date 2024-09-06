@@ -17,7 +17,8 @@ internal class DataPersonToDomainPersonMapper : Mapper<PersonEntity, PersonDomai
             tags,
             city,
             info,
-            listOf()
+            myEvents,
+            myCommunities
         )
     }
 }

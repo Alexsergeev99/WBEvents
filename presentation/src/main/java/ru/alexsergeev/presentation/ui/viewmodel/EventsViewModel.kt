@@ -33,7 +33,8 @@ internal class EventsViewModel(
             phone = Phone("", ""),
             avatar = "",
             tags = mutableListOf<String>(),
-            communities = mutableListOf()
+            myCommunities = listOf(),
+            myEvents = listOf()
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable

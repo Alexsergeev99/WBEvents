@@ -58,7 +58,8 @@ internal class DetailGroupViewModel(
             ),
             avatar = "",
             tags = mutableListOf<String>(),
-            communities = mutableListOf()
+            myCommunities = listOf(),
+            myEvents = listOf()
         )
     )
     private val personData: StateFlow<PersonUiModel> = personDataMutable
@@ -88,32 +89,6 @@ internal class DetailGroupViewModel(
                 }
             }
             return community
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    fun addPersonToEventVisitorList(group: GroupUiModel, person: PersonUiModel) {
-        try {
-            viewModelScope.launch {
-                addPersonToSubscribersUseCase.invoke(
-                    uiGroupToDomainGroupMapper.map(group),
-                    uiPersonToDomainPersonMapper.map(person),
-                )
-            }
-        } catch (e: Exception) {
-            throw e
-        }
-    }
-
-    fun removePersonFromEventVisitorsList(group: GroupUiModel, person: PersonUiModel) {
-        try {
-            viewModelScope.launch {
-                removePersonFromSubscribersUseCase.invoke(
-                    uiGroupToDomainGroupMapper.map(group),
-                    uiPersonToDomainPersonMapper.map(person),
-                )
-            }
         } catch (e: Exception) {
             throw e
         }

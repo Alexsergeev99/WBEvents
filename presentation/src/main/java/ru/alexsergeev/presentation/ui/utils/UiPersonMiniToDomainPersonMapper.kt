@@ -14,8 +14,7 @@ internal class UiPersonMiniToDomainPersonMapper : Mapper<PersonUiModelMini, Pers
             ),
             phone = Phone("", ""),
             avatar = avatar,
-            tags,
-            communities = listOf()
+            tags
         )
     }
 }

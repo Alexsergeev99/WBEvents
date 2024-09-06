@@ -19,11 +19,12 @@ internal class UiPersonToDomainPersonMapperWithParams(
                 input.phone.countryCode,
                 input.phone.basicNumber
             ),
-            avatar,
-            tags,
+            avatar = avatar,
+            tags = tags,
             city = city,
             info = info,
-            uiCommunityListToDomainCommunityListMapper.map(communities)
+            myEvents = myEvents,
+            myCommunities = myCommunities
         )
     }
 }

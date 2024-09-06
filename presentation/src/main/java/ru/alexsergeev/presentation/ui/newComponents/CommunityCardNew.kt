@@ -71,7 +71,7 @@ internal fun CommunityCardNew(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            if(!person.communities.contains(community)) {
+            if (!person.myCommunities.contains(community.id)) {
                 GradientButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -83,7 +83,7 @@ internal fun CommunityCardNew(
                     onClick = {
                         detailGroupViewModel.setPersonData(
                             person.copy(
-                                communities = person.communities + community
+                                myCommunities = person.myCommunities + community.id
                             )
                         )
                     }
@@ -100,7 +100,7 @@ internal fun CommunityCardNew(
                     onClick = {
                         detailGroupViewModel.setPersonData(
                             person.copy(
-                                communities = person.communities - community
+                                myCommunities = person.myCommunities - community.id
                             )
                         )
                     }
@@ -109,3 +109,4 @@ internal fun CommunityCardNew(
         }
     }
 }
+

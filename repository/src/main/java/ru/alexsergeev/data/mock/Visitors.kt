@@ -13,49 +13,56 @@ internal val visitors = mutableListOf(
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = mutableListOf<GroupDomainModel>()
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonDomainModel(
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = mutableListOf<GroupDomainModel>()
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonDomainModel(
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = mutableListOf<GroupDomainModel>()
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonDomainModel(
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = mutableListOf<GroupDomainModel>()
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonDomainModel(
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = mutableListOf<GroupDomainModel>()
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonDomainModel(
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = mutableListOf<GroupDomainModel>()
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonDomainModel(
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = mutableListOf<GroupDomainModel>()
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
 )
 
@@ -66,7 +73,8 @@ internal val visitorsEntity = mutableListOf(
         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
         "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
         tags = mutableListOf<String>(),
-        communities = Communities(mutableListOf())
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonEntity(
         2,
@@ -74,7 +82,8 @@ internal val visitorsEntity = mutableListOf(
         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = Communities(mutableListOf())
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonEntity(
         3,
@@ -82,7 +91,8 @@ internal val visitorsEntity = mutableListOf(
         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = Communities(mutableListOf())
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonEntity(
         4,
@@ -90,7 +100,8 @@ internal val visitorsEntity = mutableListOf(
         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = Communities(mutableListOf())
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonEntity(
         5,
@@ -98,7 +109,8 @@ internal val visitorsEntity = mutableListOf(
         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = Communities(mutableListOf())
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonEntity(
         6,
@@ -106,7 +118,8 @@ internal val visitorsEntity = mutableListOf(
         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = Communities(mutableListOf())
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
     PersonEntity(
         7,
@@ -114,6 +127,7 @@ internal val visitorsEntity = mutableListOf(
         phone = ru.alexsergeev.data.entity.Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
         tags = mutableListOf<String>(),
-        communities = Communities(mutableListOf())
+        myEvents = listOf(),
+        myCommunities = listOf()
     ),
 )

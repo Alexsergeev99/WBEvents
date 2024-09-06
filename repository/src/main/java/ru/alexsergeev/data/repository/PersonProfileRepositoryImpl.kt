@@ -18,8 +18,8 @@ internal class PersonProfileRepositoryImpl : PersonProfileRepository {
             phone = Phone("+7", ""),
             "https://www.1zoom.me/big2/62/199578-yana.jpg",
             mutableListOf<String>(),
-            communities = mutableListOf<GroupDomainModel>()
-        )
+            myEvents = listOf(),
+            myCommunities = listOf()        )
     )
 
     override fun getPersonData(): Flow<PersonDomainModel> = flow {

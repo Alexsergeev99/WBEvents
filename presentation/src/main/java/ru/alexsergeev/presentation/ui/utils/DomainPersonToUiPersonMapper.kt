@@ -13,7 +13,7 @@ internal class DomainPersonToUiPersonMapper(
         PersonUiModel(
             FullName(firstName = input.name.firstName, secondName = input.name.secondName),
             Phone(input.phone.countryCode, input.phone.basicNumber),
-            avatar, tags, city, info, communities.map { domainGroupToUiGroupMapper.map(it) }
+            avatar, tags, city, info, myEvents, myCommunities
         )
     }
 }

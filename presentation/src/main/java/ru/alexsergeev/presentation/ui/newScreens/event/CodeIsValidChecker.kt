@@ -25,9 +25,6 @@ internal fun CodeIsValidChecker(
     codeScreenViewModel: CodeScreenViewModel = koinViewModel()
 ) {
 
-//    val correctCode = remember {
-//        mutableStateOf(false)
-//    }
     val gradient = Brush.horizontalGradient(
         listOf(
             EventsTheme.colors.disabledComponent,

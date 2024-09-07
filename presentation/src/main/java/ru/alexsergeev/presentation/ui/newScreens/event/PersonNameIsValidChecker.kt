@@ -27,44 +27,50 @@ internal fun PersonNameIsValidChecker(
             EventsTheme.colors.disabledComponent,
         )
     )
-
-    if (person.name.firstName.isBlank()) {
-        Box(
-            modifier = Modifier
-                .width(350.dp)
-                .height(56.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            GradientButton(
+    Box(
+        modifier = Modifier
+            .width(350.dp)
+            .height(56.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        if (person.name.firstName.isBlank()) {
+            Box(
                 modifier = Modifier
                     .width(350.dp)
                     .height(56.dp),
-                gradient = gradient,
-                isTextButton = true,
-                textColor = EventsTheme.colors.disabledText,
-                text = "Продолжить",
-                shape = 28.dp,
-                onClick = {}
-            )
-        }
-    } else {
-        Box(
-            modifier = Modifier
-                .width(350.dp)
-                .height(56.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            GradientButton(
+                contentAlignment = Alignment.Center
+            ) {
+                GradientButton(
+                    modifier = Modifier
+                        .width(350.dp)
+                        .height(56.dp),
+                    gradient = gradient,
+                    isTextButton = true,
+                    textColor = EventsTheme.colors.disabledText,
+                    text = "Продолжить",
+                    shape = 28.dp,
+                    onClick = {}
+                )
+            }
+        } else {
+            Box(
                 modifier = Modifier
                     .width(350.dp)
                     .height(56.dp),
-                isTextButton = true,
-                text = "Продолжить",
-                shape = 28.dp,
-                onClick = {
-                    navController.navigate("sign_up_event_second/${event.id}")
-                }
-            )
+                contentAlignment = Alignment.Center
+            ) {
+                GradientButton(
+                    modifier = Modifier
+                        .width(350.dp)
+                        .height(56.dp),
+                    isTextButton = true,
+                    text = "Продолжить",
+                    shape = 28.dp,
+                    onClick = {
+                        navController.navigate("sign_up_event_second/${event.id}")
+                    }
+                )
+            }
         }
     }
 }

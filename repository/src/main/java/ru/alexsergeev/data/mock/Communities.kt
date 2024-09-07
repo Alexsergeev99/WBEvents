@@ -23,7 +23,7 @@ internal val communities = listOf(
                 city = "Moscow",
                 false,
                 "https://papik.pro/grafic/uploads/posts/2023-04/1681522643_papik-pro-p-logotip-tinkoff-banka-vektor-5.jpg",
-                listOf("Android", "Senior only", "Moscow"),
+                listOf("Разработка", "Junior", "Moscow"),
                 eventInfo = mockEventInfo,
                 communityId = 1,
                 visitors = visitors
@@ -46,7 +46,7 @@ internal val communities = listOf(
                 city = "Moscow",
                 false,
                 "https://img.razrisyika.ru/kart/58/1200/231299-vayldberriz-30.jpg",
-                listOf("Android", "Junior", "Moscow"),
+                listOf("Разработка", "Junior", "Moscow"),
                 eventInfo = mockEventInfo,
                 communityId = 2,
                 visitors = visitors
@@ -69,7 +69,7 @@ internal val communities = listOf(
                 city = "Astana",
                 false,
                 "https://sun1-88.userapi.com/MzM5q68F3qmfVcTmB3JsuOAhOvU0yAz_eOcKoA/KDUoIxc0Khg.jpg",
-                listOf("Java", "Middle", "Astana"),
+                listOf("Разработка", "Junior", "Moscow"),
                 eventInfo = mockEventInfo,
                 communityId = 3,
                 visitors = visitors
@@ -92,7 +92,7 @@ internal val communities = listOf(
                 city = "Minsk",
                 false,
                 "https://cdn-st2.rtr-vesti.ru/vh/pictures/hd/160/365/7.jpg",
-                listOf("Python", "Lead", "Minsk"),
+                listOf("Разработка", "Junior", "Moscow"),
                 eventInfo = mockEventInfo,
                 communityId = 4,
                 visitors = visitors

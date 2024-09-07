@@ -10,15 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,7 +25,6 @@ import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
-import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRowInProfileScreen
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
@@ -53,26 +48,7 @@ internal fun PersonProfileScreenNew(
             PeopleAvatarNewDetail(
                 person.avatar
             )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Button(
-                    modifier = Modifier
-                        .height(40.dp)
-                        .alpha(0.3f),
-                    colors = ButtonDefaults.buttonColors(EventsTheme.colors.activeComponent),
-                    onClick = {
-                        navController.navigate("change_avatar")
-                    }) {
-                    Text(
-                        text = "Изменить фото",
-                        color = Color.White,
-                    )
-                }
-            }
+            ChangeAvatarButton(navController)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -90,7 +66,9 @@ internal fun PersonProfileScreenNew(
             }
         }
         LazyColumn(
-            modifier = Modifier.padding(8.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.Start
         ) {
             item {
@@ -152,19 +130,7 @@ internal fun PersonProfileScreenNew(
                 Spacer(Modifier.height(12.dp))
             }
             item {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    TextButton(onClick = { /*TODO*/ }) {
-                        Text(
-                            modifier = Modifier.padding(horizontal = 4.dp),
-                            text = "Выйти",
-                            style = EventsTheme.typography.subheading1,
-                            color = EventsTheme.colors.weakColor
-                        )
-                    }
-                }
+                SignOutButton()
             }
         }
     }

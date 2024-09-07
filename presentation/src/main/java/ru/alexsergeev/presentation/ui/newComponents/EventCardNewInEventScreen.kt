@@ -13,49 +13,48 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.models.EventUiModel
-import ru.alexsergeev.presentation.ui.molecules.EventAvatarMax
-import ru.alexsergeev.presentation.ui.theme.EventsTheme
+import ru.alexsergeev.presentation.ui.molecules.EventAvatarMini
+import ru.alexsergeev.presentation.ui.theme.NeutralActive
+import ru.alexsergeev.presentation.ui.theme.NeutralWeak
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun EventCardNew(
+internal fun EventCardNewInEventScreen(
     event: EventUiModel,
     goToEventScreen: (Int) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
-            .width(320.dp)
-            .height(300.dp)
+            .width(148.dp)
+            .height(294.dp)
             .padding(vertical = 8.dp, horizontal = 4.dp)
             .clickable {
                 goToEventScreen(event.id)
             }
     ) {
         Column(
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EventAvatarMax(image = event.meetingAvatar)
+            EventAvatarMini(image = event.meetingAvatar)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-                Column(
-                    modifier = Modifier
-                        .padding(vertical = 4.dp)
-                ) {
+                Column() {
                     Text(
                         text = event.title ?: "",
-                        style = EventsTheme.typography.heading2,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = NeutralActive,
                     )
                     Text(
+                        maxLines = 3,
                         text = "${event.date} · ${event.city}",
-                        style = EventsTheme.typography.subheading3,
-                        color = EventsTheme.colors.weakColor,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = NeutralWeak
                     )
                     FlowRow(
                         modifier = Modifier

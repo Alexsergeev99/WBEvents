@@ -6,19 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
-import ru.alexsergeev.presentation.ui.newComponents.EventCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewMini
-import ru.alexsergeev.presentation.ui.newScreens.testEvent
 
 @Composable
-internal fun EventCardNewMiniRow(navController: NavController, events: List<EventUiModel>) {
+internal fun EventCardNewMiniRowInCommunityScreen(navController: NavController, community: GroupUiModel) {
     LazyRow(
         Modifier.padding(horizontal = 4.dp)
     ) {
-        item {
-            events.forEach {event ->
+        community.communityEvents.forEach {event ->
+            item {
                 EventCardNewMini(event){
                     navController.navigate("event_screen_new/${it}")
                 }

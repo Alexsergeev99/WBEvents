@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -22,17 +21,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.newComponents.BigText
-import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.CodeScreenViewModel
@@ -106,9 +101,7 @@ internal fun SignUpToEventInputCodeScreen(
                 hintColor = EventsTheme.colors.neutral,
                 onTextChange = {
                     codeScreenViewModel.validateCodeFlow(if (it.isNotBlank()) it.toInt() else 0)
-                    if (codeScreenViewModel.validateCode().value) {
-                        correctCode.value = true
-                    }
+                    correctCode.value = codeScreenViewModel.validateCode().value
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -139,44 +132,7 @@ internal fun SignUpToEventInputCodeScreen(
                 }
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Box(
-                modifier = Modifier
-                    .width(350.dp)
-                    .height(56.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                if (!correctCode.value) {
-                    GradientButton(
-                        modifier = Modifier
-                            .width(350.dp)
-                            .height(56.dp),
-                        gradient = gradient,
-                        isTextButton = true,
-                        textColor = EventsTheme.colors.disabledText,
-                        text = "Отправить и подтвердить запись",
-                        shape = 28.dp,
-                        onClick = {}
-                    )
-                } else {
-                    GradientButton(
-                        modifier = Modifier
-                            .width(350.dp)
-                            .height(56.dp),
-                        isTextButton = true,
-                        text = "Отправить и подтвердить запись",
-                        shape = 28.dp,
-                        onClick = {
-                            codeScreenViewModel.addPersonToEventVisitorList(event, person)
-                            codeScreenViewModel.setPersonData(
-                                person.copy(
-                                    myEvents = person.myEvents + event.id
-                                )
-                            )
-                            navController.navigate("sign_up_successful/${event.id}")
-                        }
-                    )
-                }
-            }
+            CodeIsValidChecker(navController, correctCode.value, event, person)
         }
     }
 }

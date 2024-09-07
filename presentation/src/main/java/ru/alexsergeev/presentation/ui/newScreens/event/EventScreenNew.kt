@@ -22,20 +22,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import org.koin.androidx.compose.koinViewModel
-import ru.alexsergeev.presentation.ui.atoms.Body1Text
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
-import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.molecules.EventAvatarDetail
 import ru.alexsergeev.presentation.ui.molecules.MapOfEvent
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
-import ru.alexsergeev.presentation.ui.newComponents.BigText
 import ru.alexsergeev.presentation.ui.newComponents.HeaderText
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
-import ru.alexsergeev.presentation.ui.viewmodel.MyEventsViewModel
-import ru.alexsergeev.presentation.ui.viewmodel.PersonProfileViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -61,7 +56,7 @@ internal fun EventScreenNew(
             needToBack = true,
             needToShare = true
         )
-        LazyColumn(modifier = Modifier.fillMaxHeight(if(event.isFinished) 1f else 0.9f)) {
+        LazyColumn(modifier = Modifier.fillMaxHeight(if (event.isFinished) 1f else 0.9f)) {
             item {
                 Box(
                     modifier = Modifier
@@ -75,12 +70,7 @@ internal fun EventScreenNew(
             }
             if (event.isFinished) {
                 item {
-                    Text(
-                        modifier = Modifier.padding(horizontal = 4.dp),
-                        text = "Встреча завершена",
-                        style = EventsTheme.typography.heading3,
-                        color = EventsTheme.colors.weakColor
-                    )
+                    FinishedEventText()
                 }
             }
             item {
@@ -161,21 +151,6 @@ internal fun EventScreenNew(
                 Spacer(Modifier.height(48.dp))
             }
         }
-        if (event.personIsAddedToTheVisitors) {
-            SignOutByEventColumn() {
-                detailEventViewModel.setPersonData(
-                    person.copy(
-                        myEvents = person.myEvents - event.id
-                    )
-                )
-                detailEventViewModel.removePersonFromEventVisitorsList(event, person)
-            }
-        } else {
-            if (!event.isFinished) {
-                GoToEventButtonColumn() {
-                    navController.navigate("sign_up_event_first/${event.id}")
-                }
-            }
-        }
+        EventScreenBottomButtonChanger(navController, event, person)
     }
 }

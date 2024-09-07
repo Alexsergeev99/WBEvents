@@ -16,8 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,7 +28,6 @@ import ru.alexsergeev.presentation.ui.molecules.GroupAvatarNewDetail
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
-import ru.alexsergeev.presentation.ui.newComponents.GradientButton
 import ru.alexsergeev.presentation.ui.newComponents.HeaderText
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRowInCommunityScreen
@@ -49,14 +46,6 @@ internal fun CommunityScreenNew(
     val community by detailGroupViewModel.getCommunity(groupId.toInt())
         .collectAsStateWithLifecycle()
     val person by detailGroupViewModel.getPersonData().collectAsStateWithLifecycle()
-
-    val gradient = Brush.horizontalGradient(
-        listOf(
-            Color(0xFFFEF1FB), Color(0xFFFDF1FC), Color(0xFFFCF0FC),
-            Color(0xFFFBF0FD), Color(0xFFF9EFFD), Color(0xFFF8EEFE),
-            Color(0xFFF6EEFE), Color(0xFFF4EDFF)
-        )
-    )
 
     Column(
         modifier = Modifier
@@ -97,33 +86,9 @@ internal fun CommunityScreenNew(
             }
             item {
                 if (!person.myCommunities.contains(community.id)) {
-                    GradientButton(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        text = "Подписаться",
-                        isTextButton = true
-                    ) {
-                        detailGroupViewModel.setPersonData(
-                            person.copy(
-                                myCommunities = person.myCommunities + community.id
-                            )
-                        )
-                    }
+                    SubscribeCommunityButton(person, community)
                 } else {
-                    GradientButton(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        gradient = gradient,
-                        text = "Вы подписаны",
-                        textColor = EventsTheme.colors.activeComponent,
-                        isTextButton = true
-                    ) {
-                        detailGroupViewModel.setPersonData(
-                            person.copy(
-                                myCommunities = person.myCommunities - community.id
-                            )
-                        )
-                    }
+                    UnSubscribeCommunityButton(person, community)
                 }
             }
             if (!person.myCommunities.contains(community.id)) {
@@ -158,7 +123,9 @@ internal fun CommunityScreenNew(
                 MiddleText(text = "Подписаны")
             }
             item {
-                OverlappingRow(visitors = community.communitySubscribers.toMutableList())
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    OverlappingRow(visitors = community.communitySubscribers.toMutableList())
+                }
             }
             item {
                 Spacer(Modifier.height(24.dp))

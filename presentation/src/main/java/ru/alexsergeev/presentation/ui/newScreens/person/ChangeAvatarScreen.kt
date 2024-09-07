@@ -1,6 +1,5 @@
 package ru.alexsergeev.presentation.ui.newScreens.person
 
-import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -39,26 +38,14 @@ import ru.alexsergeev.presentation.ui.theme.EventsTheme
 
 @Composable
 fun ChangeAvatarScreen(navController: NavController) {
-    val context = LocalContext.current
+
     var imageUri: Any? by remember { mutableStateOf(R.drawable.examplephoto) }
-    var selectedImageUris by remember {
-        mutableStateOf<List<Uri>>(emptyList())
-    }
+
     val photoPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) {
         if (it != null) {
             imageUri = it
-        } else {
-            Log.d("PhotoPicker", "No media selected")
-        }
-    }
-    val multiplePhotoPicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = 2)
-    ) {
-        if (it != null) {
-            Log.d("PhotoPicker", "Selected URI: $it")
-            selectedImageUris = it
         } else {
             Log.d("PhotoPicker", "No media selected")
         }

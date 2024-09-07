@@ -27,22 +27,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
-import ru.alexsergeev.presentation.ui.theme.NeutralActive
-import ru.alexsergeev.wbevents.ui.utils.MaskVisualTransformation
 
 @Composable
 internal fun SearchNew(
@@ -58,13 +49,11 @@ internal fun SearchNew(
     onTextChange: (String) -> Unit = {},
     text: MutableState<TextFieldValue> = remember { mutableStateOf(TextFieldValue("")) }
 ) {
-
     val gradient = Brush.horizontalGradient(
         listOf(
             Color.White, EventsTheme.colors.disabledComponent
         )
     )
-
     Row(
         modifier = Modifier
             .padding(vertical = padding)

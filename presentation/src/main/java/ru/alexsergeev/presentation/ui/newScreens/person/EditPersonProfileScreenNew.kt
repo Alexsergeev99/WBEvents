@@ -12,22 +12,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChipMiddle
-import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.Phone
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNewDetail
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
@@ -69,26 +65,7 @@ internal fun EditPersonProfileScreenNew(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                SearchNew(
-                    person.name.firstName.ifBlank { "Имя Фамилия" },
-                    isSearch = false,
-                    onTextChange = {
-                        val fullName: List<String?> = it.split(" ")
-                        if (fullName.size == 1) {
-                            personProfileViewModel.setPersonData(
-                                person.copy(
-                                    name = FullName(fullName[0] ?: "Пользователь", ""),
-                                )
-                            )
-                        } else {
-                            personProfileViewModel.setPersonData(
-                                person.copy(
-                                    name = FullName(fullName[0] ?: "Пользователь", fullName[1] ?: ""),
-                                )
-                            )
-                        }
-                    }
-                )
+                PersonNameCorrectField(person)
             }
             item {
                 SearchNew(
@@ -110,8 +87,7 @@ internal fun EditPersonProfileScreenNew(
                             city = it,
                         )
                     )
-                }
-                )
+                })
             }
             item {
                 Textarea(person.info.ifBlank { "Расскажите о себе" }, onTextChange = {
@@ -120,8 +96,7 @@ internal fun EditPersonProfileScreenNew(
                             info = it,
                         )
                     )
-                }
-                )
+                })
             }
             item {
                 Spacer(Modifier.height(24.dp))
@@ -198,19 +173,7 @@ internal fun EditPersonProfileScreenNew(
                 Spacer(Modifier.height(24.dp))
             }
             item {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    TextButton(onClick = { navController.navigate("remove_profile") }) {
-                        Text(
-                            modifier = Modifier.padding(horizontal = 4.dp),
-                            text = "Удалить профиль",
-                            style = EventsTheme.typography.subheading1,
-                            color = Color.Red
-                        )
-                    }
-                }
+                RemoveProfileButton(navController)
             }
         }
     }

@@ -1,8 +1,10 @@
 package ru.alexsergeev.repository.repository
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
 import ru.alexsergeev.data.dao.EventDao
@@ -11,7 +13,6 @@ import ru.alexsergeev.data.entity.EventEntity
 import ru.alexsergeev.data.entity.Visitors
 import ru.alexsergeev.data.utils.DomainEventToMyEventEntityMapper
 import ru.alexsergeev.data.utils.EntityEventListToDomainEventListMapper
-import ru.alexsergeev.data.utils.EntityEventToDomainEventMapperWithParams
 import ru.alexsergeev.data.utils.MyEntityEventListToDomainEventListMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.FullName
@@ -21,7 +22,6 @@ import ru.alexsergeev.domain.repository.EventRepository
 
 internal class EventRepositoryImpl(
     private val eventDao: EventDao,
-    private val entityEventToDomainEventMapperWithParams: EntityEventToDomainEventMapperWithParams,
     private val domainEventToMyEventEntityMapper: DomainEventToMyEventEntityMapper,
     private val entityEventListToDomainEventListMapper: EntityEventListToDomainEventListMapper,
     private val myEntityEventListToDomainEventListMapper: MyEntityEventListToDomainEventListMapper,
@@ -47,7 +47,16 @@ internal class EventRepositoryImpl(
         ),
     )
 
-    private val cacheEvents = MutableStateFlow<List<EventEntity>>(mutableListOf())
+    private val cacheEventsFlow = MutableStateFlow<List<EventEntity>>(mutableListOf())
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val cacheEvents = cacheEventsFlow.flatMapLatest {
+        flow {
+            if (cacheEventsFlow.value.isEmpty()) {
+                fetchEvents()
+            }
+            emit(entityEventListToDomainEventListMapper.map(it))
+        }
+    }
     private val cacheEvent = MutableStateFlow(
         EventEntity(
             id = 0,
@@ -65,25 +74,15 @@ internal class EventRepositoryImpl(
     )
 
     private suspend fun fetchEvents() {
-        cacheEvents.value = eventDao.getAll().last()
-        eventDao.insertList(cacheEvents.value)
+        cacheEventsFlow.value = eventDao.getAll().last()
+        eventDao.insertList(cacheEventsFlow.value)
     }
 
     private suspend fun fetchEvent(id: Int) {
         cacheEvent.value = eventDao.getEventById(id).first()
     }
 
-    override fun getEventsList(): Flow<List<EventDomainModel>> {
-
-        return flow {
-            if (cacheEvents.value.isEmpty()) {
-                fetchEvents()
-            }
-            cacheEvents.collect {
-                emit(entityEventListToDomainEventListMapper.map(cacheEvents.value))
-            }
-        }
-    }
+    override fun getEventsList(): Flow<List<EventDomainModel>> = cacheEvents
 
     override fun getEvent(id: Int, person: PersonDomainModel): Flow<EventDomainModel> = flow {
         getEventsList().collect { events ->

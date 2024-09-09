@@ -9,3 +9,4 @@ internal class GetEventsListUseCaseImpl(private val repository: EventRepository)
     GetEventsListUseCase {
     override fun invoke(): Flow<List<EventDomainModel>> = repository.getEventsList()
 }
+

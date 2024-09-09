@@ -36,9 +36,10 @@ internal class MainScreenViewModel(
     private val _chipStates = mutableStateListOf<Boolean>().apply {
         repeat(mockTags.size) { add(false) }
     }
-    val chipStates: List<Boolean> = _chipStates
 
     private val _allCategoriesChipState = MutableStateFlow<Boolean>(true)
+
+    val chipStates: List<Boolean> = _chipStates
     val allCategoriesChipState: StateFlow<Boolean> = _allCategoriesChipState
 
     init {
@@ -64,7 +65,7 @@ internal class MainScreenViewModel(
     private fun getCommunitiesListFlow() {
         try {
             viewModelScope.launch {
-                val communitiesFlow = getCommunitiesListUseCase.invoke()
+                val communitiesFlow = getCommunitiesListUseCase.execute()
                 communitiesFlow.collect { communities ->
                     communities.forEach { community ->
                         communitiesMutable.value.add(domainGroupToUiGroupMapper.map(community))

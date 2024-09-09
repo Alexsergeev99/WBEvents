@@ -48,9 +48,9 @@ internal fun MainScreen(
 
     Column(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(vertical = 8.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
             SearchNew(hint = "Найти встречи и сообщества", text = textState)
             Icon(
                 modifier = Modifier.clickable {

@@ -7,12 +7,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.domain.usecases.interfaces.GetCommunitiesListUseCase
+import ru.alexsergeev.presentation.ui.utils.DomainCommunityListToUiCommunityListMapper
 import ru.alexsergeev.presentation.ui.utils.DomainGroupToUiGroupMapper
 
 internal class GroupsViewModel(
     private val getCommunitiesListUseCase: GetCommunitiesListUseCase,
     private val domainGroupToUiGroupMapper: DomainGroupToUiGroupMapper,
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val communitiesMutable =
         MutableStateFlow<MutableList<GroupUiModel>>(mutableListOf())
@@ -25,7 +26,7 @@ internal class GroupsViewModel(
     private fun getCommunitiesListFlow() {
         try {
             viewModelScope.launch {
-                val communitiesFlow = getCommunitiesListUseCase.invoke()
+                val communitiesFlow = getCommunitiesListUseCase.execute()
                 communitiesFlow.collect { communities ->
                     communities.forEach { community ->
                         communitiesMutable.value.add(domainGroupToUiGroupMapper.map(community))

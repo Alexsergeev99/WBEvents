@@ -1,4 +1,4 @@
-package ru.alexsergeev.presentation.ui.newScreens.event
+package ru.alexsergeev.presentation.ui.newScreens.community
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,25 +16,29 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
 import ru.alexsergeev.presentation.ui.newComponents.PersonCardNew
-import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
+import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun VisitorListDetailScreen(
+internal fun CommunitySubscribersDetailList(
     navController: NavController,
-    eventId: String,
-    viewModel: DetailEventViewModel = koinViewModel()
+    communityId: String,
+    viewModel: DetailGroupViewModel = koinViewModel()
 ) {
 
-    val event by viewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val community by viewModel.getCommunity(communityId.toInt()).collectAsStateWithLifecycle()
 
     Column(modifier = Modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        EventsTopBar(navController = navController, text = "Пойдут на встречу", needToBack = true,
-            needToShare = true)
+        EventsTopBar(
+            navController = navController,
+            text = "Подписаны",
+            needToBack = true,
+            needToShare = true
+        )
         LazyColumn {
             item {
                 FlowRow {
-                    event.visitors.forEach {
+                    community.communitySubscribers.forEach {
                         Box(
                             modifier = Modifier.padding(horizontal = 8.dp),
                             contentAlignment = Alignment.Center

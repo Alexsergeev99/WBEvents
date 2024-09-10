@@ -18,13 +18,14 @@ import ru.alexsergeev.presentation.R
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.atoms.Subheading1Text
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 import ru.alexsergeev.presentation.ui.molecules.PeopleAvatarNew
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 
 @Composable
 internal fun PersonCardNew(
-    person: PersonUiModel,
+    person: PersonUiModelMini,
     verticalPadding: Dp = 8.dp,
     horizontalPadding: Dp = 0.dp,
     goToProfileScreen: (Int) -> Unit = {}

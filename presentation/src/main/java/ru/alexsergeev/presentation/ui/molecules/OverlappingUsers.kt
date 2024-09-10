@@ -1,5 +1,6 @@
 package ru.alexsergeev.presentation.ui.molecules
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,7 +53,7 @@ fun OverlappingUsers(
 }
 
 @Composable
-internal fun OverlappingRow(visitors: MutableList<PersonUiModelMini>) {
+internal fun OverlappingRow(visitors: MutableList<PersonUiModelMini>, onClick: () -> Unit = {}) {
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -72,6 +73,7 @@ internal fun OverlappingRow(visitors: MutableList<PersonUiModelMini>) {
                     }
                 }
                 Text(
+                    modifier = Modifier.clickable { onClick() },
                     text = "+${visitors.size - MAX_VISITORS_IMAGES}",
                     color = NeutralActive,
                     style = EventsTheme.typography.bodyText1

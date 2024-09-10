@@ -4,14 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.newScreens.SplashScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.community.CommunityScreenNew
+import ru.alexsergeev.presentation.ui.newScreens.community.CommunitySubscribersDetailList
 import ru.alexsergeev.presentation.ui.newScreens.event.EventScreenNew
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpIsSuccessfulScreen
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventInputCodeScreen
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventInputNumberScreen
 import ru.alexsergeev.presentation.ui.newScreens.event.SignUpToEventStartedScreen
+import ru.alexsergeev.presentation.ui.newScreens.event.VisitorListDetailScreen
 import ru.alexsergeev.presentation.ui.newScreens.main.MainScreen
 import ru.alexsergeev.presentation.ui.newScreens.person.ChangeAvatarScreen
 import ru.alexsergeev.presentation.ui.newScreens.person.ChangeInterestsScreen
@@ -105,6 +106,18 @@ fun NavigationNew() {
         composable("remove_profile") {
             RemoveProfileScreen(
                 navController = navController,
+            )
+        }
+        composable("event_visitors/{id}") {
+            VisitorListDetailScreen(
+                navController = navController,
+                it.arguments?.getString("id") ?: throw Exception(),
+            )
+        }
+        composable("community_subscribers/{id}") {
+            CommunitySubscribersDetailList(
+                navController = navController,
+                it.arguments?.getString("id") ?: throw Exception(),
             )
         }
     }

@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -40,13 +39,6 @@ internal fun SignUpToEventStartedScreen(
 
     val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
     val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
-
-    val gradient = Brush.horizontalGradient(
-        listOf(
-            EventsTheme.colors.disabledComponent,
-            EventsTheme.colors.disabledComponent,
-        )
-    )
 
     Column(
         modifier = Modifier

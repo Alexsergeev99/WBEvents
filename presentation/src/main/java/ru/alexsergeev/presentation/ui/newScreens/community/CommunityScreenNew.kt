@@ -124,7 +124,9 @@ internal fun CommunityScreenNew(
             }
             item {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    OverlappingRow(visitors = community.communitySubscribers.toMutableList())
+                    OverlappingRow(visitors = community.communitySubscribers.toMutableList()) {
+                        navController.navigate("community_subscribers/${community.id}")
+                    }
                 }
             }
             item {

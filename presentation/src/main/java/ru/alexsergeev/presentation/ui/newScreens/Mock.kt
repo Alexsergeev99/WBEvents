@@ -4,6 +4,7 @@ import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.models.FullName
 import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
+import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 import ru.alexsergeev.presentation.ui.models.Phone
 
 internal val testEvent = EventUiModel(
@@ -28,13 +29,10 @@ internal val testCommunity = GroupUiModel(
     communityEvents = listOf()
 )
 
-internal val testPerson = PersonUiModel(
+internal val testPerson = PersonUiModelMini(
     name = FullName("Саша", "Сергеев"),
-    phone = Phone("+7", "9999999999"),
     avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
     tags = mutableListOf<String>(),
-    myCommunities = listOf(),
-    myEvents = listOf()
 )
 
 internal val mockTags = listOf("Дизайн", "Разработка", "Продакт менеджмент", "Проджект менеджмент", "Backend", "Frontend", "Mobile",

@@ -126,7 +126,9 @@ internal fun EventScreenNew(
             }
             item {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    OverlappingRow(event.visitors)
+                    OverlappingRow(event.visitors) {
+                        navController.navigate("event_visitors/${event.id}")
+                    }
                 }
             }
             item {

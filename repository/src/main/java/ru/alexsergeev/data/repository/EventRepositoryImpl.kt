@@ -25,7 +25,6 @@ internal class EventRepositoryImpl(
     private val domainEventToMyEventEntityMapper: DomainEventToMyEventEntityMapper,
     private val entityEventListToDomainEventListMapper: EntityEventListToDomainEventListMapper,
     private val myEntityEventListToDomainEventListMapper: MyEntityEventListToDomainEventListMapper,
-
     ) : EventRepository {
 
     private val visitors = mutableListOf(
@@ -48,6 +47,7 @@ internal class EventRepositoryImpl(
     )
 
     private val cacheEventsFlow = MutableStateFlow<List<EventEntity>>(mutableListOf())
+
     @OptIn(ExperimentalCoroutinesApi::class)
     private val cacheEvents = cacheEventsFlow.flatMapLatest {
         flow {

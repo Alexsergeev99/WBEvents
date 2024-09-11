@@ -1,17 +1,27 @@
 package ru.alexsergeev.repository.repository
 
-import android.util.Log
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
-import ru.alexsergeev.data.mock.communities
+import kotlinx.coroutines.flow.last
+import ru.alexsergeev.data.dao.CommunityDao
+import ru.alexsergeev.data.entity.GroupEntity
+import ru.alexsergeev.data.mock.mockCommunities
 import ru.alexsergeev.data.mock.mockEventInfo
 import ru.alexsergeev.data.mock.visitors
+import ru.alexsergeev.data.utils.EntityCommunityListToDomainCommunityListMapper
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.repository.GroupRepository
 
-internal class GroupRepositoryImpl : GroupRepository {
+internal class GroupRepositoryImpl(
+    private val communityDao: CommunityDao,
+    private val entityCommunityListToDomainCommunityListMapper: EntityCommunityListToDomainCommunityListMapper,
+) : GroupRepository {
 
     override fun getEventsList(): Flow<List<EventDomainModel>> = flow {
         val events = listOf(
@@ -151,6 +161,23 @@ internal class GroupRepositoryImpl : GroupRepository {
         emit(events)
     }
 
+    private val cacheCommunitiesFlow = MutableStateFlow<List<GroupEntity>>(mutableListOf())
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val cacheCommunities = cacheCommunitiesFlow.flatMapLatest {
+        flow {
+            if (cacheCommunitiesFlow.value.isEmpty()) {
+                fetchCommunities()
+            }
+            emit(entityCommunityListToDomainCommunityListMapper.map(it))
+        }
+    }
+
+    private suspend fun fetchCommunities() {
+        cacheCommunitiesFlow.value = communityDao.getAll().first()
+        communityDao.insertList(cacheCommunitiesFlow.value)
+    }
+
     override fun getEvent(id: Int): Flow<EventDomainModel> = flow {
         getEventsList().collect { events ->
             val event = events.find { id == it.id } ?: throw Exception()
@@ -158,9 +185,7 @@ internal class GroupRepositoryImpl : GroupRepository {
         }
     }
 
-    override fun getGroups(): Flow<List<GroupDomainModel>> = flow {
-        emit(communities)
-    }
+    override fun getGroups(): Flow<List<GroupDomainModel>> = cacheCommunities
 
     override fun getGroup(id: Int): Flow<GroupDomainModel> = flow {
         getGroups().collect { communities ->
@@ -173,9 +198,7 @@ internal class GroupRepositoryImpl : GroupRepository {
         group: GroupDomainModel,
         person: PersonDomainModel
     ) {
-        Log.d("test", communities[group.id - 1].communitySubscribers.toString())
-        communities[group.id - 1].communitySubscribers.add(person)
-        Log.d("test1", communities[group.id - 1].communitySubscribers.toString())
+//        mockCommunities[group.id - 1].communitySubscribers.add(person)
     }
 
 
@@ -183,8 +206,6 @@ internal class GroupRepositoryImpl : GroupRepository {
         group: GroupDomainModel,
         person: PersonDomainModel
     ) {
-        Log.d("test2", communities[group.id - 1].communitySubscribers.toString())
-        communities[group.id - 1].communitySubscribers.remove(person)
-        Log.d("test3", communities[group.id - 1].communitySubscribers.toString())
+//        mockCommunities[group.id - 1].communitySubscribers.remove(person)
     }
 }

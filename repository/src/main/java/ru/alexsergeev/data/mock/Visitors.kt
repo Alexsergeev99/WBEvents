@@ -1,9 +1,7 @@
 package ru.alexsergeev.data.mock
 
-import ru.alexsergeev.data.entity.Communities
 import ru.alexsergeev.data.entity.PersonEntity
 import ru.alexsergeev.domain.domain.models.FullName
-import ru.alexsergeev.domain.domain.models.GroupDomainModel
 import ru.alexsergeev.domain.domain.models.PersonDomainModel
 import ru.alexsergeev.domain.domain.models.Phone
 

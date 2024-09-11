@@ -7,10 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ru.alexsergeev.presentation.ui.models.EventUiModel
-import ru.alexsergeev.presentation.ui.models.GroupUiModel
-import ru.alexsergeev.presentation.ui.newComponents.EventCardNew
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewMini
-import ru.alexsergeev.presentation.ui.newScreens.testEvent
 
 @Composable
 internal fun EventCardNewMiniRow(navController: NavController, events: List<EventUiModel>) {
@@ -18,8 +15,8 @@ internal fun EventCardNewMiniRow(navController: NavController, events: List<Even
         Modifier.padding(horizontal = 4.dp)
     ) {
         item {
-            events.forEach {event ->
-                EventCardNewMini(event){
+            events.forEach { event ->
+                EventCardNewMini(event) {
                     navController.navigate("event_screen_new/${it}")
                 }
             }

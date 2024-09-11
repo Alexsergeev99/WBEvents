@@ -5,6 +5,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.alexsergeev.data.db.AppDb.Companion.buildDatabase
+import ru.alexsergeev.data.db.AppDb.Companion.provideCommunityDao
 import ru.alexsergeev.data.db.AppDb.Companion.provideDao
 import ru.alexsergeev.data.utils.DataPersonToDomainPersonMapperWithParams
 import ru.alexsergeev.data.utils.DataPersonToDomainPersonMapper
@@ -20,6 +21,7 @@ import ru.alexsergeev.data.utils.MyEntityEventListToDomainEventListMapper
 import ru.alexsergeev.data.utils.MyEventEntityToDomainEventMapper
 import ru.alexsergeev.data.utils.DomainGroupToEntityGroupMapper
 import ru.alexsergeev.data.utils.EntityGroupToDomainGroupMapper
+import ru.alexsergeev.data.utils.EntityCommunityListToDomainCommunityListMapper
 import ru.alexsergeev.domain.repository.EventRepository
 import ru.alexsergeev.domain.repository.GroupRepository
 import ru.alexsergeev.domain.repository.PersonProfileRepository
@@ -46,7 +48,9 @@ val dataModule = module {
     singleOf(::DomainEventToEntityEventMapper)
     singleOf(::DomainGroupToEntityGroupMapper)
     singleOf(::EntityGroupToDomainGroupMapper)
+    singleOf(::EntityCommunityListToDomainCommunityListMapper)
 
     single { buildDatabase(androidContext()) }
     single { provideDao(get()) }
+    single { provideCommunityDao(get()) }
 }

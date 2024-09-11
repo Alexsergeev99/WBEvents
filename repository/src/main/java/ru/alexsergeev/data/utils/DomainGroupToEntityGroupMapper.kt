@@ -13,10 +13,10 @@ internal class DomainGroupToEntityGroupMapper(
     private val domainEventToEntityEventMapper: DomainEventToEntityEventMapper
 ) : Mapper<GroupDomainModel, GroupEntity> {
     override fun map(input: GroupDomainModel): GroupEntity = with(input) {
-        val communityEventsEntity = mutableListOf<EventEntity>()
-        input.communityEvents.forEach {
-            communityEventsEntity.add(domainEventToEntityEventMapper.map(it))
-        }
+//        val communityEventsEntity = mutableListOf<EventEntity>()
+//        input.communityEvents.forEach {
+//            communityEventsEntity.add(domainEventToEntityEventMapper.map(it))
+//        }
         val communitySubscribersEntity = mutableListOf<PersonEntity>()
         input.communitySubscribers.forEach {
             communitySubscribersEntity.add(domainPersonToEntityPersonMapper.map(it))
@@ -29,7 +29,7 @@ internal class DomainGroupToEntityGroupMapper(
             info,
             Chips(tags),
             Visitors(communitySubscribersEntity),
-            Events(communityEventsEntity)
+            communityEvents
         )
     }
 }

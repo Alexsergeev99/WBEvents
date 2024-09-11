@@ -18,8 +18,7 @@ data class GroupEntity(
     val tags: Chips,
     @Embedded
     val communitySubscribers: Visitors,
-    @Embedded
-    val communityEvents: Events
+    val communityEvents: List<Int>
 )
 
 data class Events(

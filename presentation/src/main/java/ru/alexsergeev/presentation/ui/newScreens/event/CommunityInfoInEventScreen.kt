@@ -1,5 +1,6 @@
 package ru.alexsergeev.presentation.ui.newScreens.event
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,14 +28,16 @@ import ru.alexsergeev.presentation.ui.viewmodel.DetailGroupViewModel
 @Composable
 internal fun CommunityInfoInEventScreen(
     communityId: Int,
-    detailGroupViewModel: DetailGroupViewModel = koinViewModel()
+    detailGroupViewModel: DetailGroupViewModel = koinViewModel(),
+    onClick: () -> Unit = {}
 ) {
 
     val community by detailGroupViewModel.getCommunity(communityId).collectAsStateWithLifecycle()
 
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

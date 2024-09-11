@@ -138,7 +138,9 @@ internal fun EventScreenNew(
                 MiddleText(text = "Организатор")
             }
             item {
-                CommunityInfoInEventScreen(event.communityId)
+                CommunityInfoInEventScreen(event.communityId) {
+                    navController.navigate("community_screen_new/${event.communityId}")
+                }
             }
             item {
                 Spacer(Modifier.height(20.dp))

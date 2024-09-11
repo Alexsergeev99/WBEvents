@@ -15,21 +15,6 @@ internal class GetCommunitiesListUseCaseImpl(
 ) :
     GetCommunitiesListUseCase {
 
-    private val cacheCommunitiesFlow = MutableStateFlow<List<GroupDomainModel>>(mutableListOf())
+    override fun execute(): Flow<List<GroupDomainModel>> = repository.getGroups()
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private val cacheCommunities = cacheCommunitiesFlow.flatMapLatest {
-        flow {
-            if (cacheCommunitiesFlow.value.isEmpty()) {
-                fetchCommunities()
-            }
-            emit(it)
-        }
-    }
-
-    override fun execute(): Flow<List<GroupDomainModel>> = cacheCommunities
-
-    private suspend fun fetchCommunities() {
-        cacheCommunitiesFlow.value = repository.getGroups().first()
-    }
 }

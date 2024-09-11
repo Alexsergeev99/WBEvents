@@ -8,5 +8,5 @@ data class GroupDataModel(
     val info: String,
     val tags: List<String>,
     val communitySubscribers: List<PersonDataModel>,
-    val communityEvents: List<EventDataModel>
+    val communityEvents: List<Int>
 )

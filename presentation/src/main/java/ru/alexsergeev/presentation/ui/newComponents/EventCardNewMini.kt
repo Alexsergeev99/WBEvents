@@ -11,23 +11,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.ui.atoms.OneChipNew
 import ru.alexsergeev.presentation.ui.models.EventUiModel
 import ru.alexsergeev.presentation.ui.molecules.EventAvatarMini
 import ru.alexsergeev.presentation.ui.theme.NeutralActive
 import ru.alexsergeev.presentation.ui.theme.NeutralWeak
+import ru.alexsergeev.presentation.ui.viewmodel.DetailEventViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun EventCardNewMini(
     event: EventUiModel,
+    detailEventViewModel: DetailEventViewModel = koinViewModel(),
     goToEventScreen: (Int) -> Unit = {}
 ) {
+
+//    val event by detailEventViewModel.getEvent(eventId).collectAsStateWithLifecycle()
+
     Box(
         modifier = Modifier
             .width(148.dp)

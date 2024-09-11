@@ -8,7 +8,7 @@ internal data class GroupUiModel(
     val info: String,
     val tags: List<String>,
     val communitySubscribers: List<PersonUiModelMini> = listOf(),
-    val communityEvents: List<EventUiModel>
+    val communityEvents: List<Int>
 )
 
 internal data class GroupUiModelInMainScreen(

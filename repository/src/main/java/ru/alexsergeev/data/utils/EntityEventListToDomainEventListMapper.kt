@@ -1,8 +1,10 @@
 package ru.alexsergeev.data.utils
 
 import ru.alexsergeev.data.entity.EventEntity
+import ru.alexsergeev.data.entity.GroupEntity
 import ru.alexsergeev.data.entity.MyEventEntity
 import ru.alexsergeev.domain.domain.models.EventDomainModel
+import ru.alexsergeev.domain.domain.models.GroupDomainModel
 
 internal class EntityEventListToDomainEventListMapper(
     private val entityEventToDomainEventMapperWithParams: EntityEventToDomainEventMapperWithParams

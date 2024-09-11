@@ -85,30 +85,6 @@ internal fun GroupScreen(
                         style = EventsTheme.typography.bodyText1
                     )
                 }
-                community.communityEvents.forEach { event ->
-                    item {
-                        MeetingCard(
-                            EventUiModel(
-                                id = event.id,
-                                title = event.title,
-                                date = event.date,
-                                city = event.city,
-                                isFinished = event.isFinished,
-                                meetingAvatar = event.meetingAvatar,
-                                chips = event.chips,
-                                visitors = event.visitors,
-                                eventInfo = event.eventInfo
-                            ),
-                            goToEventScreen = {
-                                navController.navigate(
-                                    "${Destination.Events.Event.route}/${
-                                        it.toString()
-                                    }"
-                                )
-                            }
-                        )
-                    }
-                }
             }
         }
     }

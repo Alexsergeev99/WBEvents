@@ -135,11 +135,9 @@ internal fun CommunityScreenNew(
             item {
                 MiddleText(text = "Встречи")
             }
-            community.communityEvents.forEach { event ->
+            community.communityEvents.forEach { id ->
                 item {
-                    EventCardNewBig(event) {
-                        navController.navigate("event_screen_new/${it}")
-                    }
+                    CommunityEventsInCommunityScreen(navController, id)
                 }
             }
             item {

@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import ru.alexsergeev.data.dao.CommunityDao
 import ru.alexsergeev.data.dao.EventDao
 import ru.alexsergeev.data.entity.EventEntity
 import ru.alexsergeev.data.entity.GroupEntity
@@ -29,7 +30,7 @@ import ru.alexsergeev.data.utils.VisitorsConverters
 )
 abstract class AppDb : RoomDatabase() {
     abstract fun eventDao(): EventDao
-
+    abstract fun communityDao(): CommunityDao
     companion object {
         fun buildDatabase(context: Context) =
             Room.databaseBuilder(context, AppDb::class.java, "app.db")
@@ -38,6 +39,7 @@ abstract class AppDb : RoomDatabase() {
                 .build()
 
         fun provideDao(db: AppDb) = db.eventDao()
+        fun provideCommunityDao(db: AppDb) = db.communityDao()
     }
 }
 

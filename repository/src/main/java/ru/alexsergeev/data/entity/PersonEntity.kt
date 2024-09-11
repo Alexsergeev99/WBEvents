@@ -30,7 +30,3 @@ data class Phone(
     val countryCode: String,
     val basicNumber: String,
 )
-
-data class Communities(
-    val communities: List<GroupEntity>
-)

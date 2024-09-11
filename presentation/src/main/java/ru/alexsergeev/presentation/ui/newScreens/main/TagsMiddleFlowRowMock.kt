@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,14 +31,17 @@ internal fun TagsMiddleFlowRowMock(
         mockTags.forEachIndexed() { index, it ->
             OneChipMiddle(text = it, isActive = mutableStateOf(chipStates[index])) {
                 mainScreenViewModel.toggleChip(index)
+                mainScreenViewModel.setFilteredEventsList()
             }
         }
         OneChipMiddle(text = "Все категории", active = true, isActive = mutableStateOf(allCategoriesChipState)) {
             if (tags.containsAll(mockTags)) {
                 mainScreenViewModel.toggleAllCategoriesChip()
+                mainScreenViewModel.setFilteredEventsList()
                 mainScreenViewModel.removeAllChangedTagsList()
             } else {
                 mainScreenViewModel.toggleAllCategoriesChip()
+                mainScreenViewModel.setFilteredEventsList()
                 mainScreenViewModel.addAllChangedTagsList()
             }
         }

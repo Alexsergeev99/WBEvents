@@ -21,8 +21,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 import ru.alexsergeev.presentation.R
-import ru.alexsergeev.presentation.ui.models.EventUiModel
-import ru.alexsergeev.presentation.ui.models.GroupUiModel
 import ru.alexsergeev.presentation.ui.newComponents.EventCardNewBig
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.newComponents.SearchNew
@@ -30,7 +28,6 @@ import ru.alexsergeev.presentation.ui.newScreens.community.CommunityCardNewRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewMiniRow
 import ru.alexsergeev.presentation.ui.newScreens.event.EventCardNewRow
 import ru.alexsergeev.presentation.ui.viewmodel.MainScreenViewModel
-import java.util.Locale
 
 @Composable
 internal fun MainScreen(
@@ -38,12 +35,10 @@ internal fun MainScreen(
     mainScreenViewModel: MainScreenViewModel = koinViewModel(),
 ) {
 
-    val events by mainScreenViewModel.getEventsList().collectAsStateWithLifecycle()
-    val communities by mainScreenViewModel.getCommunitiesList().collectAsStateWithLifecycle()
+    val filteredEvents by mainScreenViewModel.getFilteredEventsList().collectAsStateWithLifecycle()
+    val filteredCommunities by mainScreenViewModel.getFilteredCommunitiesList()
+        .collectAsStateWithLifecycle()
     val changedTags by mainScreenViewModel.getChangedTagsList().collectAsStateWithLifecycle()
-
-    var filteredEvents: MutableList<EventUiModel>
-    var filteredCommunities: MutableList<GroupUiModel>
     val textState = remember { mutableStateOf(TextFieldValue("")) }
 
     Column(
@@ -51,7 +46,15 @@ internal fun MainScreen(
             .padding(vertical = 8.dp)
     ) {
         Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            SearchNew(hint = "Найти встречи и сообщества", text = textState)
+            SearchNew(
+                hint = "Найти встречи и сообщества",
+                text = textState,
+                onClickInMainScreenSearch = {
+                    mainScreenViewModel.setSearchText(textState.value.text)
+                    mainScreenViewModel.setFilteredEventsList()
+                    mainScreenViewModel.setFilteredCommunitiesList()
+                }
+            )
             Icon(
                 modifier = Modifier.clickable {
                     navController.navigate("profile_screen_new")
@@ -61,37 +64,6 @@ internal fun MainScreen(
             )
         }
         LazyColumn {
-
-            val searchedText = textState.value.text
-
-            filteredEvents = if (searchedText.isEmpty()) {
-                events.toMutableList()
-            } else {
-                val resultList = mutableListOf<EventUiModel>()
-                events.forEach { event ->
-                    if (event.title?.lowercase(Locale.getDefault())
-                            ?.contains(searchedText.lowercase(Locale.getDefault())) == true
-                    ) {
-                        resultList.add(event)
-                    }
-                }
-                resultList
-            }
-
-            filteredCommunities = if (searchedText.isEmpty()) {
-                communities.toMutableList()
-            } else {
-                val resultList = mutableListOf<GroupUiModel>()
-                communities.forEach { community ->
-                    if (community.name.lowercase(Locale.getDefault())
-                            .contains(searchedText.lowercase(Locale.getDefault()))
-                    ) {
-                        resultList.add(community)
-                    }
-                }
-                resultList
-            }
-
             item {
                 EventCardNewRow(navController, filteredEvents)
             }

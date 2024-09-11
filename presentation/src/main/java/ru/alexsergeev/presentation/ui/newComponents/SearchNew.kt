@@ -45,6 +45,7 @@ internal fun SearchNew(
     height: Dp = 56.dp,
     width: Dp = 344.dp,
     cornerShape: Shape = RoundedCornerShape(18.dp),
+    onClickInMainScreenSearch: () -> Unit = {},
     onSearchClicked: () -> Unit = {},
     onTextChange: (String) -> Unit = {},
     text: MutableState<TextFieldValue> = remember { mutableStateOf(TextFieldValue("")) }
@@ -93,6 +94,7 @@ internal fun SearchNew(
             onValueChange = {
                 text.value = it
                 onTextChange(it.text)
+                onClickInMainScreenSearch()
             },
             enabled = isEnabled,
             textStyle = EventsTheme.typography.subheading1,

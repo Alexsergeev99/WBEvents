@@ -30,6 +30,7 @@ internal val testCommunity = GroupUiModel(
 )
 
 internal val testPerson = PersonUiModelMini(
+    id = 0,
     name = FullName("Саша", "Сергеев"),
     avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
     tags = mutableListOf<String>(),

@@ -7,6 +7,7 @@ import ru.alexsergeev.domain.domain.models.Phone
 
 internal val visitors = mutableListOf(
     PersonDomainModel(
+        id = 1,
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
@@ -15,6 +16,7 @@ internal val visitors = mutableListOf(
         myCommunities = listOf()
     ),
     PersonDomainModel(
+        id = 2,
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
@@ -23,6 +25,7 @@ internal val visitors = mutableListOf(
         myCommunities = listOf()
     ),
     PersonDomainModel(
+        id = 3,
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
@@ -31,6 +34,7 @@ internal val visitors = mutableListOf(
         myCommunities = listOf()
     ),
     PersonDomainModel(
+        id = 4,
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
@@ -39,6 +43,7 @@ internal val visitors = mutableListOf(
         myCommunities = listOf()
     ),
     PersonDomainModel(
+        id = 5,
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
@@ -47,6 +52,7 @@ internal val visitors = mutableListOf(
         myCommunities = listOf()
     ),
     PersonDomainModel(
+        id = 6,
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",
@@ -55,6 +61,7 @@ internal val visitors = mutableListOf(
         myCommunities = listOf()
     ),
     PersonDomainModel(
+        id = 7,
         name = FullName("Саша", "Сергеев"),
         phone = Phone("+7", "9994449999"),
         avatar = "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",

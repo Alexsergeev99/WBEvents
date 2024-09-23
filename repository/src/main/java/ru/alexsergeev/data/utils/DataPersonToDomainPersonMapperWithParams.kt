@@ -8,6 +8,7 @@ import ru.alexsergeev.domain.domain.models.Phone
 internal class DataPersonToDomainPersonMapperWithParams : Mapper<PersonEntity, PersonDomainModel> {
     override fun map(input: PersonEntity): PersonDomainModel = with(input) {
         PersonDomainModel(
+            id = id,
             FullName(
                 firstName = input.name.firstName,
                 secondName = input.name.secondName

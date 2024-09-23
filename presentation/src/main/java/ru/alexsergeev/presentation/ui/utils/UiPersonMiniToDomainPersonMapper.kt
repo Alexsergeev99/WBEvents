@@ -8,6 +8,7 @@ import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 internal class UiPersonMiniToDomainPersonMapper : Mapper<PersonUiModelMini, PersonDomainModel> {
     override fun map(input: PersonUiModelMini): PersonDomainModel = with(input) {
         PersonDomainModel(
+            id = id,
             FullName(
                 firstName = input.name.firstName,
                 secondName = input.name.secondName

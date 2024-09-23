@@ -52,6 +52,7 @@ internal class DetailEventViewModel(
 
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
+            id = 0,
             name = FullName("", ""),
             phone = Phone("", ""),
             avatar = "",

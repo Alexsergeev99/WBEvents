@@ -1,6 +1,7 @@
 package ru.alexsergeev.presentation.ui.models
 
 internal data class PersonUiModel(
+    val id: Int,
     val name: FullName,
     val phone: Phone,
     val avatar: String,
@@ -22,6 +23,7 @@ internal data class Phone(
 )
 
 internal data class PersonUiModelMini(
+    val id: Int,
     val name: FullName,
     val avatar: String,
     val tags: MutableList<String>,

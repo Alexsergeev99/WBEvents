@@ -24,6 +24,7 @@ internal class ChangeTagsScreenViewModel(
 
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
+            id = 0,
             name = FullName(
                 firstName = "",
                 secondName = ""

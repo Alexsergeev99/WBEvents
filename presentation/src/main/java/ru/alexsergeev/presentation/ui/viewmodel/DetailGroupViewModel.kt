@@ -42,6 +42,7 @@ internal class DetailGroupViewModel(
 
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
+            id = 0,
             name = FullName(
                 firstName = "",
                 secondName = ""
@@ -59,15 +60,15 @@ internal class DetailGroupViewModel(
     private val personData: StateFlow<PersonUiModel> = personDataMutable
 
     private fun getPersonDataFlow(): StateFlow<PersonUiModel> {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 val person = getPersonProfileUseCase.invoke().first()
                 personDataMutable.update { domainPersonToUiPersonMapperWithParams.map(person) }
+            } catch (e: Exception) {
+                throw e
             }
-            return personData
-        } catch (e: Exception) {
-            throw e
         }
+        return personData
     }
 
     init {
@@ -75,17 +76,17 @@ internal class DetailGroupViewModel(
     }
 
     fun getCommunity(id: Int): StateFlow<GroupUiModel> {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 val communityFlow = getCommunityUseCase.invoke(id)
                 communityFlow.collect { community ->
                     communityMutable.update { domainGroupToUiGroupMapper.map(community) }
                 }
+            } catch (e: Exception) {
+                throw e
             }
-            return community
-        } catch (e: Exception) {
-            throw e
         }
+        return community
     }
 
     fun getPersonData(): StateFlow<PersonUiModel> = personData

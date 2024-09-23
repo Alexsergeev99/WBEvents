@@ -6,11 +6,10 @@ import ru.alexsergeev.domain.domain.models.Phone
 import ru.alexsergeev.presentation.ui.models.PersonUiModel
 import ru.alexsergeev.presentation.ui.models.PersonUiModelMini
 
-internal class UiPersonToDomainPersonMapperWithParams(
-    private val uiCommunityListToDomainCommunityListMapper: UiCommunityListToDomainCommunityListMapper
-) : Mapper<PersonUiModel, PersonDomainModel> {
+internal class UiPersonToDomainPersonMapperWithParams : Mapper<PersonUiModel, PersonDomainModel> {
     override fun map(input: PersonUiModel): PersonDomainModel = with(input) {
         PersonDomainModel(
+            id = id,
             FullName(
                 firstName = input.name.firstName,
                 secondName = input.name.secondName

@@ -46,13 +46,6 @@ internal fun SignUpToEventInputCodeScreen(
         mutableStateOf(false)
     }
 
-    val gradient = Brush.horizontalGradient(
-        listOf(
-            EventsTheme.colors.disabledComponent,
-            EventsTheme.colors.disabledComponent,
-        )
-    )
-
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -1,6 +1,7 @@
 package ru.alexsergeev.testwb.data.dto
 
 data class PersonDataModel(
+    val id: Int,
     val name: FullName,
     val phone: Phone,
     val avatar: String,

@@ -29,6 +29,7 @@ internal class EventRepositoryImpl(
 
     private val visitors = mutableListOf(
         PersonDomainModel(
+            id = 1,
             FullName("Саша", "Сергеев"),
             phone = Phone("+7", "9994449999"),
             "https://pixelbox.ru/wp-content/uploads/2022/08/avatars-viber-pixelbox.ru-24.jpg",
@@ -37,6 +38,7 @@ internal class EventRepositoryImpl(
             myCommunities = listOf()
         ),
         PersonDomainModel(
+            id = 2,
             FullName("Саша", "Сергеев"),
             phone = Phone("+7", "9994449999"),
             "https://steamuserimages-a.akamaihd.net/ugc/766100111179387299/35FCEB4C8D8D88F171F29F46F6B2DFD879EB2112/",

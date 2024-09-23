@@ -23,6 +23,7 @@ internal class EditProfileViewModel(
 ) : ViewModel() {
     private val personDataMutable = MutableStateFlow(
         PersonUiModel(
+            id = 0,
             name = FullName(
                 firstName = "",
                 secondName = ""

@@ -30,6 +30,7 @@ material = "1.12.0"
 junit-jupiter = "5.10.0"
 jetbrainsKotlinJvm = "1.9.0"
 lifecycleRuntimeComposeAndroid = "2.8.4"
+yandexMapkit = "4.7.0-full"
 
 
 [libraries]
@@ -72,6 +73,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 koin-test = { module = "io.insert-koin:koin-test" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
+maps-mobile = { module = "com.yandex.android:maps.mobile", version.ref = "yandexMapkit" }
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 
 [plugins]

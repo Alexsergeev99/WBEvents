@@ -27,6 +27,7 @@ import ru.alexsergeev.presentation.ui.molecules.EventAvatarDetail
 import ru.alexsergeev.presentation.ui.molecules.MapOfEvent
 import ru.alexsergeev.presentation.ui.molecules.OverlappingRow
 import ru.alexsergeev.presentation.ui.navigation.EventsTopBar
+import ru.alexsergeev.presentation.ui.newComponents.EventMap
 import ru.alexsergeev.presentation.ui.newComponents.HeaderText
 import ru.alexsergeev.presentation.ui.newComponents.MiddleText
 import ru.alexsergeev.presentation.ui.theme.EventsTheme
@@ -40,7 +41,7 @@ internal fun EventScreenNew(
     detailEventViewModel: DetailEventViewModel = koinViewModel(),
 ) {
 
-    val event by detailEventViewModel.getEvent(eventId.toInt()).collectAsStateWithLifecycle()
+    val event = detailEventViewModel.getEvent(eventId.toInt()).value
     val person by detailEventViewModel.getPersonData().collectAsStateWithLifecycle()
 
     Column(
@@ -113,10 +114,13 @@ internal fun EventScreenNew(
                 MiddleText(text = event.city ?: "")
             }
             item {
-                MetroStationInfo()
-            }
-            item {
-                MapOfEvent(event.imageUrl)
+//                MetroStationInfo()
+//            }
+//            item {
+//                MapOfEvent(event.imageUrl)
+                EventMap(
+                    modifier = Modifier, address = "Севкабель Порт, Кожевенная линия, 40, "
+                )
             }
             item {
                 Spacer(Modifier.height(24.dp))

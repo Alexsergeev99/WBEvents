@@ -40,11 +40,6 @@ internal fun EventMap(
             style = EventsTheme.typography.subheading3
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        /*ImageHolder(
-            modifier = Modifier,
-            image = painterResource(id = R.drawable.event_example),
-            height = EventCardStyles.Full
-        )*/
         Box(
             modifier = Modifier
                 .height(240.dp)
@@ -64,14 +59,6 @@ internal fun EventMap(
                                 30.0f
                             )
                         )
-                        /*val imageProvider = ImageProvider.fromResource(context, R.drawable.ic_dollar_pin)
-                    val placemarkObject = map.mapObjects.addPlacemark(POINT).apply {
-                        setIcon(imageProvider)
-                    }*/
-                        /*placemarkObject.addTapListener { _, point ->
-                        // Replace with your Toast code
-                        true
-                    }*/
                     }
                 },
                 update = { mapView ->

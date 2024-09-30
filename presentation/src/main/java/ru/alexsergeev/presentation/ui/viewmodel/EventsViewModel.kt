@@ -62,7 +62,7 @@ internal class EventsViewModel(
     private fun getEventsListFlow() {
         try {
             viewModelScope.launch {
-                val eventsFlow = getEventsListUseCase.invoke()
+                val eventsFlow = getEventsListUseCase.execute()
                 eventsFlow.collect { events ->
                     events.forEach { event ->
                         eventsMutable.value.add(domainEventToUiEventMapper.map(event))

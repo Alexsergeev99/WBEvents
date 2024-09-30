@@ -4,7 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import ru.alexsergeev.domain.domain.models.EventDomainModel
 
 interface GetEventsListUseCase {
-    fun invoke(): Flow<List<EventDomainModel>>
+    fun invoke()
+    fun execute(): Flow<List<EventDomainModel>>
 }
 
 

@@ -1,10 +1,13 @@
 package ru.alexsergeev.presentation.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import ru.alexsergeev.domain.usecases.interfaces.GetCommunitiesListUseCase
 import ru.alexsergeev.domain.usecases.interfaces.GetEventsListUseCase
@@ -62,7 +65,8 @@ internal class MainScreenViewModel(
     private fun getEventsListFlow() {
         try {
             viewModelScope.launch {
-                val eventsFlow = getEventsListUseCase.invoke()
+                val eventsFlow = getEventsListUseCase.execute()
+                Log.d("ViewModel", "Received events: ${eventsFlow.first()}")
                 eventsFlow.collect { events ->
                     events.forEach { event ->
                         eventsMutable.value.add(domainEventToUiEventMapper.map(event))
